@@ -1,7 +1,9 @@
 'use strict';
+let wanUtil = require('wanchain-util');
 var uiFuncs = function() {}
 uiFuncs.getTxData = function($scope) {
     return {
+        Txtype: $scope.tx.Txtype,
         to: $scope.tx.to,
         value: $scope.tx.value,
         unit: $scope.tx.unit,
@@ -126,6 +128,7 @@ uiFuncs.generateTx = function(txData, callback) {
         uiFuncs.isTxDataValid(txData);
         var genTxWithInfo = function(data) {
             var rawTx = {
+                Txtype: txData.Txtype,
                 nonce: ethFuncs.sanitizeHex(data.nonce),
                 gasPrice: data.isOffline ? ethFuncs.sanitizeHex(data.gasprice) : ethFuncs.sanitizeHex(ethFuncs.addTinyMoreToGas(data.gasprice)),
                 gasLimit: ethFuncs.sanitizeHex(ethFuncs.decimalToHex(txData.gasLimit)),
@@ -133,8 +136,20 @@ uiFuncs.generateTx = function(txData, callback) {
                 value: ethFuncs.sanitizeHex(ethFuncs.decimalToHex(etherUnits.toWei(txData.value, txData.unit))),
                 data: ethFuncs.sanitizeHex(txData.data)
             }
+/*
+            var rawTx = {
+                Txtype: '0x01',
+                from: '0xBbB7e0346fB6cBAB3568550b37AD9d402a01b1fe',
+                to: '0x514CC192b9d55493009b985C8177b2d2d8a7F98D',
+                value: '100000000000000000',
+                gasPrice: 200000000000,
+                gas: 500000,
+                data: ''
+            }
+*/
             if (ajaxReq.eip155) rawTx.chainId = ajaxReq.chainId;
-            var eTx = new ethUtil.Tx(rawTx);
+            // var eTx = new ethUtil.Tx(rawTx);
+            var eTx = new wanUtil.wanchainTx(rawTx);
             if ((typeof txData.hwType != "undefined") && (txData.hwType == "ledger")) {
                 var app = new ledgerEth(txData.hwTransport);
                 var EIP155Supported = false;

@@ -15,7 +15,7 @@
              type="text"
              placeholder="0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8"
              ng-model="tx.to"
-             ng-change="validateAddress(tx.to,'')"/>
+             ng-change="validateAddress(tx.to,'')" value="0x514cc192b9d55493009b985c8177b2d2d8a7f98d"/>
     </section>
 
     <section class="col-xs-1 address-identicon-container">
@@ -38,7 +38,7 @@
         Amount to Send
       </label>
       <div class="input-group">
-        <input class="form-control" type="text" placeholder="{{'SEND_amount_short' | translate }}" ng-model="tx.value"/>
+        <input class="form-control" type="text" placeholder="{{'SEND_amount_short' | translate }}" ng-model="tx.value" value=0.1/>
         <div class="input-group-btn">
           <a style="min-width: 150px"
              class="btn btn-default dropdown-toggle"

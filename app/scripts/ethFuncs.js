@@ -1,5 +1,6 @@
 'use strict';
 var ethFuncs = function() {}
+let wanUtil = require('wanchain-util');
 ethFuncs.gasAdjustment = 40;
 ethFuncs.validateEtherAddress = function(address) {
     if (address.substring(0, 2) != "0x") return false;
@@ -9,7 +10,7 @@ ethFuncs.validateEtherAddress = function(address) {
         return this.isChecksumAddress(address);
 }
 ethFuncs.isChecksumAddress = function(address) {
-    return address == ethUtil.toChecksumAddress(address);
+    return address == wanUtil.toChecksumAddress(address);
 }
 ethFuncs.validateHexString = function(str) {
     if (str == "") return true;
@@ -72,7 +73,7 @@ ethFuncs.getDataObj = function(to, func, arrVals) {
     };
 }
 ethFuncs.getFunctionSignature = function(name) {
-    return ethUtil.sha3(name).toString('hex').slice(0, 8);
+    return wanUtil.sha3(name).toString('hex').slice(0, 8);
 };
 ethFuncs.estimateGas = function(dataObj, callback) {
     var adjustGas = function(gasLimit) {
