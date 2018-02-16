@@ -33,8 +33,9 @@ nodes.nodeList = {
         'tokenList': require('./tokens/wanTokens.json'),
         'abiList': require('./abiDefinitions/wanAbi.json'),
         'service': 'mywanwallet.nl',
-        'lib': new nodes.customNode('https://mywanwallet.nl:8545', '')
-    },
+        'lib': new nodes.customNode('https://mywanwallet.nl/api', '')
+    }
+    /* ,
     'eth_mew': {
         'name': 'ETH',
         'blockExplorerTX': 'https://etherscan.io/tx/[[txHash]]',
@@ -46,7 +47,7 @@ nodes.nodeList = {
         'abiList': require('./abiDefinitions/ethAbi.json'),
         'service': 'myetherapi.com',
         'lib': new nodes.customNode('https://api.myetherapi.com/eth', '')
-    }
+    } */
 };
 
 

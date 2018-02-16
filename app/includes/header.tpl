@@ -59,14 +59,13 @@
 "description": "MyWanWallet.nl is a free, open-source, client-side interface for generating Wanchain wallets &amp; more. Interact with the Wanchain blockchain easily &amp; securely.",
 "sameAs" : [
   "https://www.mywanwallet.nl/",
-  "https://chrome.google.nl/webstore/detail/myetherwallet-cx/nlbmnnijcnlegkjjpcfjclmcfggfefdm",
   "https://www.facebook.nl/MyWanWallet/",
   "https://twitter.nl/mywanwallet",
   "https://medium.nl/@mywanwallet",
   "https://mywanwallet.github.io/knowledge-base/",
   "https://github.nl/kvhnuke/etherwallet",
-  "https://github.nl/MyWanWallet",
-  "https://kvhnuke.github.io/etherwallet/","https://mywanwallet.slack.nl/"
+  "https://kvhnuke.github.io/etherwallet/",
+  "https://mywanwallet.slack.nl/"
 ]
 }
 </script>
@@ -81,14 +80,6 @@
       DON'T GET PHISHED, please! 🎣 Thank you! 🤗
       <br />
       1. BOOKMARK <a href="https://www.mywanwallet.nl"> MYWANWALLET.NL </a>
-      <span class="hidden-xs">
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        2. INSTALL <a href="https://chrome.google.com/webstore/detail/etheraddresslookup/pdknmigbbbhmllnmgdfalmedcmcefdfn" target="_blank" rel="noopener noreferrer">EAL</a>
-        or
-        <a href="https://mywanwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html" target="_blank" rel="noopener noreferrer">MetaMask</a>
-        or
-        <a href="https://chrome.google.com/webstore/detail/cryptonite-by-metacert/keghdcpemohlojlglbiegihkljkgnige" target="_blank" rel="noopener noreferrer">Cryptonite</a>
-      </span>
     </div>
   </div>
 }
@@ -97,19 +88,13 @@
   <section class="container">
     @@if (site === 'mew' ) {
       <a class="brand" href="/" aria-label="Go to homepage">
-        <img src="images/logo-myetherwallet.svg"   height="64px" width="245px" alt="MyWanWallet" />
-        <p class="small visible-xs">3.11.3.3</p>
-      </a>
-    }
-    @@if (site === 'cx'  ) {
-      <a class="brand" href="/cx-wallet.html" aria-label="Go to homepage">
-        <img src="images/logo-myetherwalletcx.svg" height="64px" width="245px" alt="MyWanWallet" />
-        <p class="small visible-xs">3.11.3.3</p>
+        <img src="images/logo-wanchain.png" width="245px" alt="MyWanWallet" />
+        <p class="small visible-xs">1.0.0.0</p>
       </a>
     }
     <div class="tagline">
 
-    <span class="hidden-xs">3.11.3.3</span>
+    <span class="hidden-xs">1.0.0.0</span>
 
     <span class="dropdown dropdown-lang" ng-cloak>
       <a tabindex="0"  aria-haspopup="true" aria-expanded="false" aria-label="change language. current language {{curLang}}" class="dropdown-toggle  btn btn-white" ng-click="dropdown = !dropdown">{{curLang}}<i class="caret"></i></a>

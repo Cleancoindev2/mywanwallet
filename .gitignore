@@ -15,3 +15,5 @@ _ens/
 cert.pem
 key.pem
 chrome-extension/
+dist/
+.idea

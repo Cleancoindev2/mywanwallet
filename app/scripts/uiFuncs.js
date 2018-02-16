@@ -7,7 +7,7 @@ uiFuncs.getTxData = function($scope) {
         to: $scope.tx.to,
         value: $scope.tx.value,
         unit: $scope.tx.unit,
-        gasLimit: $scope.tx.gasLimit,
+        gasLimit: parseInt($scope.tx.gasLimit),
         data: $scope.tx.data,
         from: $scope.wallet.getAddressString(),
         privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : '',

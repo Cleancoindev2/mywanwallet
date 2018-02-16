@@ -1,4 +1,5 @@
 'use strict';
+let wanUtil = require('wanchain-util');
 var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
     $scope.tx = {};
     $scope.signedTx
@@ -27,6 +28,7 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
         // if there is no gasLimit or gas key in the URI, use the default value. Otherwise use value of gas or gasLimit. gasLimit wins over gas if both present
         Txtype: "0x01",
         gasLimit: globalFuncs.urlGet('gaslimit') != null || globalFuncs.urlGet('gas') != null ? globalFuncs.urlGet('gaslimit') != null ? globalFuncs.urlGet('gaslimit') : globalFuncs.urlGet('gas') : globalFuncs.defaultTxGasLimit,
+        from: globalFuncs.urlGet('from') == null ? "" : globalFuncs.urlGet('from'),
         data: globalFuncs.urlGet('data') == null ? "" : globalFuncs.urlGet('data'),
         to: globalFuncs.urlGet('to') == null ? "" : globalFuncs.urlGet('to'),
         unit: "ether",
