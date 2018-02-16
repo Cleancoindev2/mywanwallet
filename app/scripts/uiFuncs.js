@@ -131,20 +131,22 @@ uiFuncs.generateTx = function(txData, callback) {
                 Txtype: txData.Txtype,
                 nonce: ethFuncs.sanitizeHex(data.nonce),
                 gasPrice: data.isOffline ? ethFuncs.sanitizeHex(data.gasprice) : ethFuncs.sanitizeHex(ethFuncs.addTinyMoreToGas(data.gasprice)),
-                gasLimit: ethFuncs.sanitizeHex(ethFuncs.decimalToHex(txData.gasLimit)),
+                gas: txData.gasLimit,
                 to: ethFuncs.sanitizeHex(txData.to),
+                from: ethFuncs.sanitizeHex(txData.from),
                 value: ethFuncs.sanitizeHex(ethFuncs.decimalToHex(etherUnits.toWei(txData.value, txData.unit))),
                 data: ethFuncs.sanitizeHex(txData.data)
             }
 /*
             var rawTx = {
-                Txtype: '0x01',
-                from: '0xBbB7e0346fB6cBAB3568550b37AD9d402a01b1fe',
-                to: '0x514CC192b9d55493009b985C8177b2d2d8a7F98D',
-                value: '100000000000000000',
-                gasPrice: 200000000000,
-                gas: 500000,
-                data: ''
+                 Txtype: '0x01',
+                 from: '0x514CC192b9d55493009b985C8177b2d2d8a7F98D',
+                 to: '0xBbB7e0346fB6cBAB3568550b37AD9d402a01b1fe',
+                 value: '0x16345785d8a0000',
+                 gasPrice: '0x2e90edd000',
+                 gas: 21000,
+                 data: null,
+                 nonce: 3
             }
 */
             if (ajaxReq.eip155) rawTx.chainId = ajaxReq.chainId;
@@ -189,6 +191,7 @@ uiFuncs.generateTx = function(txData, callback) {
                 uiFuncs.signTxDigitalBitbox(eTx, rawTx, txData, callback);
             } else {
                 eTx.sign(new Buffer(txData.privKey, 'hex'));
+                // eTx.sign(new Buffer('e70465a0ee105c4026d027f9aaa8ca3e601f2dc47419208c0e94bb9af7d898fe', 'hex'));
                 rawTx.rawTx = JSON.stringify(rawTx);
                 rawTx.signedTx = '0x' + eTx.serialize().toString('hex');
                 rawTx.isError = false;
