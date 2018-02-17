@@ -12,7 +12,7 @@ var globalService = function($http, $httpParamSerializerJQLike) {
     id: 0,
     name: "NAV_GenerateWallet_alt",
     url: "generate-wallet",
-    mew: true,
+    mew: false, // TODO: No wallet creation until that part is working
     cx: false
   },
   myWallet: {
@@ -101,9 +101,9 @@ var globalService = function($http, $httpParamSerializerJQLike) {
   }
   }
 
-  var currentTab = 0
+  var currentTab = 3
   if(typeof chrome != 'undefined')
-    currentTab = chrome.windows === undefined ? 0 : 3
+    currentTab = chrome.windows === undefined ? 3 : 3
   return {
     tabs: tabs,
     currentTab: currentTab
