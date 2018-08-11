@@ -281,12 +281,13 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
     $scope.parseSignedTx = function( signedTx ) {
       if( signedTx.slice(0,2)=="0x" ) signedTx = signedTx.slice(2, signedTx.length )
       $scope.parsedSignedTx = {}
-      var txData = new ethUtil.Tx(signedTx)
+      var txData = new wanUtil.wanchainTx(signedTx);
       $scope.parsedSignedTx.gasPrice      = {}
       $scope.parsedSignedTx.txFee         = {}
       $scope.parsedSignedTx.balance       = $scope.wallet.getBalance()
-      $scope.parsedSignedTx.from          = ethFuncs.sanitizeHex(ethUtil.toChecksumAddress(txData.from.toString('hex')))
-      $scope.parsedSignedTx.to            = ethFuncs.sanitizeHex(ethUtil.toChecksumAddress(txData.to.toString('hex')))
+      $scope.parsedSignedTx.txtype        = txData.Txtype.toString('hex');
+      $scope.parsedSignedTx.from          = ethFuncs.sanitizeHex(wanUtil.toChecksumAddress(txData.from.toString('hex')));
+      $scope.parsedSignedTx.to            = ethFuncs.sanitizeHex(wanUtil.toChecksumAddress(txData.to.toString('hex')));
       $scope.parsedSignedTx.value         = (txData.value=='0x'||txData.value==''||txData.value==null) ? '0' : etherUnits.toEther(new BigNumber(ethFuncs.sanitizeHex(txData.value.toString('hex'))).toString(), 'wei' )
       $scope.parsedSignedTx.gasLimit      = new BigNumber(ethFuncs.sanitizeHex(txData.gasLimit.toString('hex'))).toString()
       $scope.parsedSignedTx.gasPrice.wei  = new BigNumber(ethFuncs.sanitizeHex(txData.gasPrice.toString('hex'))).toString()

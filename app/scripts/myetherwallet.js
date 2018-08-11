@@ -1,4 +1,5 @@
 'use strict';
+var wanUtil = require('wanchain-util');
 var Wallet = function(priv, pub, path, hwType, hwTransport) {
     if (typeof priv != "undefined") {
         this.privKey = priv.length == 32 ? priv : Buffer(priv, 'hex')
@@ -182,7 +183,7 @@ Wallet.prototype.getAddressString = function() {
     return '0x' + this.getAddress().toString('hex')
 }
 Wallet.prototype.getChecksumAddressString = function() {
-    return ethUtil.toChecksumAddress(this.getAddressString())
+    return wanUtil.toChecksumAddress(this.getAddressString())
 }
 Wallet.fromPrivateKey = function(priv) {
     return new Wallet(priv)

@@ -28,7 +28,7 @@ nodes.nodeList = {
         'blockExplorerTX': 'https://explorer.wanchain.org/block/trans/[[txHash]]',
         'blockExplorerAddr': 'https://explorer.wanchain.org/block/addr/[[address]]',
         'type': nodes.nodeTypes.WAN,
-        'eip155': false,
+        'eip155': true,
         'chainId': 1,
         'tokenList': require('./tokens/wanTokens.json'),
         'abiList': require('./abiDefinitions/wanAbi.json'),

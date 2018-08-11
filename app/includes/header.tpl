@@ -12,6 +12,7 @@
 <meta content="https://www.mywanwallet.nl" property="og:url">
 <meta content="https://www.mywanwallet.nl" name="twitter:url">
 <link rel="stylesheet" href="css/etherwallet-master.min.css">
+<script type="text/javascript" src="js/trezor-connect.js"></script>
 <script type="text/javascript" src="js/etherwallet-static.min.js"></script>
 <script type="text/javascript" src="js/etherwallet-master.js"></script>
 <meta name="description" content="MyWanWallet (MEW) is a free, open-source, client-side interface for generating Wanchain wallets & more. Interact with the Wanchain blockchain easily & securely.">

@@ -169,6 +169,7 @@ let imgSrcFolder = app + 'images/**/*';
 let fontSrcFolder = app + 'fonts/*.*';
 let cxSrcFiles = app + 'includes/browser_action/*.*';
 let jsonFile = app + '*.json';
+let trezorFile = app + 'scripts/staticJS/trezor-connect.js';
 let jQueryFile = app + 'scripts/staticJS/jquery-1.12.3.min.js';
 let bin = app + '/bin/*';
 let staticJSSrcFile = js_destFolderStatic + js_destFileStatic;
@@ -189,6 +190,10 @@ gulp.task('copy', ['staticJS'], function() {
         .pipe(gulp.dest(dist_CX + 'js'));
 
     gulp.src(jQueryFile)
+        .pipe(gulp.dest(dist + 'js'))
+        .pipe(gulp.dest(dist_CX + 'js'));
+
+    gulp.src(trezorFile)
         .pipe(gulp.dest(dist + 'js'))
         .pipe(gulp.dest(dist_CX + 'js'));
 
