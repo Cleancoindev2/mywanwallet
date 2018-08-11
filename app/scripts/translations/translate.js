@@ -1,10 +1,8 @@
  'use strict';
   var en = require('./en');
-  var nl = require('./nl');
 
  var translate = function($translateProvider) {
   $translateProvider.translations(en.code, translate.marked(en.data));
-  $translateProvider.translations(nl.code, translate.marked(nl.data));
   $translateProvider.preferredLanguage('en');
   $translateProvider.fallbackLanguage('en');
   $translateProvider.useSanitizeValueStrategy(null);

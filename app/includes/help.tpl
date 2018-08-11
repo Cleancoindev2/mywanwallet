@@ -153,12 +153,12 @@
   <article class="collapse-container">
     <div ng-click="h4 = !h4">
       <a class="collapse-button" ><span ng-show="!h4">+</span><span ng-show="h4">-</span></a>
-      <h4 translate="HELP_4_Title"> 4. How do I send Ether from one wallet to another? </h4>
+      <h4 translate="HELP_4_Title"> 4. How do I send Wancoins from one wallet to another? </h4>
     </div>
     <div ng-show="h4">
-      <p translate="HELP_4_Desc_1">If you plan to move a large amount of ether, you should test sending a small amount to your wallet first to ensure everything goes as planned.</p>
+      <p translate="HELP_4_Desc_1">If you plan to move a large amount of Wancoins, you should test sending a small amount to your wallet first to ensure everything goes as planned.</p>
       <ol>
-        <li translate="HELP_4_Desc_2"> Navigate to the "Send Ether" page. </li>
+        <li translate="HELP_4_Desc_2"> Navigate to the "Send Wancoins" page. </li>
         <li translate="HELP_4_Desc_3"> Select your wallet file -or- your private key and unlock your wallet.</li>
         <li translate="HELP_4_Desc_4"> If the wallet is encrypted, a text box will automatically appear. Enter the password. </li>
         <li translate="HELP_4_Desc_5"> Click the "Unlock Wallet" button. </li>
@@ -180,10 +180,10 @@
   <article class="collapse-container">
     <div ng-click="h4cx = !h4cx">
       <a class="collapse-button" ><span ng-show="!h4cx">+</span><span ng-show="h4cx">-</span></a>
-      <h4 translate="HELP_4CX_Title">4. How do I send Ether using MyEtherWallet CX? </h4>
+      <h4 translate="HELP_4CX_Title">4. How do I send Wancoins using MyEtherWallet CX? </h4>
     </div>
     <div ng-show="h4cx">
-      <p translate="HELP_4CX_Desc_1">First, you need to add a wallet. Once you have done that, you have 2 options: the "QuickSend" functionality from the Chrome Extension icon or the "Send Ether" page.</p>
+      <p translate="HELP_4CX_Desc_1">First, you need to add a wallet. Once you have done that, you have 2 options: the "QuickSend" functionality from the Chrome Extension icon or the "Send Wancoins" page.</p>
       <p translate="HELP_4CX_Desc_2" class="strong"> QuickSend: </p>
       <ol>
         <li translate="HELP_4CX_Desc_3"> Click the Chrome Extension Icon. </li>
@@ -196,9 +196,9 @@
         <li translate="HELP_4CX_Desc_10"> Enter the password for that wallet. </li>
         <li translate="HELP_4CX_Desc_11"> Click "Send Transaction." </li>
       </ol>
-      <p class="strong" translate="HELP_4CX_Desc_12"> Using "Send Ether" Page: </p>
+      <p class="strong" translate="HELP_4CX_Desc_12"> Using "Send Wancoins" Page: </p>
       <ol>
-        <li translate="HELP_4_Desc_2"> Navigate to the "Send Ether" page. </li>
+        <li translate="HELP_4_Desc_2"> Navigate to the "Send Wancoins" page. </li>
         <li translate="HELP_4_Desc_3"> Select your wallet file -or- your private key and unlock your wallet.</li>
         <li translate="HELP_4_Desc_4"> If the wallet is encrypted, a text box will automatically appear. Enter the password. </li>
         <li translate="HELP_4_Desc_5"> Click the "Unlock Wallet" button. </li>
@@ -317,7 +317,7 @@
     </div>
     <div ng-show="h8">
       <p translate="HELP_8_Desc_1">MyEtherWallet is not a web wallet. You don't have a login and nothing ever gets saved to our servers. It is simply an interface that allows you interact with the blockchain.</p>
-      <p translate="HELP_8_Desc_2">If MyEtherWallet.com goes down, you would have to find another way (like geth or Ethereum Wallet / Mist) to do what we are doing. But you wouldn't have to "get" your Ether out of MyEtherWallet because it's not in MyEtherWallet. It's in whatever wallet your generated via our site.</p>
+      <p translate="HELP_8_Desc_2">If MyEtherWallet.com goes down, you would have to find another way (like geth or Ethereum Wallet / Mist) to do what we are doing. But you wouldn't have to "get" your Wancoins out of MyEtherWallet because it's not in MyEtherWallet. It's in whatever wallet your generated via our site.</p>
       <p translate="HELP_8_Desc_3"> You can import your unencrypted private key and your Geth/Mist Format (encrypted) files directly into geth / Ethereum Wallet / Mist very easily now. See question #10 below. </p>
       <p translate="HELP_8_Desc_4">In addition, the likelihood of us taking MyEtherWallet down is slim to none. It costs us almost nothing to maintain as we aren't storing any information. If we do take the domain down, it still is, and always will be, publicly available at <a href="https://github.com/kvhnuke/etherwallet/tree/gh-pages" target="_blank" rel="noopener noreferrer">https://github.com/kvhnuke/etherwallet</a>. You can download the ZIP there and run it locally. </p>
     </div>
@@ -334,7 +334,7 @@
     </div>
     <div ng-show="h8cx">
       <p translate="HELP_8CX_Desc_1">First, all data is saved on your computer, not our servers. I know it can be confusing, but when you look at the Chrome Extension, you are NOT looking at stuff saved on our servers somewhere - it's all saved on your own computer.</p>
-      <p translate="HELP_8CX_Desc_2"> That said, it is **very important** that you back up all your information for any new wallets generated with MyEtherWallet CX. That way if anything happens to MyEtherWallet CX or your computer, you still have all the information necessary to access your Ether. See the #2a for how to back up your wallets.</p>
+      <p translate="HELP_8CX_Desc_2"> That said, it is **very important** that you back up all your information for any new wallets generated with MyEtherWallet CX. That way if anything happens to MyEtherWallet CX or your computer, you still have all the information necessary to access your Wancoins. See the #2a for how to back up your wallets.</p>
       <p translate="HELP_8CX_Desc_3"> If for some reason MyEtherWallet CX disappears from the Chrome Store, you can find the source on Github and load it manually. See #5 above.</p>
     </div>
   </article>
@@ -372,7 +372,7 @@
         <li translate="HELP_10_Desc_8"> Select your wallet file -or- your private key and unlock your wallet.</li>
         <li translate="HELP_10_Desc_9"> Press the "GENERATE SIGNED TRANSACTION" button.</li>
         <li translate="HELP_10_Desc_10"> The data field below this button will populate with your signed transaction. Copy this and move it back to your online computer. </li>
-        <li translate="HELP_10_Desc_11"> On your online computer, paste the signed transaction into the text field in step #3 and click "SEND Ether". This will broadcast your transaction.</li>
+        <li translate="HELP_10_Desc_11"> On your online computer, paste the signed transaction into the text field in step #3 and click "SEND Wancoins". This will broadcast your transaction.</li>
       </ol>
     </div>
   </article>
@@ -438,7 +438,7 @@
         <h4 translate="HELP_13_Title">13. What does "Gas Limit Too Low" Mean?</h4>
       </div>
       <div ng-show="h13">
-        <p translate="HELP_13_Desc_1"> Most likely, this means you are attempting to send Ether to a contract. Sending to a contract requires a bit more data and therefore a bit more gas. On the "Send Ether" page, click the "+ Advanced: Add More Gas or Data" button below the amount field. This will display two additional fields that you can use to increase the gas above the default 21000, or add data to your transaction. </p>
+        <p translate="HELP_13_Desc_1"> Most likely, this means you are attempting to send Wancoins to a contract. Sending to a contract requires a bit more data and therefore a bit more gas. On the "Send Wancoins" page, click the "+ Advanced: Add More Gas or Data" button below the amount field. This will display two additional fields that you can use to increase the gas above the default 21000, or add data to your transaction. </p>
       </div>
   </article>
 
@@ -462,7 +462,7 @@
         <h4 translate="HELP_15_Title">15. Why hasn't the wallet I just created show up in the blockchain explorer? (ie: etherchain, etherscan) </h4>
       </div>
       <div ng-show="h15">
-        <p translate="HELP_15_Desc_1"> Addresses will only show up in a blockchain explorer once the account has activity on it&mdash;for example, once you have transferred some Ether to it. </p>
+        <p translate="HELP_15_Desc_1"> Addresses will only show up in a blockchain explorer once the account has activity on it&mdash;for example, once you have transferred some Wancoins to it. </p>
     </div>
   </article>
 

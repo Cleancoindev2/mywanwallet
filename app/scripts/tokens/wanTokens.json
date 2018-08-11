@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "address": "0x28362cd634646620ef2290058744f9244bb90ed9",
+    "symbol": "WETH",
+    "decimal": 18,
+    "type": "default"
+  },
+]
