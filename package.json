@@ -1,9 +1,9 @@
 {
-  "name": "mew-custom",
-  "version": "1.1.0",
+  "name": "mywanwallet",
+  "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
-  "author": "MyEtherWallet",
+  "author": "Tyrion70",
   "license": "ISC",
   "scripts": {
     "dev": "gulp",

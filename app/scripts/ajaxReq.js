@@ -2,6 +2,5 @@
 var ajaxReq = function() {}
 ajaxReq.http = null;
 ajaxReq.postSerializer = null;
-ajaxReq.getETHvalue = null;
-ajaxReq.getRates = null;
+ajaxReq.getWANvalue = null;
 module.exports = ajaxReq;

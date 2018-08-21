@@ -1,4 +1,6 @@
 'use strict';
+
+var wanUtil = require('wanchain-util');
 var txStatusCtrl = function($scope) {
     $scope.Validator = Validator;
     $scope.checkTxPage = true;
@@ -8,7 +10,7 @@ var txStatusCtrl = function($scope) {
         notFound: 1,
         mined: 2
     }
-    var MIN_GAS = 41;
+    var MIN_GAS = 182;
     $scope.txInfo = {
         status: null, // notFound foundInPending foundOnChain
         hash: globalFuncs.urlGet('txHash') == null ? "" : globalFuncs.urlGet('txHash'),
@@ -26,8 +28,9 @@ var txStatusCtrl = function($scope) {
         if (!$scope.$$phase) $scope.$apply();
     }
     var setUSDvalues = function() {
-        ajaxReq.getETHvalue(function(data) {
-            $scope.txInfo.gasPrice.usd = new BigNumber(data.usd).mul(new BigNumber($scope.txInfo.gasPrice.eth)).toString();
+        ajaxReq.getWANvalue(function(data) {
+            $scope.txInfo.gasPrice.usd = new BigNumber(data.usd).mul(new BigNumber($scope.txInfo.gasPrice.eth)).toFixed(2);
+            $scope.txInfo.valueUSD = new BigNumber(data.usd).mul(etherUnits.toEther($scope.txInfo.value, 'wei')).toFixed(2);
             applyScope();
         });
     }
@@ -39,10 +42,10 @@ var txStatusCtrl = function($scope) {
             $scope.txInfo = {
                 status: tx.blockNumber ? txStatus.mined : txStatus.found,
                 hash: tx.hash,
-                from: ethUtil.toChecksumAddress(tx.from),
-                to: tx.to ? ethUtil.toChecksumAddress(tx.to) : '',
+                from: wanUtil.toChecksumAddress(tx.from),
+                to: tx.to ? wanUtil.toChecksumAddress(tx.to) : '',
                 value: new BigNumber(tx.value).toString(),
-                valueStr: etherUnits.toEther(tx.value, 'wei') + " ETH",
+                valueStr: etherUnits.toEther(tx.value, 'wei') + " WAN",
                 gasLimit: new BigNumber(tx.gas).toString(),
                 gasPrice: {
                     wei: new BigNumber(tx.gasPrice).toString(),
@@ -62,7 +65,7 @@ var txStatusCtrl = function($scope) {
                     tokensymbol: '',
                     readOnly: false,
                     gasPrice: _gasPrice.toString(),
-                    gasLimit: '21000',
+                    gasLimit: '51000',
                     data: '',
                     nonce: $scope.txInfo.nonce
                 }

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="mewApp">
 <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123889185-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-123889185-3');
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>MyWanWallet.nl</title>
@@ -8,10 +17,11 @@
 <meta property="og:site_name" content="MyWanWallet.nl: Your Key to Wanchain">
 <meta name="twitter:title" content="MyWanWallet.nl: Your Key to Wanchain">
 <meta name="apple-mobile-web-app-title" content="MyWanWallet.nl: Your Key to Wanchain">
-<link href="https://www.mywanwallet.nl" rel="canonical">
-<meta content="https://www.mywanwallet.nl" property="og:url">
-<meta content="https://www.mywanwallet.nl" name="twitter:url">
+<link href="https://mywanwallet.nl" rel="canonical">
+<meta content="https://mywanwallet.nl" property="og:url">
+<meta content="https://mywanwallet.nl" name="twitter:url">
 <link rel="stylesheet" href="css/etherwallet-master.min.css">
+<script type="text/javascript" src="js/trezor-connect.js"></script>
 <script type="text/javascript" src="js/etherwallet-static.min.js"></script>
 <script type="text/javascript" src="js/etherwallet-master.js"></script>
 <meta name="description" content="MyWanWallet (MEW) is a free, open-source, client-side interface for generating Wanchain wallets & more. Interact with the Wanchain blockchain easily & securely.">
@@ -31,7 +41,7 @@
 <meta name="msapplication-config" content="images/fav/browserconfig.xml">
 <meta name="theme-color" content="#1d6986">
 <meta name="apple-mobile-web-app-status-bar-style" content="#1d6986">
-<meta property="og:url" content="https://www.mywanwallet.nl" />
+<meta property="og:url" content="https://mywanwallet.nl" />
 <meta property="og:title" content="MyWanWallet.nl  &middot; Your Key to Wanchain" />
 <meta property="og:type" content="website">
 <meta property="og:image" content="/images/myetherwallet-logo-banner.png" />
@@ -47,25 +57,19 @@
 "@context": "http://schema.org",
 "@type" : "Organization",
 "name" : "MyWanWallet",
-"legalName" : "MyWanWallet LLC",
-"url" : "https://www.mywanwallet.nl/",
+"legalName" : "MyWanWallet",
+"url" : "https://mywanwallet.nl/",
 "contactPoint" : [{
   "@type" : "ContactPoint",
   "email" : "support@mywanwallet.nl",
   "url"   : "https://mywanwallet.nl",
   "contactType" : "customer service"
 }],
-"logo" : "https://www.mywanwallet.nl/images/myetherwallet-logo.png",
+"logo" : "https://mywanwallet.nl/images/myetherwallet-logo.png",
 "description": "MyWanWallet.nl is a free, open-source, client-side interface for generating Wanchain wallets &amp; more. Interact with the Wanchain blockchain easily &amp; securely.",
 "sameAs" : [
-  "https://www.mywanwallet.nl/",
-  "https://www.facebook.nl/MyWanWallet/",
-  "https://twitter.nl/mywanwallet",
-  "https://medium.nl/@mywanwallet",
-  "https://mywanwallet.github.io/knowledge-base/",
-  "https://github.nl/kvhnuke/etherwallet",
-  "https://kvhnuke.github.io/etherwallet/",
-  "https://mywanwallet.slack.nl/"
+  "https://mywanwallet.nl/",
+  "https://github.nl/tyrion70/mywanwallet",
 ]
 }
 </script>
@@ -79,7 +83,7 @@
     <div class="container">
       DON'T GET PHISHED, please! 🎣 Thank you! 🤗
       <br />
-      1. BOOKMARK <a href="https://www.mywanwallet.nl"> MYWANWALLET.NL </a>
+      1. BOOKMARK <a href="https://mywanwallet.nl"> MYWANWALLET.NL </a>
     </div>
   </div>
 }
@@ -96,37 +100,15 @@
 
     <span class="hidden-xs">1.0.0.0</span>
 
-    <span class="dropdown dropdown-lang" ng-cloak>
+    <!-- Disable Translations for now -->
+    <!--span class="dropdown dropdown-lang" ng-cloak>
       <a tabindex="0"  aria-haspopup="true" aria-expanded="false" aria-label="change language. current language {{curLang}}" class="dropdown-toggle  btn btn-white" ng-click="dropdown = !dropdown">{{curLang}}<i class="caret"></i></a>
       <ul class="dropdown-menu" ng-show="dropdown">
-        <li><a ng-class="{true:'active'}[curLang=='Català']"          ng-click="changeLanguage('ca','Català'         )"> Català          </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Deutsch']"         ng-click="changeLanguage('de','Deutsch'        )"> Deutsch         </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Ελληνικά']"        ng-click="changeLanguage('el','Ελληνικά'       )"> Ελληνικά        </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='English']"         ng-click="changeLanguage('en','English'        )"> English         </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Español']"         ng-click="changeLanguage('es','Español'        )"> Español         </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Farsi']"           ng-click="changeLanguage('fa','Farsi'          )"> Farsi           </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Suomi']"           ng-click="changeLanguage('fi','Suomi'          )"> Suomi           </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Français']"        ng-click="changeLanguage('fr','Français'       )"> Français        </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Magyar']"          ng-click="changeLanguage('hu','Magyar'         )"> Magyar          </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Haitian Creole']"  ng-click="changeLanguage('ht','Haitian Creole' )"> Haitian Creole  </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Indonesian']"      ng-click="changeLanguage('id','Indonesian'     )"> Bahasa Indonesia</a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Italiano']"        ng-click="changeLanguage('it','Italiano'       )"> Italiano        </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='日本語']"           ng-click="changeLanguage('ja','日本語'          )"> 日本語          </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='한국어']"            ng-click="changeLanguage('ko','한국어'          )"> 한국어           </a></li>
         <li><a ng-class="{true:'active'}[curLang=='Nederlands']"      ng-click="changeLanguage('nl','Nederlands'     )"> Nederlands      </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Norsk Bokmål']"    ng-click="changeLanguage('no','Norsk Bokmål'   )"> Norsk Bokmål    </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Polski']"          ng-click="changeLanguage('pl','Polski'         )"> Polski          </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Português']"       ng-click="changeLanguage('pt','Português'      )"> Português       </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Русский']"         ng-click="changeLanguage('ru','Русский'        )"> Русский         </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='ภาษาไทย']"         ng-click="changeLanguage('th','ภาษาไทย'        )"> ภาษาไทย         </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Türkçe']"          ng-click="changeLanguage('tr','Türkçe'         )"> Türkçe          </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='Tiếng Việt']"      ng-click="changeLanguage('vi','Tiếng Việt'     )"> Tiếng Việt      </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='简体中文']"         ng-click="changeLanguage('zhcn','简体中文'      )"> 简体中文         </a></li>
-        <li><a ng-class="{true:'active'}[curLang=='繁體中文']"         ng-click="changeLanguage('zhtw','繁體中文'      )"> 繁體中文         </a></li>
         <li role="separator" class="divider"></li>
         <li><a data-toggle="modal" data-target="#disclaimerModal" translate="FOOTER_4"> Disclaimer </a></li>
       </ul>
-    </span>
+    </span-->
 
     <span class="dropdown dropdown-gas" ng-cloak>
       <a tabindex="0" aria-haspopup="true" aria-label="adjust gas price" class="dropdown-toggle  btn btn-white" ng-click="dropdownGasPrice = !dropdownGasPrice">
@@ -221,6 +203,13 @@
             <a tabindex="0" aria-label="nav item: {{tab.name | translate}}" translate="{{tab.name}}"></a>
       </li>
       }
+      <li class="nav-item help">
+        <a href="/signmsg.html">
+          <span translate="NAV_SignMsg">
+            Sign Message
+          </span>
+        </a>
+      </li>
       <li class="nav-item help">
         <a href="https://mywanwallet.github.io/knowledge-base/" target="_blank" rel="noopener noreferrer">
           <span translate="NAV_Help">

@@ -112,7 +112,7 @@ globalFuncs.getGethMsg = function(str) {
 
 // These are translated in the translation files
 globalFuncs.parityErrors = {
-    "A (parity-01) A transaction with the same hash was already imported. It was probably already broadcast. To avoid duplicate transactions, check your address on [etherscan.io](https://etherscan.io) & wait 10 minutes before attempting to send again. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\. This means it was already broadcast. Please check your address on etherscan.io & wait 10 minutes before attempting to send again to avoid duplicate transactions. <a target='_blank' rel='noopener noreferrer' href='https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html'>Learn more</a>": "PARITY_AlreadyImported",
+    "A (parity-01) A transaction with the same hash was already imported. It was probably already broadcast. To avoid duplicate transactions, check your address on [wanscan.io](https://wanscan.io) & wait 10 minutes before attempting to send again. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\. This means it was already broadcast. Please check your address on wanscan.io & wait 10 minutes before attempting to send again to avoid duplicate transactions. <a target='_blank' rel='noopener noreferrer' href='https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html'>Learn more</a>": "PARITY_AlreadyImported",
     "(parity-07) There is already a transaction with this [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html)\\. Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)\\.": "PARITY_Old",
     "(parity-04) There is another transaction with same nonce in the queue, or the transaction fee is too low\\. Try incrementing the nonce by clicking the Generate button again\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": "PARITY_TooCheapToReplace",
     "(parity-06) There are too many transactions in the queue\\. Your transaction was dropped due to limit\\. Try increasing the gas price\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": "PARITY_LimitReached",
@@ -170,8 +170,8 @@ globalFuncs.stripTags = function(str) {
     return str;
 };
 globalFuncs.checkAndRedirectHTTPS = function() {
-    var host = "myetherwallet.com";
-    var hostw = "https://www.myetherwallet.com";
+    var host = "www.mywanwallet.nl";
+    var hostw = "https://mywanwallet.nl";
     var path = window.location.pathname;
     if (host == window.location.host) window.location = hostw + path;
 };
@@ -210,7 +210,7 @@ globalFuncs.getDefaultTokensAndNetworkType =  function getDefaultTokensAndNetwor
         'wan': require('./tokens/wanTokens.json')
     };
 
-    var nodeErrMsg = 'Node does not exist, contact support@myetherwallet.com CODE:localstorageNodeMissing'
+    var nodeErrMsg = 'Node does not exist, contact support@mywanwallet.nl CODE:localstorageNodeMissing'
     // localStorage selected node
     var currentNodeKey = getFromLS("curNode", nodeErrMsg).key;
     // custom nodes in local storage

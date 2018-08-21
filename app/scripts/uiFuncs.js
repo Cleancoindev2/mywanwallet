@@ -24,7 +24,20 @@ uiFuncs.isTxDataValid = function(txData) {
     if (txData.to == "0xCONTRACT") txData.to = '';
 }
 uiFuncs.signTxTrezor = function(rawTx, txData, callback) {
-    var localCallback = function(result) {
+    // TrezorConnect.signEthereumTx(txData.path, ethFuncs.getNakedAddress(rawTx.Txtype), ethFuncs.getNakedAddress(rawTx.nonce), ethFuncs.getNakedAddress(rawTx.gasPrice), ethFuncs.getNakedAddress(rawTx.gas), ethFuncs.getNakedAddress(rawTx.to), ethFuncs.getNakedAddress(rawTx.value), ethFuncs.getNakedAddress(rawTx.data), rawTx.chainId, localCallback);
+    TrezorConnect.ethereumSignTransaction({
+        path: txData.path,
+        transaction: {
+            to: ethFuncs.getNakedAddress(rawTx.to),
+            value: ethFuncs.getNakedAddress(rawTx.value),
+            data: ethFuncs.getNakedAddress(rawTx.data),
+            chainId: rawTx.chainId,
+            nonce: ethFuncs.getNakedAddress(rawTx.nonce),
+            gasLimit: ethFuncs.getNakedAddress(rawTx.gas),
+            gasPrice: ethFuncs.getNakedAddress(rawTx.gasPrice),
+            txType: 1
+        }
+    }).then(function(result) {
         if (!result.success) {
             if (callback !== undefined) {
                 callback({
@@ -35,31 +48,19 @@ uiFuncs.signTxTrezor = function(rawTx, txData, callback) {
             return;
         }
 
-        rawTx.v = "0x" + ethFuncs.decimalToHex(result.v);
-        rawTx.r = "0x" + result.r;
-        rawTx.s = "0x" + result.s;
-        var eTx = new ethUtil.Tx(rawTx);
+        rawTx.v = result.payload.v;
+        rawTx.r = result.payload.r;
+        rawTx.s = result.payload.s;
+        var eTx = new wanUtil.wanchainTx(rawTx);
         rawTx.rawTx = JSON.stringify(rawTx);
         rawTx.signedTx = '0x' + eTx.serialize().toString('hex');
         rawTx.isError = false;
         if (callback !== undefined) callback(rawTx);
-    }
-
-    TrezorConnect.signEthereumTx(
-        txData.path,
-        ethFuncs.getNakedAddress(rawTx.nonce),
-        ethFuncs.getNakedAddress(rawTx.gasPrice),
-        ethFuncs.getNakedAddress(rawTx.gasLimit),
-        ethFuncs.getNakedAddress(rawTx.to),
-        ethFuncs.getNakedAddress(rawTx.value),
-        ethFuncs.getNakedAddress(rawTx.data),
-        rawTx.chainId,
-        localCallback
-    );
+    });
 }
 uiFuncs.signTxLedger = function(app, eTx, rawTx, txData, old, callback) {
-    eTx.raw[6] = Buffer.from([rawTx.chainId]);
-    eTx.raw[7] = eTx.raw[8] = 0;
+    eTx.raw[7] = Buffer.from([rawTx.chainId]);
+    eTx.raw[8] = eTx.raw[9] = 0;
     var toHash = old ? eTx.raw.slice(0, 6) : eTx.raw;
     var txToSign = ethUtil.rlp.encode(toHash);
     var localCallback = function(result, error) {
@@ -74,7 +75,7 @@ uiFuncs.signTxLedger = function(app, eTx, rawTx, txData, old, callback) {
         rawTx.v = "0x" + result['v'];
         rawTx.r = "0x" + result['r'];
         rawTx.s = "0x" + result['s'];
-        eTx = new ethUtil.Tx(rawTx);
+        eTx = new wanUtil.wanchainTx(rawTx);
         rawTx.rawTx = JSON.stringify(rawTx);
         rawTx.signedTx = '0x' + eTx.serialize().toString('hex');
         rawTx.isError = false;
@@ -96,7 +97,7 @@ uiFuncs.signTxDigitalBitbox = function(eTx, rawTx, txData, callback) {
         rawTx.v = ethFuncs.sanitizeHex(result['v']);
         rawTx.r = ethFuncs.sanitizeHex(result['r']);
         rawTx.s = ethFuncs.sanitizeHex(result['s']);
-        var eTx_ = new ethUtil.Tx(rawTx);
+        var eTx_ = new wanUtil.wanchainTx(rawTx);
         rawTx.rawTx = JSON.stringify(rawTx);
         rawTx.signedTx = ethFuncs.sanitizeHex(eTx_.serialize().toString('hex'));
         rawTx.isError = false;
@@ -107,6 +108,7 @@ uiFuncs.signTxDigitalBitbox = function(eTx, rawTx, txData, callback) {
     app.signTransaction(txData.path, eTx, localCallback);
 }
 uiFuncs.trezorUnlockCallback = function(txData, callback) {
+/*
     TrezorConnect.open(function(error) {
         if (error) {
             if (callback !== undefined) callback({
@@ -118,6 +120,9 @@ uiFuncs.trezorUnlockCallback = function(txData, callback) {
             uiFuncs.generateTx(txData, callback);
         }
     });
+*/
+    txData.trezorUnlocked = true;
+    uiFuncs.generateTx(txData, callback);
 }
 uiFuncs.generateTx = function(txData, callback) {
     if ((typeof txData.hwType != "undefined") && (txData.hwType == "trezor") && !txData.trezorUnlocked) {
@@ -131,26 +136,12 @@ uiFuncs.generateTx = function(txData, callback) {
                 Txtype: txData.Txtype,
                 nonce: ethFuncs.sanitizeHex(data.nonce),
                 gasPrice: data.isOffline ? ethFuncs.sanitizeHex(data.gasprice) : ethFuncs.sanitizeHex(ethFuncs.addTinyMoreToGas(data.gasprice)),
-                gas: txData.gasLimit,
+                gas: ethFuncs.sanitizeHex(ethFuncs.decimalToHex(txData.gasLimit)),
                 to: ethFuncs.sanitizeHex(txData.to),
-                from: ethFuncs.sanitizeHex(txData.from),
                 value: ethFuncs.sanitizeHex(ethFuncs.decimalToHex(etherUnits.toWei(txData.value, txData.unit))),
                 data: ethFuncs.sanitizeHex(txData.data)
-            }
-/*
-            var rawTx = {
-                 Txtype: '0x01',
-                 from: '0x514CC192b9d55493009b985C8177b2d2d8a7F98D',
-                 to: '0xBbB7e0346fB6cBAB3568550b37AD9d402a01b1fe',
-                 value: '0x16345785d8a0000',
-                 gasPrice: '0x2e90edd000',
-                 gas: 21000,
-                 data: null,
-                 nonce: 3
-            }
-*/
+            };
             if (ajaxReq.eip155) rawTx.chainId = ajaxReq.chainId;
-            // var eTx = new ethUtil.Tx(rawTx);
             var eTx = new wanUtil.wanchainTx(rawTx);
             if ((typeof txData.hwType != "undefined") && (txData.hwType == "ledger")) {
                 var app = new ledgerEth(txData.hwTransport);
@@ -191,7 +182,6 @@ uiFuncs.generateTx = function(txData, callback) {
                 uiFuncs.signTxDigitalBitbox(eTx, rawTx, txData, callback);
             } else {
                 eTx.sign(new Buffer(txData.privKey, 'hex'));
-                // eTx.sign(new Buffer('e70465a0ee105c4026d027f9aaa8ca3e601f2dc47419208c0e94bb9af7d898fe', 'hex'));
                 rawTx.rawTx = JSON.stringify(rawTx);
                 rawTx.signedTx = '0x' + eTx.serialize().toString('hex');
                 rawTx.isError = false;

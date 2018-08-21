@@ -188,7 +188,7 @@ var addWalletCtrl = function($scope, $sce) {
         if ($scope.nickNames.indexOf($scope.addAccount.nickName) !== -1) {
             $scope.notifier.danger(globalFuncs.errorMsgs[13]);
             return;
-        } else if ($scope.nickNames.indexOf(ethUtil.toChecksumAddress($scope.addAccount.address)) !== -1) {
+        } else if ($scope.nickNames.indexOf(wanUtil.toChecksumAddress($scope.addAccount.address)) !== -1) {
             $scope.notifier.danger(globalFuncs.errorMsgs[16]);
             return;
         }
@@ -225,7 +225,7 @@ var addWalletCtrl = function($scope, $sce) {
         if ($scope.nickNames.indexOf($scope.addAccount.nickName) !== -1) {
             $scope.notifier.danger(globalFuncs.errorMsgs[13]);
             return;
-        } else if ($scope.nickNames.indexOf(ethUtil.toChecksumAddress($scope.addAccount.address)) !== -1) {
+        } else if ($scope.nickNames.indexOf(wanUtil.toChecksumAddress($scope.addAccount.address)) !== -1) {
             $scope.notifier.danger(globalFuncs.errorMsgs[16]);
             return;
         }
@@ -267,7 +267,7 @@ var addWalletCtrl = function($scope, $sce) {
                 $scope.etherBalance = data.msg;
             } else {
                 $scope.etherBalance = etherUnits.toEther(data.data.balance, 'wei');
-                ajaxReq.getETHvalue(function(data) {
+                ajaxReq.getWANvalue(function(data) {
                     $scope.usdBalance = etherUnits.toFiat($scope.etherBalance, 'ether', data.usd);
                     $scope.eurBalance = etherUnits.toFiat($scope.etherBalance, 'ether', data.eur);
                     $scope.btcBalance = etherUnits.toFiat($scope.etherBalance, 'ether', data.btc);

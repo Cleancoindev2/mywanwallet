@@ -1,4 +1,5 @@
 'use strict';
+var wanUtil = require('wanchain-util');
 var Wallet = function(priv, pub, path, hwType, hwTransport) {
     if (typeof priv != "undefined") {
         this.privKey = priv.length == 32 ? priv : Buffer(priv, 'hex')
@@ -116,7 +117,7 @@ Wallet.prototype.setBalance = function(callback) {
         if (data.error) parentObj.balance = data.msg;
         else {
             parentObj.balance = etherUnits.toEther(data.data.balance, 'wei');
-            ajaxReq.getETHvalue(function(data) {
+            ajaxReq.getWANvalue(function(data) {
                 parentObj.usdPrice   = etherUnits.toFiat('1', 'ether', data.usd);
                 parentObj.gbpPrice   = etherUnits.toFiat('1', 'ether', data.gbp);
                 parentObj.eurPrice   = etherUnits.toFiat('1', 'ether', data.eur);
@@ -182,7 +183,7 @@ Wallet.prototype.getAddressString = function() {
     return '0x' + this.getAddress().toString('hex')
 }
 Wallet.prototype.getChecksumAddressString = function() {
-    return ethUtil.toChecksumAddress(this.getAddressString())
+    return wanUtil.toChecksumAddress(this.getAddressString())
 }
 Wallet.fromPrivateKey = function(priv) {
     return new Wallet(priv)
