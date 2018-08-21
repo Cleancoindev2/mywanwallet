@@ -8,6 +8,7 @@ var contractsCtrl = function($scope, $sce, walletService) {
     $scope.sendTxModal = new Modal(document.getElementById('deployContract'));
     $scope.Validator = Validator;
     $scope.tx = {
+        Txtype: "0x01",
         gasLimit: '',
         data: '',
         to: '',
@@ -36,6 +37,7 @@ var contractsCtrl = function($scope, $sce, walletService) {
     });
     $scope.$watch('visibility', function(newValue, oldValue) {
         $scope.tx = {
+            Txtype: "0x01",
             gasLimit: '',
             data: '',
             to: '',

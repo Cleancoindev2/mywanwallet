@@ -25,8 +25,8 @@ nodes.customNodeObj = {
 nodes.nodeList = {
     'wan_mew': {
         'name': 'WAN',
-        'blockExplorerTX': 'https://explorer.wanchain.org/block/trans/[[txHash]]',
-        'blockExplorerAddr': 'https://explorer.wanchain.org/block/addr/[[address]]',
+        'blockExplorerTX': 'https://wanscan.io/tx/[[txHash]]',
+        'blockExplorerAddr': 'https://wanscan.io/addr/[[address]]',
         'type': nodes.nodeTypes.WAN,
         'eip155': true,
         'chainId': 1,
@@ -35,19 +35,6 @@ nodes.nodeList = {
         'service': 'mywanwallet.nl',
         'lib': new nodes.customNode('https://mywanwallet.nl/api', '')
     }
-    /* ,
-    'eth_mew': {
-        'name': 'ETH',
-        'blockExplorerTX': 'https://etherscan.io/tx/[[txHash]]',
-        'blockExplorerAddr': 'https://etherscan.io/address/[[address]]',
-        'type': nodes.nodeTypes.ETH,
-        'eip155': true,
-        'chainId': 1,
-        'tokenList': require('./tokens/ethTokens.json'),
-        'abiList': require('./abiDefinitions/ethAbi.json'),
-        'service': 'myetherapi.com',
-        'lib': new nodes.customNode('https://api.myetherapi.com/eth', '')
-    } */
 };
 
 

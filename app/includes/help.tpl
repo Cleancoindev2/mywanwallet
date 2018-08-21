@@ -459,7 +459,7 @@
   <article class="collapse-container">
     <div ng-click="h15 = !h15">
       <a class="collapse-button" ><span ng-show="!h15">+</span><span ng-show="h15">-</span></a>
-        <h4 translate="HELP_15_Title">15. Why hasn't the wallet I just created show up in the blockchain explorer? (ie: etherchain, etherscan) </h4>
+        <h4 translate="HELP_15_Title">15. Why hasn't the wallet I just created show up in the blockchain explorer? (ie: wanscan) </h4>
       </div>
       <div ng-show="h15">
         <p translate="HELP_15_Desc_1"> Addresses will only show up in a blockchain explorer once the account has activity on it&mdash;for example, once you have transferred some Wancoins to it. </p>
@@ -474,7 +474,7 @@
         <h4 translate="HELP_16_Title">16. How do I check the balance of my account? </h4>
       </div>
       <div ng-show="h16">
-        <p translate="HELP_16_Desc_1"> You can use a blockchain explorer like <a href="https://etherscan.io/" target="_blank" rel="noopener noreferrer">etherscan.io</a>. Paste your address into the search bar and it will pull up your address and transaction history. For example, here's what our <a href="https://etherscan.io/address/0x7cb57b5a97eabe94205c07890be4c1ad31e486a8" target="_blank" rel="noopener noreferrer">donation account</a> looks like on etherscan.io</p>
+        <p translate="HELP_16_Desc_1"> You can use a blockchain explorer like <a href="https://wanscan.io/" target="_blank" rel="noopener noreferrer">wanscan.io</a>. Paste your address into the search bar and it will pull up your address and transaction history. For example, here's what our <a href="https://wanscan.io/address/0x7cb57b5a97eabe94205c07890be4c1ad31e486a8" target="_blank" rel="noopener noreferrer">donation account</a> looks like on wanscan.io</p>
     </div>
   </article>
 
@@ -486,7 +486,7 @@
         <h4 translate="HELP_17_Title">17. Why isn't my balance showing up when I unlock my wallet? </h4>
       </div>
       <div ng-show="h17">
-        <p translate="HELP_17_Desc_1"> This is most likely due to the fact that you are behind a firewall. The API that we use to get the balance and convert said balance is often blocked by firewalls for whatever reason. You will still be able to send transactions, you just need to use a different method to see said balance, like etherscan.io</p>
+        <p translate="HELP_17_Desc_1"> This is most likely due to the fact that you are behind a firewall. The API that we use to get the balance and convert said balance is often blocked by firewalls for whatever reason. You will still be able to send transactions, you just need to use a different method to see said balance, like wanscan.io</p>
     </div>
   </article>
 

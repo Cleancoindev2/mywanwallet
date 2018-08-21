@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="mewApp">
 <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123889185-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-123889185-3');
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>MyWanWallet.nl</title>
@@ -48,7 +57,7 @@
 "@context": "http://schema.org",
 "@type" : "Organization",
 "name" : "MyWanWallet",
-"legalName" : "MyWanWallet LLC",
+"legalName" : "MyWanWallet",
 "url" : "https://www.mywanwallet.nl/",
 "contactPoint" : [{
   "@type" : "ContactPoint",
@@ -60,13 +69,7 @@
 "description": "MyWanWallet.nl is a free, open-source, client-side interface for generating Wanchain wallets &amp; more. Interact with the Wanchain blockchain easily &amp; securely.",
 "sameAs" : [
   "https://www.mywanwallet.nl/",
-  "https://www.facebook.nl/MyWanWallet/",
-  "https://twitter.nl/mywanwallet",
-  "https://medium.nl/@mywanwallet",
-  "https://mywanwallet.github.io/knowledge-base/",
-  "https://github.nl/kvhnuke/etherwallet",
-  "https://kvhnuke.github.io/etherwallet/",
-  "https://mywanwallet.slack.nl/"
+  "https://github.nl/tyrion70/mywanwallet",
 ]
 }
 </script>
