@@ -1,3 +1,5 @@
+[![Build Status][travis-image]][travis-url] [![dependency status][dep-image]][dep-url]
+
 ### [https://www.MyWanWallet.nl](https://www.MyWanWallet.com)
 
 ### [Download the Latest Release](https://github.com/tyrion70/mywanwallet/releases/latest)
@@ -106,3 +108,8 @@ If you can think of any other features or run into bugs, let us know. You can fo
 - 08/21/2018: First Beta release of myWanWallet released
 
 #### MyWanWallet.nl is licensed under The MIT License (MIT).
+
+[travis-image]: https://travis-ci.org/tyrion70/mywanwallet.svg
+[travis-url]: https://travis-ci.org/tyrion70/mywanwallet
+[dep-image]: https://david-dm.org/tyrion70/mywanwallet.svg
+[dep-url]: https://david-dm.org/tyrion70/mywanwallet
