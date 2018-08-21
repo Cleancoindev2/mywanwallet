@@ -10,7 +10,7 @@ var txStatusCtrl = function($scope) {
         notFound: 1,
         mined: 2
     }
-    var MIN_GAS = 41;
+    var MIN_GAS = 182;
     $scope.txInfo = {
         status: null, // notFound foundInPending foundOnChain
         hash: globalFuncs.urlGet('txHash') == null ? "" : globalFuncs.urlGet('txHash'),
@@ -28,8 +28,9 @@ var txStatusCtrl = function($scope) {
         if (!$scope.$$phase) $scope.$apply();
     }
     var setUSDvalues = function() {
-        ajaxReq.getETHvalue(function(data) {
-            $scope.txInfo.gasPrice.usd = new BigNumber(data.usd).mul(new BigNumber($scope.txInfo.gasPrice.eth)).toString();
+        ajaxReq.getWANvalue(function(data) {
+            $scope.txInfo.gasPrice.usd = new BigNumber(data.usd).mul(new BigNumber($scope.txInfo.gasPrice.eth)).toFixed(2);
+            $scope.txInfo.valueUSD = new BigNumber(data.usd).mul(etherUnits.toEther($scope.txInfo.value, 'wei')).toFixed(2);
             applyScope();
         });
     }
@@ -44,7 +45,7 @@ var txStatusCtrl = function($scope) {
                 from: wanUtil.toChecksumAddress(tx.from),
                 to: tx.to ? wanUtil.toChecksumAddress(tx.to) : '',
                 value: new BigNumber(tx.value).toString(),
-                valueStr: etherUnits.toEther(tx.value, 'wei') + " ETH",
+                valueStr: etherUnits.toEther(tx.value, 'wei') + " WAN",
                 gasLimit: new BigNumber(tx.gas).toString(),
                 gasPrice: {
                     wei: new BigNumber(tx.gasPrice).toString(),

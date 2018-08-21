@@ -47,8 +47,6 @@ var ethFuncs                 = require('./ethFuncs');
 window.ethFuncs              = ethFuncs;
 var Validator                = require('./validator');
 window.Validator             = Validator;
-var bity                     = require('./bity');
-window.bity                  = bity;
 var translate                = require('./translations/translate.js');
 if (IS_CX) {
   var cxFuncs                = require('./cxFuncs');
@@ -57,15 +55,9 @@ if (IS_CX) {
     var u2f                  = require('./staticJS/u2f-api');
     var ledger3              = require('./staticJS/ledger3');
     var ledgerEth            = require('./staticJS/ledger-eth');
-    //var trezorConnect        = require('./staticJS/trezor-connect');
-    var digitalBitboxUsb     = require('./staticJS/digitalBitboxUsb');
-    var digitalBitboxEth     = require('./staticJS/digitalBitboxEth');
     window.u2f               = u2f;
     window.Ledger3           = ledger3;
     window.ledgerEth         = ledgerEth;
-    //window.TrezorConnect     = trezorConnect.TrezorConnect;
-    window.DigitalBitboxUsb  = digitalBitboxUsb;
-    window.DigitalBitboxEth  = digitalBitboxEth;
 }
 var CustomGasMessages        = require('./customGas.js')
 window.CustomGasMessages     = CustomGasMessages;

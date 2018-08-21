@@ -1,15 +1,13 @@
 'use strict';
 var nodes = function() {}
 nodes.customNode = require('./nodeHelpers/customNode');
-nodes.infuraNode = require('./nodeHelpers/infura');
 nodes.metamaskNode = require('./nodeHelpers/metamask');
 nodes.nodeTypes = {
-    ETH: "ETH",
     WAN: "WAN",
     Custom: "CUSTOM ETH"
 };
-nodes.ensNodeTypes = [nodes.nodeTypes.ETH, nodes.nodeTypes.Ropsten];
-nodes.domainsaleNodeTypes = [nodes.nodeTypes.ETH, nodes.nodeTypes.Ropsten];
+nodes.ensNodeTypes = [nodes.nodeTypes.WAN];
+nodes.domainsaleNodeTypes = [nodes.nodeTypes.WAN];
 nodes.customNodeObj = {
     'name': 'CUS',
     'blockExplorerTX': '',
@@ -38,5 +36,5 @@ nodes.nodeList = {
 };
 
 
-nodes.ethPrice = require('./nodeHelpers/ethPrice');
+nodes.wanPrice = require('./nodeHelpers/wanPrice');
 module.exports = nodes;

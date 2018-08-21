@@ -17,9 +17,9 @@
 <meta property="og:site_name" content="MyWanWallet.nl: Your Key to Wanchain">
 <meta name="twitter:title" content="MyWanWallet.nl: Your Key to Wanchain">
 <meta name="apple-mobile-web-app-title" content="MyWanWallet.nl: Your Key to Wanchain">
-<link href="https://www.mywanwallet.nl" rel="canonical">
-<meta content="https://www.mywanwallet.nl" property="og:url">
-<meta content="https://www.mywanwallet.nl" name="twitter:url">
+<link href="https://mywanwallet.nl" rel="canonical">
+<meta content="https://mywanwallet.nl" property="og:url">
+<meta content="https://mywanwallet.nl" name="twitter:url">
 <link rel="stylesheet" href="css/etherwallet-master.min.css">
 <script type="text/javascript" src="js/trezor-connect.js"></script>
 <script type="text/javascript" src="js/etherwallet-static.min.js"></script>
@@ -41,7 +41,7 @@
 <meta name="msapplication-config" content="images/fav/browserconfig.xml">
 <meta name="theme-color" content="#1d6986">
 <meta name="apple-mobile-web-app-status-bar-style" content="#1d6986">
-<meta property="og:url" content="https://www.mywanwallet.nl" />
+<meta property="og:url" content="https://mywanwallet.nl" />
 <meta property="og:title" content="MyWanWallet.nl  &middot; Your Key to Wanchain" />
 <meta property="og:type" content="website">
 <meta property="og:image" content="/images/myetherwallet-logo-banner.png" />
@@ -58,17 +58,17 @@
 "@type" : "Organization",
 "name" : "MyWanWallet",
 "legalName" : "MyWanWallet",
-"url" : "https://www.mywanwallet.nl/",
+"url" : "https://mywanwallet.nl/",
 "contactPoint" : [{
   "@type" : "ContactPoint",
   "email" : "support@mywanwallet.nl",
   "url"   : "https://mywanwallet.nl",
   "contactType" : "customer service"
 }],
-"logo" : "https://www.mywanwallet.nl/images/myetherwallet-logo.png",
+"logo" : "https://mywanwallet.nl/images/myetherwallet-logo.png",
 "description": "MyWanWallet.nl is a free, open-source, client-side interface for generating Wanchain wallets &amp; more. Interact with the Wanchain blockchain easily &amp; securely.",
 "sameAs" : [
-  "https://www.mywanwallet.nl/",
+  "https://mywanwallet.nl/",
   "https://github.nl/tyrion70/mywanwallet",
 ]
 }
@@ -83,7 +83,7 @@
     <div class="container">
       DON'T GET PHISHED, please! 🎣 Thank you! 🤗
       <br />
-      1. BOOKMARK <a href="https://www.mywanwallet.nl"> MYWANWALLET.NL </a>
+      1. BOOKMARK <a href="https://mywanwallet.nl"> MYWANWALLET.NL </a>
     </div>
   </div>
 }
@@ -203,6 +203,13 @@
             <a tabindex="0" aria-label="nav item: {{tab.name | translate}}" translate="{{tab.name}}"></a>
       </li>
       }
+      <li class="nav-item help">
+        <a href="/signmsg.html">
+          <span translate="NAV_SignMsg">
+            Sign Message
+          </span>
+        </a>
+      </li>
       <li class="nav-item help">
         <a href="https://mywanwallet.github.io/knowledge-base/" target="_blank" rel="noopener noreferrer">
           <span translate="NAV_Help">

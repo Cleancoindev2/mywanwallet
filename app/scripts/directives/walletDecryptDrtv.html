@@ -26,9 +26,10 @@
              type="radio"
              aria-label="MetaMask / Mist"
              ng-model="walletType"
-             value="metamask" />
+             value="metamask"
+             style="display: none;" />
       <span translate="x_MetaMask">
-        MetaMask / Mist
+        MetaMask / Mist (Coming Soon!)
       </span>
     </label>
 
@@ -52,20 +53,14 @@
              type="radio"
              aria-label="Trezor Hardware Wallet"
              ng-model="walletType"
-             value="trezor" />
-      TREZOR
-    </label>
-
-    <!-- Digital Bitbox -->
-    <label aria-flowto="aria5"
-           class="radio"
-           ng-show="ajaxReq.type=='WAN2'">
-      <input aria-flowto="aria5"
-             type="radio"
-             aria-label="Digital Bitbox hardware wallet"
-             ng-model="walletType"
-             value="digitalBitbox"/>
-      Digital Bitbox
+             value="trezor"
+             style="display: none;"/>
+      TREZOR (Coming Soon!)
+      <a href="https://github.com/trezor/connect/pull/195"
+         target="_blank"
+         rel="noopener noreferrer">
+        <img src="images/icon-help-3.svg" width="16px" height="16px" style="margin: 0 5px 5px">
+      </a>
     </label>
 
 
@@ -121,32 +116,6 @@
       </a>
     </label>
 
-    <!-- Parity -->
-    <label aria-flowto="aria9"
-           class="radio"
-           style="display: none;"
-           id="showMeTheMoney">
-      <input aria-flowto="aria9"
-             aria-label="parity phrase"
-             type="radio"
-             ng-model="walletType"
-             value="parityBWallet" />
-      <span translate="x_ParityPhrase">
-        Parity Phrase
-      </span>
-    </label>
-
-    <label class="radio">
-      &nbsp;
-      <span translate="x_ParityPhrase">
-        Parity Phrase
-      </span>
-      <a href="https://myetherwallet.github.io/knowledge-base/private-keys-passwords/parity-phrases-are-no-longer-supported.html"
-         target="_blank"
-         rel="noopener noreferrer">
-           <img src="images/icon-help-2.svg" width="16px" height="16px" style="margin: 0 5px 5px">
-      </a>
-    </label>
   </section>
   <!-- / Column 1 - Select Type of Key -->
 
@@ -468,7 +437,7 @@
         </li>
       </ul>
       <div class="form-group">
-        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://www.myetherwallet.com</code> &amp; <code>MYETHERWALLET LLC</code> in your URL bar.
+        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.
       </div>
       <br />
       <div class="form-group">
@@ -544,7 +513,7 @@
         </li>
       </ul>
       <div class="form-group">
-        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://www.myetherwallet.com</code> &amp; <code>MYETHERWALLET LLC</code> in your URL bar.
+        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.
       </div>
       <br />
       <div class="form-group">
@@ -625,7 +594,7 @@
         </li>
       </ul>
       <div class="form-group">
-        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://www.myetherwallet.com</code> &amp; <code>MYETHERWALLET LLC</code> in your URL bar.
+        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.
       </div>
       <br />
       <div class="form-group">

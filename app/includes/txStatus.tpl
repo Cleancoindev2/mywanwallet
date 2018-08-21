@@ -110,6 +110,9 @@
             </td>
             <td>
               {{ txInfo.valueStr }}
+                <small>
+                  ({{ txInfo.valueUSD }} USD)
+                </small>
             </td>
           </tr>
           <tr>
@@ -163,6 +166,9 @@
               {{ txInfo.gasPrice.gwei }} GWEI
               <small>
                 ({{ txInfo.gasPrice.wei }} WEI)
+              </small>
+              <small>
+                ({{ txInfo.gasPrice.usd }} USD)
               </small>
             </td>
           </tr>
