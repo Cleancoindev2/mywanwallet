@@ -1,9 +1,8 @@
 ### [https://www.MyWanWallet.nl](https://www.MyWanWallet.com)
 
-### [Download the Latest Release](https://github.com/kvhnuke/etherwallet/releases/latest)
+### [Download the Latest Release](https://github.com/tyrion70/mywanwallet/releases/latest)
 
 - etherwallet-vX.X.X.X.zip is the smaller package containing the gh-pages branch aka MyWanWallet.nl
-- chrome-extension-vX.X.X.X.zip is the chrome extension package
 - source code is the full source for developers to get started with (although cloning or forking the mercury branch is probably a better choice)
 
 
@@ -78,7 +77,7 @@ As we are constantly updating MyWanWallet.nl, we recommend you periodically upda
 If you want to help contribute, here's what you need to know to get it up and running and compiling.
 
 - We use angular and bootstrap. We used to use jQuery and Bootstrap until it was converted in April 2016. If you wonder why some things are set up funky, that's why.
-- Please fork and make PRs to the dev branch
+- Please fork and make PRs to the mercury branch
 - We use npm / gulp for compiling. There is a lot of stuff happening in the compilation.
 
 **Getting Started**
