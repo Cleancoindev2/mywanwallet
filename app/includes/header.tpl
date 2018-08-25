@@ -22,8 +22,8 @@
 <meta content="https://mywanwallet.nl" name="twitter:url">
 <link rel="stylesheet" href="css/etherwallet-master.min.css">
 <script type="text/javascript" src="js/trezor-connect.js"></script>
-<script type="text/javascript" src="js/etherwallet-static.min.js"></script>
-<script type="text/javascript" src="js/etherwallet-master.js"></script>
+<script type="text/javascript" src="js/etherwallet-static.min.js?version=1.0.0"></script>
+<script type="text/javascript" src="js/etherwallet-master.js?version=1.0.0"></script>
 <meta name="description" content="MyWanWallet (MEW) is a free, open-source, client-side interface for generating Wanchain wallets & more. Interact with the Wanchain blockchain easily & securely.">
 <meta property="og:description"  content="Free, open-source, client-side Wanchain wallet. Enabling you to interact with the blockchain easily & securely.">
 <meta name="twitter:description" content="Free, open-source, client-side Wanchain wallet. Enabling you to interact with the blockchain easily & securely.">
@@ -84,6 +84,8 @@
       DON'T GET PHISHED, please! 🎣 Thank you! 🤗
       <br />
       1. BOOKMARK <a href="https://mywanwallet.nl"> MYWANWALLET.NL </a>
+      <br />
+      This site is still Beta Software! Please use a hardware wallet and if not a local copy to prevent problems! Read our <a data-target="#disclaimerModal" data-toggle="modal" target="_blank" rel="noopener noreferrer" role="link" tabindex="0"  translate="FOOTER_4">disclaimer</a>!
     </div>
   </div>
 }

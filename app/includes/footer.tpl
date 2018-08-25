@@ -36,6 +36,33 @@
     </section>
 
     <section class="footer--cent">
+        <h5><i aria-hidden="true">💝</i> Other Wanchain sites!</h5>
+        <p>
+          <a aria-label="wan scan" href="https://wanscan.io" target="_blank" rel="noopener noreferrer" role="link" tabindex="0">
+            WanScan.io
+          </a>
+        </p>
+        <p>
+          <a aria-label="wan stats" href="https://wanstats.net" target="_blank" rel="noopener noreferrer" role="link" tabindex="0">
+            WanStats.net
+          </a>
+        </p>
+        <p>
+          <a aria-label="wan faucet" href="https://wanfaucet.net" target="_blank" rel="noopener noreferrer" role="link" tabindex="0">
+            WanFaucet.net
+          </a>
+        </p>
+        <p>
+          <a aria-label="wan faucet" href="https://chrome.google.com/webstore/detail/omnkcjdohbnjfjmlaiboojplahajnenj" target="_blank" rel="noopener noreferrer" role="link" tabindex="0">
+            WanMask Chrome Extension
+          </a>
+        </p>
+        <p>
+          <a aria-label="wan faucet" href="https://wanmask.io" target="_blank" rel="noopener noreferrer" role="link" tabindex="0">
+            WanMask.io
+          </a>
+        </p>
+
         <h5><i aria-hidden="true">💝</i> Donations are always appreciated!</h5>
         <p>
           WAN:
