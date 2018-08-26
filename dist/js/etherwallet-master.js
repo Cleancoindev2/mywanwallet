@@ -1161,7 +1161,699 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
 module.exports = decryptWalletCtrl;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141}],11:[function(require,module,exports){
+},{"buffer":151}],11:[function(require,module,exports){
+'use strict';
+
+var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
+    $scope.referrer = "0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8";
+    $scope.ajaxReq = ajaxReq;
+    $scope.hideDomainSaleInfoPanel = false;
+    walletService.wallet = null;
+    $scope.domainsaleConfirmModalModal = new Modal(document.getElementById('domainsaleConfirmModal'));
+    $scope.Validator = Validator;
+    $scope.wd = false;
+    $scope.haveNotAlreadyCheckedLength = true;
+    var ENS = new ens();
+    var DomainSale = new domainsale();
+    $scope.ensModes = ens.modes;
+    $scope.domainsaleModes = domainsale.modes;
+    $scope.domainsaleTransactions = domainsale.transactions;
+    $scope.minNameLength = 7;
+    $scope.objDomainSale = {
+        status: -1,
+        name: '',
+        address: '',
+        balance: -1,
+        balanceEth: -1,
+        price: 0,
+        priceEth: 0,
+        reserve: 0,
+        reserveEth: 0,
+        bid: 0,
+        bidEth: 0,
+        seller: '',
+        nameReadOnly: false,
+        timeRemaining: null
+    };
+    $scope.gasLimitDefaults = {
+        // TODO set sensible values
+        transfer: '200000',
+        offer: '200000',
+        bid: '200000',
+        buy: '200000',
+        cancel: '200000',
+        finish: '200000',
+        withdraw: '200000'
+    };
+    $scope.tx = {
+        data: '',
+        to: '',
+        unit: "ether",
+        value: 0,
+        gasPrice: null
+    };
+    $scope.showDomainSale = function () {
+        return nodes.domainsaleNodeTypes.indexOf(ajaxReq.type) > -1;
+    };
+    $scope.$watch(function () {
+        if (walletService.wallet == null) return null;
+        return walletService.wallet.getAddressString();
+    }, function () {
+        if (walletService.wallet == null) return;
+        $scope.wallet = walletService.wallet;
+        $scope.wd = true;
+        $scope.objDomainSale.nameReadOnly = true;
+        $scope.wallet.setBalance();
+        $scope.wallet.setTokens();
+    });
+    $scope.getCurrentTime = function () {
+        return new Date().toString();
+    };
+    var updateScope = function updateScope() {
+        if (!$scope.$$phase) $scope.$apply();
+    };
+    var timeRem = function timeRem(timeUntil) {
+        var rem = timeUntil - new Date();
+        if (rem < 0) {
+            clearInterval($scope.objDomainSale.timer);
+            $scope.objDomainSale.timeRemaining = "FINISHED";
+            return;
+        }
+        var _second = 1000;
+        var _minute = _second * 60;
+        var _hour = _minute * 60;
+        var _day = _hour * 24;
+        var hours = Math.floor(rem % _day / _hour);
+        var minutes = Math.floor(rem % _hour / _minute);
+        var seconds = Math.floor(rem % _minute / _second);
+        hours = hours < 10 ? '0' + hours : hours;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        $scope.objDomainSale.timeRemaining = hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds ';
+        updateScope();
+    };
+    $scope.addressOnChange = function () {
+        // Resets information
+        $scope.objDomainSale.balance = -1;
+    };
+    $scope.nameOnChange = function () {
+        // Resets information
+        $scope.objDomainSale.status = -1;
+        $scope.objDomainSale.bid = 0;
+        $scope.objDomainSale.bidEth = 0;
+        $scope.objDomainSale.buy = 0;
+        $scope.objDomainSale.buyEth = 0;
+        $scope.objDomainSale.reserve = 0;
+        $scope.objDomainSale.reserveEth = 0;
+        $scope.objDomainSale.timeRemaining = null;
+        $scope.tx = {
+            data: '',
+            to: '',
+            unit: 'ether',
+            value: 0
+        };
+        clearInterval($scope.objDomainSale.timer);
+    };
+    $scope.checkBalance = function () {
+        if ($scope.Validator.isValidAddress($scope.objDomainSale.address)) {
+            DomainSale.getBalance($scope.objDomainSale.address, function (data) {
+                var entries = data.data;
+                for (var key in entries) {
+                    $scope.objDomainSale[key] = entries[key];
+                }$scope.hideDomainSaleInfoPanel = true;
+            });
+        }
+    };
+    $scope.checkName = function () {
+        // checks if it's the same length as a PK and if so, warns them.
+        // If they confirm they can set haveNotAlreadyCheckedLength to true and carry on
+        if ($scope.haveNotAlreadyCheckedLength && ($scope.objDomainSale.name.length == 128 || $scope.objDomainSale.name.length == 132 || $scope.objDomainSale.name.length == 64 || $scope.objDomainSale.name.length == 66)) {
+            $scope.notifier.danger("That looks an awful lot like a private key. Are you sure you would like to check if this name is available on the ENS network? If so, click `Check`. If it is your private key, click refresh & try again.");
+            $scope.haveNotAlreadyCheckedLength = false;
+        } else if ($scope.Validator.isValidENSName($scope.objDomainSale.name) && $scope.objDomainSale.name.indexOf('.') == -1) {
+            $scope.objDomainSale.name = ens.normalise($scope.objDomainSale.name);
+            $scope.objDomainSale.namehash = ens.getNameHash($scope.objDomainSale.name + '.wan');
+            $scope.objDomainSale.nameSHA3 = ENS.getSHA3($scope.objDomainSale.name);
+            $scope.hideDomainSaleInfoPanel = true;
+            ENS.getAuctionEntries($scope.objDomainSale.name, function (data) {
+                if (data.error) $scope.notifier.danger(data.msg);else {
+                    var entries = data.data;
+                    for (var key in entries) {
+                        if (key != 'status') $scope.objDomainSale[key] = entries[key];
+                    }if (data.data.status != $scope.ensModes.owned) {
+                        // Not owned so ineligible for domainsale
+                        $scope.objDomainSale.status = $scope.domainsaleModes.ineligible;
+                        updateScope();
+                    } else {
+                        $scope.objDomainSale.valueEth = Number(etherUnits.toEther($scope.objDomainSale.value.toString(), 'wei'));
+                        ENS.getDeedOwner($scope.objDomainSale.deed, function (data) {
+                            $scope.objDomainSale.deedOwner = data.data;
+                            if (data.data.toLowerCase() != DomainSale.getContractAddress().toLowerCase()) {
+                                // Not owned by DomainSale contract
+                                $scope.objDomainSale.status = $scope.domainsaleModes.nottransferred;
+                                updateScope();
+                            } else {
+                                ENS.getDeedPreviousOwner($scope.objDomainSale.deed, function (data) {
+                                    $scope.objDomainSale.seller = data.data;
+                                    DomainSale.getSale($scope.objDomainSale.name, function (data) {
+                                        var entries = data.data;
+                                        for (var key in entries) {
+                                            $scope.objDomainSale[key] = entries[key];
+                                        }if ($scope.objDomainSale.price == 0 && $scope.objDomainSale.reserve == 0) {
+                                            // Not yet offered for sale
+                                            $scope.objDomainSale.status = $scope.domainsaleModes.notoffered;
+                                        } else if ($scope.objDomainSale.auctionStarted.getTime() == 0) {
+                                            // Available for sale
+                                            $scope.objDomainSale.status = $scope.domainsaleModes.available;
+                                            $scope.objDomainSale.minimumBid = $scope.objDomainSale.reserve;
+                                            $scope.objDomainSale.minimumBidEth = $scope.objDomainSale.reserveEth;
+                                            $scope.objDomainSale.bid = $scope.objDomainSale.minimumBid;
+                                            $scope.objDomainSale.bidEth = $scope.objDomainSale.minimumBidEth;
+                                        } else if ($scope.objDomainSale.auctionEnds.getTime() >= new Date().getTime()) {
+                                            // Being auctioned
+                                            $scope.objDomainSale.status = $scope.domainsaleModes.auctioning;
+                                            $scope.objDomainSale.timer = setInterval(function () {
+                                                return timeRem($scope.objDomainSale.auctionEnds);
+                                            }, 1000);
+                                            DomainSale.getMinimumBid($scope.objDomainSale.name, function (data) {
+                                                var entries = data.data;
+                                                for (var key in entries) {
+                                                    $scope.objDomainSale[key] = entries[key];
+                                                }$scope.objDomainSale.bid = $scope.objDomainSale.minimumBid;
+                                                $scope.objDomainSale.bidEth = $scope.objDomainSale.minimumBidEth;
+                                                updateScope();
+                                            });
+                                        } else {
+                                            // Auction closed
+                                            $scope.objDomainSale.status = $scope.domainsaleModes.closed;
+                                        }
+                                        updateScope();
+                                    });
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+        } else $scope.notifier.danger(globalFuncs.errorMsgs[30]);
+    };
+
+    // Sync internal values with inputs
+    $scope.syncPrice = function () {
+        if ($scope.objDomainSale.priceEth == null) {
+            $scope.objDomainSale.price = 0;
+        } else {
+            $scope.objDomainSale.price = Number(etherUnits.toWei($scope.objDomainSale.priceEth, 'ether'));
+        }
+    };
+    $scope.syncReserve = function () {
+        if ($scope.objDomainSale.reserveEth == null) {
+            $scope.objDomainSale.reserve = 0;
+        } else {
+            $scope.objDomainSale.reserve = Number(etherUnits.toWei($scope.objDomainSale.reserveEth, 'ether'));
+        }
+    };
+    $scope.syncBid = function () {
+        if ($scope.objDomainSale.bidEth == null) {
+            $scope.objDomainSale.bid = 0;
+        } else {
+            $scope.objDomainSale.bid = Number(etherUnits.toWei($scope.objDomainSale.bidEth, 'ether'));
+        }
+    };
+
+    $scope.sendTxStatus = "";
+    $scope.sendTx = function () {
+        $scope.domainsaleConfirmModalModal.close();
+        $scope.objDomainSale.status = -1;
+        var signedTx = $scope.generatedTxs.shift();
+        uiFuncs.sendTx(signedTx, function (resp) {
+            if (!resp.isError) {
+                var emailLink = '<a class="strong" href="mailto:support@myetherwallet.com?subject=Issue%20regarding%20my%20DomainSale%20&body=Hi%20Taylor%2C%20%0A%0AI%20have%20a%20question%20concerning%20my%20DomainSale%20transaction.%20%0A%0AI%20was%20attempting%20to%3A%0A-%20Start%20an%20ENS%20auction%0A-%20Bid%20on%20an%20ENS%20name%0A-%20Reveal%20my%20ENS%20bid%0A-%20Finalize%20my%20ENS%20name%0A%0AUnfortunately%20it%3A%0A-%20Never%20showed%20on%20the%20blockchain%0A-%20Failed%20due%20to%20out%20of%20gas%0A-%20Failed%20for%20another%20reason%0A-%20Never%20showed%20up%20in%20the%20account%20I%20was%20sending%20to%0A%0APlease%20see%20the%20below%20details%20for%20additional%20information.%0A%0AThank%20you.%20%0A%0A_%0A%0A%20name%3A%20' + $scope.objDomainSale.name + "%0A%20txSent%3A%20" + $scope.objDomainSale.txSent + "%0A%20to%3A%20" + $scope.tx.to + "%0A%20from%20address%3A%20" + $scope.wallet.getAddressString() + "%0A%20data%3A%20" + $scope.tx.data + "%0A%20value%3A%20" + $scope.tx.value + '" rel="noopener noreferrer">Confused? Email Us.</a>';
+                var bExStr = $scope.ajaxReq.type != nodes.nodeTypes.Custom ? "<a class='strong' href='" + $scope.ajaxReq.blockExplorerTX.replace("[[txHash]]", resp.data) + "' target='_blank' rel='noopener'> View your transaction </a>" : '';
+                $scope.sendTxStatus += globalFuncs.successMsgs[2] + "<p>" + resp.data + "</p><p>" + bExStr + "</p><p>" + emailLink + "</p>";
+                $scope.notifier.success($scope.sendTxStatus);
+                if ($scope.generatedTxs.length) $scope.sendTx();else $scope.sendTxStatus = '';
+            } else {
+                $scope.notifier.danger(resp.error);
+            }
+        });
+        $scope.objDomainSale.txSent = true;
+        $scope.hideDomainSaleInfoPanel = false;
+    };
+    // Transactions
+    $scope.generateTransferTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.transfer;
+            if (!$scope.Validator.isValidENSName($scope.objDomainSale.name)) throw globalFuncs.errorMsgs[30];
+            $scope.tx.to = ENS.getAuctionAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.transfer;
+            $scope.tx.data = ENS.getTransferData($scope.objDomainSale.name, DomainSale.getContractAddress());
+            $scope.tx.value = 0;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.generateOfferTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.offer;
+            if (!$scope.Validator.isValidENSName($scope.objDomainSale.name)) throw globalFuncs.errorMsgs[30];
+            if ($scope.objDomainSale.price == 0 && $scope.objDomainSale.reserve == 0) throw globalFuncs.errorMsgs[38];
+            $scope.tx.to = DomainSale.getContractAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.offer;
+            $scope.tx.data = DomainSale.getOfferData($scope.objDomainSale.name, $scope.objDomainSale.price, $scope.objDomainSale.reserve, $scope.referrer);
+            $scope.tx.value = 0;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.generateBuyTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.buy;
+            if (!$scope.Validator.isValidENSName($scope.objDomainSale.name)) throw globalFuncs.errorMsgs[30];
+            $scope.tx.to = DomainSale.getContractAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.buy;
+            $scope.tx.data = DomainSale.getBuyData($scope.objDomainSale.name, $scope.referrer);
+            $scope.tx.value = $scope.objDomainSale.priceEth;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.generateBidTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.bid;
+            if (!$scope.Validator.isValidENSName($scope.objDomainSale.name)) throw globalFuncs.errorMsgs[30];
+            if ($scope.objDomainSale.bidEth < $scope.objDomainSale.minimumBidEth) throw globalFuncs.errorMsgs[39];
+            $scope.tx.to = DomainSale.getContractAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.bid;
+            $scope.tx.data = DomainSale.getBidData($scope.objDomainSale.name, $scope.referrer);
+            $scope.tx.value = $scope.objDomainSale.bidEth;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.generateCancelTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.cancel;
+            if (!$scope.Validator.isValidENSName($scope.objDomainSale.name)) throw globalFuncs.errorMsgs[30];
+            $scope.tx.to = DomainSale.getContractAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.cancel;
+            $scope.tx.data = DomainSale.getCancelData($scope.objDomainSale.name);
+            $scope.tx.value = 0;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.generateFinishTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.finish;
+            if (!$scope.Validator.isValidENSName($scope.objDomainSale.name)) throw globalFuncs.errorMsgs[30];
+            $scope.tx.to = DomainSale.getContractAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.finish;
+            $scope.tx.data = DomainSale.getFinishData($scope.objDomainSale.name);
+            $scope.tx.value = 0;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.generateWithdrawTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.withdraw;
+            $scope.tx.to = DomainSale.getContractAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.withdraw;
+            $scope.tx.data = DomainSale.getWithdrawData();
+            $scope.tx.value = 0;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.doTx = function (nonce, gasPrice) {
+        $scope.sentTxs = [];
+        $scope.generatedTxs = [];
+        var txData = uiFuncs.getTxData($scope);
+        if (nonce && gasPrice) {
+            txData.nonce = nonce;
+            txData.gasPrice = gasPrice;
+        } else {
+            txData.nonce = txData.gasPrice = null;
+        }
+        uiFuncs.generateTx(txData, function (rawTx) {
+            if (!rawTx.isError) {
+                $scope.generatedTxs.push(rawTx.signedTx);
+                $scope.domainsaleConfirmModalModal.open();
+            } else {
+                $scope.notifier.danger(rawTx.error);
+            }
+            if (!$scope.$$phase) $scope.$apply();
+        });
+    };
+};
+module.exports = domainsaleCtrl;
+
+},{}],12:[function(require,module,exports){
+'use strict';
+
+var ensCtrl = function ensCtrl($scope, $sce, walletService) {
+    $scope.ajaxReq = ajaxReq;
+    $scope.hideEnsInfoPanel = false;
+    walletService.wallet = null;
+    $scope.ensConfirmModalModal = new Modal(document.getElementById('ensConfirmModal'));
+    $scope.ensFinalizeModal = new Modal(document.getElementById('ensFinalizeConfirm'));
+    $scope.Validator = Validator;
+    $scope.wd = false;
+    $scope.haveNotAlreadyCheckedLength = true;
+    var ENS = new ens();
+    var DomainSale = new domainsale();
+    $scope.ensModes = ens.modes;
+    $scope.minNameLength = 6;
+    $scope.objDomainSale = {};
+    $scope.objENS = {
+        bidValue: 0.01,
+        dValue: 0.01,
+        name: '',
+        namehash: '',
+        nameSHA3: '',
+        nameReadOnly: false,
+        resolvedAddress: null,
+        revealObject: null,
+        secret: hd.bip39.generateMnemonic().split(" ").splice(0, 3).join(" "),
+        status: -1,
+        timer: null,
+        timeRemaining: null,
+        timeRemainingReveal: null,
+        txSent: false
+    };
+    $scope.gasLimitDefaults = {
+        startAuction: '200000',
+        newBid: '500000',
+        reveal: '200000',
+        finalize: '200000'
+    };
+    $scope.tx = {
+        gasLimit: '500000',
+        data: '',
+        to: '',
+        unit: "ether",
+        value: 0,
+        gasPrice: null
+    };
+    $scope.showENS = function () {
+        return nodes.ensNodeTypes.indexOf(ajaxReq.type) > -1;
+    };
+    $scope.$watch(function () {
+        if (walletService.wallet == null) return null;
+        return walletService.wallet.getAddressString();
+    }, function () {
+        if (walletService.wallet == null) return;
+        $scope.wallet = walletService.wallet;
+        $scope.wd = true;
+        $scope.objENS.nameReadOnly = true;
+        $scope.wallet.setBalance();
+        $scope.wallet.setTokens();
+    });
+    $scope.getCurrentTime = function () {
+        return new Date().toString();
+    };
+    var updateScope = function updateScope() {
+        if (!$scope.$$phase) $scope.$apply();
+    };
+    var timeRem = function timeRem(timeUntil) {
+        var rem = timeUntil - new Date();
+        if (rem < 0) {
+            clearInterval($scope.objENS.timer);
+            $scope.objENS.timeRemaining = "EXPIRED";
+            return;
+        }
+        var _second = 1000;
+        var _minute = _second * 60;
+        var _hour = _minute * 60;
+        var _day = _hour * 24;
+        var days = Math.floor(rem / _day);
+        var hours = Math.floor(rem % _day / _hour);
+        var minutes = Math.floor(rem % _hour / _minute);
+        var seconds = Math.floor(rem % _minute / _second);
+        days = days < 10 ? '0' + days : days;
+        hours = hours < 10 ? '0' + hours : hours;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        $scope.objENS.timeRemaining = days + ' days ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds ';
+        $scope.objENS.timeRemainingReveal = days - 2 + ' days ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds ';
+        updateScope();
+    };
+    $scope.nameOnChange = function () {
+        $scope.objENS.status = -1;
+        $scope.objENS.timeRemaining = null;
+        clearInterval($scope.objENS.timer);
+    };
+    $scope.checkName = function () {
+        // checks if it's the same length as a PK and if so, warns them.
+        // If they confirm they can set haveNotAlreadyCheckedLength to true and carry on
+        if ($scope.haveNotAlreadyCheckedLength && ($scope.objENS.name.length == 128 || $scope.objENS.name.length == 132 || $scope.objENS.name.length == 64 || $scope.objENS.name.length == 66)) {
+            $scope.notifier.danger("That looks an awful lot like a private key. Are you sure you would like to check if this name is available on the ENS network? If so, click `Check`. If it is your private key, click refresh & try again.");
+            $scope.haveNotAlreadyCheckedLength = false;
+        } else if ($scope.Validator.isValidENSName($scope.objENS.name) && $scope.objENS.name.indexOf('.') == -1) {
+            $scope.objENS.name = ens.normalise($scope.objENS.name);
+            $scope.objENS.namehash = ens.getNameHash($scope.objENS.name + '.wan');
+            $scope.objENS.nameSHA3 = ENS.getSHA3($scope.objENS.name);
+            $scope.hideEnsInfoPanel = true;
+            ENS.getAuctionEntries($scope.objENS.name, function (data) {
+                if (data.error) $scope.notifier.danger(data.msg);else {
+                    var entries = data.data;
+                    for (var key in entries) {
+                        $scope.objENS[key] = entries[key];
+                    }switch ($scope.objENS.status) {
+                        case $scope.ensModes.owned:
+                            ENS.getOwner($scope.objENS.name + '.wan', function (data) {
+                                $scope.objENS.owner = data.data;
+                            });
+                            ENS.getDeedOwner($scope.objENS.deed, function (data) {
+                                $scope.objENS.deedOwner = data.data;
+                            });
+                            ENS.getAddress($scope.objENS.name + '.wan', function (data) {
+                                $scope.objENS.resolvedAddress = data.data;
+                            });
+                            DomainSale.getSale($scope.objENS.name, function (data) {
+                                $scope.objDomainSale.sale = data.data;
+                            });
+                            break;
+                        case $scope.ensModes.notAvailable:
+                            ENS.getAllowedTime($scope.objENS.name, function (data) {
+                                $scope.objENS.allowedTime = data.data;
+                                clearInterval($scope.objENS.timer);
+                                $scope.objENS.timer = setInterval(function () {
+                                    return timeRem($scope.objENS.allowedTime);
+                                }, 1000);
+                            });
+                            break;
+                        case $scope.ensModes.auction:
+                            clearInterval($scope.objENS.timer);
+                            $scope.objENS.timer = setInterval(function () {
+                                return timeRem($scope.objENS.registrationDate);
+                            }, 1000);
+                            break;
+                        case $scope.ensModes.reveal:
+                            $scope.objENS.bidValue = 0;
+                            $scope.objENS.secret = '';
+                            $scope.objENS.highestBid = etherUnits.toEther($scope.objENS.highestBid.toString(), 'wei');
+                            clearInterval($scope.objENS.timer);
+                            $scope.objENS.timer = setInterval(function () {
+                                return timeRem($scope.objENS.registrationDate);
+                            }, 1000);
+                            break;
+                    }
+                    updateScope();
+                }
+            });
+        } else $scope.notifier.danger(globalFuncs.errorMsgs[30]);
+    };
+
+    $scope.onLongStringChanged = function () {
+        try {
+            $scope.objENS.revealObject = null;
+            var tObj = JSON.parse($scope.longJsonString.replace(/\\/g, ''));
+            $scope.objENS.revealObject = tObj;
+            if (tObj.value) $scope.objENS.bidValue = Number(etherUnits.toEther(tObj.value, "wei"));
+            if (tObj.secret) $scope.objENS.secret = tObj.secret;
+            if (tObj.name && ens.normalise(tObj.name) != $scope.objENS.name) {
+                // check if correct name
+                $scope.notifier.danger(globalFuncs.errorMsgs[34]);
+            } else if (tObj.owner && tObj.owner != $scope.wallet.getAddressString()) {
+                // check owner = bidder
+                $scope.notifier.danger(globalFuncs.errorMsgs[33]);
+            } else {//estimate gas to see if it would not work
+                //$scope.estimateGasLimit();
+            }
+            updateScope();
+        } catch (e) {
+            $scope.notifier.danger(e.message);
+        }
+    };
+    var getShaBid = function getShaBid(_bidObject, callback) {
+        ENS.shaBid(_bidObject.nameSHA3, _bidObject.owner, _bidObject.value, _bidObject.secretSHA3, function (data) {
+            if (data.error) callback(true, data.msg);else callback(false, data.data);
+        });
+    };
+    var getBidObject = function getBidObject() {
+        var _objENS = $scope.objENS;
+        var bidObject = {
+            name: _objENS.name,
+            nameSHA3: ENS.getSHA3(_objENS.name),
+            owner: $scope.wallet.getAddressString(),
+            value: etherUnits.toWei(_objENS.bidValue, 'ether'),
+            secret: _objENS.secret.trim(),
+            secretSHA3: ENS.getSHA3(_objENS.secret.trim())
+        };
+        return bidObject;
+    };
+    $scope.openAndBidAuction = function () {
+        $scope.tx.gasLimit = $scope.gasLimitDefaults.newBid;
+        var _objENS = $scope.objENS;
+        $scope.bidObject = getBidObject();
+        _objENS.registrationDate = new Date();
+        _objENS.registrationDate.setDate(_objENS.registrationDate.getDate() + 5);
+        getShaBid($scope.bidObject, function (isError, data) {
+            if (isError) $scope.notifier.danger(data);else {
+                var bidHash = data;
+                $scope.tx.data = ENS.getStartAndBidAuctionData($scope.objENS.name, bidHash);
+                $scope.tx.to = ENS.getAuctionAddress();
+                $scope.tx.value = _objENS.dValue;
+                var txData = uiFuncs.getTxData($scope);
+                txData.nonce = txData.gasPrice = null;
+                uiFuncs.generateTx(txData, function (rawTx) {
+                    if (!rawTx.isError) {
+                        $scope.generatedTxs.push(rawTx.signedTx);
+                        $scope.bidObject = JSON.stringify($scope.bidObject);
+                        $scope.ensConfirmModalModal.open();
+                    } else {
+                        $scope.notifier.danger(rawTx.error);
+                    }
+                    if (!$scope.$$phase) $scope.$apply();
+                });
+            }
+        });
+    };
+    $scope.revealBid = function () {
+        $scope.tx.gasLimit = $scope.gasLimitDefaults.reveal;
+        var _objENS = $scope.objENS;
+        ajaxReq.getTransactionData($scope.wallet.getAddressString(), function (data) {
+            if (data.error) $scope.notifier.danger(data.msg);
+            data = data.data;
+            $scope.tx.to = ENS.getAuctionAddress();
+            $scope.tx.data = ENS.getRevealBidData(_objENS.name, etherUnits.toWei(_objENS.bidValue, 'ether'), _objENS.secret);
+            $scope.tx.value = 0;
+            var txData = uiFuncs.getTxData($scope);
+            txData.gasPrice = data.gasprice;
+            txData.nonce = data.nonce;
+            uiFuncs.generateTx(txData, function (rawTx) {
+                if (!rawTx.isError) {
+                    $scope.generatedTxs.push(rawTx.signedTx);
+                    $scope.ensConfirmModalModal.open();
+                } else {
+                    $scope.notifier.danger(rawTx.error);
+                }
+            });
+        });
+    };
+    $scope.finalizeDomain = function () {
+        $scope.tx.gasLimit = $scope.gasLimitDefaults.finalize;
+        if ($scope.wallet.getAddressString() != $scope.objENS.deedOwner) {
+            $scope.notifier.danger(globalFuncs.errorMsgs[33]);
+            return;
+        }
+        var _objENS = $scope.objENS;
+        ajaxReq.getTransactionData($scope.wallet.getAddressString(), function (data) {
+            if (data.error) $scope.notifier.danger(data.msg);
+            data = data.data;
+            $scope.tx.to = ENS.getAuctionAddress();
+            $scope.tx.data = ENS.getFinalizeAuctionData(_objENS.name);
+            $scope.tx.value = 0;
+            var txData = uiFuncs.getTxData($scope);
+            txData.gasPrice = data.gasprice;
+            txData.nonce = data.nonce;
+            uiFuncs.generateTx(txData, function (rawTx) {
+                if (!rawTx.isError) {
+                    $scope.generatedTxs = [];
+                    $scope.generatedTxs.push(rawTx.signedTx);
+                    $scope.ensFinalizeModal.open();
+                } else {
+                    $scope.notifier.danger(rawTx.error);
+                }
+            });
+        });
+    };
+    $scope.getRevealTime = function () {
+        if ($scope.objENS && $scope.objENS.registrationDate) return new Date($scope.objENS.registrationDate - 48 * 60 * 60 * 1000);
+        return new Date().toString();
+    };
+    $scope.bidAuction = function (nonce, gasPrice) {
+        $scope.tx.gasLimit = $scope.gasLimitDefaults.newBid;
+        var _objENS = $scope.objENS;
+        $scope.bidObject = getBidObject();
+        getShaBid($scope.bidObject, function (isError, data) {
+            if (isError) $scope.notifier.danger(data);else {
+                var bidHash = data;
+                $scope.tx.data = ENS.getNewBidData(bidHash);
+                $scope.tx.to = ENS.getAuctionAddress();
+                $scope.tx.value = _objENS.dValue;
+                var txData = uiFuncs.getTxData($scope);
+                if (nonce && gasPrice) {
+                    txData.nonce = nonce;
+                    txData.gasPrice = gasPrice;
+                } else txData.nonce = txData.gasPrice = null;
+                uiFuncs.generateTx(txData, function (rawTx) {
+                    if (!rawTx.isError) {
+                        $scope.generatedTxs.push(rawTx.signedTx);
+                        $scope.bidObject = JSON.stringify($scope.bidObject);
+                        $scope.ensConfirmModalModal.open();
+                    } else {
+                        $scope.notifier.danger(rawTx.error);
+                    }
+                    if (!$scope.$$phase) $scope.$apply();
+                });
+            }
+        });
+    };
+    $scope.sendTxStatus = "";
+    $scope.sendTx = function () {
+        $scope.ensConfirmModalModal.close();
+        $scope.ensFinalizeModal.close();
+        var signedTx = $scope.generatedTxs.shift();
+        uiFuncs.sendTx(signedTx, function (resp) {
+            if (!resp.isError) {
+                var emailLink = '<a class="strong" href="mailto:support@mywanwallet.nl?Subject=Issue%20regarding%20my%20ENS%20&Body=Hi%20Peter%2C%20%0A%0AI%20have%20a%20question%20concerning%20my%20ENS%20transaction.%20%0A%0AI%20was%20attempting%20to%3A%0A-%20Start%20an%20ENS%20auction%0A-%20Bid%20on%20an%20ENS%20name%0A-%20Reveal%20my%20ENS%20bid%0A-%20Finalize%20my%20ENS%20name%0A%0AUnfortunately%20it%3A%0A-%20Never%20showed%20on%20the%20blockchain%0A-%20Failed%20due%20to%20out%20of%20gas%0A-%20Failed%20for%20another%20reason%0A-%20Never%20showed%20up%20in%20the%20account%20I%20was%20sending%20to%0A%0APlease%20see%20the%20below%20details%20for%20additional%20information.%0A%0AThank%20you.%20%0A%0A_%0A%0A%20name%3A%20' + $scope.objENS.name + '%0A%20timeRemaining%3A%20' + $scope.getRevealTime().toString() + '%0A%20revealDate%3A%20' + $scope.objENS.registrationDate.toString() + "%0A%20timer%3A%20" + $scope.objENS.timer + "%0A%20txSent%3A%20" + $scope.objENS.txSent + "%0A%20to%3A%20" + $scope.tx.to + "%0A%20from%20address%3A%20" + $scope.wallet.getAddressString() + "%0A%20data%3A%20" + $scope.tx.data + "%0A%20value%3A%20" + $scope.tx.value + '" target="_blank" rel="noopener noreferrer">Confused? Email Us.</a>';
+                var bExStr = $scope.ajaxReq.type != nodes.nodeTypes.Custom ? "<a class='strong' href='" + $scope.ajaxReq.blockExplorerTX.replace("[[txHash]]", resp.data) + "' target='_blank' rel='noopener'> View your transaction </a>" : '';
+                $scope.sendTxStatus += globalFuncs.successMsgs[2] + "<p>" + resp.data + "</p><p>" + bExStr + "</p><p>" + emailLink + "</p>";
+                $scope.notifier.success($scope.sendTxStatus);
+                if ($scope.generatedTxs.length) $scope.sendTx();else $scope.sendTxStatus = '';
+            } else {
+                $scope.notifier.danger(resp.error);
+            }
+        });
+        $scope.objENS.txSent = true;
+        $scope.objENS.hideEnsInfoPanel = false;
+    };
+    $scope.generateTx = function () {
+        try {
+            var _objENS = $scope.objENS;
+            $scope.sentTxs = [];
+            $scope.generatedTxs = [];
+            if (!$scope.Validator.isValidENSName(_objENS.name)) throw globalFuncs.errorMsgs[30];else if (!$scope.Validator.isPositiveNumber(_objENS.bidValue) || _objENS.bidValue < 0.01) throw globalFuncs.errorMsgs[0];else if (_objENS.status != $scope.ensModes.reveal && (!$scope.Validator.isPositiveNumber(_objENS.dValue) || _objENS.dValue < _objENS.bidValue || $scope.wallet.balance <= _objENS.dValue)) throw globalFuncs.errorMsgs[0];else if (!$scope.Validator.isPasswordLenValid(_objENS.secret, 0)) throw globalFuncs.errorMsgs[31];else if (_objENS.revealObject && _objENS.revealObject.name && ens.normalise(_objENS.revealObject.name) != _objENS.name) throw globalFuncs.errorMsgs[34];else {
+                if ($scope.objENS.status == $scope.ensModes.open) $scope.openAndBidAuction();else if ($scope.objENS.status == $scope.ensModes.auction) $scope.bidAuction();else if ($scope.objENS.status == $scope.ensModes.reveal) $scope.revealBid();
+            }
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+};
+module.exports = ensCtrl;
+
+},{}],13:[function(require,module,exports){
 'use strict';
 
 var footerCtrl = function footerCtrl($scope, globalService) {
@@ -1199,7 +1891,7 @@ var footerCtrl = function footerCtrl($scope, globalService) {
 };
 module.exports = footerCtrl;
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 var helpersCtrl = function helpersCtrl($scope) {
@@ -1362,7 +2054,7 @@ FINALIZE
 
 */
 
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 var wanUtil = require('wanchain-util');
@@ -1541,7 +2233,7 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
 };
 module.exports = offlineTxCtrl;
 
-},{"wanchain-util":327}],14:[function(require,module,exports){
+},{"wanchain-util":340}],16:[function(require,module,exports){
 'use strict';
 
 var onboardingCtrl = function onboardingCtrl($scope, globalService, $translate, $sce) {
@@ -1582,7 +2274,7 @@ var onboardingCtrl = function onboardingCtrl($scope, globalService, $translate, 
 };
 module.exports = onboardingCtrl;
 
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 var wanUtil = require('wanchain-util');
@@ -1889,7 +2581,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
 };
 module.exports = sendTxCtrl;
 
-},{"wanchain-util":327}],16:[function(require,module,exports){
+},{"wanchain-util":340}],18:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -2085,7 +2777,7 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
 module.exports = signMsgCtrl;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141}],17:[function(require,module,exports){
+},{"buffer":151}],19:[function(require,module,exports){
 'use strict';
 
 var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
@@ -2403,7 +3095,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
 };
 module.exports = tabsCtrl;
 
-},{}],18:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 var wanUtil = require('wanchain-util');
@@ -2500,7 +3192,7 @@ var txStatusCtrl = function txStatusCtrl($scope) {
 };
 module.exports = txStatusCtrl;
 
-},{"wanchain-util":327}],19:[function(require,module,exports){
+},{"wanchain-util":340}],21:[function(require,module,exports){
 'use strict';
 
 var viewCtrl = function viewCtrl($scope, globalService, $sce) {
@@ -2511,7 +3203,7 @@ var viewCtrl = function viewCtrl($scope, globalService, $sce) {
 };
 module.exports = viewCtrl;
 
-},{}],20:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 var viewWalletCtrl = function viewWalletCtrl($scope, walletService) {
@@ -2571,7 +3263,7 @@ var viewWalletCtrl = function viewWalletCtrl($scope, walletService) {
 };
 module.exports = viewWalletCtrl;
 
-},{}],21:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 var walletBalanceCtrl = function walletBalanceCtrl($scope, $sce, $rootScope) {
@@ -2671,7 +3363,7 @@ var walletBalanceCtrl = function walletBalanceCtrl($scope, $sce, $rootScope) {
 
 module.exports = walletBalanceCtrl;
 
-},{}],22:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 var walletGenCtrl = function walletGenCtrl($scope) {
@@ -2727,7 +3419,7 @@ var walletGenCtrl = function walletGenCtrl($scope) {
 };
 module.exports = walletGenCtrl;
 
-},{}],23:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
 // For token sale holders:
@@ -2992,7 +3684,7 @@ module.exports = [{
   msg: 'COPYTRACK (CPY) Token Sale. Official sale website: https://copytrack.io'
 }];
 
-},{}],24:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 
 var cxFuncs = function cxFuncs() {};
@@ -3080,7 +3772,7 @@ cxFuncs.editNickName = function (address, newNick, callback) {
 };
 module.exports = cxFuncs;
 
-},{}],25:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 var QRCodeDrtv = function QRCodeDrtv() {
@@ -3106,7 +3798,7 @@ var QRCodeDrtv = function QRCodeDrtv() {
 };
 module.exports = QRCodeDrtv;
 
-},{}],26:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
 
 var addressFieldDrtv = function addressFieldDrtv($compile) {
@@ -3156,9 +3848,9 @@ var addressFieldDrtv = function addressFieldDrtv($compile) {
 };
 module.exports = addressFieldDrtv;
 
-},{}],27:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 module.exports = "<aside ng-controller=\"walletBalanceCtrl\">\n\n\n\n\n\n  <!-- Account Address -->\n  <div class=\"block\">\n    <h5 translate=\"sidebar_AccountAddr\">Account Address</h5>\n    <ul class=\"account-info\">\n      <div class=\"addressIdenticon med float\" blockie-address=\"{{wallet.getAddressString()}}\" watch-var=\"wallet\"></div>\n      <span class=\"mono wrap\">{{wallet.getChecksumAddressString()}}</span>\n      <label class=\"ens-response\" ng-show=\"showEns()\">\n        ↳ <span class=\"mono ng-binding\"> {{ensAddress}} </span>\n      </label>\n    </ul>\n    <div ng-show=\"showDisplayOnTrezor()\">\n      <h5 translate=\"sidebar_DisplayOnTrezor\">Display address on TREZOR</h5>\n      <ul class=\"account-info\">\n        <li><a href=\"\" ng-click=\"displayOnTrezor()\" translate=\"sidebar_DisplayOnTrezor\">Display address on TREZOR</a></li>\n      </ul>\n    </div>\n    <div ng-show=\"showDisplayOnLedger()\">\n      <h5 translate=\"sidebar_DisplayOnLedger\">Display address on Ledger</h5>\n      <ul class=\"account-info\">\n        <li><a href=\"\" ng-click=\"displayOnLedger()\" translate=\"sidebar_DisplayOnLedger\">Display address on Ledger</a></li>\n      </ul>\n    </div>\n    <h5 translate=\"sidebar_AccountBal\">Account Balance</h5>\n    <ul class=\"account-info point\">\n      <li>\n        <span class=\"mono wrap\">{{wallet.balance}}</span> {{ajaxReq.type}}\n      </li>\n    </ul>\n    <h5 translate=\"sidebar_TransHistory\"> Transaction History</h5>\n    <ul class=\"account-info\">\n      <li ng-show=\"ajaxReq.type != 'CUS'\">\n        <a href=\"{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          {{ajaxReq.type}} ({{ajaxReq.blockExplorerTX.replace('/tx/[[txHash]]', '')}})\n        </a>\n      </li>\n      <li ng-show=\"ajaxReq.type == 'ETH'\">\n        <a href=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Tokens (Ethplorer.io)\n        </a>\n      </li>\n    </ul>\n  </div>\n\n\n\n\n\n\n  <!-- Slider Thingy -->\n  <!-- Hardware Wallets -->\n  <a href=\"https://myetherwallet.github.io/knowledge-base/getting-started/protecting-yourself-and-your-funds.html\"\n     ng-show=\"slide==1 || ajaxReq.type!=='ETH'\"\n     class=\"block swap--hw\"\n     target=\"_blank\" rel=\"noopener noreferrer\">\n    <div class=\"col-sm-7\">\n\n      <h5 class=\"swap__cta\" ng-show=\"wallet.balance<=1\">Learn more about protecting your funds.</h5>\n\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance<50 && wallet.balance>1\">Welcome back</h5>\n      <h5 class=\"swap__cta\" ng-show=\"wallet.balance<50 && wallet.balance>1\">Are you as secure as you can be?</h5>\n\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>=50\">Holy cow, look at you go!</p>\n      <h5 class=\"swap__cta\" ng-show=\"wallet.balance>=50\">Time to beef up your security?</h5>\n    </div>\n    <div class=\"col-sm-5\">\n      <img src=\"images/logo-ledger.svg\" width=\"80\" height=\"auto\" class=\"swap__logo\">\n      <br />\n      <img src=\"images/logo-trezor.svg\" width=\"80\" height=\"auto\" class=\"swap__logo\">\n    </div>\n  </a>\n\n  <!-- Bity -->\n  <a ng-click=\"globalService.currentTab=globalService.tabs.swap.id\"\n     ng-show=\"ajaxReq.type=='ETH' && slide==2\"\n     class=\"block swap--btc\"\n     target=\"_blank\" rel=\"noopener noreferrer\">\n    <div class=\"col-sm-7\">\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance<=0\">Aw...you don't have any ETH.</p>\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>0&&wallet.balance<50\">It's now easier to get more ETH</p>\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>50\">It's now easier to move between ETH &amp; BTC</p>\n      <h5 class=\"swap__cta\">Swap BTC <-> ETH</h5>\n    </div>\n    <div class=\"col-sm-5\">\n      <img src=\"images/logo-bity-white.svg\" width=\"60\" height=\"auto\" class=\"swap__logo\">\n      <p class=\"swap-flag--price\">1 ETH ≈ <br /> {{wallet.btcPrice}} BTC</p>\n    </div>\n  </a>\n\n  <!-- Coinbase\n  <a href=\"#\"\n     ng-show=\"ajaxReq.type=='ETH' && slide==2\"\n     class=\"block swap--usd\"\n     target=\"_blank\" rel=\"noopener noreferrer\">\n    <div class=\"col-sm-7\">\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance<=0\">Aw...you don't have any ETH</p>\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>0\">It's now easier to get more ETH</p>\n      <h5 class=\"swap__cta\">Buy ETH with USD</h5>\n    </div>\n    <div class=\"col-sm-5\">\n      <img src=\"images/logo-coinbase.svg\" width=\"64\" height=\"auto\" class=\"swap__logo\">\n      <p class=\"swap-flag--price\">1 ETH ≈ <br /> {{wallet.usdPrice}} USD</p>\n    </div>\n  </a>\n  -->\n\n  <div class=\"swap__nav\" ng-show=\"ajaxReq.type=='ETH'\">\n    <a ng-click=\"slide=1\"> &bull; </a>\n    <a ng-click=\"slide=2\"> &bull; </a>\n  </div>\n\n\n\n\n  <!-- Token Balances -->\n  <div class=\"block token-balances\">\n    <h5 translate=\"sidebar_TokenBal\">Token Balances</h5>\n\n    <!-- Load Token Balances\n    <a class=\"btn btn-warning btn-xs\"\n       ng-click=\"wallet.setTokens(); globalService.tokensLoaded=true\"\n       ng-hide=\"globalService.tokensLoaded\">\n      <img src=\"images/icon-load-tokens.svg\" style=\"height: 1em; width: auto; margin-right: 5px;\" />\n      Load Tokens\n    </a>\n     -->\n\n    <!-- you can your Balance on Blockchain Explorer -->\n\n\n    <h5 class=\"u__protip\">\n      <a href=\"https://myetherwallet.github.io/knowledge-base/send/adding-new-token-and-sending-custom-tokens.html\"\n         rel=\"noopener noreferrer\"\n         target=\"_blank\">\n         How to See Your Tokens\n      </a>\n    </h5>\n\n    <p>\n      You can also view your Balances on\n      <a ng-show=\"ajaxReq.type != 'CUS'\"\n         href=\"{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n          {{ajaxReq.blockExplorerTX.replace('/tx/[[txHash]]', '')}}\n      </a>\n      <span ng-show=\"ajaxReq.type == 'ETH'\"> or\n        <a href=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\"\n           target=\"_blank\"\n           rel=\"noopener noreferrer\">\n             ethplorer.io\n        </a>\n      </span>\n    </p>\n\n    <!-- Buttons -->\n    <a class=\"btn btn-warning btn-xs\" ng-click=\"showAllTokens=true\" ng-show=\"showAllTokens==false\">\n      Show All Tokens\n    </a>\n    <a class=\"btn btn-warning btn-xs\" ng-click=\"showAllTokens=false\" ng-show=\"showAllTokens==true\">\n      Only Show Balances\n    </a>\n    <a class=\"btn btn-default btn-xs\" ng-click=\"customTokenField=!customTokenField\">\n      <span translate=\"SEND_custom\">Add Custom Token</span>\n    </a>\n\n    <br ng-show=\"customTokenField\" />\n\n    <!-- Add Custom Token -->\n    <div class=\"custom-token-fields\" ng-show=\"customTokenField\">\n      <div class=\"row\">\n        <address-field\n          placeholder=\"{{ ajaxReq.type=='ETH' ? 'mewsupport.eth' : '0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8' }}\"\n          var-name=\"localToken.contractAdd\"\n          labelTranslated=\"TOKEN_Addr\">\n        </address-field>\n      </div>\n\n      <label translate=\"TOKEN_Symbol\"> Token Symbol: </label>\n      <input class=\"form-control input-sm\"\n             type=\"text\"\n             ng-model=\"localToken.symbol\"\n             ng-class=\"localToken.symbol!='' ? 'is-valid' : 'is-invalid'\" />\n\n      <label translate=\"TOKEN_Dec\"> Decimals: </label>\n      <input class=\"form-control input-sm\"\n             type=\"text\"\n             ng-model=\"localToken.decimals\"\n             ng-class=\"Validator.isPositiveNumber(localToken.decimals) ? 'is-valid' : 'is-invalid'\" />\n\n      <button class=\"btn btn-primary btn-xs\" ng-click=\"saveTokenToLocal()\" translate=\"x_Save\">Save</button>\n    </div>\n\n    <br />\n    <br />\n\n    <!-- Balances -->\n    <table class=\"account-info\">\n      <tr ng-class=\"token.type!=='default' ? 'custom-token' : ''\"\n          ng-repeat=\"token in wallet.tokenObjs track by $index\"\n          ng-hide=\"(token.balance==0 || token.balance=='Click to Load') && showAllTokens==false\">\n        <td class=\"mono wrap point\">\n          <img src=\"images/icon-remove.svg\"\n               class=\"token-remove\"\n               title=\"Remove Token\"\n               ng-click=\"removeTokenFromLocal(token.symbol)\"\n               ng-show=\"token.type!=='default'\" />\n          <span ng-click=\"setAndVerifyBalance(token)\">\n            {{ token.getBalance() }}\n          </span>\n        </td>\n        <td>\n          {{ token.getSymbol() }}\n        </td>\n      </tr>\n    </table>\n\n  </div>\n\n\n\n  <!-- Equivalent Balances -->\n  <div class=\"block\" ng-show=\"ajaxReq.type=='ETH'\">\n    <h5 translate=\"sidebar_Equiv\">Equivalent Values:</h5>\n    <div class=\"row\">\n      <ul class=\"account-info col-xs-6\">\n        <li>BTC: <span class=\"mono wrap\">{{wallet.btcBalance | number}}</span></li>\n        <li>USD: <span class=\"mono wrap\">{{wallet.usdBalance | currency:\"$\"}}</span></li>\n        <li>CHF: <span class=\"mono wrap\">{{wallet.chfBalance | currency:\" \"}}</span></li>\n      </ul>\n      <ul class=\"account-info col-xs-6\">\n        <li>REP: <span class=\"mono wrap\">{{wallet.repBalance | number}}</span></li>\n        <li>EUR: <span class=\"mono wrap\">{{wallet.eurBalance | currency:\"€\"}}</span></li>\n        <li>GBP: <span class=\"mono wrap\">{{wallet.gbpBalance | currency:\"£\"}}</span></li>\n      </ul>\n    </div>\n    <p><small> These are only the equivalent values for ETH, not tokens. Sorry! </small></p>\n  </div>\n\n</aside>\n";
-},{}],28:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 var balanceDrtv = function balanceDrtv() {
@@ -3169,7 +3861,7 @@ var balanceDrtv = function balanceDrtv() {
 };
 module.exports = balanceDrtv;
 
-},{"./balanceDrtv.html":27}],29:[function(require,module,exports){
+},{"./balanceDrtv.html":29}],31:[function(require,module,exports){
 'use strict';
 
 var blockiesDrtv = function blockiesDrtv() {
@@ -3186,7 +3878,7 @@ var blockiesDrtv = function blockiesDrtv() {
 };
 module.exports = blockiesDrtv;
 
-},{}],30:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 var cxWalletDecryptDrtv = function cxWalletDecryptDrtv() {
@@ -3212,7 +3904,7 @@ var cxWalletDecryptDrtv = function cxWalletDecryptDrtv() {
 };
 module.exports = cxWalletDecryptDrtv;
 
-},{}],31:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 'use strict';
 
 var fileReaderDrtv = function fileReaderDrtv($parse) {
@@ -3237,9 +3929,9 @@ var fileReaderDrtv = function fileReaderDrtv($parse) {
 };
 module.exports = fileReaderDrtv;
 
-},{}],32:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 module.exports = "<article class=\"block decrypt-drtv clearfix\" ng-controller='decryptWalletCtrl as $crtl'>\n\n  <!-- Column 1 - Select Type of Key -->\n  <section class=\"col-md-4 col-sm-6\">\n\n    <h4 translate=\"decrypt_Access\">\n      How would you like to access your wallet?\n    </h4>\n\n    <!-- View Balance Only -->\n    <label aria-flowto=\"aria1\"\n           class=\"radio\"\n           ng-show=\"globalService.currentTab==globalService.tabs.sendTransaction.id || globalService.currentTab==globalService.tabs.viewWalletInfo.id\">\n      <input aria-flowto=\"aria1\"\n             aria-label=\"address\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"addressOnly\" />\n        View w/ Address Only\n    </label>\n\n    <!-- MetaMask -->\n    <label aria-flowto=\"aria2\"\n           class=\"radio\">\n      <input aria-flowto=\"aria2\"\n             type=\"radio\"\n             aria-label=\"MetaMask / Mist\"\n             ng-model=\"walletType\"\n             value=\"metamask\"/>\n      <span translate=\"x_MetaMask\">\n        WanMask\n      </span>\n    </label>\n\n    <!-- Ledger -->\n    <label aria-flowto=\"aria3\"\n           class=\"radio\"\n           ng-show=\"ajaxReq.type=='WAN'\">\n      <input aria-flowto=\"aria3\"\n             type=\"radio\"\n             aria-label=\"Ledger Hardware Wallet\"\n             ng-model=\"walletType\"\n             value=\"ledger\"/>\n      Ledger Wallet\n    </label>\n\n    <!-- TREZOR -->\n    <label class=\"radio\"\n           aria-flowto=\"aria4\"\n           ng-show=\"ajaxReq.type=='WAN'\">\n      <input aria-flowto=\"aria4\"\n             type=\"radio\"\n             aria-label=\"Trezor Hardware Wallet\"\n             ng-model=\"walletType\"\n             value=\"trezor\"/>\n      TREZOR\n    </label>\n\n\n    <!-- Keystore / JSON File -->\n    <label aria-flowto=\"aria6\"\n           class=\"radio\">\n      <input aria-flowto=\"aria6\"\n             aria-label=\"Keystore JSON file\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"fileupload\" />\n      Keystore / JSON File\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n    <!-- Mnemonic Phrase -->\n    <label aria-flowto=\"aria7\"\n           class=\"radio\">\n      <input aria-flowto=\"aria7\"\n             aria-label=\"mnemonic phrase\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"pastemnemonic\" />\n      <span translate=\"x_Mnemonic\">\n        Mnemonic Phrase\n      </span>\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n    <!-- Private -->\n    <label aria-flowto=\"aria8\"\n           class=\"radio\">\n      <input aria-flowto=\"aria8\"\n             aria-label=\"private key\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"pasteprivkey\" />\n      <span translate=\"x_PrivKey2\">\n        Private Key\n      </span>\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n  </section>\n  <!-- / Column 1 - Select Type of Key -->\n\n\n  <!-- Column 2 - Unlock That Key -->\n  <section class=\"col-md-8 col-sm-6\">\n\n    <!-- View Only -->\n    <div id=\"selectedTypeKey\" ng-if=\"walletType=='addressOnly'\">\n      <h4 translate=\"x_Address\">\n        Your Address\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to view your balance.\n      </h5>\n      <p>\n          You can only view your balance via this option.\n          Please use another option in order to send.\n      </p>\n      <div class=\"form-group\">\n        <textarea rows=\"4\"\n                  id=\"aria8\"\n                  class=\"form-control\"\n                  ng-change=\"onAddressChange()\"\n                  ng-class=\"Validator.isValidAddress($parent.$parent.addressOnly) ? 'is-valid' : 'is-invalid'\"\n                  ng-model=\"$parent.$parent.addressOnly\"\n                  placeholder=\"{{ 'x_Address' | translate }}\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\">\n        <a class=\"btn btn-primary\"\n           ng-click=\"decryptAddressOnly()\"\n           ng-show=\"showAOnly\"\n           role=\"button\"\n           tabindex=\"0\">\n             View Balance\n        </a>\n      </div>\n    </div>\n    <!-- /View Only -->\n\n\n    <!--  MetaMask -->\n    <div id=\"selectedTypeMetamask\"\n         ng-if=\"walletType=='metamask'\">\n      <h4 translate=\"x_MetaMask\">\n        WanMask\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"45\" fill=\"red\"/><g fill=\"white\"><path d=\"M 42,20 58,20 55,55 45,55 z\" stroke-linejoin=\"round\" stroke=\"white\" stroke-width=\"5\"/><circle cx=\"50\" cy=\"75\" r=\"8\"/></g></svg>\n        Only use if you have WanMask installed! To make WanMask run smoothly you need to temporarily disable MetaMask (and other apps that insert a web3 object) while using it.\n        <img width=\"300px\" src=\"images/disable-metamask.png\" title=\"Disable MetaMask\"  />\n      </div>\n      <div class=\"form-group\">\n        WanMask is a browser extension that allows you to access your wallet quickly, safely &amp; easily. It is more secure because you <u>never enter your private key on a website</u>. It protects you from phishing &amp; malicious websites.\n      </div>\n      <ul>\n        <li class=\"u__download\">\n          <a tabindex=\"0\"\n             href=\"https://chrome.google.com/webstore/detail/omnkcjdohbnjfjmlaiboojplahajnenj\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Download WanMask for Chrome\n          </a>\n        </li>\n        <li class=\"u__download\">\n          <a tabindex=\"0\"\n             href=\"https://wanmask.io/\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Download WanMask for Other Browsers\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\"\n           ng-hide=\"isSSL\">\n        <span class=\"text-danger\"\n              translate=\"ADD_Ledger_0a\" >\n            Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.\n        </span>\n      </div>\n      <div class=\"form-group\">\n        <a id=\"aria3\"\n           class=\"btn btn-primary\"\n           ng-click=\"scanMetamask()\"\n           ng-show=\"walletType=='metamask'\"\n           tabindex=\"0\" role=\"button\"\n           translate=\"ADD_MetaMask\">\n             Connect to WanMask\n        </a>\n      </div>\n    </div>\n    <!-- / MetaMask -->\n\n\n    <!--  Ledger-->\n    <div id=\"selectedTypeLedger\" ng-if=\"walletType=='ledger'\">\n      <h4>\n        Ledger Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://ledger.zendesk.com/hc/en-us/articles/115005200009-How-to-use-MyEtherWallet-with-Ledger\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n          How to use MyEtherWallet with your Ledger Hardware Wallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://www.ledger.com/products/ledger-nano-s?r=651b52292b63\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a Ledger? Get one today.\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        <a class=\"btn btn-primary\"\n           ng-click=\"scanLedger()\"\n           ng-show=\"walletType=='ledger'\"\n           role=\"button\"\n           tabindex=\"0\"\n           translate=\"ADD_Ledger_scan\">\n            SCAN\n        </a>\n      </div>\n      <div role=\"alert\" ng-show=\"ledgerError\">\n        <p class=\"strong text-danger\">\n          {{ledgerErrorString}}\n        </p>\n        <ul>\n          <li ng-hide=\"isSSL\"\n              translate=\"ADD_Ledger_0a\" >\n                Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.\n          </li>\n          <li>\n            <span translate=\"ADD_Ledger_2\" ng-if=\"ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'\">\n              Open the Ethereum application (or a contract application)\n            </span>\n            <span translate=\"ADD_Ledger_2_Exp\" ng-if=\"ajaxReq.type=='EXP'\">\n              Open the Expanse application (or a contract application)\n            </span>\n            <span translate=\"ADD_Ledger_2_Ubq\" ng-if=\"ajaxReq.type=='UBQ'\">\n              Open the Ubiq application (or a contract application)\n            </span>\n          </li>\n          <li>\n            <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/ledger-hardware-wallet-unable-to-connect-on-myetherwallet.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Still not working? More Troubleshooting Tips\n            </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <!-- / Ledger-->\n\n\n    <!--  TREZOR-->\n    <div id=\"selectedTypeTrezor\" ng-if=\"walletType=='trezor'\">\n      <h4>\n        TREZOR Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://blog.trezor.io/trezor-integration-with-myetherwallet-3e217a652e08#.n5fddxmdg\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n               How to use TREZOR with MyEtherWallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://trezor.io/?a=myetherwallet.com\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a TREZOR? Get one now.\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        <a id=\"aria7\"\n           class=\"btn btn-primary\"\n           ng-click=\"scanTrezor()\"\n           ng-show=\"walletType=='trezor'\"\n           tabindex=\"0\" role=\"button\"\n           translate=\"ADD_Trezor_scan\">\n            Connect to TREZOR\n        </a>\n      </div>\n      <div role=\"alert\" ng-show=\"trezorError\">\n        <p class=\"strong text-danger\">\n          {{trezorErrorString}}\n        </p>\n        <ul>\n          <li ng-hide=\"isSSL\"\n              translate=\"ADD_Ledger_0a\" >\n                Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.\n          </li>\n          <li>\n                Ensure you are not blocking pop-ups on this site.\n          </li>\n          <li>\n            <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Still not working? More Troubleshooting Tips\n            </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <!-- / TREZOR-->\n\n\n    <!--  Digital Bitbox-->\n    <div id=\"selectedTypeDigitalBitbox\" ng-if=\"walletType=='digitalBitbox'\">\n      <h4>\n        Digital Bitbox Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://digitalbitbox.com/ethereum\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n               How to use Digital Bitbox with MyEtherWallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://digitalbitbox.com/?ref=mew\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a Digital Bitbox? Get one now.\n          </a>\n        </li>\n      </ul>\n      <input class=\"form-control\"\n             aria-label=\"Enter the Digital Bitbox password\"\n             aria-describedby=\"selectedTypeDigitalBitbox\"\n             type=\"password\"\n             placeholder=\"Digital Bitbox password\"\n             spellcheck=\"false\"\n             value=\"\"\n             ng-model=\"HDWallet.digitalBitboxSecret\" />\n      <div class=\"form-group\">\n        <a tabindex=\"0\" role=\"button\" class=\"btn btn-primary\" ng-click=\"scanDigitalBitbox()\" translate=\"ADD_DigitalBitbox_scan\">\n          Connect your Digital Bitbox\n        </a>\n      </div>\n    </div>\n    <!-- / Digital Bitbox-->\n\n\n    <!-- Keystore -->\n    <div ng-if=\"walletType=='fileupload'\">\n      <h4 translate=\"ADD_Radio_2_alt\">Select your wallet file</h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <input style=\"display:none;\" type=\"file\" on-read-file=\"showContent($fileContent)\" id=\"fselector\" />\n        <a class=\"btn-file marg-v-sm\"\n           ng-click=\"openFileDialog()\"\n           translate=\"ADD_Radio_2_short\"\n           id=\"aria1\"\n           tabindex=\"0\"\n           role=\"button\">SELECT WALLET FILE... </a>\n      </div>\n      <div class=\"form-group\" ng-if=\"requireFPass\">\n        <p translate=\"ADD_Label_3\">\n          Your file is encrypted. Please enter the password:\n        </p>\n        <input class=\"form-control\"\n               ng-change=\"onFilePassChange()\"\n               ng-class=\"Validator.isPasswordLenValid($parent.$parent.filePassword,0) ? 'is-valid' : 'is-invalid'\"\n               ng-model=\"$parent.$parent.filePassword\"\n               placeholder=\"{{ 'x_Password' | translate }}\"\n               type=\"password\" />\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Keystore -->\n\n\n    <!--  Mnemonic -->\n    <div id=\"selectedTypeMnemonic\" ng-if=\"walletType=='pastemnemonic'\">\n      <h4 translate=\"ADD_Radio_5\"> Paste your mnemonic: </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <textarea id=\"aria4\"\n                  class=\"form-control\"\n                  ng-change=\"onMnemonicChange()\"\n                  ng-class=\"Validator.isValidMnemonic($parent.$parent.manualmnemonic) ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.manualmnemonic\"\n                  placeholder=\"{{ 'x_Mnemonic' | translate}}\"\n                  rows=\"4\"></textarea>\n      </div>\n      <div class=\"form-group\">\n        <p translate=\"ADD_Label_8\">\n          Password (optional):\n        </p>\n        <div>\n          <input class=\"form-control\"\n                 id=\"aria5\"\n                 ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                 ng-model=\"$parent.$parent.mnemonicPassword\"\n                 placeholder=\"{{ 'x_Password' | translate }}\"\n                 type=\"password\" />\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Mnemonic -->\n\n\n    <!--  Private Key -->\n    <div id=\"selectedTypeKey\" ng-if=\"walletType=='pasteprivkey'\">\n      <h4 translate=\"ADD_Radio_3\">\n        Paste your private key:\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <textarea id=\"aria6\"\n                  class=\"form-control\"\n                  ng-change=\"onPrivKeyChange()\"\n                  ng-class=\"Validator.isValidPrivKey($parent.$parent.manualprivkey.length) ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.manualprivkey\"\n                  placeholder=\"{{ 'x_PrivKey2' | translate }}\"\n                  rows=\"4\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\" ng-if=\"requirePPass\">\n        <p translate=\"ADD_Label_3\">\n          Your file is encrypted. Please enter the password:\n        </p>\n        <input class=\"form-control\"\n               ng-change=\"onPrivKeyPassChange()\"\n               ng-class=\"Validator.isPasswordLenValid($parent.$parent.privPassword,0) ? 'is-valid' : 'is-invalid'\"\n               ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n               ng-model=\"$parent.$parent.privPassword\"\n               placeholder=\"{{ 'x_Password' | translate }}\"\n               type=\"password\" />\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Private Key -->\n\n\n    <!-- Parity Phrase -->\n    <div id=\"selectedTypeMnemonic\" ng-if=\"walletType=='parityBWallet'\">\n      <h4 translate=\"ADD_Radio_5\"> Paste your mnemonic: </h4>\n      <div class=\"form-group\">\n        <textarea rows=\"4\"\n                  id=\"aria9\"\n                  class=\"form-control\"\n                  ng-change=\"onParityPhraseChange()\"\n                  ng-class=\"$parent.$parent.parityPhrase != '' ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.parityPhrase\"\n                  placeholder=\"{{ 'x_ParityPhrase' | translate}}\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Parity Phrase -->\n\n  </section>\n  <!-- / Column 2 - Unlock That Key -->\n\n\n  <!-- MODAL -->\n  <article class=\"modal fade\" id=\"mnemonicModel\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"Mnemonic Phrase Modal\">\n\n    <section class=\"modal-dialog\">\n\n      <section class=\"modal-content\">\n\n        <div class=\"modal-body\" role=\"document\">\n\n          <button aria-label=\"Close\" type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n\n          <!-- Select HD Path -->\n          <h4 id=\"modalTitle\" class=\"modal-title\" translate=\"ADD_Radio_5_Path\" style=\"margin-bottom: .25rem\">\n            Select HD derivation path:\n          </h4>\n\n          <p class=\"alert alert-danger\"\n             ng-hide=\"ajaxReq.type=='WAN'\">\n                We do not know the correct path for this network.\n                <a href=\"https://github.com/tyrion70/mywanwallet/issues\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\">\n                      Please open a github issue\n                </a>\n                so we can discuss / be enlightened.\n          </p>\n\n          <section class=\"row\">\n\n            <div class=\"col-sm-4\">\n              <label class=\"radio small\">\n                <input aria-describedby=\"Path: Trezor WAN - {{HDWallet.trezorWanPath}}\"\n                       ng-change=\"onHDDPathChange()\"\n                       ng-model=\"HDWallet.dPath\"\n                       type=\"radio\"\n                      value=\"{{HDWallet.trezorWanPath}}\"/>\n                <span ng-bind=\"HDWallet.trezorWanPath\"></span>\n                <p class=\"small\">\n                  TREZOR (WAN)\n                </p>\n              </label>\n            </div>\n\n            <div class=\"col-sm-4\">\n              <label class=\"radio small\">\n                <input aria-describedby=\"Path: Ledger WAN {{HDWallet.ledgerWanPath}}\"\n                       ng-change=\"onHDDPathChange()\"\n                       ng-model=\"HDWallet.dPath\"\n                       type=\"radio\"\n                      value=\"{{HDWallet.ledgerWanPath}}\"/>\n                <span ng-bind=\"HDWallet.ledgerWanPath\"></span>\n                <p class=\"small\">\n                  Ledger (WAN)\n                </p>\n              </label>\n\n          </section>\n\n          <section class=\"row\">\n\n              <div class=\"col-sm-4\">\n                <label class=\"radio small\">\n                  <input aria-describedby=\"Path: Trezor ETH - {{HDWallet.trezorEthPath}}\"\n                         ng-change=\"onHDDPathChange()\"\n                         ng-model=\"HDWallet.dPath\"\n                         type=\"radio\"\n                         value=\"{{HDWallet.trezorEthPath}}\"/>\n                  <span ng-bind=\"HDWallet.trezorEthPath\"></span>\n                  <p class=\"small\">\n                    TREZOR (ETH)\n                  </p>\n                </label>\n              </div>\n\n              <div class=\"col-sm-4\">\n                <label class=\"radio small\">\n                  <input aria-describedby=\"Path: Ledger ETH {{HDWallet.ledgerEthPath}}\"\n                         ng-change=\"onHDDPathChange()\"\n                         ng-model=\"HDWallet.dPath\"\n                         type=\"radio\"\n                         value=\"{{HDWallet.ledgerEthPath}}\"/>\n                  <span ng-bind=\"HDWallet.ledgerEthPath\"></span>\n                  <p class=\"small\">\n                    Ledger (ETH)\n                  </p>\n                </label>\n\n          </section>\n\n\n          <h4 id=\"modalTitle2\" class=\"modal-title\" translate=\"MNEM_1\" style=\"margin: .5rem 0\">\n            Please select the address you would like to interact with.\n          </h4>\n\n          <table class=\"small table table-striped table-mnemonic\">\n            <tr>\n              <th translate=\"x_Address\">\n                Address\n              </th>\n              <th translate=\"MYWAL_Bal\">\n                Balance\n              </th>\n              <th translate=\"sidebar_TokenBal\" class=\"text-center\">\n                Token<br>Balances\n              </th>\n            </tr>\n            <tr ng-repeat=\"wallet in HDWallet.wallets track by $index\">\n              <td>\n                <label>\n                  <input aria-describedby=\"modalTitle2\"\n                         aria-label=\"Unlock wallet with {{wallet.getBalance()}} {{ajaxReq.type}}. Address: {{wallet.getChecksumAddressString()}}\"\n                         name=\"addressSelect\"\n                         ng-model=\"HDWallet.id\"\n                         type=\"radio\"\n                         value=\"{{$index}}\" />\n                    <span class=\"small\">\n                      {{wallet.getChecksumAddressString()}}\n                    </span>\n                </label>\n              </td>\n\n              <td>\n                <a href=\"{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\">\n                  {{wallet.getBalance()}} {{ajaxReq.type}}\n                </a>\n              </td>\n\n              <td class=\"text-center\">\n                <a href=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\" title=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\">\n                  <img src=\"images/icon-external-link.svg\" title=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\" ng-click=\"removeTokenFromLocal(token.symbol)\" ng-show=\"token.type!=='default'\" />\n                </a>\n              </td>\n\n            </tr>\n\n            <tr class=\"m-addresses\">\n\n              <td>\n                <a ng-click=\"AddRemoveHDAddresses(false)\"\n                   ng-show=\"HDWallet.numWallets > 5\"\n                   role=\"link\"\n                   tabindex=\"0\"\n                   translate=\"MNEM_prev\">\n                Previous Addresses\n                </a>\n              </td>\n\n              <td></td>\n\n              <td>\n                <a ng-click=\"AddRemoveHDAddresses(true)\"\n                   role=\"link\"\n                   tabindex=\"0\"\n                   translate=\"MNEM_more\">\n                More Addresses\n                </a>\n              </td>\n\n            </tr>\n          </table>\n\n          <div class=\"clearfix button-group\">\n            <button aria-label=\"Unlock this Wallet\"\n                    class=\"btn btn-primary pull-right\"\n                    style=\"margin: 0 .1rem\"\n                    ng-click=\"setHDWallet()\"\n                    role=\"button\"\n                    tabindex=\"0\"\n                    translate=\"ADD_Label_6\">\n              Access Wallet\n            </button>\n\n            <button aria-label=\"Cancel - Will close dialog\"\n                    class=\"btn btn-default pull-right\"\n                    style=\"margin: 0 .1rem\"\n                    data-dismiss=\"modal\"\n                    role=\"button\"\n                    tabindex=\"0\"\n                    translate=\"x_Cancel\">\n              Cancel\n            </button>\n          </div>\n\n        </div>\n\n      </section>\n\n    </section>\n\n  </article>\n\n</article>\n";
-},{}],33:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 'use strict';
 
 var walletDecryptDrtv = function walletDecryptDrtv() {
@@ -3250,7 +3942,2210 @@ var walletDecryptDrtv = function walletDecryptDrtv() {
 };
 module.exports = walletDecryptDrtv;
 
-},{"./walletDecryptDrtv.html":32}],34:[function(require,module,exports){
+},{"./walletDecryptDrtv.html":34}],36:[function(require,module,exports){
+'use strict';
+
+var ens = require('./ens');
+var domainsaleInterface = require('./domainsaleConfigs/domainsaleABI.json');
+
+var domainsale = function domainsale() {
+    var _this = this;
+    this.domainsaleABI = {};
+    for (var i in domainsaleInterface) {
+        this.domainsaleABI[domainsaleInterface[i].name] = domainsaleInterface[i];
+    }switch (ajaxReq.type) {
+        case nodes.nodeTypes.ETH:
+            _this.setContractAddress('0xc67247454E720328714C4e17bEC7640572657bEE');
+            break;
+        case nodes.nodeTypes.Rinkeby:
+            _this.setContractAddress('0x00');
+            break;
+        case nodes.nodeTypes.Ropsten:
+            _this.setContractAddress('0xe8E98228Ca36591952Efdf6F645C5B229E6Cf688');
+            break;
+        default:
+            _this.setContractAddress('0x00');
+    }
+};
+
+domainsale.prototype.setContractAddress = function (_address) {
+    this.contractAddress = _address;
+};
+domainsale.prototype.getContractAddress = function () {
+    return this.contractAddress;
+};
+domainsale.prototype.getSale = function (name, callback) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.sale;
+    ajaxReq.getEthCall({ to: _this.getContractAddress(), data: _this.getDataString(funcABI, [name]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            var res = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''));
+
+            data.data = {
+                price: res[0],
+                priceEth: Number(etherUnits.toEther(res[0].toString(), 'wei')),
+                reserve: res[1],
+                reserveEth: Number(etherUnits.toEther(res[1].toString(), 'wei')),
+                lastBid: res[2],
+                lastBidEth: Number(etherUnits.toEther(res[2].toString(), 'wei')),
+                lastBidder: res[3],
+                auctionStarted: new Date(res[4].toNumber() * 1000),
+                auctionEnds: new Date(res[5].toNumber() * 1000)
+            };
+            callback(data);
+        }
+    });
+};
+domainsale.prototype.getMinimumBid = function (name, callback) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.minimumBid;
+    ajaxReq.getEthCall({ to: _this.getContractAddress(), data: _this.getDataString(funcABI, [name]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            var res = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''));
+
+            data.data = {
+                minimumBid: res[0],
+                minimumBidEth: Number(etherUnits.toEther(res[0].toString(), 'wei'))
+            };
+            callback(data);
+        }
+    });
+};
+domainsale.prototype.getBalance = function (address, callback) {
+    var _this = this;
+    var funcABI = _this.domainsaleABI.balance;
+    ajaxReq.getEthCall({ to: _this.getContractAddress(), data: _this.getDataString(funcABI, [address]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            var res = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''));
+
+            data.data = {
+                balance: res[0],
+                balanceEth: Number(etherUnits.toEther(res[0].toString(), 'wei'))
+            };
+            callback(data);
+        }
+    });
+};
+
+domainsale.prototype.getOfferData = function (name, price, reserve, referrer) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.offer;
+    return _this.getDataString(funcABI, [name, price, reserve, referrer]);
+};
+
+domainsale.prototype.getBuyData = function (name, referrer) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.buy;
+    return _this.getDataString(funcABI, [name, referrer]);
+};
+
+domainsale.prototype.getCancelData = function (name) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.cancel;
+    return _this.getDataString(funcABI, [name]);
+};
+
+domainsale.prototype.getBidData = function (name, referrer) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.bid;
+    return _this.getDataString(funcABI, [name, referrer]);
+};
+
+domainsale.prototype.getFinishData = function (name) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.finish;
+    return _this.getDataString(funcABI, [name]);
+};
+
+domainsale.prototype.getWithdrawData = function () {
+    var _this = this;
+    var funcABI = _this.domainsaleABI.withdraw;
+    return _this.getDataString(funcABI, []);
+};
+
+domainsale.prototype.getDataString = function (func, inputs) {
+    var fullFuncName = ethUtil.solidityUtils.transformToFullName(func);
+    var funcSig = ethFuncs.getFunctionSignature(fullFuncName);
+    var typeName = ethUtil.solidityUtils.extractTypeName(fullFuncName);
+    var types = typeName.split(',');
+    types = types[0] == "" ? [] : types;
+    return '0x' + funcSig + ethUtil.solidityCoder.encodeParams(types, inputs);
+};
+domainsale.modes = {
+    ineligible: 0,
+    nottransferred: 1,
+    notoffered: 2,
+    available: 3,
+    auctioning: 4,
+    closed: 5
+};
+domainsale.transactions = {
+    transfer: 1,
+    offer: 2,
+    buy: 3,
+    bid: 4,
+    cancel: 5,
+    withdraw: 6
+};
+module.exports = domainsale;
+
+},{"./domainsaleConfigs/domainsaleABI.json":37,"./ens":38}],37:[function(require,module,exports){
+module.exports=[
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "sale",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "address"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "invalidate",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "cancel",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "registrar",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "auctionStarted",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "finish",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "withdraw",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "minimumBid",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "name": "bidReferrer",
+        "type": "address"
+      }
+    ],
+    "name": "bid",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "auctionEnds",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "isBuyable",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "isAuction",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "name": "_price",
+        "type": "uint256"
+      },
+      {
+        "name": "reserve",
+        "type": "uint256"
+      },
+      {
+        "name": "referrer",
+        "type": "address"
+      }
+    ],
+    "name": "offer",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "name": "bidReferrer",
+        "type": "address"
+      }
+    ],
+    "name": "buy",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "balance",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "price",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "_registry",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "reserve",
+        "type": "uint256"
+      }
+    ],
+    "name": "Offer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "bidder",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "bid",
+        "type": "uint256"
+      }
+    ],
+    "name": "Bid",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "Cancel",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "Withdraw",
+    "type": "event"
+  }
+]
+
+},{}],38:[function(require,module,exports){
+(function (Buffer){
+'use strict';
+
+var uts46 = require('idna-uts46');
+var registryInterface = require('./ensConfigs/registryABI.json');
+var resolverInterface = require('./ensConfigs/resolverABI.json');
+var auctionInterface = require('./ensConfigs/auctionABI.json');
+var deedInterface = require('./ensConfigs/deedABI.json');
+var ens = function ens() {
+    var _this = this;
+    this.registryABI = {};
+    for (var i in registryInterface) {
+        this.registryABI[registryInterface[i].name] = registryInterface[i];
+    }this.resolverABI = {};
+    for (var i in resolverInterface) {
+        this.resolverABI[resolverInterface[i].name] = resolverInterface[i];
+    }this.auctionABI = {};
+    for (var i in auctionInterface) {
+        this.auctionABI[auctionInterface[i].name] = auctionInterface[i];
+    }this.deedABI = {};
+    for (var i in deedInterface) {
+        this.deedABI[deedInterface[i].name] = deedInterface[i];
+    }switch (ajaxReq.type) {
+        case nodes.nodeTypes.WAN:
+            _this.setCurrentRegistry(ens.registry.WAN);
+            break;
+        default:
+            _this.setCurrentRegistry(ens.registry.NULL);
+    }
+};
+ens.registry = {
+    WAN: require('./ensConfigs/WANConfig.json'),
+    NULL: {}
+};
+ens.normalise = function (name) {
+    try {
+        return uts46.toUnicode(name, { useStd3ASCII: true, transitional: false });
+    } catch (e) {
+        throw e;
+    }
+};
+ens.modes = {
+    open: 0,
+    auction: 1,
+    owned: 2,
+    forbidden: 3,
+    reveal: 4,
+    notAvailable: 5
+};
+ens.prototype.setCurrentRegistry = function (_registry) {
+    this.curRegistry = _registry;
+};
+ens.prototype.getRegistryAddress = function () {
+    return this.curRegistry.registry;
+};
+
+function namehash(name) {
+    name = ens.normalise(name);
+    var node = Buffer.alloc(32);
+    if (name && name != '') {
+        var labels = name.split(".");
+        for (var i = labels.length - 1; i >= 0; i--) {
+            node = ethUtil.sha3(Buffer.concat([node, ethUtil.sha3(labels[i])]));
+        }
+    }
+    return '0x' + node.toString('hex');
+}
+
+function subnodehash(name) {
+    name = ens.normalise(name);
+    return '0x' + ethUtil.sha3(name).toString('hex');
+}
+ens.getNameHash = function (name) {
+    return namehash(name);
+};
+ens.getSubNodeHash = function (name) {
+    return subnodehash(name);
+};
+ens.prototype.getOwnerResolverAddress = function (funcABI, to, name, callback) {
+    var _this = this;
+    ajaxReq.getEthCall({ to: to, data: _this.getDataString(funcABI, [namehash(name)]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            data.data = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''))[0];
+            callback(data);
+        }
+    });
+};
+ens.prototype.getDeedOwner = function (to, callback) {
+    this.getOwnerResolverAddress(this.deedABI.owner, to, '', callback);
+};
+ens.prototype.getDeedPreviousOwner = function (to, callback) {
+    this.getOwnerResolverAddress(this.deedABI.previousOwner, to, '', callback);
+};
+ens.prototype.getOwner = function (name, callback) {
+    this.getOwnerResolverAddress(this.registryABI.owner, this.getRegistryAddress(), name, callback);
+};
+ens.prototype.getResolver = function (name, callback) {
+    this.getOwnerResolverAddress(this.registryABI.resolver, this.getRegistryAddress(), name, callback);
+};
+ens.prototype.getAddress = function (name, callback) {
+    var _this = this;
+    _this.getResolver(name, function (data) {
+        if (data.error) callback(data);else {
+            _this.getOwnerResolverAddress(_this.resolverABI.addr, data.data, name, callback);
+        }
+    });
+};
+ens.prototype.getName = function (name, callback) {
+    var _this = this;
+    name = ens.normalise(name);
+    _this.getResolver(name, function (data) {
+        if (data.error || data.data == '0x') callback(data);else {
+            ajaxReq.getEthCall({ to: data.data, data: _this.getDataString(_this.resolverABI.name, [namehash(name)]) }, function (data) {
+                if (data.error || data.data == '0x') callback(data);else {
+                    var outTypes = _this.resolverABI.name.outputs.map(function (i) {
+                        return i.type;
+                    });
+                    data.data = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''))[0];
+                    callback(data);
+                }
+            });
+        }
+    });
+};
+ens.prototype.resolveAddressByName = function (name, callback) {
+    var _this = this;
+    name = ens.normalise(name);
+    _this.getOwner(name, function (data) {
+        if (data.error || data.data == '0x') callback(data);else {
+            var owner = data.data;
+            _this.getName(name, function (data) {
+                if (data.error || data.data == '0x') {
+                    callback({ data: owner, error: false });
+                } else {
+                    callback({ data: data.data, error: false });
+                }
+            });
+        }
+    });
+};
+ens.prototype.getAuctionAddress = function () {
+    return this.curRegistry.public.ethAuction;
+};
+ens.prototype.getStartAuctionData = function (name) {
+    var _this = this;
+    name = _this.getSHA3(ens.normalise(name));
+    var funcABI = _this.auctionABI.startAuction;
+    return _this.getDataString(funcABI, [name]);
+};
+ens.prototype.getStartAndBidAuctionData = function (name, sealedHash) {
+    var _this = this;
+    name = _this.getSHA3(ens.normalise(name));
+    var funcABI = _this.auctionABI.startAuctionsAndBid;
+    return _this.getDataString(funcABI, [[name], sealedHash]);
+};
+ens.prototype.getFinalizeAuctionData = function (name) {
+    var _this = this;
+    name = _this.getSHA3(ens.normalise(name));
+    var funcABI = _this.auctionABI.finalizeAuction;
+    return _this.getDataString(funcABI, [name]);
+};
+var isSecretHashed = function isSecretHashed(secret) {
+    return secret.substring(0, 2) == '0x' && secret.length == 66 && Validator.isValidHex(secret);
+};
+ens.prototype.getRevealBidData = function (name, value, secret) {
+    var _this = this;
+    name = _this.getSHA3(ens.normalise(name));
+    secret = isSecretHashed(secret) ? secret : _this.getSHA3(secret);
+    var funcABI = _this.auctionABI.unsealBid;
+    return _this.getDataString(funcABI, [name, value, secret]);
+};
+ens.prototype.getSHA3 = function (str) {
+    return '0x' + ethUtil.sha3(str).toString('hex');
+};
+ens.prototype.getNewBidData = function (sealedHash) {
+    var _this = this;
+    var funcABI = _this.auctionABI.newBid;
+    return _this.getDataString(funcABI, [sealedHash]);
+};
+ens.prototype.getAuctionEntries = function (name, callback) {
+    var _this = this;
+    name = _this.getSHA3(ens.normalise(name));
+    var funcABI = _this.auctionABI.entries;
+    ajaxReq.getEthCall({ to: _this.curRegistry.public.ethAuction, data: _this.getDataString(funcABI, [name]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            var res = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''));
+            data.data = {
+                status: res[0].toNumber(),
+                deed: res[1],
+                registrationDate: new Date(res[2].toNumber() * 1000),
+                value: res[3],
+                highestBid: res[4]
+            };
+            callback(data);
+        }
+    });
+};
+ens.prototype.shaBid = function (hash, owner, value, saltHash, callback) {
+    var _this = this;
+    var funcABI = _this.auctionABI.shaBid;
+    ajaxReq.getEthCall({ to: _this.curRegistry.public.ethAuction, data: _this.getDataString(funcABI, [hash, owner, value, saltHash]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            data.data = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''))[0];
+            callback(data);
+        }
+    });
+};
+ens.prototype.getAllowedTime = function (name, callback) {
+    var _this = this;
+    var funcABI = _this.auctionABI.getAllowedTime;
+    name = _this.getSHA3(ens.normalise(name));
+    ajaxReq.getEthCall({ to: _this.curRegistry.public.ethAuction, data: _this.getDataString(funcABI, [name]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            data.data = new Date(ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''))[0] * 1000);
+            callback(data);
+        }
+    });
+};
+ens.prototype.getTransferData = function (name, owner) {
+    var _this = this;
+    //    name = namehash(ens.normalise(name));
+    name = _this.getSHA3(ens.normalise(name));
+    var funcABI = _this.auctionABI.transfer;
+    return _this.getDataString(funcABI, [name, owner]);
+};
+ens.prototype.getSetOwnerData = function (name, owner) {
+    var _this = this;
+    name = namehash(ens.normalise(name));
+    var funcABI = _this.registryABI.setOwner;
+    return _this.getDataString(funcABI, [name, owner]);
+};
+ens.prototype.getDataString = function (func, inputs) {
+    var fullFuncName = ethUtil.solidityUtils.transformToFullName(func);
+    var funcSig = ethFuncs.getFunctionSignature(fullFuncName);
+    var typeName = ethUtil.solidityUtils.extractTypeName(fullFuncName);
+    var types = typeName.split(',');
+    types = types[0] == "" ? [] : types;
+    return '0x' + funcSig + ethUtil.solidityCoder.encodeParams(types, inputs);
+};
+module.exports = ens;
+
+}).call(this,require("buffer").Buffer)
+},{"./ensConfigs/WANConfig.json":39,"./ensConfigs/auctionABI.json":40,"./ensConfigs/deedABI.json":41,"./ensConfigs/registryABI.json":42,"./ensConfigs/resolverABI.json":43,"buffer":151,"idna-uts46":247}],39:[function(require,module,exports){
+module.exports={
+    "public": {
+        "resolver": "0x330b6f07f6ace581fc4321ce7f401aa8edb5bfad",
+        "reverse": "0x5d33e8cb2cc9851b63be38f35d1ef2c22de8984f",
+        "ethAuction": "0x48859467c329854af6ecc363c8ddb393b911586b",
+    },
+    "registry": "0xee8d418fd33e69782015ea4313dfd8eb7b1b91ce"
+}
+
+},{}],40:[function(require,module,exports){
+module.exports=[
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "releaseDeed",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getAllowedTime",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "unhashedName",
+        "type": "string"
+      }
+    ],
+    "name": "invalidateName",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "name": "salt",
+        "type": "bytes32"
+      }
+    ],
+    "name": "shaBid",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "bidder",
+        "type": "address"
+      },
+      {
+        "name": "seal",
+        "type": "bytes32"
+      }
+    ],
+    "name": "cancelBid",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "entries",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint8"
+      },
+      {
+        "name": "",
+        "type": "address"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      },
+      {
+        "name": "_value",
+        "type": "uint256"
+      },
+      {
+        "name": "_salt",
+        "type": "bytes32"
+      }
+    ],
+    "name": "unsealBid",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "transferRegistrars",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      },
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "sealedBids",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "state",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      },
+      {
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transfer",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "wns",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      },
+      {
+        "name": "_timestamp",
+        "type": "uint256"
+      }
+    ],
+    "name": "isAllowed",
+    "outputs": [
+      {
+        "name": "allowed",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "finalizeAuction",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "registryStarted",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "launchLength",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "sealedBid",
+        "type": "bytes32"
+      }
+    ],
+    "name": "newBid",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "labels",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "eraseNode",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hashes",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "startAuctions",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "name": "deed",
+        "type": "address"
+      },
+      {
+        "name": "registrationDate",
+        "type": "uint256"
+      }
+    ],
+    "name": "acceptRegistrarTransfer",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "startAuction",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "rootNode",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "hashes",
+        "type": "bytes32[]"
+      },
+      {
+        "name": "sealedBid",
+        "type": "bytes32"
+      }
+    ],
+    "name": "startAuctionsAndBid",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "_wns",
+        "type": "address"
+      },
+      {
+        "name": "_rootNode",
+        "type": "bytes32"
+      },
+      {
+        "name": "_startDate",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "registrationDate",
+        "type": "uint256"
+      }
+    ],
+    "name": "AuctionStarted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "name": "bidder",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "deposit",
+        "type": "uint256"
+      }
+    ],
+    "name": "NewBid",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "status",
+        "type": "uint8"
+      }
+    ],
+    "name": "BidRevealed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "registrationDate",
+        "type": "uint256"
+      }
+    ],
+    "name": "HashRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "HashReleased",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "registrationDate",
+        "type": "uint256"
+      }
+    ],
+    "name": "HashInvalidated",
+    "type": "event"
+  }
+]
+},{}],41:[function(require,module,exports){
+module.exports=[
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "creationDate",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "destroyDeed",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "setOwner",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "registrar",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "value",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "previousOwner",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newValue",
+        "type": "uint256"
+      },
+      {
+        "name": "throwOnFailure",
+        "type": "bool"
+      }
+    ],
+    "name": "setBalance",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "refundRatio",
+        "type": "uint256"
+      }
+    ],
+    "name": "closeDeed",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newRegistrar",
+        "type": "address"
+      }
+    ],
+    "name": "setRegistrar",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "_owner",
+        "type": "address"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnerChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [],
+    "name": "DeedClosed",
+    "type": "event"
+  }
+]
+},{}],42:[function(require,module,exports){
+module.exports=[
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "resolver",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "owner",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "label",
+        "type": "bytes32"
+      },
+      {
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "setSubnodeOwner",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "ttl",
+        "type": "uint64"
+      }
+    ],
+    "name": "setTTL",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "ttl",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "resolver",
+        "type": "address"
+      }
+    ],
+    "name": "setResolver",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "setOwner",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "name": "label",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "NewOwner",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "resolver",
+        "type": "address"
+      }
+    ],
+    "name": "NewResolver",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "ttl",
+        "type": "uint64"
+      }
+    ],
+    "name": "NewTTL",
+    "type": "event"
+  }
+]
+},{}],43:[function(require,module,exports){
+module.exports=[
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "interfaceID",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "key",
+        "type": "string"
+      },
+      {
+        "name": "value",
+        "type": "string"
+      }
+    ],
+    "name": "setText",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "contentTypes",
+        "type": "uint256"
+      }
+    ],
+    "name": "ABI",
+    "outputs": [
+      {
+        "name": "contentType",
+        "type": "uint256"
+      },
+      {
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "x",
+        "type": "bytes32"
+      },
+      {
+        "name": "y",
+        "type": "bytes32"
+      }
+    ],
+    "name": "setPubkey",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "content",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "addr",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "key",
+        "type": "string"
+      }
+    ],
+    "name": "text",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "contentType",
+        "type": "uint256"
+      },
+      {
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "setABI",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "name",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "setName",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "setContent",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "pubkey",
+    "outputs": [
+      {
+        "name": "x",
+        "type": "bytes32"
+      },
+      {
+        "name": "y",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "setAddr",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "wnsAddr",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "a",
+        "type": "address"
+      }
+    ],
+    "name": "AddrChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "ContentChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "NameChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "name": "contentType",
+        "type": "uint256"
+      }
+    ],
+    "name": "ABIChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "x",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "y",
+        "type": "bytes32"
+      }
+    ],
+    "name": "PubkeyChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "indexedKey",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "key",
+        "type": "string"
+      }
+    ],
+    "name": "TextChanged",
+    "type": "event"
+  }
+]
+},{}],44:[function(require,module,exports){
 'use strict';
 
 var ethFuncs = function ethFuncs() {};
@@ -3347,7 +6242,7 @@ ethFuncs.estimateGas = function (dataObj, callback) {
 };
 module.exports = ethFuncs;
 
-},{"wanchain-util":327}],35:[function(require,module,exports){
+},{"wanchain-util":340}],45:[function(require,module,exports){
 'use strict';
 
 var etherUnits = function etherUnits() {};
@@ -3412,7 +6307,7 @@ etherUnits.unitToUnit = function (number, from, to) {
 
 module.exports = etherUnits;
 
-},{}],36:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -3796,7 +6691,7 @@ globalFuncs.localStorage = {
 
 module.exports = globalFuncs;
 
-},{"./nodes":43,"./tokens/ethTokens.json":66,"./tokens/wanTokens.json":67}],37:[function(require,module,exports){
+},{"./nodes":53,"./tokens/ethTokens.json":76,"./tokens/wanTokens.json":77}],47:[function(require,module,exports){
 'use strict';
 
 function storageAvailable(type) {
@@ -3901,7 +6796,7 @@ if (!storageAvailable('localStorage')) {
 
 module.exports = null;
 
-},{}],38:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 'use strict';
 
 require('./localStoragePolyfill');
@@ -3952,6 +6847,10 @@ var ethFuncs = require('./ethFuncs');
 window.ethFuncs = ethFuncs;
 var Validator = require('./validator');
 window.Validator = Validator;
+var ens = require('./ens');
+window.ens = ens;
+var domainsale = require('./domainsale');
+window.domainsale = domainsale;
 var translate = require('./translations/translate.js');
 if (IS_CX) {
   var cxFuncs = require('./cxFuncs');
@@ -3977,6 +6876,8 @@ var txStatusCtrl = require('./controllers/txStatusCtrl');
 var sendTxCtrl = require('./controllers/sendTxCtrl');
 var signMsgCtrl = require('./controllers/signMsgCtrl');
 var contractsCtrl = require('./controllers/contractsCtrl');
+var ensCtrl = require('./controllers/ensCtrl');
+var domainsaleCtrl = require('./controllers/domainsaleCtrl');
 var footerCtrl = require('./controllers/footerCtrl');
 var offlineTxCtrl = require('./controllers/offlineTxCtrl');
 var walletBalanceCtrl = require('./controllers/walletBalanceCtrl');
@@ -4028,6 +6929,8 @@ app.controller('txStatusCtrl', ['$scope', txStatusCtrl]);
 app.controller('sendTxCtrl', ['$scope', '$sce', 'walletService', '$rootScope', sendTxCtrl]);
 app.controller('signMsgCtrl', ['$scope', '$sce', 'walletService', signMsgCtrl]);
 app.controller('contractsCtrl', ['$scope', '$sce', 'walletService', contractsCtrl]);
+app.controller('ensCtrl', ['$scope', '$sce', 'walletService', ensCtrl]);
+app.controller('domainsaleCtrl', ['$scope', '$sce', 'walletService', domainsaleCtrl]);
 app.controller('footerCtrl', ['$scope', 'globalService', footerCtrl]);
 app.controller('offlineTxCtrl', ['$scope', '$sce', 'walletService', offlineTxCtrl]);
 app.controller('walletBalanceCtrl', ['$scope', '$sce', '$rootScope', walletBalanceCtrl]);
@@ -4040,7 +6943,7 @@ if (IS_CX) {
   app.controller('cxDecryptWalletCtrl', ['$scope', '$sce', 'walletService', cxDecryptWalletCtrl]);
 }
 
-},{"./ajaxReq":2,"./controllers/CX/addWalletCtrl":3,"./controllers/CX/cxDecryptWalletCtrl":4,"./controllers/CX/mainPopCtrl":5,"./controllers/CX/myWalletsCtrl":6,"./controllers/CX/quickSendCtrl":7,"./controllers/bulkGenCtrl":8,"./controllers/contractsCtrl":9,"./controllers/decryptWalletCtrl":10,"./controllers/footerCtrl":11,"./controllers/helpersCtrl":12,"./controllers/offlineTxCtrl":13,"./controllers/onboardingCtrl":14,"./controllers/sendTxCtrl":15,"./controllers/signMsgCtrl":16,"./controllers/tabsCtrl":17,"./controllers/txStatusCtrl":18,"./controllers/viewCtrl":19,"./controllers/viewWalletCtrl":20,"./controllers/walletBalanceCtrl":21,"./controllers/walletGenCtrl":22,"./customGas.js":23,"./cxFuncs":24,"./directives/QRCodeDrtv":25,"./directives/addressFieldDrtv":26,"./directives/balanceDrtv":28,"./directives/blockiesDrtv":29,"./directives/cxWalletDecryptDrtv":30,"./directives/fileReaderDrtv":31,"./directives/walletDecryptDrtv":33,"./ethFuncs":34,"./etherUnits":35,"./globalFuncs":36,"./localStoragePolyfill":37,"./myetherwallet":39,"./nodes":43,"./services/globalService":44,"./services/walletService":45,"./solidity/coder":49,"./solidity/utils":60,"./staticJS/customMarked":61,"./staticJS/ledger-eth":62,"./staticJS/ledger3":63,"./staticJS/u2f-api":64,"./tokenlib":65,"./translations/translate.js":69,"./uiFuncs":70,"./validator":71,"./web3Wallet":72,"angular":80,"angular-animate":74,"angular-sanitize":76,"angular-translate":78,"angular-translate-handler-log":77,"bignumber.js":97,"bip39":98,"crypto":151,"detect-browser":192,"ethereumjs-tx":216,"ethereumjs-util":217,"hdkey":234,"scryptsy":292,"string-format":308,"uuid":317,"wallet-address-validator":326}],39:[function(require,module,exports){
+},{"./ajaxReq":2,"./controllers/CX/addWalletCtrl":3,"./controllers/CX/cxDecryptWalletCtrl":4,"./controllers/CX/mainPopCtrl":5,"./controllers/CX/myWalletsCtrl":6,"./controllers/CX/quickSendCtrl":7,"./controllers/bulkGenCtrl":8,"./controllers/contractsCtrl":9,"./controllers/decryptWalletCtrl":10,"./controllers/domainsaleCtrl":11,"./controllers/ensCtrl":12,"./controllers/footerCtrl":13,"./controllers/helpersCtrl":14,"./controllers/offlineTxCtrl":15,"./controllers/onboardingCtrl":16,"./controllers/sendTxCtrl":17,"./controllers/signMsgCtrl":18,"./controllers/tabsCtrl":19,"./controllers/txStatusCtrl":20,"./controllers/viewCtrl":21,"./controllers/viewWalletCtrl":22,"./controllers/walletBalanceCtrl":23,"./controllers/walletGenCtrl":24,"./customGas.js":25,"./cxFuncs":26,"./directives/QRCodeDrtv":27,"./directives/addressFieldDrtv":28,"./directives/balanceDrtv":30,"./directives/blockiesDrtv":31,"./directives/cxWalletDecryptDrtv":32,"./directives/fileReaderDrtv":33,"./directives/walletDecryptDrtv":35,"./domainsale":36,"./ens":38,"./ethFuncs":44,"./etherUnits":45,"./globalFuncs":46,"./localStoragePolyfill":47,"./myetherwallet":49,"./nodes":53,"./services/globalService":54,"./services/walletService":55,"./solidity/coder":59,"./solidity/utils":70,"./staticJS/customMarked":71,"./staticJS/ledger-eth":72,"./staticJS/ledger3":73,"./staticJS/u2f-api":74,"./tokenlib":75,"./translations/translate.js":79,"./uiFuncs":80,"./validator":81,"./web3Wallet":82,"angular":90,"angular-animate":84,"angular-sanitize":86,"angular-translate":88,"angular-translate-handler-log":87,"bignumber.js":107,"bip39":108,"crypto":161,"detect-browser":202,"ethereumjs-tx":226,"ethereumjs-util":227,"hdkey":244,"scryptsy":305,"string-format":321,"uuid":330,"wallet-address-validator":339}],49:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -4448,7 +7351,7 @@ Wallet.getWalletFromPrivKeyFile = function (strjson, password) {
 module.exports = Wallet;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"wanchain-util":327}],40:[function(require,module,exports){
+},{"buffer":151,"wanchain-util":340}],50:[function(require,module,exports){
 'use strict';
 
 var customNode = function customNode(srvrUrl, port, httpBasicAuthentication) {
@@ -4575,7 +7478,7 @@ customNode.prototype.post = function (data, callback) {
 };
 module.exports = customNode;
 
-},{}],41:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 'use strict';
 
 var customNode = require('./customNode');
@@ -4618,7 +7521,7 @@ function forEachPayload(maybeArray, fn) {
   array.forEach(fn);
 }
 
-},{"./customNode":40}],42:[function(require,module,exports){
+},{"./customNode":50}],52:[function(require,module,exports){
 'use strict';
 
 var wanPrice = function wanPrice() {};
@@ -4639,7 +7542,7 @@ wanPrice.getWANvalue = function (callback) {
 };
 module.exports = wanPrice;
 
-},{}],43:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 'use strict';
 
 var nodes = function nodes() {};
@@ -4681,7 +7584,7 @@ nodes.nodeList = {
 nodes.wanPrice = require('./nodeHelpers/wanPrice');
 module.exports = nodes;
 
-},{"./abiDefinitions/wanAbi.json":1,"./nodeHelpers/customNode":40,"./nodeHelpers/metamask":41,"./nodeHelpers/wanPrice":42,"./tokens/wanTokens.json":67}],44:[function(require,module,exports){
+},{"./abiDefinitions/wanAbi.json":1,"./nodeHelpers/customNode":50,"./nodeHelpers/metamask":51,"./nodeHelpers/wanPrice":52,"./tokens/wanTokens.json":77}],54:[function(require,module,exports){
 'use strict';
 
 var globalService = function globalService($http, $httpParamSerializerJQLike) {
@@ -4741,15 +7644,29 @@ var globalService = function globalService($http, $httpParamSerializerJQLike) {
       mew: true,
       cx: true
     },
-    txStatus: {
+    ens: {
       id: 7,
+      name: "NAV_ENS",
+      url: "ens",
+      mew: true,
+      cx: false
+    },
+    domainsale: {
+      id: 8,
+      name: "NAV_DomainSale",
+      url: "domainsale",
+      mew: false,
+      cx: false
+    },
+    txStatus: {
+      id: 9,
       name: "NAV_CheckTxStatus",
       url: "check-tx-status",
       mew: true,
       cx: true
     },
     viewWalletInfo: {
-      id: 8,
+      id: 10,
       name: "NAV_ViewWallet",
       url: "view-wallet-info",
       mew: true,
@@ -4769,7 +7686,7 @@ var globalService = function globalService($http, $httpParamSerializerJQLike) {
 
 module.exports = globalService;
 
-},{}],45:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 'use strict';
 
 var walletService = function walletService() {
@@ -4780,7 +7697,7 @@ var walletService = function walletService() {
 };
 module.exports = walletService;
 
-},{}],46:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -4810,7 +7727,7 @@ SolidityTypeAddress.prototype.isType = function (name) {
 
 module.exports = SolidityTypeAddress;
 
-},{"./formatters":52,"./type":57}],47:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],57:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -4840,7 +7757,7 @@ SolidityTypeBool.prototype.isType = function (name) {
 
 module.exports = SolidityTypeBool;
 
-},{"./formatters":52,"./type":57}],48:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],58:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -4873,7 +7790,7 @@ SolidityTypeBytes.prototype.isType = function (name) {
 
 module.exports = SolidityTypeBytes;
 
-},{"./formatters":52,"./type":57}],49:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],59:[function(require,module,exports){
 'use strict';
 
 /*
@@ -5126,7 +8043,7 @@ var coder = new SolidityCoder([new SolidityTypeAddress(), new SolidityTypeBool()
 
 module.exports = coder;
 
-},{"./address":46,"./bool":47,"./bytes":48,"./dynamicbytes":51,"./formatters":52,"./int":53,"./real":55,"./string":56,"./uint":58,"./ureal":59,"./utils":60}],50:[function(require,module,exports){
+},{"./address":56,"./bool":57,"./bytes":58,"./dynamicbytes":61,"./formatters":62,"./int":63,"./real":65,"./string":66,"./uint":68,"./ureal":69,"./utils":70}],60:[function(require,module,exports){
 'use strict';
 
 /*
@@ -5179,7 +8096,7 @@ module.exports = {
     defaultAccount: undefined
 };
 
-},{"bignumber.js":97}],51:[function(require,module,exports){
+},{"bignumber.js":107}],61:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -5203,7 +8120,7 @@ SolidityTypeDynamicBytes.prototype.isDynamicType = function () {
 
 module.exports = SolidityTypeDynamicBytes;
 
-},{"./formatters":52,"./type":57}],52:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],62:[function(require,module,exports){
 'use strict';
 
 /*
@@ -5458,7 +8375,7 @@ module.exports = {
     formatOutputAddress: formatOutputAddress
 };
 
-},{"./config":50,"./param":54,"./utils":60,"bignumber.js":97}],53:[function(require,module,exports){
+},{"./config":60,"./param":64,"./utils":70,"bignumber.js":107}],63:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -5494,7 +8411,7 @@ SolidityTypeInt.prototype.isType = function (name) {
 
 module.exports = SolidityTypeInt;
 
-},{"./formatters":52,"./type":57}],54:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],64:[function(require,module,exports){
 'use strict';
 
 /*
@@ -5647,7 +8564,7 @@ SolidityParam.encodeList = function (params) {
 
 module.exports = SolidityParam;
 
-},{"./utils":60}],55:[function(require,module,exports){
+},{"./utils":70}],65:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -5683,7 +8600,7 @@ SolidityTypeReal.prototype.isType = function (name) {
 
 module.exports = SolidityTypeReal;
 
-},{"./formatters":52,"./type":57}],56:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],66:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -5707,7 +8624,7 @@ SolidityTypeString.prototype.isDynamicType = function () {
 
 module.exports = SolidityTypeString;
 
-},{"./formatters":52,"./type":57}],57:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],67:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -5961,7 +8878,7 @@ SolidityType.prototype.decode = function (bytes, offset, name) {
 
 module.exports = SolidityType;
 
-},{"./formatters":52,"./param":54}],58:[function(require,module,exports){
+},{"./formatters":62,"./param":64}],68:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -5997,7 +8914,7 @@ SolidityTypeUInt.prototype.isType = function (name) {
 
 module.exports = SolidityTypeUInt;
 
-},{"./formatters":52,"./type":57}],59:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],69:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -6033,7 +8950,7 @@ SolidityTypeUReal.prototype.isType = function (name) {
 
 module.exports = SolidityTypeUReal;
 
-},{"./formatters":52,"./type":57}],60:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],70:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -6622,7 +9539,7 @@ module.exports = {
     isJson: isJson
 };
 
-},{"bignumber.js":97,"ethereumjs-util":217,"utf8":312}],61:[function(require,module,exports){
+},{"bignumber.js":107,"ethereumjs-util":227,"utf8":325}],71:[function(require,module,exports){
 'use strict';
 
 var marked = require('marked');
@@ -6653,7 +9570,7 @@ marked.setOptions({
 });
 module.exports = marked;
 
-},{"marked":250}],62:[function(require,module,exports){
+},{"marked":262}],72:[function(require,module,exports){
 (function (Buffer){
 /********************************************************************************
 *   Ledger Communication toolkit
@@ -6868,7 +9785,7 @@ LedgerEth.prototype.signPersonalMessage_async = function (path, messageHex, call
 module.exports = LedgerEth;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141}],63:[function(require,module,exports){
+},{"buffer":151}],73:[function(require,module,exports){
 (function (Buffer){
 /********************************************************************************
 *   Ledger Communication toolkit
@@ -6939,7 +9856,7 @@ Ledger3.prototype.exchange = function (apduHex, callback) {
 module.exports = Ledger3;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141}],64:[function(require,module,exports){
+},{"buffer":151}],74:[function(require,module,exports){
 //Copyright 2014-2015 Google Inc. All rights reserved.
 
 //Use of this source code is governed by a BSD-style
@@ -7663,7 +10580,7 @@ u2f.getApiVersion = function (callback, opt_timeoutSeconds) {
 };
 module.exports = u2f;
 
-},{}],65:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 'use strict';
 
 var Token = function Token(contractAddress, userAddress, symbol, decimal, type) {
@@ -7747,9 +10664,9 @@ Token.prototype.getData = function (toAdd, value) {
 };
 module.exports = Token;
 
-},{}],66:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 arguments[4][1][0].apply(exports,arguments)
-},{"dup":1}],67:[function(require,module,exports){
+},{"dup":1}],77:[function(require,module,exports){
 module.exports=[
   {
     "address": "0x28362cd634646620ef2290058744f9244bb90ed9",
@@ -7758,7 +10675,7 @@ module.exports=[
     "type": "default"
   },
 ]
-},{}],68:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 // English
 'use strict';
 
@@ -7928,7 +10845,7 @@ en.data = (_en$data = {
 
 module.exports = en;
 
-},{}],69:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 'use strict';
 
 var en = require('./en');
@@ -7948,7 +10865,7 @@ translate.marked = function (data) {
 };
 module.exports = translate;
 
-},{"./en":68}],70:[function(require,module,exports){
+},{"./en":78}],80:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -8271,7 +11188,7 @@ uiFuncs.notifier = {
 module.exports = uiFuncs;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"wanchain-util":327}],71:[function(require,module,exports){
+},{"buffer":151,"wanchain-util":340}],81:[function(require,module,exports){
 'use strict';
 
 var validator = function validator() {};
@@ -8285,7 +11202,7 @@ validator.isChecksumAddress = function (address) {
     return ethFuncs.isChecksumAddress(address);
 };
 validator.isValidENSorEtherAddress = function (address) {
-    return validator.isValidAddress(address);
+    return validator.isValidAddress(address) || validator.isValidENSAddress(address);
 };
 validator.isValidENSName = function (str) {
     try {
@@ -8296,6 +11213,10 @@ validator.isValidENSName = function (str) {
 };
 validator.isValidTxHash = function (txHash) {
     return txHash.substring(0, 2) == "0x" && txHash.length == 66 && this.isValidHex(txHash);
+};
+validator.isValidENSAddress = function (address) {
+    address = ens.normalise(address);
+    return address.lastIndexOf(".") != -1;
 };
 validator.isValidBTCAddress = function (address) {
     return ethUtil.WAValidator.validate(address, 'BTC');
@@ -8337,7 +11258,7 @@ validator.isValidURL = function (str) {
 };
 module.exports = validator;
 
-},{}],72:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 'use strict';
 
 var Wallet = require('./myetherwallet.js');
@@ -8393,7 +11314,7 @@ Web3Wallet.prototype.getV3Filename = function (timestamp) {
 
 module.exports = Web3Wallet;
 
-},{"./myetherwallet.js":39}],73:[function(require,module,exports){
+},{"./myetherwallet.js":49}],83:[function(require,module,exports){
 'use strict';
 
 /**
@@ -12488,13 +15409,13 @@ module.exports = Web3Wallet;
   }).info({ angularVersion: '1.6.9' }).directive('ngAnimateSwap', ngAnimateSwapDirective).directive('ngAnimateChildren', $$AnimateChildrenDirective).factory('$$rAFScheduler', $$rAFSchedulerFactory).provider('$$animateQueue', $$AnimateQueueProvider).provider('$$animation', $$AnimationProvider).provider('$animateCss', $AnimateCssProvider).provider('$$animateCssDriver', $$AnimateCssDriverProvider).provider('$$animateJs', $$AnimateJsProvider).provider('$$animateJsDriver', $$AnimateJsDriverProvider);
 })(window, window.angular);
 
-},{}],74:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 'use strict';
 
 require('./angular-animate');
 module.exports = 'ngAnimate';
 
-},{"./angular-animate":73}],75:[function(require,module,exports){
+},{"./angular-animate":83}],85:[function(require,module,exports){
 'use strict';
 
 /**
@@ -13253,13 +16174,13 @@ module.exports = 'ngAnimate';
   }]);
 })(window, window.angular);
 
-},{}],76:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 'use strict';
 
 require('./angular-sanitize');
 module.exports = 'ngSanitize';
 
-},{"./angular-sanitize":75}],77:[function(require,module,exports){
+},{"./angular-sanitize":85}],87:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -13314,7 +16235,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   return 'pascalprecht.translate';
 });
 
-},{}],78:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -17082,7 +20003,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   return 'pascalprecht.translate';
 });
 
-},{}],79:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -50812,13 +53733,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
-},{}],80:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 'use strict';
 
 require('./angular');
 module.exports = angular;
 
-},{"./angular":79}],81:[function(require,module,exports){
+},{"./angular":89}],91:[function(require,module,exports){
 'use strict';
 
 var asn1 = exports;
@@ -50831,7 +53752,7 @@ asn1.constants = require('./asn1/constants');
 asn1.decoders = require('./asn1/decoders');
 asn1.encoders = require('./asn1/encoders');
 
-},{"./asn1/api":82,"./asn1/base":84,"./asn1/constants":88,"./asn1/decoders":90,"./asn1/encoders":93,"bn.js":108}],82:[function(require,module,exports){
+},{"./asn1/api":92,"./asn1/base":94,"./asn1/constants":98,"./asn1/decoders":100,"./asn1/encoders":103,"bn.js":118}],92:[function(require,module,exports){
 'use strict';
 
 var asn1 = require('../asn1');
@@ -50890,7 +53811,7 @@ Entity.prototype.encode = function encode(data, enc, /* internal */reporter) {
   return this._getEncoder(enc).encode(data, reporter);
 };
 
-},{"../asn1":81,"inherits":238,"vm":322}],83:[function(require,module,exports){
+},{"../asn1":91,"inherits":250,"vm":335}],93:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -50998,7 +53919,7 @@ EncoderBuffer.prototype.join = function join(out, offset) {
   return out;
 };
 
-},{"../base":84,"buffer":141,"inherits":238}],84:[function(require,module,exports){
+},{"../base":94,"buffer":151,"inherits":250}],94:[function(require,module,exports){
 'use strict';
 
 var base = exports;
@@ -51008,7 +53929,7 @@ base.DecoderBuffer = require('./buffer').DecoderBuffer;
 base.EncoderBuffer = require('./buffer').EncoderBuffer;
 base.Node = require('./node');
 
-},{"./buffer":83,"./node":85,"./reporter":86}],85:[function(require,module,exports){
+},{"./buffer":93,"./node":95,"./reporter":96}],95:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -51537,7 +54458,7 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
   );
 };
 
-},{"../base":84,"minimalistic-assert":254}],86:[function(require,module,exports){
+},{"../base":94,"minimalistic-assert":266}],96:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -51657,7 +54578,7 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
   return this;
 };
 
-},{"inherits":238}],87:[function(require,module,exports){
+},{"inherits":250}],97:[function(require,module,exports){
 'use strict';
 
 var constants = require('../constants');
@@ -51703,7 +54624,7 @@ exports.tag = {
 };
 exports.tagByName = constants._reverse(exports.tag);
 
-},{"../constants":88}],88:[function(require,module,exports){
+},{"../constants":98}],98:[function(require,module,exports){
 'use strict';
 
 var constants = exports;
@@ -51725,7 +54646,7 @@ constants._reverse = function reverse(map) {
 
 constants.der = require('./der');
 
-},{"./der":87}],89:[function(require,module,exports){
+},{"./der":97}],99:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -52003,7 +54924,7 @@ function derDecodeLen(buf, primitive, fail) {
   return len;
 }
 
-},{"../../asn1":81,"inherits":238}],90:[function(require,module,exports){
+},{"../../asn1":91,"inherits":250}],100:[function(require,module,exports){
 'use strict';
 
 var decoders = exports;
@@ -52011,7 +54932,7 @@ var decoders = exports;
 decoders.der = require('./der');
 decoders.pem = require('./pem');
 
-},{"./der":89,"./pem":91}],91:[function(require,module,exports){
+},{"./der":99,"./pem":101}],101:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -52059,7 +54980,7 @@ PEMDecoder.prototype.decode = function decode(data, options) {
   return DERDecoder.prototype.decode.call(this, input, options);
 };
 
-},{"./der":89,"buffer":141,"inherits":238}],92:[function(require,module,exports){
+},{"./der":99,"buffer":151,"inherits":250}],102:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -52304,7 +55225,7 @@ function encodeTag(tag, primitive, cls, reporter) {
   return res;
 }
 
-},{"../../asn1":81,"buffer":141,"inherits":238}],93:[function(require,module,exports){
+},{"../../asn1":91,"buffer":151,"inherits":250}],103:[function(require,module,exports){
 'use strict';
 
 var encoders = exports;
@@ -52312,7 +55233,7 @@ var encoders = exports;
 encoders.der = require('./der');
 encoders.pem = require('./pem');
 
-},{"./der":92,"./pem":94}],94:[function(require,module,exports){
+},{"./der":102,"./pem":104}],104:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -52337,7 +55258,7 @@ PEMEncoder.prototype.encode = function encode(data, options) {
   return out.join('\n');
 };
 
-},{"./der":92,"inherits":238}],95:[function(require,module,exports){
+},{"./der":102,"inherits":250}],105:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -52812,7 +55733,7 @@ var objectKeys = Object.keys || function (obj) {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"util/":316}],96:[function(require,module,exports){
+},{"util/":329}],106:[function(require,module,exports){
 'use strict';
 
 exports.byteLength = byteLength;
@@ -52928,7 +55849,7 @@ function fromByteArray(uint8) {
   return parts.join('');
 }
 
-},{}],97:[function(require,module,exports){
+},{}],107:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -55659,7 +58580,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
 })(undefined);
 
-},{}],98:[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -55817,7 +58738,7 @@ module.exports = {
   }
 };
 
-},{"./wordlists/chinese_simplified.json":99,"./wordlists/chinese_traditional.json":100,"./wordlists/english.json":101,"./wordlists/french.json":102,"./wordlists/italian.json":103,"./wordlists/japanese.json":104,"./wordlists/korean.json":105,"./wordlists/spanish.json":106,"create-hash":146,"pbkdf2":261,"randombytes":274,"safe-buffer":291,"unorm":311}],99:[function(require,module,exports){
+},{"./wordlists/chinese_simplified.json":109,"./wordlists/chinese_traditional.json":110,"./wordlists/english.json":111,"./wordlists/french.json":112,"./wordlists/italian.json":113,"./wordlists/japanese.json":114,"./wordlists/korean.json":115,"./wordlists/spanish.json":116,"create-hash":156,"pbkdf2":273,"randombytes":287,"safe-buffer":304,"unorm":324}],109:[function(require,module,exports){
 module.exports=[
   "的",
   "一",
@@ -57869,7 +60790,7 @@ module.exports=[
   "歇"
 ]
 
-},{}],100:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 module.exports=[
   "的",
   "一",
@@ -59921,7 +62842,7 @@ module.exports=[
   "歇"
 ]
 
-},{}],101:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 module.exports=[
   "abandon",
   "ability",
@@ -61973,7 +64894,7 @@ module.exports=[
   "zoo"
 ]
 
-},{}],102:[function(require,module,exports){
+},{}],112:[function(require,module,exports){
 module.exports=[
   "abaisser",
   "abandon",
@@ -64025,7 +66946,7 @@ module.exports=[
   "zoologie"
 ]
 
-},{}],103:[function(require,module,exports){
+},{}],113:[function(require,module,exports){
 module.exports=[
   "abaco",
   "abbaglio",
@@ -66077,7 +68998,7 @@ module.exports=[
   "zuppa"
 ]
 
-},{}],104:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 module.exports=[
   "あいこくしん",
   "あいさつ",
@@ -68129,7 +71050,7 @@ module.exports=[
   "われる"
 ]
 
-},{}],105:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
 module.exports=[
   "가격",
   "가끔",
@@ -70181,7 +73102,7 @@ module.exports=[
   "힘껏"
 ]
 
-},{}],106:[function(require,module,exports){
+},{}],116:[function(require,module,exports){
 module.exports=[
   "ábaco",
   "abdomen",
@@ -72233,7 +75154,7 @@ module.exports=[
   "zurdo"
 ]
 
-},{}],107:[function(require,module,exports){
+},{}],117:[function(require,module,exports){
 'use strict';
 
 // Reference https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
@@ -72350,7 +75271,7 @@ module.exports = {
   encode: encode
 };
 
-},{"safe-buffer":291}],108:[function(require,module,exports){
+},{"safe-buffer":304}],118:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -75715,7 +78636,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   };
 })(typeof module === 'undefined' || module, undefined);
 
-},{"buffer":110}],109:[function(require,module,exports){
+},{"buffer":120}],119:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -75782,10 +78703,10 @@ if ((typeof self === 'undefined' ? 'undefined' : _typeof(self)) === 'object') {
   } catch (e) {}
 }
 
-},{"crypto":110}],110:[function(require,module,exports){
+},{"crypto":120}],120:[function(require,module,exports){
 "use strict";
 
-},{}],111:[function(require,module,exports){
+},{}],121:[function(require,module,exports){
 'use strict';
 
 // based on the aes implimentation in triple sec
@@ -76005,7 +78926,7 @@ AES.prototype.scrub = function () {
 
 module.exports.AES = AES;
 
-},{"safe-buffer":291}],112:[function(require,module,exports){
+},{"safe-buffer":304}],122:[function(require,module,exports){
 'use strict';
 
 var aes = require('./aes');
@@ -76126,7 +79047,7 @@ StreamCipher.prototype.setAAD = function setAAD(buf) {
 
 module.exports = StreamCipher;
 
-},{"./aes":111,"./ghash":116,"./incr32":117,"buffer-xor":140,"cipher-base":142,"inherits":238,"safe-buffer":291}],113:[function(require,module,exports){
+},{"./aes":121,"./ghash":126,"./incr32":127,"buffer-xor":150,"cipher-base":152,"inherits":250,"safe-buffer":304}],123:[function(require,module,exports){
 'use strict';
 
 var ciphers = require('./encrypter');
@@ -76143,7 +79064,7 @@ exports.createDecipher = exports.Decipher = deciphers.createDecipher;
 exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv;
 exports.listCiphers = exports.getCiphers = getCiphers;
 
-},{"./decrypter":114,"./encrypter":115,"./modes/list.json":125}],114:[function(require,module,exports){
+},{"./decrypter":124,"./encrypter":125,"./modes/list.json":135}],124:[function(require,module,exports){
 'use strict';
 
 var AuthCipher = require('./authCipher');
@@ -76268,7 +79189,7 @@ function createDecipher(suite, password) {
 exports.createDecipher = createDecipher;
 exports.createDecipheriv = createDecipheriv;
 
-},{"./aes":111,"./authCipher":112,"./modes":124,"./streamCipher":127,"cipher-base":142,"evp_bytestokey":220,"inherits":238,"safe-buffer":291}],115:[function(require,module,exports){
+},{"./aes":121,"./authCipher":122,"./modes":134,"./streamCipher":137,"cipher-base":152,"evp_bytestokey":230,"inherits":250,"safe-buffer":304}],125:[function(require,module,exports){
 'use strict';
 
 var MODES = require('./modes');
@@ -76386,7 +79307,7 @@ function createCipher(suite, password) {
 exports.createCipheriv = createCipheriv;
 exports.createCipher = createCipher;
 
-},{"./aes":111,"./authCipher":112,"./modes":124,"./streamCipher":127,"cipher-base":142,"evp_bytestokey":220,"inherits":238,"safe-buffer":291}],116:[function(require,module,exports){
+},{"./aes":121,"./authCipher":122,"./modes":134,"./streamCipher":137,"cipher-base":152,"evp_bytestokey":230,"inherits":250,"safe-buffer":304}],126:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -76474,7 +79395,7 @@ GHASH.prototype.final = function (abl, bl) {
 
 module.exports = GHASH;
 
-},{"safe-buffer":291}],117:[function(require,module,exports){
+},{"safe-buffer":304}],127:[function(require,module,exports){
 "use strict";
 
 function incr32(iv) {
@@ -76493,7 +79414,7 @@ function incr32(iv) {
 }
 module.exports = incr32;
 
-},{}],118:[function(require,module,exports){
+},{}],128:[function(require,module,exports){
 'use strict';
 
 var xor = require('buffer-xor');
@@ -76514,7 +79435,7 @@ exports.decrypt = function (self, block) {
   return xor(out, pad);
 };
 
-},{"buffer-xor":140}],119:[function(require,module,exports){
+},{"buffer-xor":150}],129:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -76551,7 +79472,7 @@ exports.encrypt = function (self, data, decrypt) {
   return out;
 };
 
-},{"buffer-xor":140,"safe-buffer":291}],120:[function(require,module,exports){
+},{"buffer-xor":150,"safe-buffer":304}],130:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -76597,7 +79518,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out;
 };
 
-},{"safe-buffer":291}],121:[function(require,module,exports){
+},{"safe-buffer":304}],131:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -76623,7 +79544,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out;
 };
 
-},{"safe-buffer":291}],122:[function(require,module,exports){
+},{"safe-buffer":304}],132:[function(require,module,exports){
 'use strict';
 
 var xor = require('buffer-xor');
@@ -76654,7 +79575,7 @@ exports.encrypt = function (self, chunk) {
   return xor(chunk, pad);
 };
 
-},{"../incr32":117,"buffer-xor":140,"safe-buffer":291}],123:[function(require,module,exports){
+},{"../incr32":127,"buffer-xor":150,"safe-buffer":304}],133:[function(require,module,exports){
 "use strict";
 
 exports.encrypt = function (self, block) {
@@ -76665,7 +79586,7 @@ exports.decrypt = function (self, block) {
   return self._cipher.decryptBlock(block);
 };
 
-},{}],124:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
 'use strict';
 
 var modeModules = {
@@ -76687,7 +79608,7 @@ for (var key in modes) {
 
 module.exports = modes;
 
-},{"./cbc":118,"./cfb":119,"./cfb1":120,"./cfb8":121,"./ctr":122,"./ecb":123,"./list.json":125,"./ofb":126}],125:[function(require,module,exports){
+},{"./cbc":128,"./cfb":129,"./cfb1":130,"./cfb8":131,"./ctr":132,"./ecb":133,"./list.json":135,"./ofb":136}],135:[function(require,module,exports){
 module.exports={
   "aes-128-ecb": {
     "cipher": "AES",
@@ -76880,7 +79801,7 @@ module.exports={
   }
 }
 
-},{}],126:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -76902,7 +79823,7 @@ exports.encrypt = function (self, chunk) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"buffer-xor":140}],127:[function(require,module,exports){
+},{"buffer":151,"buffer-xor":150}],137:[function(require,module,exports){
 'use strict';
 
 var aes = require('./aes');
@@ -76933,7 +79854,7 @@ StreamCipher.prototype._final = function () {
 
 module.exports = StreamCipher;
 
-},{"./aes":111,"cipher-base":142,"inherits":238,"safe-buffer":291}],128:[function(require,module,exports){
+},{"./aes":121,"cipher-base":152,"inherits":250,"safe-buffer":304}],138:[function(require,module,exports){
 'use strict';
 
 var ebtk = require('evp_bytestokey');
@@ -77010,7 +79931,7 @@ function getCiphers() {
 }
 exports.listCiphers = exports.getCiphers = getCiphers;
 
-},{"browserify-aes/browser":113,"browserify-aes/modes":124,"browserify-des":129,"browserify-des/modes":130,"evp_bytestokey":220}],129:[function(require,module,exports){
+},{"browserify-aes/browser":123,"browserify-aes/modes":134,"browserify-des":139,"browserify-des/modes":140,"evp_bytestokey":230}],139:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -77059,7 +79980,7 @@ DES.prototype._final = function () {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"cipher-base":142,"des.js":186,"inherits":238}],130:[function(require,module,exports){
+},{"buffer":151,"cipher-base":152,"des.js":196,"inherits":250}],140:[function(require,module,exports){
 'use strict';
 
 exports['des-ecb'] = {
@@ -77087,7 +80008,7 @@ exports['des-ede'] = {
   iv: 0
 };
 
-},{}],131:[function(require,module,exports){
+},{}],141:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -77132,7 +80053,7 @@ function getr(priv) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":108,"buffer":141,"randombytes":274}],132:[function(require,module,exports){
+},{"bn.js":118,"buffer":151,"randombytes":287}],142:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -77161,12 +80082,12 @@ module.exports = {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"js-sha3":242}],133:[function(require,module,exports){
+},{"buffer":151,"js-sha3":254}],143:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./browser/algorithms.json');
 
-},{"./browser/algorithms.json":134}],134:[function(require,module,exports){
+},{"./browser/algorithms.json":144}],144:[function(require,module,exports){
 module.exports={
   "sha224WithRSAEncryption": {
     "sign": "rsa",
@@ -77320,7 +80241,7 @@ module.exports={
   }
 }
 
-},{}],135:[function(require,module,exports){
+},{}],145:[function(require,module,exports){
 module.exports={
   "1.3.132.0.10": "secp256k1",
   "1.3.132.0.33": "p224",
@@ -77330,7 +80251,7 @@ module.exports={
   "1.3.132.0.35": "p521"
 }
 
-},{}],136:[function(require,module,exports){
+},{}],146:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -77427,7 +80348,7 @@ module.exports = {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"./algorithms.json":134,"./sign":137,"./verify":138,"buffer":141,"create-hash":146,"inherits":238,"stream":307}],137:[function(require,module,exports){
+},{"./algorithms.json":144,"./sign":147,"./verify":148,"buffer":151,"create-hash":156,"inherits":250,"stream":320}],147:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -77579,7 +80500,7 @@ module.exports.getKey = getKey;
 module.exports.makeKey = makeKey;
 
 }).call(this,require("buffer").Buffer)
-},{"./curves.json":135,"bn.js":108,"browserify-rsa":131,"buffer":141,"create-hmac":149,"elliptic":199,"parse-asn1":260}],138:[function(require,module,exports){
+},{"./curves.json":145,"bn.js":118,"browserify-rsa":141,"buffer":151,"create-hmac":159,"elliptic":209,"parse-asn1":272}],148:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -77664,7 +80585,7 @@ function checkValue(b, q) {
 module.exports = verify;
 
 }).call(this,require("buffer").Buffer)
-},{"./curves.json":135,"bn.js":108,"buffer":141,"elliptic":199,"parse-asn1":260}],139:[function(require,module,exports){
+},{"./curves.json":145,"bn.js":118,"buffer":151,"elliptic":209,"parse-asn1":272}],149:[function(require,module,exports){
 'use strict';
 
 // Base58 encoding/decoding
@@ -77758,7 +80679,7 @@ module.exports = {
   decode: decode
 };
 
-},{}],140:[function(require,module,exports){
+},{}],150:[function(require,module,exports){
 (function (Buffer){
 "use strict";
 
@@ -77774,7 +80695,7 @@ module.exports = function xor(a, b) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141}],141:[function(require,module,exports){
+},{"buffer":151}],151:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -79440,7 +82361,7 @@ function numberIsNaN(obj) {
   return obj !== obj; // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":96,"ieee754":236}],142:[function(require,module,exports){
+},{"base64-js":106,"ieee754":248}],152:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -79543,7 +82464,7 @@ CipherBase.prototype._toString = function (value, enc, fin) {
 
 module.exports = CipherBase;
 
-},{"inherits":238,"safe-buffer":291,"stream":307,"string_decoder":309}],143:[function(require,module,exports){
+},{"inherits":250,"safe-buffer":304,"stream":320,"string_decoder":322}],153:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -79642,7 +82563,7 @@ module.exports = {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"bs58":139,"buffer":141,"create-hash":146}],144:[function(require,module,exports){
+},{"bs58":149,"buffer":151,"create-hash":156}],154:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -79753,7 +82674,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":239}],145:[function(require,module,exports){
+},{"../../is-buffer/index.js":251}],155:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -79881,7 +82802,7 @@ function formatReturnValue(bn, enc, len) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":108,"buffer":141,"elliptic":199}],146:[function(require,module,exports){
+},{"bn.js":118,"buffer":151,"elliptic":209}],156:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -79938,7 +82859,7 @@ module.exports = function createHash(alg) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"./md5":148,"buffer":141,"cipher-base":142,"inherits":238,"ripemd160":289,"sha.js":300}],147:[function(require,module,exports){
+},{"./md5":158,"buffer":151,"cipher-base":152,"inherits":250,"ripemd160":302,"sha.js":313}],157:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -79973,7 +82894,7 @@ module.exports = function hash(buf, fn) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141}],148:[function(require,module,exports){
+},{"buffer":151}],158:[function(require,module,exports){
 'use strict';
 /*
  * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
@@ -80126,7 +83047,7 @@ module.exports = function md5(buf) {
   return makeHash(buf, core_md5);
 };
 
-},{"./make-hash":147}],149:[function(require,module,exports){
+},{"./make-hash":157}],159:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -80191,7 +83112,7 @@ module.exports = function createHmac(alg, key) {
   return new Hmac(alg, key);
 };
 
-},{"./legacy":150,"cipher-base":142,"create-hash/md5":148,"inherits":238,"ripemd160":289,"safe-buffer":291,"sha.js":300}],150:[function(require,module,exports){
+},{"./legacy":160,"cipher-base":152,"create-hash/md5":158,"inherits":250,"ripemd160":302,"safe-buffer":304,"sha.js":313}],160:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -80240,7 +83161,7 @@ Hmac.prototype._final = function () {
 };
 module.exports = Hmac;
 
-},{"cipher-base":142,"inherits":238,"safe-buffer":291}],151:[function(require,module,exports){
+},{"cipher-base":152,"inherits":250,"safe-buffer":304}],161:[function(require,module,exports){
 'use strict';
 
 exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = require('randombytes');
@@ -80335,7 +83256,7 @@ exports.constants = {
   'POINT_CONVERSION_HYBRID': 6
 };
 
-},{"browserify-cipher":128,"browserify-sign":136,"browserify-sign/algos":133,"create-ecdh":145,"create-hash":146,"create-hmac":149,"diffie-hellman":195,"pbkdf2":261,"public-encrypt":268,"randombytes":274,"randomfill":275}],152:[function(require,module,exports){
+},{"browserify-cipher":138,"browserify-sign":146,"browserify-sign/algos":143,"create-ecdh":155,"create-hash":156,"create-hmac":159,"diffie-hellman":205,"pbkdf2":273,"public-encrypt":280,"randombytes":287,"randomfill":288}],162:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -80568,7 +83489,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.AES;
 });
 
-},{"./cipher-core":153,"./core":154,"./enc-base64":155,"./evpkdf":157,"./md5":162}],153:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164,"./enc-base64":165,"./evpkdf":167,"./md5":172}],163:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -81445,7 +84366,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	}();
 });
 
-},{"./core":154}],154:[function(require,module,exports){
+},{"./core":164}],164:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82205,7 +85126,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS;
 });
 
-},{}],155:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82341,7 +85262,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.enc.Base64;
 });
 
-},{"./core":154}],156:[function(require,module,exports){
+},{"./core":164}],166:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82492,7 +85413,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.enc.Utf16;
 });
 
-},{"./core":154}],157:[function(require,module,exports){
+},{"./core":164}],167:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82626,7 +85547,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.EvpKDF;
 });
 
-},{"./core":154,"./hmac":159,"./sha1":178}],158:[function(require,module,exports){
+},{"./core":164,"./hmac":169,"./sha1":188}],168:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82694,7 +85615,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.format.Hex;
 });
 
-},{"./cipher-core":153,"./core":154}],159:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],169:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82839,7 +85760,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	})();
 });
 
-},{"./core":154}],160:[function(require,module,exports){
+},{"./core":164}],170:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82860,7 +85781,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS;
 });
 
-},{"./aes":152,"./cipher-core":153,"./core":154,"./enc-base64":155,"./enc-utf16":156,"./evpkdf":157,"./format-hex":158,"./hmac":159,"./lib-typedarrays":161,"./md5":162,"./mode-cfb":163,"./mode-ctr":165,"./mode-ctr-gladman":164,"./mode-ecb":166,"./mode-ofb":167,"./pad-ansix923":168,"./pad-iso10126":169,"./pad-iso97971":170,"./pad-nopadding":171,"./pad-zeropadding":172,"./pbkdf2":173,"./rabbit":175,"./rabbit-legacy":174,"./rc4":176,"./ripemd160":177,"./sha1":178,"./sha224":179,"./sha256":180,"./sha3":181,"./sha384":182,"./sha512":183,"./tripledes":184,"./x64-core":185}],161:[function(require,module,exports){
+},{"./aes":162,"./cipher-core":163,"./core":164,"./enc-base64":165,"./enc-utf16":166,"./evpkdf":167,"./format-hex":168,"./hmac":169,"./lib-typedarrays":171,"./md5":172,"./mode-cfb":173,"./mode-ctr":175,"./mode-ctr-gladman":174,"./mode-ecb":176,"./mode-ofb":177,"./pad-ansix923":178,"./pad-iso10126":179,"./pad-iso97971":180,"./pad-nopadding":181,"./pad-zeropadding":182,"./pbkdf2":183,"./rabbit":185,"./rabbit-legacy":184,"./rc4":186,"./ripemd160":187,"./sha1":188,"./sha224":189,"./sha256":190,"./sha3":191,"./sha384":192,"./sha512":193,"./tripledes":194,"./x64-core":195}],171:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82929,7 +85850,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.lib.WordArray;
 });
 
-},{"./core":154}],162:[function(require,module,exports){
+},{"./core":164}],172:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83186,7 +86107,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.MD5;
 });
 
-},{"./core":154}],163:[function(require,module,exports){
+},{"./core":164}],173:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83266,7 +86187,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.mode.CFB;
 });
 
-},{"./cipher-core":153,"./core":154}],164:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],174:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83370,7 +86291,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.mode.CTRGladman;
 });
 
-},{"./cipher-core":153,"./core":154}],165:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],175:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83430,7 +86351,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.mode.CTR;
 });
 
-},{"./cipher-core":153,"./core":154}],166:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],176:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83472,7 +86393,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.mode.ECB;
 });
 
-},{"./cipher-core":153,"./core":154}],167:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],177:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83528,7 +86449,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.mode.OFB;
 });
 
-},{"./cipher-core":153,"./core":154}],168:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],178:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83579,7 +86500,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.pad.Ansix923;
 });
 
-},{"./cipher-core":153,"./core":154}],169:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],179:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83624,7 +86545,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.pad.Iso10126;
 });
 
-},{"./cipher-core":153,"./core":154}],170:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],180:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83666,7 +86587,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.pad.Iso97971;
 });
 
-},{"./cipher-core":153,"./core":154}],171:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],181:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83696,7 +86617,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.pad.NoPadding;
 });
 
-},{"./cipher-core":153,"./core":154}],172:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],182:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83743,7 +86664,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.pad.ZeroPadding;
 });
 
-},{"./cipher-core":153,"./core":154}],173:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],183:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83890,7 +86811,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.PBKDF2;
 });
 
-},{"./core":154,"./hmac":159,"./sha1":178}],174:[function(require,module,exports){
+},{"./core":164,"./hmac":169,"./sha1":188}],184:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -84071,7 +86992,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.RabbitLegacy;
 });
 
-},{"./cipher-core":153,"./core":154,"./enc-base64":155,"./evpkdf":157,"./md5":162}],175:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164,"./enc-base64":165,"./evpkdf":167,"./md5":172}],185:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -84253,7 +87174,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.Rabbit;
 });
 
-},{"./cipher-core":153,"./core":154,"./enc-base64":155,"./evpkdf":157,"./md5":162}],176:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164,"./enc-base64":165,"./evpkdf":167,"./md5":172}],186:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -84394,7 +87315,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.RC4;
 });
 
-},{"./cipher-core":153,"./core":154,"./enc-base64":155,"./evpkdf":157,"./md5":162}],177:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164,"./enc-base64":165,"./evpkdf":167,"./md5":172}],187:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -84631,7 +87552,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.RIPEMD160;
 });
 
-},{"./core":154}],178:[function(require,module,exports){
+},{"./core":164}],188:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -84779,7 +87700,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.SHA1;
 });
 
-},{"./core":154}],179:[function(require,module,exports){
+},{"./core":164}],189:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -84858,7 +87779,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.SHA224;
 });
 
-},{"./core":154,"./sha256":180}],180:[function(require,module,exports){
+},{"./core":164,"./sha256":190}],190:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -85055,7 +87976,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.SHA256;
 });
 
-},{"./core":154}],181:[function(require,module,exports){
+},{"./core":164}],191:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -85370,7 +88291,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.SHA3;
 });
 
-},{"./core":154,"./x64-core":185}],182:[function(require,module,exports){
+},{"./core":164,"./x64-core":195}],192:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -85450,7 +88371,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.SHA384;
 });
 
-},{"./core":154,"./sha512":183,"./x64-core":185}],183:[function(require,module,exports){
+},{"./core":164,"./sha512":193,"./x64-core":195}],193:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -85729,7 +88650,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.SHA512;
 });
 
-},{"./core":154,"./x64-core":185}],184:[function(require,module,exports){
+},{"./core":164,"./x64-core":195}],194:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -86472,7 +89393,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.TripleDES;
 });
 
-},{"./cipher-core":153,"./core":154,"./enc-base64":155,"./evpkdf":157,"./md5":162}],185:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164,"./enc-base64":165,"./evpkdf":167,"./md5":172}],195:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -86778,7 +89699,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS;
 });
 
-},{"./core":154}],186:[function(require,module,exports){
+},{"./core":164}],196:[function(require,module,exports){
 'use strict';
 
 exports.utils = require('./des/utils');
@@ -86787,7 +89708,7 @@ exports.DES = require('./des/des');
 exports.CBC = require('./des/cbc');
 exports.EDE = require('./des/ede');
 
-},{"./des/cbc":187,"./des/cipher":188,"./des/des":189,"./des/ede":190,"./des/utils":191}],187:[function(require,module,exports){
+},{"./des/cbc":197,"./des/cipher":198,"./des/des":199,"./des/ede":200,"./des/utils":201}],197:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -86855,7 +89776,7 @@ proto._update = function _update(inp, inOff, out, outOff) {
   }
 };
 
-},{"inherits":238,"minimalistic-assert":254}],188:[function(require,module,exports){
+},{"inherits":250,"minimalistic-assert":266}],198:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -86982,7 +89903,7 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
   return this._unpad(out);
 };
 
-},{"minimalistic-assert":254}],189:[function(require,module,exports){
+},{"minimalistic-assert":266}],199:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -87119,7 +90040,7 @@ DES.prototype._decrypt = function _decrypt(state, lStart, rStart, out, off) {
   utils.rip(l, r, out, off);
 };
 
-},{"../des":186,"inherits":238,"minimalistic-assert":254}],190:[function(require,module,exports){
+},{"../des":196,"inherits":250,"minimalistic-assert":266}],200:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -87168,7 +90089,7 @@ EDE.prototype._update = function _update(inp, inOff, out, outOff) {
 EDE.prototype._pad = DES.prototype._pad;
 EDE.prototype._unpad = DES.prototype._unpad;
 
-},{"../des":186,"inherits":238,"minimalistic-assert":254}],191:[function(require,module,exports){
+},{"../des":196,"inherits":250,"minimalistic-assert":266}],201:[function(require,module,exports){
 'use strict';
 
 exports.readUInt32BE = function readUInt32BE(bytes, off) {
@@ -87374,7 +90295,7 @@ exports.padSplit = function padSplit(num, size, group) {
   }return out.join(' ');
 };
 
-},{}],192:[function(require,module,exports){
+},{}],202:[function(require,module,exports){
 'use strict';
 
 var detectBrowser = require('./lib/detectBrowser');
@@ -87387,7 +90308,7 @@ if (typeof navigator !== 'undefined' && navigator) {
 
 module.exports = detectBrowser(agent);
 
-},{"./lib/detectBrowser":193}],193:[function(require,module,exports){
+},{"./lib/detectBrowser":203}],203:[function(require,module,exports){
 'use strict';
 
 var detectOS = require('./detectOS.js');
@@ -87415,7 +90336,7 @@ module.exports = function detectBrowser(userAgentString) {
     }).filter(Boolean).shift();
 };
 
-},{"./detectOS.js":194}],194:[function(require,module,exports){
+},{"./detectOS.js":204}],204:[function(require,module,exports){
 'use strict';
 
 module.exports = function detectOS(userAgentString) {
@@ -87505,7 +90426,7 @@ module.exports = function detectOS(userAgentString) {
   return detected && detected[0] ? detected[0].name : null;
 };
 
-},{}],195:[function(require,module,exports){
+},{}],205:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -87553,7 +90474,7 @@ exports.DiffieHellmanGroup = exports.createDiffieHellmanGroup = exports.getDiffi
 exports.createDiffieHellman = exports.DiffieHellman = createDiffieHellman;
 
 }).call(this,require("buffer").Buffer)
-},{"./lib/dh":196,"./lib/generatePrime":197,"./lib/primes.json":198,"buffer":141}],196:[function(require,module,exports){
+},{"./lib/dh":206,"./lib/generatePrime":207,"./lib/primes.json":208,"buffer":151}],206:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -87720,7 +90641,7 @@ function formatReturnValue(bn, enc) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./generatePrime":197,"bn.js":108,"buffer":141,"miller-rabin":253,"randombytes":274}],197:[function(require,module,exports){
+},{"./generatePrime":207,"bn.js":118,"buffer":151,"miller-rabin":265,"randombytes":287}],207:[function(require,module,exports){
 'use strict';
 
 var randomBytes = require('randombytes');
@@ -87821,7 +90742,7 @@ function findPrime(bits, gen) {
   }
 }
 
-},{"bn.js":108,"miller-rabin":253,"randombytes":274}],198:[function(require,module,exports){
+},{"bn.js":118,"miller-rabin":265,"randombytes":287}],208:[function(require,module,exports){
 module.exports={
     "modp1": {
         "gen": "02",
@@ -87856,7 +90777,7 @@ module.exports={
         "prime": "ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c93402849236c3fab4d27c7026c1d4dcb2602646dec9751e763dba37bdf8ff9406ad9e530ee5db382f413001aeb06a53ed9027d831179727b0865a8918da3edbebcf9b14ed44ce6cbaced4bb1bdb7f1447e6cc254b332051512bd7af426fb8f401378cd2bf5983ca01c64b92ecf032ea15d1721d03f482d7ce6e74fef6d55e702f46980c82b5a84031900b1c9e59e7c97fbec7e8f323a97a7e36cc88be0f1d45b7ff585ac54bd407b22b4154aacc8f6d7ebf48e1d814cc5ed20f8037e0a79715eef29be32806a1d58bb7c5da76f550aa3d8a1fbff0eb19ccb1a313d55cda56c9ec2ef29632387fe8d76e3c0468043e8f663f4860ee12bf2d5b0b7474d6e694f91e6dbe115974a3926f12fee5e438777cb6a932df8cd8bec4d073b931ba3bc832b68d9dd300741fa7bf8afc47ed2576f6936ba424663aab639c5ae4f5683423b4742bf1c978238f16cbe39d652de3fdb8befc848ad922222e04a4037c0713eb57a81a23f0c73473fc646cea306b4bcbc8862f8385ddfa9d4b7fa2c087e879683303ed5bdd3a062b3cf5b3a278a66d2a13f83f44f82ddf310ee074ab6a364597e899a0255dc164f31cc50846851df9ab48195ded7ea1b1d510bd7ee74d73faf36bc31ecfa268359046f4eb879f924009438b481c6cd7889a002ed5ee382bc9190da6fc026e479558e4475677e9aa9e3050e2765694dfc81f56e880b96e7160c980dd98edd3dfffffffffffffffff"
     }
 }
-},{}],199:[function(require,module,exports){
+},{}],209:[function(require,module,exports){
 'use strict';
 
 var elliptic = exports;
@@ -87871,7 +90792,7 @@ elliptic.curves = require('./elliptic/curves');
 elliptic.ec = require('./elliptic/ec');
 elliptic.eddsa = require('./elliptic/eddsa');
 
-},{"../package.json":214,"./elliptic/curve":202,"./elliptic/curves":205,"./elliptic/ec":206,"./elliptic/eddsa":209,"./elliptic/utils":213,"brorand":109}],200:[function(require,module,exports){
+},{"../package.json":224,"./elliptic/curve":212,"./elliptic/curves":215,"./elliptic/ec":216,"./elliptic/eddsa":219,"./elliptic/utils":223,"brorand":119}],210:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -88203,7 +91124,7 @@ BasePoint.prototype.dblp = function dblp(k) {
   }return r;
 };
 
-},{"../../elliptic":199,"bn.js":108}],201:[function(require,module,exports){
+},{"../../elliptic":209,"bn.js":118}],211:[function(require,module,exports){
 'use strict';
 
 var curve = require('../curve');
@@ -88591,7 +91512,7 @@ Point.prototype.eqXToP = function eqXToP(x) {
 Point.prototype.toP = Point.prototype.normalize;
 Point.prototype.mixedAdd = Point.prototype.add;
 
-},{"../../elliptic":199,"../curve":202,"bn.js":108,"inherits":238}],202:[function(require,module,exports){
+},{"../../elliptic":209,"../curve":212,"bn.js":118,"inherits":250}],212:[function(require,module,exports){
 'use strict';
 
 var curve = exports;
@@ -88601,7 +91522,7 @@ curve.short = require('./short');
 curve.mont = require('./mont');
 curve.edwards = require('./edwards');
 
-},{"./base":200,"./edwards":201,"./mont":203,"./short":204}],203:[function(require,module,exports){
+},{"./base":210,"./edwards":211,"./mont":213,"./short":214}],213:[function(require,module,exports){
 'use strict';
 
 var curve = require('../curve');
@@ -88778,7 +91699,7 @@ Point.prototype.getX = function getX() {
   return this.x.fromRed();
 };
 
-},{"../../elliptic":199,"../curve":202,"bn.js":108,"inherits":238}],204:[function(require,module,exports){
+},{"../../elliptic":209,"../curve":212,"bn.js":118,"inherits":250}],214:[function(require,module,exports){
 'use strict';
 
 var curve = require('../curve');
@@ -89643,7 +92564,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
   return this.z.cmpn(0) === 0;
 };
 
-},{"../../elliptic":199,"../curve":202,"bn.js":108,"inherits":238}],205:[function(require,module,exports){
+},{"../../elliptic":209,"../curve":212,"bn.js":118,"inherits":250}],215:[function(require,module,exports){
 'use strict';
 
 var curves = exports;
@@ -89801,7 +92722,7 @@ defineCurve('secp256k1', {
   g: ['79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798', '483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', pre]
 });
 
-},{"../elliptic":199,"./precomputed/secp256k1":212,"hash.js":222}],206:[function(require,module,exports){
+},{"../elliptic":209,"./precomputed/secp256k1":222,"hash.js":232}],216:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -90019,7 +92940,7 @@ EC.prototype.getKeyRecoveryParam = function (e, signature, Q, enc) {
   throw new Error('Unable to find valid recovery factor');
 };
 
-},{"../../elliptic":199,"./key":207,"./signature":208,"bn.js":108,"hmac-drbg":235}],207:[function(require,module,exports){
+},{"../../elliptic":209,"./key":217,"./signature":218,"bn.js":118,"hmac-drbg":245}],217:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -90126,7 +93047,7 @@ KeyPair.prototype.inspect = function inspect() {
   return '<Key priv: ' + (this.priv && this.priv.toString(16, 2)) + ' pub: ' + (this.pub && this.pub.inspect()) + ' >';
 };
 
-},{"../../elliptic":199,"bn.js":108}],208:[function(require,module,exports){
+},{"../../elliptic":209,"bn.js":118}],218:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -90256,7 +93177,7 @@ Signature.prototype.toDER = function toDER(enc) {
   return utils.encode(res, enc);
 };
 
-},{"../../elliptic":199,"bn.js":108}],209:[function(require,module,exports){
+},{"../../elliptic":209,"bn.js":118}],219:[function(require,module,exports){
 'use strict';
 
 var hash = require('hash.js');
@@ -90373,7 +93294,7 @@ EDDSA.prototype.isPoint = function isPoint(val) {
   return val instanceof this.pointClass;
 };
 
-},{"../../elliptic":199,"./key":210,"./signature":211,"hash.js":222}],210:[function(require,module,exports){
+},{"../../elliptic":209,"./key":220,"./signature":221,"hash.js":232}],220:[function(require,module,exports){
 'use strict';
 
 var elliptic = require('../../elliptic');
@@ -90465,7 +93386,7 @@ KeyPair.prototype.getPublic = function getPublic(enc) {
 
 module.exports = KeyPair;
 
-},{"../../elliptic":199}],211:[function(require,module,exports){
+},{"../../elliptic":209}],221:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -90532,7 +93453,7 @@ Signature.prototype.toHex = function toHex() {
 
 module.exports = Signature;
 
-},{"../../elliptic":199,"bn.js":108}],212:[function(require,module,exports){
+},{"../../elliptic":209,"bn.js":118}],222:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -90546,7 +93467,7 @@ module.exports = {
   }
 };
 
-},{}],213:[function(require,module,exports){
+},{}],223:[function(require,module,exports){
 'use strict';
 
 var utils = exports;
@@ -90649,7 +93570,7 @@ function intFromLE(bytes) {
 }
 utils.intFromLE = intFromLE;
 
-},{"bn.js":108,"minimalistic-assert":254,"minimalistic-crypto-utils":255}],214:[function(require,module,exports){
+},{"bn.js":118,"minimalistic-assert":266,"minimalistic-crypto-utils":267}],224:[function(require,module,exports){
 module.exports={
   "_args": [
     [
@@ -90742,7 +93663,7 @@ module.exports={
   "version": "6.4.0"
 }
 
-},{}],215:[function(require,module,exports){
+},{}],225:[function(require,module,exports){
 module.exports={
   "genesisGasLimit": {
     "v": 5000,
@@ -90979,7 +93900,7 @@ module.exports={
   }
 }
 
-},{}],216:[function(require,module,exports){
+},{}],226:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -91301,7 +94222,7 @@ var Transaction = function () {
 module.exports = Transaction;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"ethereum-common/params.json":215,"ethereumjs-util":217}],217:[function(require,module,exports){
+},{"buffer":151,"ethereum-common/params.json":225,"ethereumjs-util":227}],227:[function(require,module,exports){
 'use strict';
 
 var _typeof3 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -92007,7 +94928,7 @@ exports.defineProperties = function (self, fields, data) {
   }
 };
 
-},{"assert":95,"bn.js":108,"create-hash":146,"ethjs-util":218,"keccak":244,"rlp":290,"safe-buffer":291,"secp256k1":293}],218:[function(require,module,exports){
+},{"assert":105,"bn.js":118,"create-hash":156,"ethjs-util":228,"keccak":256,"rlp":303,"safe-buffer":304,"secp256k1":306}],228:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -92233,7 +95154,7 @@ module.exports = {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"is-hex-prefixed":240,"strip-hex-prefix":310}],219:[function(require,module,exports){
+},{"buffer":151,"is-hex-prefixed":252,"strip-hex-prefix":323}],229:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -92508,7 +95429,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],220:[function(require,module,exports){
+},{}],230:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -92557,7 +95478,7 @@ function EVP_BytesToKey(password, salt, keyBits, ivLen) {
 
 module.exports = EVP_BytesToKey;
 
-},{"md5.js":251,"safe-buffer":291}],221:[function(require,module,exports){
+},{"md5.js":263,"safe-buffer":304}],231:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -92646,7 +95567,7 @@ HashBase.prototype._digest = function () {
 module.exports = HashBase;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"inherits":238,"stream":307}],222:[function(require,module,exports){
+},{"buffer":151,"inherits":250,"stream":320}],232:[function(require,module,exports){
 'use strict';
 
 var hash = exports;
@@ -92665,7 +95586,7 @@ hash.sha384 = hash.sha.sha384;
 hash.sha512 = hash.sha.sha512;
 hash.ripemd160 = hash.ripemd.ripemd160;
 
-},{"./hash/common":223,"./hash/hmac":224,"./hash/ripemd":225,"./hash/sha":226,"./hash/utils":233}],223:[function(require,module,exports){
+},{"./hash/common":233,"./hash/hmac":234,"./hash/ripemd":235,"./hash/sha":236,"./hash/utils":243}],233:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -92755,7 +95676,7 @@ BlockHash.prototype._pad = function pad() {
   return res;
 };
 
-},{"./utils":233,"minimalistic-assert":254}],224:[function(require,module,exports){
+},{"./utils":243,"minimalistic-assert":266}],234:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -92801,7 +95722,7 @@ Hmac.prototype.digest = function digest(enc) {
   return this.outer.digest(enc);
 };
 
-},{"./utils":233,"minimalistic-assert":254}],225:[function(require,module,exports){
+},{"./utils":243,"minimalistic-assert":266}],235:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -92886,7 +95807,7 @@ var s = [11, 14, 15, 12, 5, 8, 7, 9, 11, 13, 14, 15, 6, 7, 9, 8, 7, 6, 8, 13, 11
 
 var sh = [8, 9, 9, 11, 13, 15, 15, 5, 7, 7, 8, 11, 14, 14, 12, 6, 9, 13, 15, 7, 12, 8, 9, 11, 7, 7, 12, 7, 6, 15, 13, 11, 9, 7, 15, 11, 8, 6, 6, 14, 12, 13, 5, 14, 13, 13, 7, 5, 15, 5, 8, 11, 14, 14, 6, 14, 6, 9, 12, 9, 12, 5, 15, 8, 8, 5, 12, 9, 12, 5, 14, 6, 8, 13, 6, 5, 15, 13, 11, 11];
 
-},{"./common":223,"./utils":233}],226:[function(require,module,exports){
+},{"./common":233,"./utils":243}],236:[function(require,module,exports){
 'use strict';
 
 exports.sha1 = require('./sha/1');
@@ -92895,7 +95816,7 @@ exports.sha256 = require('./sha/256');
 exports.sha384 = require('./sha/384');
 exports.sha512 = require('./sha/512');
 
-},{"./sha/1":227,"./sha/224":228,"./sha/256":229,"./sha/384":230,"./sha/512":231}],227:[function(require,module,exports){
+},{"./sha/1":237,"./sha/224":238,"./sha/256":239,"./sha/384":240,"./sha/512":241}],237:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -92960,7 +95881,7 @@ SHA1.prototype._digest = function digest(enc) {
   if (enc === 'hex') return utils.toHex32(this.h, 'big');else return utils.split32(this.h, 'big');
 };
 
-},{"../common":223,"../utils":233,"./common":232}],228:[function(require,module,exports){
+},{"../common":233,"../utils":243,"./common":242}],238:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -92985,7 +95906,7 @@ SHA224.prototype._digest = function digest(enc) {
   if (enc === 'hex') return utils.toHex32(this.h.slice(0, 7), 'big');else return utils.split32(this.h.slice(0, 7), 'big');
 };
 
-},{"../utils":233,"./256":229}],229:[function(require,module,exports){
+},{"../utils":243,"./256":239}],239:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -93067,7 +95988,7 @@ SHA256.prototype._digest = function digest(enc) {
   if (enc === 'hex') return utils.toHex32(this.h, 'big');else return utils.split32(this.h, 'big');
 };
 
-},{"../common":223,"../utils":233,"./common":232,"minimalistic-assert":254}],230:[function(require,module,exports){
+},{"../common":233,"../utils":243,"./common":242,"minimalistic-assert":266}],240:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -93092,7 +96013,7 @@ SHA384.prototype._digest = function digest(enc) {
   if (enc === 'hex') return utils.toHex32(this.h.slice(0, 12), 'big');else return utils.split32(this.h.slice(0, 12), 'big');
 };
 
-},{"../utils":233,"./512":231}],231:[function(require,module,exports){
+},{"../utils":243,"./512":241}],241:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -93341,7 +96262,7 @@ function g1_512_lo(xh, xl) {
   return r;
 }
 
-},{"../common":223,"../utils":233,"minimalistic-assert":254}],232:[function(require,module,exports){
+},{"../common":233,"../utils":243,"minimalistic-assert":266}],242:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -93389,7 +96310,7 @@ function g1_256(x) {
 }
 exports.g1_256 = g1_256;
 
-},{"../utils":233}],233:[function(require,module,exports){
+},{"../utils":243}],243:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -93615,7 +96536,7 @@ function shr64_lo(ah, al, num) {
 }
 exports.shr64_lo = shr64_lo;
 
-},{"inherits":238,"minimalistic-assert":254}],234:[function(require,module,exports){
+},{"inherits":250,"minimalistic-assert":266}],244:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -93856,7 +96777,7 @@ HDKey.HARDENED_OFFSET = HARDENED_OFFSET;
 module.exports = HDKey;
 
 }).call(this,require("buffer").Buffer)
-},{"assert":95,"buffer":141,"coinstring":143,"crypto":151,"secp256k1":293}],235:[function(require,module,exports){
+},{"assert":105,"buffer":151,"coinstring":153,"crypto":161,"secp256k1":306}],245:[function(require,module,exports){
 'use strict';
 
 var hash = require('hash.js');
@@ -93959,7 +96880,204 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
   return utils.encode(res, enc);
 };
 
-},{"hash.js":222,"minimalistic-assert":254,"minimalistic-crypto-utils":255}],236:[function(require,module,exports){
+},{"hash.js":232,"minimalistic-assert":266,"minimalistic-crypto-utils":267}],246:[function(require,module,exports){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/* This file is generated from the Unicode IDNA table, using
+   the build-unicode-tables.py script. Please edit that
+   script instead of this file. */
+
+/* istanbul ignore next */
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define([], function () {
+      return factory();
+    });
+  } else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') {
+    module.exports = factory();
+  } else {
+    root.uts46_map = factory();
+  }
+})(undefined, function () {
+  var blocks = [new Uint32Array([2157250, 2157314, 2157378, 2157442, 2157506, 2157570, 2157634, 0, 2157698, 2157762, 2157826, 2157890, 2157954, 0, 2158018, 0]), new Uint32Array([2179041, 6291456, 2179073, 6291456, 2179105, 6291456, 2179137, 6291456, 2179169, 6291456, 2179201, 6291456, 2179233, 6291456, 2179265, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 14680064, 14680064, 14680064, 14680064, 14680064]), new Uint32Array([0, 2113729, 2197345, 2197377, 2113825, 2197409, 2197441, 2113921, 2197473, 2114017, 2197505, 2197537, 2197569, 2197601, 2197633, 2197665]), new Uint32Array([6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 23068672, 23068672, 23068672, 0, 0, 0, 0, 23068672]), new Uint32Array([14680064, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 14680064, 14680064]), new Uint32Array([2196001, 2196033, 2196065, 2196097, 2196129, 2196161, 2196193, 2196225, 2196257, 2196289, 2196321, 2196353, 2196385, 2196417, 2196449, 2196481]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 0, 0, 0, 0, 0]), new Uint32Array([2097281, 2105921, 2097729, 2106081, 0, 2097601, 2162337, 2106017, 2133281, 2097505, 2105889, 2097185, 2097697, 2135777, 2097633, 2097441]), new Uint32Array([2177025, 6291456, 2177057, 6291456, 2177089, 6291456, 2177121, 6291456, 2177153, 6291456, 2177185, 6291456, 2177217, 6291456, 2177249, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 0, 6291456, 6291456, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456]), new Uint32Array([0, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 6291456]), new Uint32Array([2134435, 2134531, 2134627, 2134723, 2134723, 2134819, 2134819, 2134915, 2134915, 2135011, 2105987, 2135107, 2135203, 2135299, 2131587, 2135395]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 6291456, 2168673, 2169249, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2147906, 2147970, 2148034, 2148098, 2148162, 2148226, 2148290, 2148354, 2147906, 2147970, 2148034, 2148098, 2148162, 2148226, 2148290, 2148354]), new Uint32Array([2125219, 2125315, 2152834, 2152898, 2125411, 2152962, 2153026, 2125506, 2125507, 2125603, 2153090, 2153154, 2153218, 2153282, 2153346, 2105348]), new Uint32Array([2203393, 6291456, 2203425, 6291456, 2203457, 6291456, 2203489, 6291456, 6291456, 6291456, 6291456, 2203521, 6291456, 2181281, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 23068672, 6291456, 2145538, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 6291456]), new Uint32Array([2139426, 2160834, 2160898, 2160962, 2134242, 2161026, 2161090, 2161154, 2161218, 2161282, 2161346, 2161410, 2138658, 2161474, 2161538, 2134722]), new Uint32Array([2119939, 2124930, 2125026, 2106658, 2125218, 2128962, 2129058, 2129154, 2129250, 2129346, 2129442, 2108866, 2108770, 2150466, 2150530, 2150594]), new Uint32Array([2201601, 6291456, 2201633, 6291456, 2201665, 6291456, 2201697, 6291456, 2201729, 6291456, 2201761, 6291456, 2201793, 6291456, 2201825, 6291456]), new Uint32Array([2193537, 2193569, 2193601, 2193633, 2193665, 2193697, 2193729, 2193761, 2193793, 2193825, 2193857, 2193889, 2193921, 2193953, 2193985, 2194017]), new Uint32Array([6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2190561, 6291456, 2190593, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2190625, 6291456, 2190657, 6291456, 23068672]), new Uint32Array([2215905, 2215937, 2215969, 2216001, 2216033, 2216065, 2216097, 2216129, 2216161, 2216193, 2216225, 2216257, 2105441, 2216289, 2216321, 2216353]), new Uint32Array([23068672, 18884130, 23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2191233, 2191265, 2191297, 2191329, 2191361, 2191393, 2191425, 2117377, 2191457, 2191489, 2191521, 2191553, 2191585, 2191617, 2191649, 2117953]), new Uint32Array([2132227, 2132323, 2132419, 2132419, 2132515, 2132515, 2132611, 2132707, 2132707, 2132803, 2132899, 2132899, 2132995, 2132995, 2133091, 2133187]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 6291456, 0, 0]), new Uint32Array([2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 10609889, 10610785, 10609921, 10610817, 2222241]), new Uint32Array([6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 0, 0]), new Uint32Array([2219969, 2157121, 2157441, 2157505, 2157889, 2157953, 2220001, 2158465, 2158529, 10575617, 2156994, 2157058, 2129923, 2130019, 2157122, 2157186]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0]), new Uint32Array([2185249, 6291456, 2185281, 6291456, 2185313, 6291456, 2185345, 6291456, 2185377, 6291456, 2185409, 6291456, 2185441, 6291456, 2185473, 6291456]), new Uint32Array([0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 23068672, 23068672, 0, 0, 23068672, 23068672, 23068672, 6291456, 0]), new Uint32Array([2183361, 6291456, 2183393, 6291456, 2183425, 6291456, 2183457, 6291456, 2183489, 6291456, 2183521, 6291456, 2183553, 6291456, 2183585, 6291456]), new Uint32Array([2192161, 2192193, 2192225, 2192257, 2192289, 2192321, 2192353, 2192385, 2192417, 2192449, 2192481, 2192513, 2192545, 2192577, 2192609, 2192641]), new Uint32Array([2212001, 2212033, 2212065, 2212097, 2212129, 2212161, 2212193, 2212225, 2212257, 2212289, 2212321, 2212353, 2212385, 2212417, 2212449, 2207265]), new Uint32Array([2249825, 2249857, 2249889, 2249921, 2249954, 2250018, 2250082, 2250145, 2250177, 2250209, 2250241, 2250274, 2250337, 2250370, 2250433, 2250465]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2147905, 2147969, 2148033, 2148097, 2148161, 2148225, 2148289, 2148353]), new Uint32Array([10485857, 6291456, 2197217, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 23068672, 23068672]), new Uint32Array([0, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456]), new Uint32Array([2180353, 2180385, 2144033, 2180417, 2180449, 2180481, 2180513, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 10610209, 10610465, 10610241, 10610753, 10609857]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 0, 0]), new Uint32Array([2223842, 2223906, 2223970, 2224034, 2224098, 2224162, 2224226, 2224290, 2224354, 2224418, 2224482, 2224546, 2224610, 2224674, 2224738, 2224802]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 18923650, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 18923714, 23068672, 23068672]), new Uint32Array([2126179, 2125538, 2126275, 2126371, 2126467, 2125634, 2126563, 2105603, 2105604, 2125346, 2126659, 2126755, 2126851, 2098179, 2098181, 2098182]), new Uint32Array([2227426, 2227490, 2227554, 2227618, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2192353, 2240642, 2240642, 2240705, 2240737, 2240737, 2240769, 2240802, 2240866, 2240929, 2240961, 2240993, 2241025, 2241057, 2241089, 2241121]), new Uint32Array([6291456, 2170881, 2170913, 2170945, 6291456, 2170977, 6291456, 2171009, 2171041, 6291456, 6291456, 6291456, 2171073, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2132226, 2132514, 2163586, 2132610, 2160386, 2133090, 2133186, 2160450, 2160514, 2160578, 2133570, 2106178, 2160642, 2133858, 2160706, 2160770]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 10532162, 10532226, 10532290, 10532354, 10532418, 10532482, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 23068672]), new Uint32Array([2098209, 2108353, 2108193, 2108481, 2170241, 2111713, 2105473, 2105569, 2105601, 2112289, 2112481, 2098305, 2108321, 0, 0, 0]), new Uint32Array([2209121, 2209153, 2209185, 2209217, 2209249, 2209281, 2209313, 2209345, 2209377, 2209409, 2209441, 2209473, 2207265, 2209505, 2209537, 2209569]), new Uint32Array([2189025, 6291456, 2189057, 6291456, 2189089, 6291456, 2189121, 6291456, 2189153, 6291456, 2189185, 6291456, 2189217, 6291456, 2189249, 6291456]), new Uint32Array([2173825, 2153473, 2173857, 2173889, 2173921, 2173953, 2173985, 2173761, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2233057]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2165764, 2140004]), new Uint32Array([2215105, 6291456, 2215137, 6291456, 6291456, 2215169, 2215201, 6291456, 6291456, 6291456, 2215233, 2215265, 2215297, 2215329, 2215361, 2215393]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 6291456, 6291456, 6291456, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([10505091, 10505187, 10505283, 10505379, 10505475, 10505571, 10505667, 10505763, 10505859, 10505955, 10506051, 10506147, 10506243, 10506339, 10506435, 10506531]), new Uint32Array([2229730, 2229794, 2229858, 2229922, 2229986, 2230050, 2230114, 2230178, 2230242, 2230306, 2230370, 2230434, 2230498, 2230562, 2230626, 2230690]), new Uint32Array([2105505, 2098241, 2108353, 2108417, 2105825, 0, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193, 2112481, 2112577, 2098177]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 10502115, 10502178, 10502211, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456]), new Uint32Array([2190305, 6291456, 2190337, 6291456, 2190369, 6291456, 2190401, 6291456, 2190433, 6291456, 2190465, 6291456, 2190497, 6291456, 2190529, 6291456]), new Uint32Array([2173793, 2173985, 2174017, 6291456, 2173761, 2173697, 6291456, 2174689, 6291456, 2174017, 2174721, 6291456, 6291456, 2174753, 2174785, 2174817]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2099521, 2099105, 2120705, 2098369, 2120801, 2103361, 2097985, 2098433, 2121377, 2121473, 2099169, 2099873, 2098401, 2099393, 2152609, 2100033]), new Uint32Array([2132898, 2163842, 2163906, 2133282, 2132034, 2131938, 2137410, 2132802, 2132706, 2164866, 2133282, 2160578, 2165186, 2165186, 6291456, 6291456]), new Uint32Array([10500003, 10500099, 10500195, 10500291, 10500387, 10500483, 10500579, 10500675, 10500771, 10500867, 10500963, 10501059, 10501155, 10501251, 10501347, 10501443]), new Uint32Array([2163458, 2130978, 2131074, 2131266, 2131362, 2163522, 2160130, 2132066, 2131010, 2131106, 2106018, 2131618, 2131298, 2132034, 2131938, 2137410]), new Uint32Array([2212961, 2116993, 2212993, 2213025, 2213057, 2213089, 2213121, 2213153, 2213185, 2213217, 2213249, 2209633, 2213281, 2213313, 2213345, 2213377]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456]), new Uint32Array([2113729, 2113825, 2113921, 2114017, 2114113, 2114209, 2114305, 2114401, 2114497, 2114593, 2114689, 2114785, 2114881, 2114977, 2115073, 2115169]), new Uint32Array([2238177, 2238209, 2238241, 2238273, 2238305, 2238337, 2238337, 2217537, 2238369, 2238401, 2238433, 2238465, 2215649, 2238497, 2238529, 2238561]), new Uint32Array([2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905]), new Uint32Array([6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 0, 0]), new Uint32Array([6291456, 0, 6291456, 2145026, 0, 6291456, 2145090, 0, 6291456, 6291456, 0, 0, 23068672, 0, 23068672, 23068672]), new Uint32Array([2099233, 2122017, 2200673, 2098113, 2121537, 2103201, 2200705, 2104033, 2121857, 2121953, 2122401, 2099649, 2099969, 2123009, 2100129, 2100289]), new Uint32Array([6291456, 23068672, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0]), new Uint32Array([2187681, 2187713, 2187745, 2187777, 2187809, 2187841, 2187873, 2187905, 2187937, 2187969, 2188001, 2188033, 2188065, 2188097, 2188129, 2188161]), new Uint32Array([0, 10554498, 10554562, 10554626, 10554690, 10554754, 10554818, 10554882, 10554946, 10555010, 10555074, 6291456, 6291456, 0, 0, 0]), new Uint32Array([2235170, 2235234, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2181153, 6291456, 2188897, 6291456, 6291456, 2188929, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2111905, 2100865, 2188961, 2188993]), new Uint32Array([2100833, 2100897, 0, 0, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 10575617, 2187041, 10502177, 10489601, 10489697, 2112289]), new Uint32Array([6291456, 2172833, 6291456, 2172865, 2172897, 2172929, 2172961, 6291456, 2172993, 6291456, 2173025, 6291456, 2173057, 6291456, 2173089, 6291456]), new Uint32Array([6291456, 0, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 23068672, 6291456, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 2190721]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456]), new Uint32Array([2184993, 6291456, 2185025, 6291456, 2185057, 6291456, 2185089, 6291456, 2185121, 6291456, 2185153, 6291456, 2185185, 6291456, 2185217, 6291456]), new Uint32Array([2115265, 2115361, 2115457, 2115553, 2115649, 2115745, 2115841, 2115937, 2116033, 2116129, 2116225, 2116321, 2150658, 2150722, 2200225, 6291456]), new Uint32Array([2168321, 6291456, 2168353, 6291456, 2168385, 6291456, 2168417, 6291456, 2168449, 6291456, 2168481, 6291456, 2168513, 6291456, 2168545, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 0, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456, 0, 6291456, 0, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 2186625, 0, 0, 6291456, 6291456, 2186657, 2186689, 2186721, 2173505, 0, 10496067, 10496163, 10496259]), new Uint32Array([2178785, 6291456, 2178817, 6291456, 2178849, 6291456, 2178881, 6291456, 2178913, 6291456, 2178945, 6291456, 2178977, 6291456, 2179009, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0]), new Uint32Array([2097152, 0, 0, 0, 2097152, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 0, 2197857, 2197889, 2197921, 2197953, 2197985, 2198017, 0, 0, 2198049, 2198081, 2198113, 2198145, 2198177, 2198209]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2098209, 2167297, 2111137, 6291456]), new Uint32Array([2171393, 6291456, 2171425, 6291456, 2171457, 6291456, 2171489, 6291456, 2171521, 6291456, 2171553, 6291456, 2171585, 6291456, 2171617, 6291456]), new Uint32Array([2206753, 2206785, 2195457, 2206817, 2206849, 2206881, 2206913, 2197153, 2197153, 2206945, 2117857, 2206977, 2207009, 2207041, 2207073, 2207105]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 23068672, 0, 0, 0, 0, 2144834, 2144898, 0, 2144962]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 23068672]), new Uint32Array([2108193, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 0, 2105505, 2098241]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 2202049, 6291456, 2202081, 6291456, 2202113, 6291456, 2202145, 6291456, 2202177, 6291456, 2202209, 6291456, 2202241, 6291456]), new Uint32Array([10501155, 10501251, 10501347, 10501443, 10501539, 10501635, 10501731, 10501827, 10501923, 10502019, 2141731, 2105505, 2098177, 2155586, 2166530, 0]), new Uint32Array([2102081, 2102209, 2100833, 2100737, 2098337, 2101441, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 2100833, 2100737, 2098337, 2101441]), new Uint32Array([2146882, 2146946, 2147010, 2147074, 2147138, 2147202, 2147266, 2147330, 2146882, 2146946, 2147010, 2147074, 2147138, 2147202, 2147266, 2147330]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0]), new Uint32Array([10502307, 10502403, 10502499, 10502595, 10502691, 10502787, 10502883, 10502979, 10503075, 10503171, 10503267, 10503363, 10503459, 10503555, 10503651, 10503747]), new Uint32Array([2179937, 2179969, 2180001, 2180033, 2156545, 2180065, 2156577, 2180097, 2180129, 2180161, 2180193, 2180225, 2180257, 2180289, 2156737, 2180321]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 0, 0, 0, 6291456, 0, 0, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0]), new Uint32Array([2227682, 2227746, 2227810, 2227874, 2227938, 2228002, 2228066, 2228130, 2228194, 2228258, 2228322, 2228386, 2228450, 2228514, 2228578, 2228642]), new Uint32Array([2105601, 2169121, 2108193, 2170049, 2181025, 2181057, 2112481, 2108321, 2108289, 2181089, 2170497, 2100865, 2181121, 2173601, 2173633, 2173665]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2180641, 6291456, 6291456, 6291456]), new Uint32Array([0, 6291456, 6291456, 6291456, 0, 6291456, 0, 6291456, 0, 0, 6291456, 6291456, 0, 6291456, 6291456, 6291456]), new Uint32Array([2178273, 6291456, 2178305, 6291456, 2178337, 6291456, 2178369, 6291456, 2178401, 6291456, 2178433, 6291456, 2178465, 6291456, 2178497, 6291456]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 23068672, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456]), new Uint32Array([2237377, 2237409, 2236225, 2237441, 2237473, 2217441, 2215521, 2215553, 2217473, 2237505, 2237537, 2209697, 2237569, 2215585, 2237601, 2237633]), new Uint32Array([2221985, 2165601, 2165601, 2165665, 2165665, 2222017, 2222017, 2165729, 2165729, 2158913, 2158913, 2158913, 2158913, 2097281, 2097281, 2105921]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2149634, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2176897, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 2176929, 6291456, 2176961, 6291456, 2176993, 6291456]), new Uint32Array([2172641, 6291456, 2172673, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2172705, 2172737, 6291456, 2172769, 2172801, 6291456]), new Uint32Array([2099173, 2104196, 2121667, 2099395, 2121763, 2152258, 2152322, 2098946, 2152386, 2121859, 2121955, 2099333, 2122051, 2104324, 2099493, 2122147]), new Uint32Array([6291456, 6291456, 6291456, 2145794, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 2145858, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 0, 0, 6291456, 0]), new Uint32Array([0, 2105921, 2097729, 0, 2097377, 0, 0, 2106017, 0, 2097505, 2105889, 2097185, 2097697, 2135777, 2097633, 2097441]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2239074, 2239138, 2239201, 2239233, 2239265, 2239297, 2239329, 2239361, 0, 2239393, 2239425, 2239425, 2239458, 2239521, 2239553, 2209569]), new Uint32Array([14680064, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 6291456, 23068672]), new Uint32Array([2108321, 2108289, 2113153, 2098209, 2180897, 2180929, 2180961, 2111137, 2098241, 2108353, 2170241, 2170273, 2180993, 2105825, 6291456, 2105473]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2146114, 6291456, 6291456, 6291456, 0, 0, 0]), new Uint32Array([2105921, 2105921, 2105921, 2222049, 2222049, 2130977, 2130977, 2130977, 2130977, 2160065, 2160065, 2160065, 2160065, 2097729, 2097729, 2097729]), new Uint32Array([2218145, 2214785, 2207937, 2218177, 2218209, 2192993, 2210113, 2212769, 2218241, 2218273, 2216129, 2218305, 2216161, 2218337, 2218369, 2218401]), new Uint32Array([0, 0, 0, 2156546, 2156610, 2156674, 2156738, 2156802, 0, 0, 0, 0, 0, 2156866, 23068672, 2156930]), new Uint32Array([23068672, 23068672, 23068672, 0, 0, 0, 0, 23068672, 23068672, 0, 0, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([2213409, 2213441, 2213473, 2213505, 2213537, 2213569, 2213601, 2213633, 2213665, 2195681, 2213697, 2213729, 2213761, 2213793, 2213825, 2213857]), new Uint32Array([2100033, 2099233, 2122017, 2200673, 2098113, 2121537, 2103201, 2200705, 2104033, 2121857, 2121953, 2122401, 2099649, 2099969, 2123009, 2100129]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2201857, 6291456, 2201889, 6291456, 2201921, 6291456, 2201953, 6291456, 2201985, 6291456, 2202017, 6291456, 2176193, 2176257, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2188193, 2188225, 2188257, 2188289, 2188321, 2188353, 2188385, 2188417, 2188449, 2188481, 2188513, 2188545, 2188577, 2188609, 2188641, 0]), new Uint32Array([10554529, 2221089, 0, 10502113, 10562017, 10537921, 10538049, 2221121, 2221153, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2213889, 2213921, 2213953, 2213985, 2214017, 2214049, 2214081, 2194177, 2214113, 2214145, 2214177, 2214209, 2214241, 2214273, 2214305, 2214337]), new Uint32Array([2166978, 2167042, 2099169, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2180545, 6291456, 6291456, 6291456]), new Uint32Array([10518915, 10519011, 10519107, 10519203, 2162242, 2162306, 2159554, 2162370, 2159362, 2159618, 2105922, 2162434, 2159746, 2162498, 2159810, 2159874]), new Uint32Array([2161730, 2161794, 2135586, 2161858, 2161922, 2137186, 2131810, 2160290, 2135170, 2161986, 2137954, 2162050, 2162114, 2162178, 10518723, 10518819]), new Uint32Array([10506627, 10506723, 10506819, 10506915, 10507011, 10507107, 10507203, 10507299, 10507395, 10507491, 10507587, 10507683, 10507779, 10507875, 10507971, 10508067]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 0, 0, 0, 0, 0, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0]), new Uint32Array([2175873, 2175905, 2175937, 2175969, 2176001, 2176033, 2176065, 2176097, 2176129, 2176161, 2176193, 2176225, 2176257, 2176289, 2176321, 2176353]), new Uint32Array([2140006, 2140198, 2140390, 2140582, 2140774, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672]), new Uint32Array([2108193, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 2105505, 2098241]), new Uint32Array([0, 23068672, 0, 0, 0, 0, 0, 0, 0, 2145154, 2145218, 2145282, 6291456, 0, 2145346, 0]), new Uint32Array([0, 0, 0, 0, 10531458, 10495395, 2148545, 2143201, 2173473, 2148865, 2173505, 0, 2173537, 0, 2173569, 2149121]), new Uint32Array([10537282, 10495683, 2148738, 2148802, 2148866, 0, 6291456, 2148930, 2186593, 2173473, 2148737, 2148865, 2148802, 10495779, 10495875, 10495971]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2215425, 2215457, 2215489, 2215521, 2215553, 2215585, 2215617, 2215649, 2215681, 2215713, 2215745, 2215777, 2192033, 2215809, 2215841, 2215873]), new Uint32Array([2242049, 2242081, 2242113, 2242145, 2242177, 2242209, 2242241, 2242273, 2215937, 2242305, 2242338, 2242401, 2242433, 2242465, 2242497, 2216001]), new Uint32Array([10554529, 2221089, 0, 0, 10562017, 10502113, 10538049, 10537921, 2221185, 10489601, 10489697, 10609889, 10609921, 2141729, 2141793, 10610273]), new Uint32Array([2141923, 2142019, 2142115, 2142211, 2142307, 2142403, 2142499, 2142595, 2142691, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([0, 2221185, 2221217, 10609857, 10609857, 10489601, 10489697, 10609889, 10609921, 2141729, 2141793, 2221345, 2221377, 2221409, 2221441, 2187105]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 18923970, 23068672, 23068672, 23068672, 0, 6291456, 6291456]), new Uint32Array([2183105, 6291456, 2183137, 6291456, 2183169, 6291456, 2183201, 6291456, 2183233, 6291456, 2183265, 6291456, 2183297, 6291456, 2183329, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2134434, 2134818, 2097666, 2097186, 2097474, 2097698, 2105986, 2131586, 2132450, 2131874, 2131778, 2135970, 2135778, 2161602, 2136162, 2161666]), new Uint32Array([2236865, 2236897, 2236930, 2236993, 2237025, 2235681, 2237058, 2237121, 2237153, 2237185, 2237217, 2217281, 2237250, 2191233, 2237313, 2237345]), new Uint32Array([2190049, 6291456, 2190081, 6291456, 2190113, 6291456, 2190145, 6291456, 2190177, 6291456, 2190209, 6291456, 2190241, 6291456, 2190273, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2101922, 2102050, 2102178, 2102306, 10498755, 10498851, 10498947, 10499043, 10499139, 10499235, 10499331, 10499427, 10499523, 10489604, 10489732, 10489860]), new Uint32Array([2166914, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0]), new Uint32Array([2181601, 2170561, 2181633, 2181665, 2170753, 2181697, 2172897, 2170881, 2181729, 2170913, 2172929, 2113441, 2181761, 2181793, 2171009, 2173761]), new Uint32Array([0, 2105921, 2097729, 2106081, 0, 2097601, 2162337, 2106017, 2133281, 2097505, 0, 2097185, 2097697, 2135777, 2097633, 2097441]), new Uint32Array([6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0]), new Uint32Array([2248001, 2248033, 2248066, 2248130, 2248193, 2248226, 2248289, 2248322, 2248385, 2248417, 2216673, 2248450, 2248514, 2248577, 2248610, 2248673]), new Uint32Array([6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 0, 0, 0]), new Uint32Array([2169729, 6291456, 2169761, 6291456, 2169793, 6291456, 2169825, 6291456, 2169857, 2169889, 6291456, 2169921, 6291456, 2143329, 6291456, 2098305]), new Uint32Array([2162178, 2163202, 2163266, 2135170, 2136226, 2161986, 2137954, 2159426, 2159490, 2163330, 2159554, 2163394, 2159682, 2139522, 2136450, 2159746]), new Uint32Array([2173953, 2173985, 0, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2174209, 2174241, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 4271169, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2174273]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 6291456, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 2190785, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2189793, 6291456, 2189825, 6291456, 2189857, 6291456, 2189889, 6291456, 2189921, 6291456, 2189953, 6291456, 2189985, 6291456, 2190017, 6291456]), new Uint32Array([2105601, 2112289, 2108193, 2112481, 2112577, 0, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 0, 2098209, 2111137]), new Uint32Array([2172129, 6291456, 2172161, 6291456, 2172193, 6291456, 2172225, 6291456, 2172257, 6291456, 2172289, 6291456, 2172321, 6291456, 2172353, 6291456]), new Uint32Array([2214753, 6291456, 2214785, 6291456, 6291456, 2214817, 2214849, 2214881, 2214913, 2214945, 2214977, 2215009, 2215041, 2215073, 2194401, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([0, 0, 0, 0, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([10610305, 10610337, 10575617, 2221761, 10610401, 10610433, 10502177, 0, 10610465, 10610497, 10610529, 10610561, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 23068672, 0, 0, 0, 0, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2187105, 2187137, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2199393, 2199425, 2199457, 2199489, 2199521, 2199553, 2199585, 2199617, 2199649, 2199681, 2199713, 2199745, 2199777, 2199809, 2199841, 0]), new Uint32Array([2217249, 2217281, 2217313, 2217345, 2217377, 2217409, 2217441, 2217473, 2215617, 2217505, 2217537, 2217569, 2214753, 2217601, 2217633, 2217665]), new Uint32Array([2170273, 2170305, 6291456, 2170337, 2170369, 6291456, 2170401, 2170433, 2170465, 6291456, 6291456, 6291456, 2170497, 2170529, 6291456, 2170561]), new Uint32Array([2188673, 6291456, 2188705, 2188737, 2188769, 6291456, 6291456, 2188801, 6291456, 2188833, 6291456, 2188865, 6291456, 2180929, 2181505, 2180897]), new Uint32Array([10489988, 10490116, 10490244, 10490372, 10490500, 10490628, 10490756, 10490884, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2147393, 2147457, 2147521, 2147585, 2147649, 2147713, 2147777, 2147841]), new Uint32Array([23068672, 23068672, 0, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0]), new Uint32Array([2241153, 2241185, 2241217, 2215809, 2241250, 2241313, 2241345, 2241377, 2217921, 2241377, 2241409, 2215873, 2241441, 2241473, 2241505, 2241537]), new Uint32Array([23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2220417, 2220417, 2220449, 2220449, 2220481, 2220481, 2220513, 2220513, 2220545, 2220545, 2220577, 2220577, 2220609, 2220609, 2220641, 2220641]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2144002, 0, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456]), new Uint32Array([2167105, 2167137, 2167169, 2167201, 2167233, 2167265, 2167297, 2167329, 2167361, 2167393, 2167425, 2167457, 2167489, 2167521, 2167553, 2167585]), new Uint32Array([10575521, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193]), new Uint32Array([2234146, 2234210, 2234274, 2234338, 2234402, 2234466, 2234530, 2234594, 2234658, 2234722, 2234786, 2234850, 2234914, 2234978, 2235042, 2235106]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 2180577, 0, 0, 0, 0, 0, 2180609, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 6291456, 6291456]), new Uint32Array([2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193, 2112481]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2242529, 2242561, 2242593, 2242625, 2242657, 2242689, 2242721, 2242753, 2207937, 2218177, 2242785, 2242817, 2242849, 2242882, 2242945, 2242977]), new Uint32Array([2118049, 2105345, 2118241, 2105441, 2118433, 2118529, 2118625, 2118721, 2118817, 2200257, 2200289, 2191809, 2200321, 2200353, 2200385, 2200417]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0]), new Uint32Array([2185505, 6291456, 2185537, 6291456, 2185569, 6291456, 2185601, 6291456, 2185633, 6291456, 2185665, 6291456, 2185697, 6291456, 2185729, 6291456]), new Uint32Array([2231970, 2232034, 2232098, 2232162, 2232226, 2232290, 2232354, 2232418, 2232482, 2232546, 2232610, 2232674, 2232738, 2232802, 2232866, 2232930]), new Uint32Array([2218625, 2246402, 2246466, 2246530, 2246594, 2246657, 2246689, 2246689, 2218657, 2219681, 2246721, 2246753, 2246785, 2246818, 2246881, 2208481]), new Uint32Array([2197025, 2197057, 2197089, 2197121, 2197153, 2197185, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2219137, 2216961, 2219169, 2219201, 2219233, 2219265, 2219297, 2217025, 2215041, 2219329, 2217057, 2219361, 2217089, 2219393, 2197153, 2219426]), new Uint32Array([23068672, 23068672, 23068672, 0, 0, 0, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713]), new Uint32Array([2243522, 2243585, 2243617, 2243649, 2243681, 2210113, 2243713, 2243746, 2243810, 2243874, 2243937, 2243970, 2244033, 2244065, 2244097, 2244129]), new Uint32Array([2178017, 6291456, 2178049, 6291456, 2178081, 6291456, 2178113, 6291456, 2178145, 6291456, 2178177, 6291456, 2178209, 6291456, 2178241, 6291456]), new Uint32Array([10553858, 2165314, 10518722, 6291456, 10518818, 0, 10518914, 2130690, 10519010, 2130786, 10519106, 2130882, 10519202, 2165378, 10554050, 2165506]), new Uint32Array([0, 0, 2135491, 2135587, 2135683, 2135779, 2135875, 2135971, 2135971, 2136067, 2136163, 2136259, 2136355, 2136355, 2136451, 2136547]), new Uint32Array([23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2220033, 2220033, 2220065, 2220065, 2220065, 2220065, 2220097, 2220097, 2220097, 2220097, 2220129, 2220129, 2220129, 2220129, 2220161, 2220161]), new Uint32Array([6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2100897, 2100898, 2100899, 2150018, 2100865, 2100866, 2100867, 2100868, 2150082, 2108481, 2109858, 2109859, 2105569, 2105505, 2098241, 2105601]), new Uint32Array([2097217, 2097505, 2097505, 2097505, 2097505, 2165570, 2165570, 2165634, 2165634, 2165698, 2165698, 2097858, 2097858, 0, 0, 2097152]), new Uint32Array([23068672, 6291456, 23068672, 23068672, 23068672, 6291456, 6291456, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0]), new Uint32Array([10503843, 10503939, 10504035, 10504131, 10504227, 10504323, 10504419, 10504515, 10504611, 10504707, 10504803, 10504899, 10504995, 10491140, 10491268, 0]), new Uint32Array([2173697, 2173729, 2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889, 2173921, 2173953, 2173985, 2173761, 2174017, 2174049]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2134145, 2097153, 2134241, 2105953, 2132705, 2130977, 2160065, 2131297, 2162049, 2133089, 2160577, 2133857, 2235297, 2220769, 2235329, 2235361]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2222401, 2222433, 2222465, 10531394, 2222497, 2222529, 2222561, 0, 2222593, 2222625, 2222657, 2222689, 2222721, 2222753, 2222785, 0]), new Uint32Array([2184481, 6291456, 2184513, 6291456, 2184545, 6291456, 2184577, 6291456, 2184609, 6291456, 2184641, 6291456, 2184673, 6291456, 2184705, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2105570, 2156034, 2126947, 2156098, 2153666, 2127043, 2127139, 2156162, 0, 2127235, 2156226, 2156290, 2156354, 2156418, 2127331, 2127427]), new Uint32Array([2215905, 2207041, 2153185, 2241569, 2241601, 2241633, 2241665, 2241697, 2241730, 2241793, 2241825, 2241857, 2241889, 2241921, 2241954, 2242017]), new Uint32Array([2203777, 6291456, 2203809, 6291456, 2203841, 6291456, 2203873, 6291456, 2203905, 6291456, 2173121, 2180993, 2181249, 2203937, 2181313, 0]), new Uint32Array([2168577, 6291456, 2168609, 6291456, 2168641, 6291456, 2168673, 6291456, 2168705, 6291456, 2168737, 6291456, 2168769, 6291456, 2168801, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 23068672, 23068672, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([2210113, 2195521, 2210145, 2210177, 2210209, 2210241, 2210273, 2210305, 2210337, 2210369, 2210401, 2210433, 2210465, 2210497, 2210529, 2210561]), new Uint32Array([6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0]), new Uint32Array([2228706, 2228770, 2228834, 2228898, 2228962, 2229026, 2229090, 2229154, 2229218, 2229282, 2229346, 2229410, 2229474, 2229538, 2229602, 2229666]), new Uint32Array([23068672, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 18874368, 18874368, 18874368, 0, 0]), new Uint32Array([2133089, 2133281, 2133281, 2133281, 2133281, 2160577, 2160577, 2160577, 2160577, 2097441, 2097441, 2097441, 2097441, 2133857, 2133857, 2133857]), new Uint32Array([6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2173825, 2153473, 2173857, 2173889, 2173921, 2173953, 2173985, 2174017, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2233089]), new Uint32Array([2178529, 6291456, 2178561, 6291456, 2178593, 6291456, 2178625, 6291456, 2178657, 6291456, 2178689, 6291456, 2178721, 6291456, 2178753, 6291456]), new Uint32Array([2221025, 2221025, 2221057, 2221057, 2159329, 2159329, 2159329, 2159329, 2097217, 2097217, 2158914, 2158914, 2158978, 2158978, 2159042, 2159042]), new Uint32Array([2208161, 2208193, 2208225, 2208257, 2194433, 2208289, 2208321, 2208353, 2208385, 2208417, 2208449, 2208481, 2208513, 2208545, 2208577, 2208609]), new Uint32Array([2169217, 6291456, 2169249, 6291456, 2169281, 6291456, 2169313, 6291456, 2169345, 6291456, 2169377, 6291456, 2169409, 6291456, 2169441, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2133187, 2133283, 2133283, 2133379, 2133475, 2133571, 2133667, 2133667, 2133763, 2133859, 2133955, 2134051, 2134147, 2134147, 2134243, 2134339]), new Uint32Array([2197697, 2114113, 2114209, 2197729, 2197761, 2114305, 2197793, 2114401, 2114497, 2197825, 2114593, 2114689, 2114785, 2114881, 2114977, 0]), new Uint32Array([2193089, 2193121, 2193153, 2193185, 2117665, 2117569, 2193217, 2193249, 2193281, 2193313, 2193345, 2193377, 2193409, 2193441, 2193473, 2193505]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2184225, 6291456, 2184257, 6291456, 2184289, 6291456, 2184321, 6291456, 2184353, 6291456, 2184385, 6291456, 2184417, 6291456, 2184449, 6291456]), new Uint32Array([2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2100833, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2098657, 2098049, 2200737, 2123489, 2123681, 2200769, 2098625, 2100321, 2098145, 2100449, 2098017, 2098753, 2200801, 2200833, 2200865, 0]), new Uint32Array([23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0]), new Uint32Array([2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 0, 2098241, 2108353, 2108417, 2105825, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2181153, 2105505, 2181185, 2167617, 2180993]), new Uint32Array([2160002, 2160066, 2160130, 2160194, 2160258, 2132066, 2131010, 2131106, 2106018, 2131618, 2160322, 2131298, 2132034, 2131938, 2137410, 2132226]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6291456]), new Uint32Array([2183617, 6291456, 2183649, 6291456, 2183681, 6291456, 2183713, 6291456, 2183745, 6291456, 2183777, 6291456, 2183809, 6291456, 2183841, 6291456]), new Uint32Array([0, 6291456, 6291456, 0, 6291456, 0, 0, 6291456, 6291456, 0, 6291456, 0, 0, 6291456, 0, 0]), new Uint32Array([2250977, 2251009, 2251041, 2251073, 2195009, 2251106, 2251169, 2251201, 2251233, 2251265, 2251297, 2251330, 2251394, 2251457, 2251489, 2251521]), new Uint32Array([2205729, 2205761, 2205793, 2205825, 2205857, 2205889, 2205921, 2205953, 2205985, 2206017, 2206049, 2206081, 2206113, 2206145, 2206177, 2206209]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2143170, 2168993, 6291456, 2169025, 6291456, 2169057, 6291456, 2169089, 6291456, 2143234, 2169121, 6291456, 2169153, 6291456, 2169185, 6291456]), new Uint32Array([23068672, 23068672, 2190689, 6291456, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2248706, 2248769, 2248801, 2248833, 2248865, 2248897, 2248929, 2248962, 2249026, 2249090, 2249154, 2240705, 2249217, 2249249, 2249281, 2249313]), new Uint32Array([10485857, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 10495394, 6291456, 2098209, 6291456, 6291456, 2097152, 6291456, 10531394]), new Uint32Array([0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0]), new Uint32Array([14680064, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2173985, 2173953, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889]), new Uint32Array([6291456, 2186977, 6291456, 6291456, 6291456, 6291456, 6291456, 10537858, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2209601, 2209633, 2209665, 2209697, 2209729, 2209761, 2209793, 2209825, 2209857, 2209889, 2209921, 2209953, 2209985, 2210017, 2210049, 2210081]), new Uint32Array([10501539, 10501635, 10501731, 10501827, 10501923, 10502019, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905]), new Uint32Array([2173697, 2173729, 2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889, 2173921, 2173953, 2173985, 2174017, 2174017, 2174049]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 0, 0]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2194561, 2194593, 2194625, 2119777, 2119873, 2194657, 2194689, 2194721, 2194753, 2194785, 2194817, 2194849, 2194881, 2194913, 2194945, 2194977]), new Uint32Array([2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569]), new Uint32Array([2222818, 2222882, 2222946, 2223010, 2223074, 2223138, 2223202, 2223266, 2223330, 2223394, 2223458, 2223522, 2223586, 2223650, 2223714, 2223778]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672]), new Uint32Array([0, 2179553, 2179585, 2179617, 2179649, 2144001, 2179681, 2179713, 2179745, 2179777, 2179809, 2156705, 2179841, 2156833, 2179873, 2179905]), new Uint32Array([6291456, 23068672, 6291456, 2145602, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 6291456, 0, 0]), new Uint32Array([2196513, 2196545, 2196577, 2196609, 2196641, 2196673, 2196705, 2196737, 2196769, 2196801, 2196833, 2196865, 2196897, 2196929, 2196961, 2196993]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2177281, 6291456, 2177313, 6291456, 2177345, 6291456, 2177377, 6291456, 2177409, 6291456, 2177441, 6291456, 2177473, 6291456, 2177505, 6291456]), new Uint32Array([2187137, 2221473, 2221505, 2221537, 2221569, 6291456, 6291456, 10610209, 10610241, 10537986, 10537986, 10537986, 10537986, 10609857, 10609857, 10609857]), new Uint32Array([2243009, 2243041, 2216033, 2243074, 2243137, 2243169, 2243201, 2219617, 2243233, 2243265, 2243297, 2243329, 2243362, 2243425, 2243457, 2243489]), new Uint32Array([10485857, 10485857, 10485857, 10485857, 10485857, 10485857, 10485857, 10485857, 10485857, 10485857, 10485857, 2097152, 4194304, 4194304, 0, 0]), new Uint32Array([2143042, 6291456, 2143106, 2143106, 2168833, 6291456, 2168865, 6291456, 6291456, 2168897, 6291456, 2168929, 6291456, 2168961, 6291456, 2143170]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2204193, 2204225, 2204257, 2204289, 2204321, 2204353, 2204385, 2204417, 2204449, 2204481, 2204513, 2204545, 2204577, 2204609, 2204641, 2204673]), new Uint32Array([2202753, 6291456, 2202785, 6291456, 2202817, 6291456, 2202849, 6291456, 2202881, 6291456, 2202913, 6291456, 2202945, 6291456, 2202977, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193, 2112481, 2112577, 2098177, 2098305, 2108321]), new Uint32Array([2147394, 2147458, 2147522, 2147586, 2147650, 2147714, 2147778, 2147842, 2147394, 2147458, 2147522, 2147586, 2147650, 2147714, 2147778, 2147842]), new Uint32Array([2253313, 2253346, 2253409, 2253441, 2253473, 2253505, 2253537, 2253569, 2253601, 2253634, 2219393, 2253697, 2253729, 2253761, 2253793, 2253825]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([2162562, 2162626, 2131362, 2162690, 2159938, 2160002, 2162754, 2162818, 2160130, 2162882, 2160194, 2160258, 2160834, 2160898, 2161026, 2161090]), new Uint32Array([2175361, 2175393, 2175425, 2175457, 2175489, 2175521, 2175553, 2175585, 2175617, 2175649, 2175681, 2175713, 2175745, 2175777, 2175809, 2175841]), new Uint32Array([2253858, 2253921, 2253954, 2254018, 2254082, 2196737, 2254145, 2196865, 2254177, 2254209, 2254241, 2254273, 2197025, 2254306, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2202113, 2204129, 2188705, 2204161]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 0, 0]), new Uint32Array([2173985, 2174017, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2233089, 2173697, 2173761, 2173793, 2174113, 2173985, 2173953]), new Uint32Array([2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 2100833, 2100737, 2098337, 2101441, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209]), new Uint32Array([2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 2105505, 2098241, 0, 2108417, 0, 2111713, 2100897, 2111905]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2175425, 2175489, 2175809, 2175905, 2175937, 2175937, 2176193, 2176417, 2180865, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 2143298, 2143298, 2143298, 2143362, 2143362, 2143362, 2143426, 2143426, 2143426, 2171105, 6291456, 2171137]), new Uint32Array([2120162, 2120258, 2151618, 2151682, 2151746, 2151810, 2151874, 2151938, 2152002, 2120035, 2120131, 2120227, 2152066, 2120323, 2152130, 2120419]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2195361, 2142433, 2236065, 2236097, 2236129, 2236161, 2118241, 2117473, 2236193, 2236225, 2236257, 2236289, 0, 0, 0, 0]), new Uint32Array([2189281, 6291456, 2189313, 6291456, 2189345, 6291456, 2189377, 6291456, 2189409, 6291456, 2189441, 6291456, 2189473, 6291456, 2189505, 6291456]), new Uint32Array([6291456, 6291456, 2145922, 6291456, 6291456, 6291456, 6291456, 2145986, 6291456, 6291456, 6291456, 6291456, 2146050, 6291456, 6291456, 6291456]), new Uint32Array([2100833, 2100737, 2098337, 2101441, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 10502113, 10562017, 10610401, 10502177, 10610433, 10538049]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 2186401, 0, 2186433, 0, 2186465, 0, 2186497]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 23068672, 23068672, 23068672]), new Uint32Array([0, 0, 2198241, 2198273, 2198305, 2198337, 2198369, 2198401, 0, 0, 2198433, 2198465, 2198497, 0, 0, 0]), new Uint32Array([6291456, 0, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 23068672, 6291456, 23068672, 23068672]), new Uint32Array([0, 2105921, 2097729, 0, 2097377, 0, 0, 2106017, 2133281, 2097505, 2105889, 0, 2097697, 2135777, 2097633, 2097441]), new Uint32Array([2197889, 2197921, 2197953, 2197985, 2198017, 2198049, 2198081, 2198113, 2198145, 2198177, 2198209, 2198241, 2198273, 2198305, 2198337, 2198369]), new Uint32Array([2132514, 2132610, 2160386, 2133090, 2133186, 2160450, 2160514, 2133282, 2160578, 2133570, 2106178, 2160642, 2133858, 2160706, 2160770, 2134146]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 23068672, 23068672, 6291456, 23068672, 23068672, 6291456, 23068672, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2184737, 6291456, 2184769, 6291456, 2184801, 6291456, 2184833, 6291456, 2184865, 6291456, 2184897, 6291456, 2184929, 6291456, 2184961, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 0, 6291456]), new Uint32Array([6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 2186753, 6291456, 6291456, 6291456, 6291456, 2186785, 2186817, 2186849, 2173569, 2186881, 10496355, 10495395, 10575521]), new Uint32Array([0, 0, 2097729, 0, 0, 0, 0, 2106017, 0, 2097505, 0, 2097185, 0, 2135777, 2097633, 2097441]), new Uint32Array([2189537, 6291456, 2189569, 6291456, 2189601, 6291456, 2189633, 6291456, 2189665, 6291456, 2189697, 6291456, 2189729, 6291456, 2189761, 6291456]), new Uint32Array([2202497, 6291456, 2202529, 6291456, 2202561, 6291456, 2202593, 6291456, 2202625, 6291456, 2202657, 6291456, 2202689, 6291456, 2202721, 6291456]), new Uint32Array([2245217, 2218369, 2245249, 2245282, 2245345, 2245377, 2245410, 2245474, 2245537, 2245569, 2245601, 2245633, 2245665, 2245665, 2245697, 2245729]), new Uint32Array([6291456, 0, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 0, 0, 0, 0, 0, 0, 23068672, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 23068672, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672]), new Uint32Array([0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2097281, 2105921, 2097729, 2106081, 2097377, 2097601, 2162337, 2106017, 2133281, 2097505, 0, 2097185, 2097697, 2135777, 2097633, 2097441]), new Uint32Array([2176641, 6291456, 2176673, 6291456, 2176705, 6291456, 2176737, 6291456, 2176769, 6291456, 2176801, 6291456, 2176833, 6291456, 2176865, 6291456]), new Uint32Array([2174145, 2174177, 2149057, 2233089, 2173697, 2173761, 2173793, 2174113, 2173985, 2173953, 2174369, 2174369, 0, 0, 2100833, 2100737]), new Uint32Array([2116513, 2190817, 2190849, 2190881, 2190913, 2190945, 2116609, 2190977, 2191009, 2191041, 2191073, 2117185, 2191105, 2191137, 2191169, 2191201]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456]), new Uint32Array([0, 0, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456]), new Uint32Array([2167617, 2167649, 2167681, 2167713, 2167745, 2167777, 2167809, 6291456, 2167841, 2167873, 2167905, 2167937, 2167969, 2168001, 2168033, 4240130]), new Uint32Array([2165122, 2163970, 2164034, 2164098, 2164162, 2164226, 2164290, 2164354, 2164418, 2164482, 2164546, 2133122, 2134562, 2132162, 2132834, 2136866]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 2186209, 2186241, 2186273, 2186305, 2186337, 2186369, 0, 0]), new Uint32Array([2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 14680064, 14680064, 14680064, 14680064, 14680064]), new Uint32Array([0, 0, 23068672, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456]), new Uint32Array([0, 10537921, 10610689, 10610273, 10610497, 10610529, 10610305, 10610721, 10489601, 10489697, 10610337, 10575617, 10554529, 2221761, 2197217, 10496577]), new Uint32Array([2105473, 2105569, 2105601, 2112289, 0, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441]), new Uint32Array([2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481]), new Uint32Array([2125346, 2153410, 2153474, 2127394, 2153538, 2153602, 2153666, 2153730, 2105507, 2105476, 2153794, 2153858, 2153922, 2153986, 2154050, 2105794]), new Uint32Array([2200449, 2119681, 2200481, 2153313, 2199873, 2199905, 2199937, 2200513, 2200545, 2200577, 2200609, 2119105, 2119201, 2119297, 2119393, 2119489]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2175777, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2222273, 2197217, 2221473, 2221505, 2221089, 2222305, 2200865, 2099681, 2104481, 2222337, 2099905, 2120737, 2222369, 2103713, 2100225, 2098785]), new Uint32Array([2201377, 6291456, 2201409, 6291456, 2201441, 6291456, 2201473, 6291456, 2201505, 6291456, 2201537, 6291456, 2201569, 6291456, 6291456, 23068672]), new Uint32Array([2174081, 2174113, 2174145, 2174177, 2149057, 2233057, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761, 2143969, 2173793]), new Uint32Array([2200897, 6291456, 2200929, 6291456, 2200961, 6291456, 2200993, 6291456, 2201025, 6291456, 2180865, 6291456, 2201057, 6291456, 2201089, 6291456]), new Uint32Array([0, 0, 0, 0, 0, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0]), new Uint32Array([2161154, 2161410, 2138658, 2161474, 2161538, 2097666, 2097186, 2097474, 2162946, 2132450, 2163010, 2163074, 2136162, 2163138, 2161666, 2161730]), new Uint32Array([2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889, 2173921, 2173953]), new Uint32Array([0, 0, 0, 0, 0, 0, 23068672, 23068672, 0, 0, 0, 0, 2145410, 2145474, 0, 6291456]), new Uint32Array([2244161, 2216065, 2212769, 2244193, 2244225, 2244257, 2244290, 2244353, 2244385, 2244417, 2244449, 2218273, 2244481, 2244514, 2244577, 2244609]), new Uint32Array([2125730, 2125699, 2125795, 2125891, 2125987, 2154114, 2154178, 2154242, 2154306, 2154370, 2154434, 2154498, 2126082, 2126178, 2126274, 2126083]), new Uint32Array([2237665, 2237697, 2237697, 2237697, 2237730, 2237793, 2237825, 2237857, 2237890, 2237953, 2237985, 2238017, 2238049, 2238081, 2238113, 2238145]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2150146, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 23068672, 23068672, 0, 0, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([2214369, 2238593, 2238625, 2238657, 2238689, 2238721, 2238753, 2238785, 2238817, 2238850, 2238913, 2238945, 2238977, 2235457, 2239009, 2239041]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0]), new Uint32Array([2252066, 2252130, 2252193, 2252225, 2252257, 2252290, 2252353, 2252385, 2252417, 2252449, 2252481, 2252513, 2252545, 2252578, 2252641, 2252673]), new Uint32Array([2197697, 2114113, 2114209, 2197729, 2197761, 2114305, 2197793, 2114401, 2114497, 2197825, 2114593, 2114689, 2114785, 2114881, 2114977, 2197857]), new Uint32Array([2224866, 2224930, 2224994, 2225058, 2225122, 2225186, 2225250, 2225314, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2219490, 2219554, 2219617, 2219649, 2219681, 2219714, 2219778, 2219842, 2219905, 2219937, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456]), new Uint32Array([2113345, 2113441, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289]), new Uint32Array([2174081, 2174113, 2174145, 2174177, 2149057, 2233089, 2173697, 2173761, 2173793, 2174113, 2173985, 2173953, 2148481, 2173601, 2173633, 2173665]), new Uint32Array([2220161, 2220161, 2220193, 2220193, 2220193, 2220193, 2220225, 2220225, 2220225, 2220225, 2220257, 2220257, 2220257, 2220257, 2220289, 2220289]), new Uint32Array([2192673, 2192705, 2192737, 2192769, 2192801, 2192833, 2192865, 2118049, 2192897, 2117473, 2117761, 2192929, 2192961, 2192993, 2193025, 2193057]), new Uint32Array([2179297, 6291456, 2179329, 6291456, 2179361, 6291456, 2179393, 6291456, 2179425, 6291456, 2179457, 6291456, 2179489, 6291456, 2179521, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2235745, 2235777, 2193633, 2235809, 2235841, 2235873, 2235905, 2235937, 2235969, 2116513, 2116705, 2236001, 2200513, 2199905, 2200545, 2236033]), new Uint32Array([2113153, 2108481, 2113345, 2113441, 2232993, 2233025, 0, 0, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761]), new Uint32Array([2170593, 6291456, 2170625, 6291456, 2170657, 6291456, 2170689, 2170721, 6291456, 2170753, 6291456, 6291456, 2170785, 6291456, 2170817, 2170849]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2166786, 2166850, 0, 0, 0, 0]), new Uint32Array([23068672, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456]), new Uint32Array([2100833, 2100737, 2098337, 2101441, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 10575617, 2187041, 10502177, 10489601, 10489697, 0]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2134562, 2132162, 2132834, 2136866, 2136482, 2164610, 2164674, 2164738, 2164802, 2132802, 2132706, 2164866, 2132898, 2164930, 2164994, 2165058]), new Uint32Array([6291456, 6291456, 2098337, 2101441, 10531458, 2153473, 6291456, 6291456, 10531522, 2100737, 2108193, 6291456, 2106499, 2106595, 2106691, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2233122, 2233186, 2233250, 2233314, 2233378, 2233442, 2233506, 2233570, 2233634, 2233698, 2233762, 2233826, 2233890, 2233954, 2234018, 2234082]), new Uint32Array([23068672, 6291456, 23068672, 23068672, 23068672, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2205217, 2205249, 2205281, 2205313, 2205345, 2205377, 2205409, 2205441, 2205473, 2205505, 2205537, 2205569, 2205601, 2205633, 2205665, 2205697]), new Uint32Array([6291456, 0, 6291456, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 0, 0, 23068672, 6291456, 23068672, 23068672]), new Uint32Array([2173601, 2173761, 2174081, 2173569, 2174241, 2174113, 2173953, 6291456, 2174305, 6291456, 2174337, 6291456, 2174369, 6291456, 2174401, 6291456]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456]), new Uint32Array([2152450, 2152514, 2099653, 2104452, 2099813, 2122243, 2099973, 2152578, 2122339, 2122435, 2122531, 2122627, 2122723, 2104580, 2122819, 2152642]), new Uint32Array([2236385, 2236417, 2236449, 2236482, 2236545, 2215425, 2236577, 2236609, 2236641, 2236673, 2215457, 2236705, 2236737, 2236770, 2215489, 2236833]), new Uint32Array([2163394, 2159746, 2163458, 2131362, 2163522, 2160130, 2163778, 2132226, 2163842, 2132898, 2163906, 2161410, 2138658, 2097666, 2136162, 2163650]), new Uint32Array([2218721, 2246913, 2246946, 2216385, 2247010, 2247074, 2215009, 2247137, 2247169, 2216481, 2247201, 2247233, 2247266, 2247330, 2247330, 0]), new Uint32Array([2129730, 2129762, 2129858, 2129731, 2129827, 2156482, 2156482, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 0, 0, 0, 0, 0, 6291456, 0, 0]), new Uint32Array([2203969, 2204001, 2181377, 2204033, 2204065, 6291456, 2204097, 6291456, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2169473, 6291456, 2169505, 6291456, 2169537, 6291456, 2169569, 6291456, 2169601, 6291456, 2169633, 6291456, 2169665, 6291456, 2169697, 6291456]), new Uint32Array([2141542, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2220801, 2220801, 2220801, 2220801, 2220833, 2220833, 2220865, 2220865, 2220865, 2220865, 2220897, 2220897, 2220897, 2220897, 2139873, 2139873]), new Uint32Array([0, 0, 0, 0, 0, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 6291456, 0]), new Uint32Array([2214849, 2218433, 2218465, 2218497, 2218529, 2218561, 2214881, 2218593, 2218625, 2218657, 2218689, 2218721, 2218753, 2216545, 2218785, 2218817]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6291456]), new Uint32Array([2136482, 2164610, 2164674, 2164738, 2164802, 2132802, 2132706, 2164866, 2132898, 2164930, 2164994, 2165058, 2165122, 2132802, 2132706, 2164866]), new Uint32Array([2207649, 2207681, 2207713, 2207745, 2207777, 2207809, 2207841, 2207873, 2207905, 2207937, 2207969, 2208001, 2208033, 2208065, 2208097, 2208129]), new Uint32Array([2123683, 2105092, 2152706, 2123779, 2105220, 2152770, 2100453, 2098755, 2123906, 2124002, 2124098, 2124194, 2124290, 2124386, 2124482, 2124578]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 0, 0, 0, 0, 0, 0, 0, 10485857]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([10508163, 10508259, 10508355, 10508451, 2200129, 2200161, 2192737, 2200193, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2203553, 6291456, 2203585, 6291456, 6291456, 6291456, 2203617, 6291456, 2203649, 6291456, 2203681, 6291456, 2203713, 6291456, 2203745, 6291456]), new Uint32Array([18884449, 18884065, 23068672, 18884417, 18884034, 18921185, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 18874368]), new Uint32Array([2247393, 2247426, 2247489, 2247521, 2247553, 2247586, 2247649, 2247681, 2247713, 2247745, 2247777, 2247810, 2247873, 2247905, 2247937, 2247969]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 23068672]), new Uint32Array([2134145, 2097153, 2134241, 0, 2132705, 2130977, 2160065, 2131297, 0, 2133089, 2160577, 2133857, 2235297, 0, 2235329, 0]), new Uint32Array([2182593, 6291456, 2182625, 6291456, 2182657, 6291456, 2182689, 6291456, 2182721, 6291456, 2182753, 6291456, 2182785, 6291456, 2182817, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2102402, 2102403, 6291456, 2110050]), new Uint32Array([2149890, 2108323, 2149954, 6291456, 2113441, 6291456, 2149057, 6291456, 2113441, 6291456, 2105473, 2167265, 2111137, 2105505, 6291456, 2108353]), new Uint32Array([2219105, 2219137, 2195233, 2251554, 2251617, 2251649, 2251681, 2251713, 2251746, 2251810, 2251873, 2251905, 2251937, 2251970, 2252033, 2219169]), new Uint32Array([2203009, 6291456, 2203041, 6291456, 2203073, 6291456, 2203105, 6291456, 2203137, 6291456, 2203169, 6291456, 2203201, 6291456, 2203233, 6291456]), new Uint32Array([2128195, 2128291, 2128387, 2128483, 2128579, 2128675, 2128771, 2128867, 2128963, 2129059, 2129155, 2129251, 2129347, 2129443, 2129539, 2129635]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2140964, 2141156, 2140966, 2141158, 2141350]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2225378, 2225442, 2225506, 2225570, 2225634, 2225698, 2225762, 2225826, 2225890, 2225954, 2226018, 2226082, 2226146, 2226210, 2226274, 2226338]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417]), new Uint32Array([2108353, 2108417, 0, 2105601, 2108193, 2157121, 2157313, 2157377, 2157441, 2100897, 6291456, 2108419, 2173953, 2173633, 2173633, 2173953]), new Uint32Array([2111713, 2173121, 2111905, 2098177, 2173153, 2173185, 2173217, 2113153, 2113345, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 2190753]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2197249, 6291456, 2117377, 2197281, 2197313, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 0, 0, 0, 0, 0, 0, 23068672, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456]), new Uint32Array([2098337, 2101441, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 2100833, 2100737, 2098337, 2101441, 2101569, 2101697, 2101825, 2101953]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0]), new Uint32Array([0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 23068672, 23068672, 23068672]), new Uint32Array([2173281, 6291456, 2173313, 6291456, 2173345, 6291456, 2173377, 6291456, 0, 0, 10532546, 6291456, 6291456, 6291456, 10562017, 2173441]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 0, 0]), new Uint32Array([23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2159426, 2159490, 2159554, 2159362, 2159618, 2159682, 2139522, 2136450, 2159746, 2159810, 2159874, 2130978, 2131074, 2131266, 2131362, 2159938]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2203233, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2203265, 6291456, 2203297, 6291456, 2203329, 2203361, 6291456]), new Uint32Array([6291456, 6291456, 2148418, 2148482, 2148546, 0, 6291456, 2148610, 2186529, 2186561, 2148417, 2148545, 2148482, 10495778, 2143969, 10495778]), new Uint32Array([2134146, 2139426, 2160962, 2134242, 2161218, 2161282, 2161346, 2161410, 2138658, 2134722, 2134434, 2134818, 2097666, 2097346, 2097698, 2105986]), new Uint32Array([2198881, 2198913, 2198945, 2198977, 2199009, 2199041, 2199073, 2199105, 2199137, 2199169, 2199201, 2199233, 2199265, 2199297, 2199329, 2199361]), new Uint32Array([0, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456]), new Uint32Array([10610561, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193]), new Uint32Array([2183873, 6291456, 2183905, 6291456, 2183937, 6291456, 2183969, 6291456, 2184001, 6291456, 2184033, 6291456, 2184065, 6291456, 2184097, 6291456]), new Uint32Array([2244642, 2244706, 2244769, 2244801, 2218305, 2244833, 2244865, 2244897, 2244929, 2244961, 2244993, 2245026, 2245089, 2245122, 2245185, 0]), new Uint32Array([6291456, 6291456, 2116513, 2116609, 2116705, 2116801, 2199873, 2199905, 2199937, 2199969, 2190913, 2200001, 2200033, 2200065, 2200097, 2191009]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 2180673, 2180705, 2180737, 2180769, 2180801, 2180833, 0, 0]), new Uint32Array([2098081, 2099521, 2099105, 2120705, 2098369, 2120801, 2103361, 2097985, 2098433, 2121377, 2121473, 2099169, 2099873, 2098401, 2099393, 2152609]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2150402]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 2145666, 2145730, 6291456, 6291456]), new Uint32Array([2173921, 2173953, 2173985, 2173761, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2233057, 2148481, 2173601, 2173633, 2173665]), new Uint32Array([2187073, 6291456, 6291456, 6291456, 6291456, 2098241, 2098241, 2108353, 2100897, 2111905, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2102404, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2100612, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 10485857]), new Uint32Array([2149057, 2233057, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889]), new Uint32Array([2217697, 2217729, 2217761, 2217793, 2217825, 2217857, 2217889, 2217921, 2217953, 2215873, 2217985, 2215905, 2218017, 2218049, 2218081, 2218113]), new Uint32Array([2211233, 2218849, 2216673, 2218881, 2218913, 2218945, 2218977, 2219009, 2216833, 2219041, 2215137, 2219073, 2216865, 2209505, 2219105, 2216897]), new Uint32Array([2240097, 2240129, 2240161, 2240193, 2240225, 2240257, 2240289, 2240321, 2240353, 2240386, 2240449, 2240481, 2240513, 2240545, 2207905, 2240578]), new Uint32Array([6291456, 6291456, 2202273, 6291456, 2202305, 6291456, 2202337, 6291456, 2202369, 6291456, 2202401, 6291456, 2202433, 6291456, 2202465, 6291456]), new Uint32Array([0, 23068672, 23068672, 18923394, 23068672, 18923458, 18923522, 18884099, 18923586, 18884195, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2201121, 6291456, 2201153, 6291456, 2201185, 6291456, 2201217, 6291456, 2201249, 6291456, 2201281, 6291456, 2201313, 6291456, 2201345, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456]), new Uint32Array([2211041, 2211073, 2211105, 2211137, 2211169, 2211201, 2211233, 2211265, 2211297, 2211329, 2211361, 2211393, 2211425, 2211457, 2211489, 2211521]), new Uint32Array([2181825, 6291456, 2181857, 6291456, 2181889, 6291456, 2181921, 6291456, 2181953, 6291456, 2181985, 6291456, 2182017, 6291456, 2182049, 6291456]), new Uint32Array([2162337, 2097633, 2097633, 2097633, 2097633, 2132705, 2132705, 2132705, 2132705, 2097153, 2097153, 2097153, 2097153, 2133089, 2133089, 2133089]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 2148545, 6291456, 2173473, 6291456, 2148865, 6291456, 2173505, 6291456, 2173537, 6291456, 2173569, 6291456, 2149121, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 0, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0]), new Uint32Array([2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889, 2173921, 2173953, 2173985, 2174017, 2174017, 2174049, 2174081, 2174113]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2207137, 2207169, 2207201, 2207233, 2207265, 2207297, 2207329, 2207361, 2207393, 2207425, 2207457, 2207489, 2207521, 2207553, 2207585, 2207617]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 23068672, 6291456, 6291456, 0, 23068672, 23068672, 0, 0, 0, 0, 0, 0]), new Uint32Array([2198401, 2198433, 2198465, 2198497, 0, 2198529, 2198561, 2198593, 2198625, 2198657, 2198689, 2198721, 2198753, 2198785, 2198817, 2198849]), new Uint32Array([2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193, 2112481, 2112577, 2098177]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 0, 0]), new Uint32Array([2216385, 2118721, 2216417, 2216449, 2216481, 2216513, 2216545, 2211233, 2216577, 2216609, 2216641, 2216673, 2216705, 2216737, 2216737, 2216769]), new Uint32Array([2216801, 2216833, 2216865, 2216897, 2216929, 2216961, 2216993, 2215169, 2217025, 2217057, 2217089, 2217121, 2217154, 2217217, 0, 0]), new Uint32Array([2210593, 2191809, 2210625, 2210657, 2210689, 2210721, 2210753, 2210785, 2210817, 2210849, 2191297, 2210881, 2210913, 2210945, 2210977, 2211009]), new Uint32Array([0, 0, 2105825, 0, 0, 2111905, 2105473, 0, 0, 2112289, 2108193, 2112481, 2112577, 0, 2098305, 2108321]), new Uint32Array([0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 2097153, 2134241, 0, 2132705, 0, 0, 2131297, 0, 2133089, 0, 2133857, 0, 2220769, 0, 2235361]), new Uint32Array([14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 6291456, 6291456, 14680064]), new Uint32Array([23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2171873, 6291456, 2171905, 6291456, 2171937, 6291456, 2171969, 6291456, 2172001, 6291456, 2172033, 6291456, 2172065, 6291456, 2172097, 6291456]), new Uint32Array([2220929, 2220929, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2133857, 2134145, 2134145, 2134145, 2134145, 2134241, 2134241, 2134241, 2134241, 2105889, 2105889, 2105889, 2105889, 2097185, 2097185, 2097185]), new Uint32Array([2173697, 2173761, 2173793, 2174113, 2173985, 2173953, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761, 2143969, 2173793]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10499619, 10499715, 10499811, 10499907]), new Uint32Array([0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 0, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 2144322, 2144386, 2144450, 2144514, 2144578, 2144642, 2144706, 2144770]), new Uint32Array([23068672, 23068672, 23068672, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 0, 2098241, 2108353, 2108417, 2105825, 0, 0, 2111905, 2105473, 2105569]), new Uint32Array([2236321, 2236353, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2152194, 2121283, 2103684, 2103812, 2097986, 2098533, 2097990, 2098693, 2098595, 2098853, 2099013, 2103940, 2121379, 2121475, 2121571, 2104068]), new Uint32Array([2206241, 2206273, 2206305, 2206337, 2206369, 2206401, 2206433, 2206465, 2206497, 2206529, 2206561, 2206593, 2206625, 2206657, 2206689, 2206721]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 16777216, 16777216, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 23068672, 23068672, 10538818, 10538882, 6291456, 6291456, 2150338]), new Uint32Array([6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2214369, 2214401, 2214433, 2214465, 2214497, 2214529, 2214561, 2214593, 2194977, 2214625, 2195073, 2214657, 2214689, 2214721, 6291456, 6291456]), new Uint32Array([2097152, 2097152, 2097152, 2097152, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2182081, 6291456, 2182113, 6291456, 2182145, 6291456, 2182177, 6291456, 2182209, 6291456, 2182241, 6291456, 2182273, 6291456, 2182305, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2146881, 2146945, 2147009, 2147073, 2147137, 2147201, 2147265, 2147329]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 23068672, 23068672]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2122915, 2123011, 2123107, 2104708, 2123203, 2123299, 2123395, 2100133, 2104836, 2100290, 2100293, 2104962, 2104964, 2098052, 2123491, 2123587]), new Uint32Array([23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456]), new Uint32Array([6291456, 2171169, 6291456, 2171201, 6291456, 2171233, 6291456, 2171265, 6291456, 2171297, 6291456, 2171329, 6291456, 6291456, 2171361, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 0, 2148994, 2149058, 2149122, 0, 6291456, 2149186, 2186945, 2173537, 2148993, 2149121, 2149058, 10531458, 10496066, 0]), new Uint32Array([2195009, 2195041, 2195073, 2195105, 2195137, 2195169, 2195201, 2195233, 2195265, 2195297, 2195329, 2195361, 2195393, 2195425, 2195457, 2195489]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 0, 0, 6291456, 6291456]), new Uint32Array([2182849, 6291456, 2182881, 6291456, 2182913, 6291456, 2182945, 6291456, 2182977, 6291456, 2183009, 6291456, 2183041, 6291456, 2183073, 6291456]), new Uint32Array([2211553, 2210081, 2211585, 2211617, 2211649, 2211681, 2211713, 2211745, 2211777, 2211809, 2209569, 2211841, 2211873, 2211905, 2211937, 2211969]), new Uint32Array([2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2166594, 2127298, 2166658, 2142978, 2141827, 2166722]), new Uint32Array([2173985, 2173761, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2233057, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 2185761, 2185793, 2185825, 2185857, 2185889, 2185921, 0, 0]), new Uint32Array([6291456, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889, 2173921]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 6291456]), new Uint32Array([0, 0, 0, 2220961, 2220961, 2220961, 2220961, 2144193, 2144193, 2159201, 2159201, 2159265, 2159265, 2144194, 2220993, 2220993]), new Uint32Array([2192641, 2235393, 2235425, 2152257, 2116609, 2235457, 2235489, 2200065, 2235521, 2235553, 2235585, 2212449, 2235617, 2235649, 2235681, 2235713]), new Uint32Array([2194049, 2194081, 2194113, 2194145, 2194177, 2194209, 2194241, 2194273, 2194305, 2194337, 2194369, 2194401, 2194433, 2194465, 2194497, 2194529]), new Uint32Array([2196673, 2208641, 2208673, 2208705, 2208737, 2208769, 2208801, 2208833, 2208865, 2208897, 2208929, 2208961, 2208993, 2209025, 2209057, 2209089]), new Uint32Array([2191681, 2191713, 2191745, 2191777, 2153281, 2191809, 2191841, 2191873, 2191905, 2191937, 2191969, 2192001, 2192033, 2192065, 2192097, 2192129]), new Uint32Array([2230946, 2231010, 2231074, 2231138, 2231202, 2231266, 2231330, 2231394, 2231458, 2231522, 2231586, 2231650, 2231714, 2231778, 2231842, 2231906]), new Uint32Array([14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2185953, 2185985, 2186017, 2186049, 2186081, 2186113, 2186145, 2186177]), new Uint32Array([2139811, 2139907, 2097284, 2105860, 2105988, 2106116, 2106244, 2097444, 2097604, 2097155, 10485778, 10486344, 2106372, 6291456, 0, 0]), new Uint32Array([2110051, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2172385, 6291456, 2172417, 6291456, 2172449, 6291456, 2172481, 6291456, 2172513, 6291456, 2172545, 6291456, 2172577, 6291456, 2172609, 6291456]), new Uint32Array([0, 0, 23068672, 23068672, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2249345, 2249377, 2249409, 2249441, 2249473, 2249505, 2249537, 2249570, 2210209, 2249633, 2249665, 2249697, 2249729, 2249761, 2249793, 2216769]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2187169, 2187201, 2187233, 2187265, 2187297, 2187329, 2187361, 2187393, 2187425, 2187457, 2187489, 2187521, 2187553, 2187585, 2187617, 2187649]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 0, 0, 6291456, 6291456, 0, 0, 0, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456]), new Uint32Array([2182337, 6291456, 2182369, 6291456, 2182401, 6291456, 2182433, 6291456, 2182465, 6291456, 2182497, 6291456, 2182529, 6291456, 2182561, 6291456]), new Uint32Array([2138179, 2138275, 2138371, 2138467, 2134243, 2134435, 2138563, 2138659, 2138755, 2138851, 2138947, 2139043, 2138947, 2138755, 2139139, 2139235]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([0, 0, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2250498, 2250562, 2250625, 2250657, 2208321, 2250689, 2250721, 2250753, 2250785, 2250817, 2250849, 2218945, 2250881, 2250913, 2250945, 0]), new Uint32Array([2170369, 2105569, 2098305, 2108481, 2173249, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456]), new Uint32Array([2100897, 2111905, 2105473, 2105569, 2105601, 0, 2108193, 0, 0, 0, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481]), new Uint32Array([2100897, 2100897, 2105569, 2105569, 6291456, 2112289, 2149826, 6291456, 6291456, 2112481, 2112577, 2098177, 2098177, 2098177, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 2169953, 2169985, 6291456, 2170017, 6291456, 2170049, 2170081, 6291456, 2170113, 2170145, 2170177, 6291456, 6291456, 2170209, 2170241]), new Uint32Array([6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2220641, 2220641, 2220673, 2220673, 2220673, 2220673, 2220705, 2220705, 2220705, 2220705, 2220737, 2220737, 2220737, 2220737, 2220769, 2220769]), new Uint32Array([2127650, 2127746, 2127842, 2127938, 2128034, 2128130, 2128226, 2128322, 2128418, 2127523, 2127619, 2127715, 2127811, 2127907, 2128003, 2128099]), new Uint32Array([2143969, 2173793, 2173825, 2153473, 2173857, 2173889, 2173921, 2173953, 2173985, 2173761, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177]), new Uint32Array([0, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2204705, 2204737, 2204769, 2204801, 2204833, 2204865, 2204897, 2204929, 2204961, 2204993, 2205025, 2205057, 2205089, 2205121, 2205153, 2205185]), new Uint32Array([2176385, 6291456, 2176417, 6291456, 2176449, 6291456, 2176481, 6291456, 2176513, 6291456, 2176545, 6291456, 2176577, 6291456, 2176609, 6291456]), new Uint32Array([2195521, 2195553, 2195585, 2195617, 2195649, 2195681, 2117857, 2195713, 2195745, 2195777, 2195809, 2195841, 2195873, 2195905, 2195937, 2195969]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456]), new Uint32Array([2173921, 2173953, 2173985, 2174017, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2233089, 2173697, 2173761, 2173793, 2174113]), new Uint32Array([2131586, 2132450, 2135970, 2135778, 2161602, 2136162, 2163650, 2161794, 2135586, 2163714, 2137186, 2131810, 2160290, 2135170, 2097506, 2159554]), new Uint32Array([2134145, 2097153, 2134241, 2105953, 2132705, 2130977, 2160065, 2131297, 2162049, 2133089, 2160577, 2133857, 0, 0, 0, 0]), new Uint32Array([2116513, 2116609, 2116705, 2116801, 2116897, 2116993, 2117089, 2117185, 2117281, 2117377, 2117473, 2117569, 2117665, 2117761, 2117857, 2117953]), new Uint32Array([2100737, 2098337, 2101441, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 2100802, 2101154, 2101282, 2101410, 2101538, 2101666, 2101794]), new Uint32Array([2100289, 2098657, 2098049, 2200737, 2123489, 2123681, 2200769, 2098625, 2100321, 2098145, 2100449, 2098017, 2098753, 2098977, 2150241, 2150305]), new Uint32Array([6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 2109955, 6291456, 6291456, 0, 0, 0, 0]), new Uint32Array([18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 0, 6291456, 0, 0]), new Uint32Array([2130979, 2131075, 2131075, 2131171, 2131267, 2131363, 2131459, 2131555, 2131651, 2131651, 2131747, 2131843, 2131939, 2132035, 2132131, 2132227]), new Uint32Array([0, 2177793, 6291456, 2177825, 6291456, 2177857, 6291456, 2177889, 6291456, 2177921, 6291456, 2177953, 6291456, 2177985, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2113345, 0, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289]), new Uint32Array([2136643, 2136739, 2136835, 2136931, 2137027, 2137123, 2137219, 2137315, 2137411, 2137507, 2137603, 2137699, 2137795, 2137891, 2137987, 2138083]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0]), new Uint32Array([2174433, 6291456, 2174465, 6291456, 2174497, 6291456, 2174529, 6291456, 2174561, 6291456, 2174593, 6291456, 2174625, 6291456, 2174657, 6291456]), new Uint32Array([0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2105473, 2105569, 2105601, 2112289, 2108193, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441]), new Uint32Array([10496547, 10496643, 2105505, 2149698, 6291456, 10496739, 10496835, 2170273, 6291456, 2149762, 2105825, 2111713, 2111713, 2111713, 2111713, 2168673]), new Uint32Array([6291456, 2143490, 2143490, 2143490, 2171649, 6291456, 2171681, 2171713, 2171745, 6291456, 2171777, 6291456, 2171809, 6291456, 2171841, 6291456]), new Uint32Array([2159106, 2159106, 2159170, 2159170, 2159234, 2159234, 2159298, 2159298, 2159298, 2159362, 2159362, 2159362, 2106401, 2106401, 2106401, 2106401]), new Uint32Array([2105601, 2112289, 2108193, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137]), new Uint32Array([2108417, 2181217, 2181249, 2181281, 2170433, 2170401, 2181313, 2181345, 2181377, 2181409, 2181441, 2181473, 2181505, 2181537, 2170529, 2181569]), new Uint32Array([2218433, 2245761, 2245793, 2245825, 2245857, 2245890, 2245953, 2245986, 2209665, 2246050, 2246113, 2246146, 2246210, 2246274, 2246337, 2246369]), new Uint32Array([2230754, 2230818, 2230882, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 0, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2184129, 6291456, 2184161, 6291456, 2184193, 6291456, 6291456, 6291456, 6291456, 6291456, 2146818, 2183361, 6291456, 6291456, 2142978, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2135170, 2097506, 2130691, 2130787, 2130883, 2163970, 2164034, 2164098, 2164162, 2164226, 2164290, 2164354, 2164418, 2164482, 2164546, 2133122]), new Uint32Array([2108515, 2108611, 2100740, 2108707, 2108803, 2108899, 2108995, 2109091, 2109187, 2109283, 2109379, 2109475, 2109571, 2109667, 2109763, 2100738]), new Uint32Array([2102788, 2102916, 2103044, 2120515, 2103172, 2120611, 2120707, 2098373, 2103300, 2120803, 2120899, 2120995, 2103428, 2103556, 2121091, 2121187]), new Uint32Array([2158082, 2158146, 0, 2158210, 2158274, 0, 2158338, 2158402, 2158466, 2129922, 2158530, 2158594, 2158658, 2158722, 2158786, 2158850]), new Uint32Array([10499619, 10499715, 10499811, 10499907, 10500003, 10500099, 10500195, 10500291, 10500387, 10500483, 10500579, 10500675, 10500771, 10500867, 10500963, 10501059]), new Uint32Array([2239585, 2239618, 2239681, 2239713, 0, 2191969, 2239745, 2239777, 2192033, 2239809, 2239841, 2239874, 2239937, 2239970, 2240033, 2240065]), new Uint32Array([2252705, 2252738, 2252801, 2252833, 2252865, 2252897, 2252930, 2252994, 2253057, 2253089, 2253121, 2253154, 2253217, 2253250, 2219361, 2219361]), new Uint32Array([2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 10538050, 10538114, 10538178, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2226402, 2226466, 2226530, 2226594, 2226658, 2226722, 2226786, 2226850, 2226914, 2226978, 2227042, 2227106, 2227170, 2227234, 2227298, 2227362]), new Uint32Array([23068672, 6291456, 6291456, 6291456, 6291456, 2144066, 2144130, 2144194, 2144258, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 6291456, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2124674, 2124770, 2123875, 2123971, 2124067, 2124163, 2124259, 2124355, 2124451, 2124547, 2124643, 2124739, 2124835, 2124931, 2125027, 2125123]), new Uint32Array([2168065, 6291456, 2168097, 6291456, 2168129, 6291456, 2168161, 6291456, 2168193, 6291456, 2168225, 6291456, 2168257, 6291456, 2168289, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0]), new Uint32Array([23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 2100610, 2100611, 6291456, 2107842, 2107843, 6291456, 6291456, 6291456, 6291456, 10537922, 6291456, 10537986, 6291456]), new Uint32Array([2174849, 2174881, 2174913, 2174945, 2174977, 2175009, 2175041, 2175073, 2175105, 2175137, 2175169, 2175201, 2175233, 2175265, 2175297, 2175329]), new Uint32Array([2154562, 2154626, 2154690, 2154754, 2141858, 2154818, 2154882, 2127298, 2154946, 2127298, 2155010, 2155074, 2155138, 2155202, 2155266, 2155202]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 0]), new Uint32Array([2200641, 2150786, 2150850, 2150914, 2150978, 2151042, 2106562, 2151106, 2150562, 2151170, 2151234, 2151298, 2151362, 2151426, 2151490, 2151554]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456]), new Uint32Array([2220289, 2220289, 2220321, 2220321, 2220321, 2220321, 2220353, 2220353, 2220353, 2220353, 2220385, 2220385, 2220385, 2220385, 2220417, 2220417]), new Uint32Array([2155330, 2155394, 0, 2155458, 2155522, 2155586, 2105732, 0, 2155650, 2155714, 2155778, 2125314, 2155842, 2155906, 2126274, 2155970]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 23068672, 23068672, 6291456, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0]), new Uint32Array([2097729, 2106017, 2106017, 2106017, 2106017, 2131297, 2131297, 2131297, 2131297, 2106081, 2106081, 2162049, 2162049, 2105953, 2105953, 2162337]), new Uint32Array([2097185, 2097697, 2097697, 2097697, 2097697, 2135777, 2135777, 2135777, 2135777, 2097377, 2097377, 2097377, 2097377, 2097601, 2097601, 2097217]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23068672]), new Uint32Array([2139331, 2139427, 2139523, 2139043, 2133571, 2132611, 2139619, 2139715, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2174113, 2174145, 2100897, 2098177, 2108289, 2100865, 2173601, 2173633, 2173985, 2174113, 2174145, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 18923778, 23068672, 23068672, 23068672, 23068672, 18923842, 23068672, 23068672, 23068672, 23068672, 18923906, 23068672, 23068672, 23068672]), new Uint32Array([2134145, 2097153, 2134241, 0, 2132705, 2130977, 2160065, 2131297, 0, 2133089, 0, 2133857, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2177537, 6291456, 2177569, 6291456, 2177601, 6291456, 2177633, 6291456, 2177665, 6291456, 2177697, 6291456, 2177729, 6291456, 2177761, 6291456]), new Uint32Array([2212481, 2212513, 2212545, 2212577, 2197121, 2212609, 2212641, 2212673, 2212705, 2212737, 2212769, 2212801, 2212833, 2212865, 2212897, 2212929]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 23068672, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2098241, 2108353, 2170209, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 6291456, 2108193, 2172417, 2112481, 2098177]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456])];
+  var blockIdxes = new Uint16Array([616, 616, 565, 147, 161, 411, 330, 2, 131, 131, 328, 454, 241, 408, 86, 86, 696, 113, 285, 350, 325, 301, 473, 214, 639, 232, 447, 64, 369, 598, 124, 672, 567, 223, 621, 154, 107, 86, 86, 86, 86, 86, 86, 505, 86, 68, 634, 86, 218, 218, 218, 218, 486, 218, 218, 513, 188, 608, 216, 86, 217, 463, 668, 85, 700, 360, 184, 86, 86, 86, 647, 402, 153, 10, 346, 718, 662, 260, 145, 298, 117, 1, 443, 342, 138, 54, 563, 86, 240, 572, 218, 70, 387, 86, 118, 460, 641, 602, 86, 86, 306, 218, 86, 692, 86, 86, 86, 86, 86, 162, 707, 86, 458, 26, 86, 218, 638, 86, 86, 86, 86, 86, 65, 449, 86, 86, 306, 183, 86, 58, 391, 667, 86, 157, 131, 131, 131, 131, 86, 433, 131, 406, 31, 218, 247, 86, 86, 693, 218, 581, 351, 86, 438, 295, 69, 462, 45, 126, 173, 650, 14, 295, 69, 97, 168, 187, 641, 78, 523, 390, 69, 108, 287, 664, 173, 219, 83, 295, 69, 108, 431, 426, 173, 694, 412, 115, 628, 52, 257, 398, 641, 118, 501, 121, 69, 579, 151, 423, 173, 620, 464, 121, 69, 382, 151, 476, 173, 27, 53, 121, 86, 594, 578, 226, 173, 86, 632, 130, 86, 96, 228, 268, 641, 622, 563, 86, 86, 21, 148, 650, 131, 131, 321, 43, 144, 343, 381, 531, 131, 131, 178, 20, 86, 399, 156, 375, 164, 541, 30, 60, 715, 198, 92, 118, 131, 131, 86, 86, 306, 407, 86, 280, 457, 196, 488, 358, 131, 131, 244, 86, 86, 143, 86, 86, 86, 86, 86, 667, 563, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 336, 363, 86, 86, 336, 86, 86, 380, 678, 67, 86, 86, 86, 678, 86, 86, 86, 512, 86, 307, 86, 708, 86, 86, 86, 86, 86, 528, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 563, 307, 86, 86, 86, 86, 86, 104, 450, 337, 86, 720, 86, 32, 450, 397, 86, 86, 86, 587, 218, 558, 708, 708, 293, 708, 86, 86, 86, 86, 86, 694, 205, 86, 8, 86, 86, 86, 86, 549, 86, 667, 697, 697, 679, 86, 458, 460, 86, 86, 650, 86, 708, 543, 86, 86, 86, 245, 86, 86, 86, 140, 218, 127, 708, 708, 458, 197, 131, 131, 131, 131, 500, 86, 86, 483, 251, 86, 306, 510, 515, 86, 722, 86, 86, 86, 65, 201, 86, 86, 483, 580, 470, 86, 86, 86, 368, 131, 131, 131, 694, 114, 110, 555, 86, 86, 123, 721, 163, 142, 713, 418, 86, 317, 675, 209, 218, 218, 218, 371, 545, 592, 629, 490, 603, 199, 46, 320, 525, 680, 310, 279, 388, 111, 42, 252, 593, 607, 235, 617, 410, 377, 50, 548, 135, 356, 17, 520, 189, 116, 392, 600, 349, 332, 482, 699, 690, 535, 119, 106, 451, 71, 152, 667, 131, 218, 218, 265, 671, 637, 492, 504, 533, 683, 269, 269, 658, 86, 86, 86, 86, 86, 86, 86, 86, 86, 491, 619, 86, 86, 6, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 229, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 667, 86, 86, 171, 131, 118, 131, 656, 206, 234, 571, 89, 334, 670, 246, 311, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 534, 86, 86, 86, 86, 86, 86, 82, 86, 86, 86, 86, 86, 430, 86, 86, 86, 86, 86, 86, 86, 86, 86, 599, 86, 324, 86, 470, 69, 640, 264, 131, 626, 101, 174, 86, 86, 667, 233, 105, 73, 374, 394, 221, 204, 84, 28, 326, 86, 86, 471, 86, 86, 86, 109, 573, 86, 171, 200, 200, 200, 200, 218, 218, 86, 86, 86, 86, 460, 131, 131, 131, 86, 506, 86, 86, 86, 86, 86, 220, 404, 34, 614, 47, 442, 305, 25, 612, 338, 601, 648, 7, 344, 255, 131, 131, 51, 86, 312, 507, 563, 86, 86, 86, 86, 588, 86, 86, 86, 86, 86, 530, 511, 86, 458, 3, 435, 384, 556, 522, 230, 527, 86, 118, 86, 86, 717, 86, 137, 273, 79, 181, 484, 23, 93, 112, 655, 249, 417, 703, 370, 87, 98, 313, 684, 585, 155, 465, 596, 481, 695, 18, 416, 428, 61, 701, 706, 282, 643, 495, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 549, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 549, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 307, 86, 86, 86, 171, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 650, 131, 422, 542, 420, 263, 24, 172, 86, 86, 86, 86, 86, 566, 86, 86, 132, 540, 395, 353, 494, 519, 19, 485, 284, 472, 131, 131, 131, 16, 714, 86, 211, 708, 86, 86, 86, 694, 698, 86, 86, 483, 704, 708, 218, 272, 86, 86, 120, 86, 159, 478, 86, 307, 247, 86, 86, 663, 597, 459, 627, 667, 86, 86, 277, 455, 39, 302, 86, 250, 86, 86, 86, 271, 99, 452, 306, 281, 329, 400, 200, 86, 86, 362, 549, 352, 646, 461, 323, 586, 86, 86, 4, 708, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 717, 86, 518, 86, 86, 650, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 125, 554, 480, 300, 613, 72, 333, 288, 561, 544, 604, 48, 719, 91, 169, 176, 590, 224, 76, 191, 29, 559, 560, 231, 537, 166, 477, 538, 256, 437, 131, 131, 469, 167, 40, 0, 685, 266, 441, 705, 239, 642, 475, 568, 640, 610, 299, 673, 517, 318, 385, 22, 202, 180, 179, 359, 424, 215, 90, 66, 521, 653, 467, 682, 453, 409, 479, 88, 131, 661, 35, 303, 15, 262, 666, 630, 712, 131, 131, 618, 659, 175, 218, 195, 347, 193, 227, 261, 150, 165, 709, 546, 294, 569, 710, 270, 413, 376, 524, 55, 242, 38, 419, 529, 170, 657, 3, 304, 122, 379, 278, 131, 651, 86, 67, 576, 458, 458, 131, 131, 86, 86, 86, 86, 86, 86, 86, 118, 309, 86, 86, 547, 86, 86, 86, 86, 667, 650, 664, 131, 131, 86, 86, 56, 131, 131, 131, 131, 131, 131, 131, 131, 86, 307, 86, 86, 86, 664, 238, 650, 86, 86, 717, 86, 118, 86, 86, 315, 86, 59, 86, 86, 574, 549, 131, 131, 340, 57, 436, 86, 86, 86, 86, 86, 86, 458, 708, 499, 691, 62, 86, 650, 86, 86, 694, 86, 86, 86, 319, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 171, 86, 549, 694, 131, 131, 131, 131, 131, 131, 131, 131, 131, 77, 86, 86, 139, 86, 502, 86, 86, 86, 667, 595, 131, 131, 131, 86, 12, 86, 13, 86, 609, 131, 131, 131, 131, 86, 86, 86, 625, 86, 669, 86, 86, 182, 129, 86, 5, 694, 104, 86, 86, 86, 86, 131, 131, 86, 86, 386, 171, 86, 86, 86, 345, 86, 324, 86, 589, 86, 213, 36, 131, 131, 131, 131, 131, 86, 86, 86, 86, 104, 131, 131, 131, 141, 290, 80, 677, 86, 86, 86, 267, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 667, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 515, 86, 86, 33, 136, 669, 86, 711, 515, 86, 86, 550, 640, 86, 104, 708, 515, 86, 159, 372, 717, 86, 86, 444, 515, 86, 86, 663, 37, 86, 563, 460, 86, 390, 624, 702, 131, 131, 131, 131, 389, 59, 708, 86, 86, 341, 208, 708, 635, 295, 69, 108, 431, 508, 100, 190, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 649, 516, 660, 131, 131, 86, 86, 86, 218, 631, 708, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 341, 575, 238, 514, 131, 131, 86, 86, 86, 218, 291, 708, 307, 131, 86, 86, 306, 367, 708, 131, 131, 131, 86, 378, 697, 86, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 615, 253, 86, 86, 86, 292, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 104, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 69, 86, 341, 553, 549, 86, 307, 86, 86, 645, 275, 455, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 708, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 667, 460, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 717, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 667, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 171, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 104, 86, 667, 459, 131, 131, 131, 131, 131, 131, 86, 458, 225, 86, 86, 86, 516, 549, 11, 390, 405, 86, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 460, 44, 218, 197, 711, 515, 131, 131, 131, 131, 664, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 307, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 308, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 640, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 118, 307, 104, 286, 591, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 549, 86, 86, 681, 86, 86, 75, 185, 314, 582, 86, 358, 496, 474, 86, 104, 131, 86, 86, 86, 86, 146, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 171, 86, 640, 131, 131, 131, 131, 131, 131, 131, 131, 246, 503, 689, 339, 674, 81, 258, 415, 439, 128, 562, 366, 414, 246, 503, 689, 583, 222, 557, 316, 636, 665, 186, 355, 95, 670, 246, 503, 689, 339, 674, 557, 258, 415, 439, 186, 355, 95, 670, 246, 503, 689, 446, 644, 536, 652, 331, 532, 335, 440, 274, 421, 297, 570, 74, 425, 364, 425, 606, 552, 403, 509, 134, 365, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 218, 218, 218, 498, 218, 218, 577, 627, 551, 497, 572, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 553, 354, 236, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 296, 455, 131, 131, 456, 243, 103, 86, 41, 459, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 9, 276, 158, 716, 393, 564, 383, 489, 401, 654, 210, 654, 131, 131, 131, 640, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 650, 86, 86, 86, 86, 86, 86, 717, 667, 563, 563, 563, 86, 549, 102, 686, 133, 246, 605, 86, 448, 86, 86, 207, 307, 131, 131, 131, 641, 86, 177, 611, 445, 373, 194, 584, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 308, 307, 171, 86, 86, 86, 86, 86, 86, 86, 717, 86, 86, 86, 86, 86, 460, 131, 131, 650, 86, 86, 86, 694, 708, 86, 86, 694, 86, 458, 131, 131, 131, 131, 131, 131, 667, 694, 289, 650, 667, 131, 131, 86, 640, 131, 131, 664, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 171, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 460, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 458, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 640, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 466, 203, 149, 429, 94, 432, 160, 687, 539, 63, 237, 283, 192, 248, 348, 259, 427, 526, 396, 676, 254, 468, 487, 212, 327, 623, 49, 633, 322, 493, 434, 688, 357, 361, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131]);
+  var mappingStr = "صلى الله عليه وسلمجل جلالهキロメートルrad∕s2エスクードキログラムキロワットグラムトンクルゼイロサンチームパーセントピアストルファラッドブッシェルヘクタールマンションミリバールレントゲン′′′′1⁄10viii(10)(11)(12)(13)(14)(15)(16)(17)(18)(19)(20)∫∫∫∫(오전)(오후)アパートアルファアンペアイニングエーカーカラットカロリーキュリーギルダークローネサイクルシリングバーレルフィートポイントマイクロミクロンメガトンリットルルーブル株式会社kcalm∕s2c∕kgاكبرمحمدصلعمرسولریال1⁄41⁄23⁄4 ̈́ྲཱྀླཱྀ ̈͂ ̓̀ ̓́ ̓͂ ̔̀ ̔́ ̔͂ ̈̀‵‵‵a/ca/sc/oc/utelfax1⁄71⁄91⁄32⁄31⁄52⁄53⁄54⁄51⁄65⁄61⁄83⁄85⁄87⁄8xii0⁄3∮∮∮(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)(g)(h)(i)(j)(k)(l)(m)(n)(o)(p)(q)(r)(s)(t)(u)(v)(w)(x)(y)(z)::====(ᄀ)(ᄂ)(ᄃ)(ᄅ)(ᄆ)(ᄇ)(ᄉ)(ᄋ)(ᄌ)(ᄎ)(ᄏ)(ᄐ)(ᄑ)(ᄒ)(가)(나)(다)(라)(마)(바)(사)(아)(자)(차)(카)(타)(파)(하)(주)(一)(二)(三)(四)(五)(六)(七)(八)(九)(十)(月)(火)(水)(木)(金)(土)(日)(株)(有)(社)(名)(特)(財)(祝)(労)(代)(呼)(学)(監)(企)(資)(協)(祭)(休)(自)(至)pte10月11月12月ergltdアールインチウォンオンスオームカイリガロンガンマギニーケースコルナコーポセンチダースノットハイツパーツピクルフランペニヒヘルツペンスページベータボルトポンドホールホーンマイルマッハマルクヤードヤールユアンルピー10点11点12点13点14点15点16点17点18点19点20点21点22点23点24点hpabardm2dm3khzmhzghzthzmm2cm2km2mm3cm3km3kpampagpalogmilmolppmv∕ma∕m10日11日12日13日14日15日16日17日18日19日20日21日22日23日24日25日26日27日28日29日30日31日galffifflשּׁשּׂ ٌّ ٍّ َّ ُّ ِّ ّٰـَّـُّـِّتجمتحجتحمتخمتمجتمحتمخجمححميحمىسحجسجحسجىسمحسمجسممصححصممشحمشجيشمخشممضحىضخمطمحطممطميعجمعممعمىغممغميغمىفخمقمحقمملحملحيلحىلججلخملمحمحجمحيمجحمجممخممجخهمجهممنحمنحىنجمنجىنمينمىيممبخيتجيتجىتخيتخىتميتمىجميجحىجمىسخىصحيشحيضحيلجيلمييحييجييميمميقمينحيعميكمينجحمخيلجمكممجحيحجيمجيفميبحيسخينجيصلےقلے𝅘𝅥𝅮𝅘𝅥𝅯𝅘𝅥𝅰𝅘𝅥𝅱𝅘𝅥𝅲𝆹𝅥𝅮𝆺𝅥𝅮𝆹𝅥𝅯𝆺𝅥𝅯〔s〕ppv〔本〕〔三〕〔二〕〔安〕〔点〕〔打〕〔盗〕〔勝〕〔敗〕 ̄ ́ ̧ssi̇ijl·ʼndžljnjdz ̆ ̇ ̊ ̨ ̃ ̋ ιեւاٴوٴۇٴيٴक़ख़ग़ज़ड़ढ़फ़य़ড়ঢ়য়ਲ਼ਸ਼ਖ਼ਗ਼ਜ਼ਫ਼ଡ଼ଢ଼ําໍາຫນຫມགྷཌྷདྷབྷཛྷཀྵཱཱིུྲྀླྀྒྷྜྷྡྷྦྷྫྷྐྵaʾἀιἁιἂιἃιἄιἅιἆιἇιἠιἡιἢιἣιἤιἥιἦιἧιὠιὡιὢιὣιὤιὥιὦιὧιὰιαιάιᾶι ͂ὴιηιήιῆιὼιωιώιῶι ̳!! ̅???!!?rs°c°fnosmtmivix⫝̸ ゙ ゚よりコト333435참고주의363738394042444546474849503月4月5月6月7月8月9月hgevギガデシドルナノピコビルペソホンリラレムdaauovpciu平成昭和大正明治naμakakbmbgbpfnfμfμgmgμlmldlklfmnmμmpsnsμsmsnvμvkvpwnwμwmwkwkωmωbqcccddbgyhainkkktlnlxphprsrsvwbstմնմեմիվնմխיִײַשׁשׂאַאָאּבּגּדּהּוּזּטּיּךּכּלּמּנּסּףּפּצּקּרּתּוֹבֿכֿפֿאלئائەئوئۇئۆئۈئېئىئجئحئمئيبجبمبىبيتىتيثجثمثىثيخحضجضمطحظمغجفجفحفىفيقحقىقيكاكجكحكخكلكىكينخنىنيهجهىهييىذٰرٰىٰئرئزئنبزبنترتزتنثرثزثنمانرنزننيريزئخئهبهتهصخنههٰثهسهشهطىطيعىعيغىغيسىسيشىشيصىصيضىضيشخشرسرصرضراً ًـًـّ ْـْلآلألإ𝅗𝅥0,1,2,3,4,5,6,7,8,9,wzhvsdwcmcmddjほかココàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþāăąćĉċčďđēĕėęěĝğġģĥħĩīĭįĵķĺļľłńņňŋōŏőœŕŗřśŝşšţťŧũūŭůűųŵŷÿźżɓƃƅɔƈɖɗƌǝəɛƒɠɣɩɨƙɯɲɵơƣƥʀƨʃƭʈưʊʋƴƶʒƹƽǎǐǒǔǖǘǚǜǟǡǣǥǧǩǫǭǯǵƕƿǹǻǽǿȁȃȅȇȉȋȍȏȑȓȕȗșțȝȟƞȣȥȧȩȫȭȯȱȳⱥȼƚⱦɂƀʉʌɇɉɋɍɏɦɹɻʁʕͱͳʹͷ;ϳέίόύβγδεζθκλνξοπρστυφχψϊϋϗϙϛϝϟϡϣϥϧϩϫϭϯϸϻͻͼͽѐёђѓєѕіїјљњћќѝўџабвгдежзийклмнопрстуфхцчшщъыьэюяѡѣѥѧѩѫѭѯѱѳѵѷѹѻѽѿҁҋҍҏґғҕҗҙқҝҟҡңҥҧҩҫҭүұҳҵҷҹһҽҿӂӄӆӈӊӌӎӑӓӕӗәӛӝӟӡӣӥӧөӫӭӯӱӳӵӷӹӻӽӿԁԃԅԇԉԋԍԏԑԓԕԗԙԛԝԟԡԣԥԧԩԫԭԯաբգդզէըթժլծկհձղճյշոչպջռստրցփքօֆ་ⴧⴭნᏰᏱᏲᏳᏴᏵꙋɐɑᴂɜᴖᴗᴝᴥɒɕɟɡɥɪᵻʝɭᶅʟɱɰɳɴɸʂƫᴜʐʑḁḃḅḇḉḋḍḏḑḓḕḗḙḛḝḟḡḣḥḧḩḫḭḯḱḳḵḷḹḻḽḿṁṃṅṇṉṋṍṏṑṓṕṗṙṛṝṟṡṣṥṧṩṫṭṯṱṳṵṷṹṻṽṿẁẃẅẇẉẋẍẏẑẓẕạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹỻỽỿἐἑἒἓἔἕἰἱἲἳἴἵἶἷὀὁὂὃὄὅὑὓὕὗᾰᾱὲΐῐῑὶΰῠῡὺῥ`ὸ‐+−∑〈〉ⰰⰱⰲⰳⰴⰵⰶⰷⰸⰹⰺⰻⰼⰽⰾⰿⱀⱁⱂⱃⱄⱅⱆⱇⱈⱉⱊⱋⱌⱍⱎⱏⱐⱑⱒⱓⱔⱕⱖⱗⱘⱙⱚⱛⱜⱝⱞⱡɫᵽɽⱨⱪⱬⱳⱶȿɀⲁⲃⲅⲇⲉⲋⲍⲏⲑⲓⲕⲗⲙⲛⲝⲟⲡⲣⲥⲧⲩⲫⲭⲯⲱⲳⲵⲷⲹⲻⲽⲿⳁⳃⳅⳇⳉⳋⳍⳏⳑⳓⳕⳗⳙⳛⳝⳟⳡⳣⳬⳮⳳⵡ母龟丨丶丿乙亅亠人儿入冂冖冫几凵刀力勹匕匚匸卜卩厂厶又口囗士夂夊夕女子宀寸小尢尸屮山巛工己巾干幺广廴廾弋弓彐彡彳心戈戶手支攴文斗斤方无曰欠止歹殳毋比毛氏气爪父爻爿片牙牛犬玄玉瓜瓦甘生用田疋疒癶白皮皿目矛矢石示禸禾穴立竹米糸缶网羊羽老而耒耳聿肉臣臼舌舛舟艮色艸虍虫血行衣襾見角言谷豆豕豸貝赤走足身車辛辰辵邑酉釆里長門阜隶隹雨靑非面革韋韭音頁風飛食首香馬骨高髟鬥鬯鬲鬼魚鳥鹵鹿麥麻黃黍黑黹黽鼎鼓鼠鼻齊齒龍龜龠.〒卄卅ᄁᆪᆬᆭᄄᆰᆱᆲᆳᆴᆵᄚᄈᄡᄊ짜ᅢᅣᅤᅥᅦᅧᅨᅩᅪᅫᅬᅭᅮᅯᅰᅱᅲᅳᅴᅵᄔᄕᇇᇈᇌᇎᇓᇗᇙᄜᇝᇟᄝᄞᄠᄢᄣᄧᄩᄫᄬᄭᄮᄯᄲᄶᅀᅇᅌᇱᇲᅗᅘᅙᆄᆅᆈᆑᆒᆔᆞᆡ上中下甲丙丁天地問幼箏우秘男適優印注項写左右医宗夜テヌモヨヰヱヲꙁꙃꙅꙇꙉꙍꙏꙑꙓꙕꙗꙙꙛꙝꙟꙡꙣꙥꙧꙩꙫꙭꚁꚃꚅꚇꚉꚋꚍꚏꚑꚓꚕꚗꚙꚛꜣꜥꜧꜩꜫꜭꜯꜳꜵꜷꜹꜻꜽꜿꝁꝃꝅꝇꝉꝋꝍꝏꝑꝓꝕꝗꝙꝛꝝꝟꝡꝣꝥꝧꝩꝫꝭꝯꝺꝼᵹꝿꞁꞃꞅꞇꞌꞑꞓꞗꞙꞛꞝꞟꞡꞣꞥꞧꞩɬʞʇꭓꞵꞷꬷꭒᎠᎡᎢᎣᎤᎥᎦᎧᎨᎩᎪᎫᎬᎭᎮᎯᎰᎱᎲᎳᎴᎵᎶᎷᎸᎹᎺᎻᎼᎽᎾᎿᏀᏁᏂᏃᏄᏅᏆᏇᏈᏉᏊᏋᏌᏍᏎᏏᏐᏑᏒᏓᏔᏕᏖᏗᏘᏙᏚᏛᏜᏝᏞᏟᏠᏡᏢᏣᏤᏥᏦᏧᏨᏩᏪᏫᏬᏭᏮᏯ豈更賈滑串句契喇奈懶癩羅蘿螺裸邏樂洛烙珞落酪駱亂卵欄爛蘭鸞嵐濫藍襤拉臘蠟廊朗浪狼郎來冷勞擄櫓爐盧蘆虜路露魯鷺碌祿綠菉錄論壟弄籠聾牢磊賂雷壘屢樓淚漏累縷陋勒肋凜凌稜綾菱陵讀拏諾丹寧怒率異北磻便復不泌數索參塞省葉說殺沈拾若掠略亮兩凉梁糧良諒量勵呂廬旅濾礪閭驪麗黎曆歷轢年憐戀撚漣煉璉秊練聯輦蓮連鍊列劣咽烈裂廉念捻殮簾獵令囹嶺怜玲瑩羚聆鈴零靈領例禮醴隸惡了僚寮尿料燎療蓼遼暈阮劉杻柳流溜琉留硫紐類戮陸倫崙淪輪律慄栗隆利吏履易李梨泥理痢罹裏裡離匿溺吝燐璘藺隣鱗麟林淋臨笠粒狀炙識什茶刺切度拓糖宅洞暴輻降廓兀嗀塚晴凞猪益礼神祥福靖精蘒諸逸都飯飼館鶴郞隷侮僧免勉勤卑喝嘆器塀墨層悔慨憎懲敏既暑梅海渚漢煮爫琢碑祉祈祐祖禍禎穀突節縉繁署者臭艹著褐視謁謹賓贈辶難響頻恵𤋮舘並况全侀充冀勇勺啕喙嗢墳奄奔婢嬨廒廙彩徭惘慎愈慠戴揄搜摒敖望杖滛滋瀞瞧爵犯瑱甆画瘝瘟盛直睊着磌窱类絛缾荒華蝹襁覆調請諭變輸遲醙鉶陼韛頋鬒𢡊𢡄𣏕㮝䀘䀹𥉉𥳐𧻓齃龎עםٱٻپڀٺٿٹڤڦڄڃچڇڍڌڎڈژڑکگڳڱںڻۀہھۓڭۋۅۉ、〖〗—–_{}【】《》「」『』[]#&*-<>\\$%@ءؤة\"'^|~⦅⦆・ゥャ¢£¬¦¥₩│←↑→↓■○𐐨𐐩𐐪𐐫𐐬𐐭𐐮𐐯𐐰𐐱𐐲𐐳𐐴𐐵𐐶𐐷𐐸𐐹𐐺𐐻𐐼𐐽𐐾𐐿𐑀𐑁𐑂𐑃𐑄𐑅𐑆𐑇𐑈𐑉𐑊𐑋𐑌𐑍𐑎𐑏𐓘𐓙𐓚𐓛𐓜𐓝𐓞𐓟𐓠𐓡𐓢𐓣𐓤𐓥𐓦𐓧𐓨𐓩𐓪𐓫𐓬𐓭𐓮𐓯𐓰𐓱𐓲𐓳𐓴𐓵𐓶𐓷𐓸𐓹𐓺𐓻𐳀𐳁𐳂𐳃𐳄𐳅𐳆𐳇𐳈𐳉𐳊𐳋𐳌𐳍𐳎𐳏𐳐𐳑𐳒𐳓𐳔𐳕𐳖𐳗𐳘𐳙𐳚𐳛𐳜𐳝𐳞𐳟𐳠𐳡𐳢𐳣𐳤𐳥𐳦𐳧𐳨𐳩𐳪𐳫𐳬𐳭𐳮𐳯𐳰𐳱𐳲𑣀𑣁𑣂𑣃𑣄𑣅𑣆𑣇𑣈𑣉𑣊𑣋𑣌𑣍𑣎𑣏𑣐𑣑𑣒𑣓𑣔𑣕𑣖𑣗𑣘𑣙𑣚𑣛𑣜𑣝𑣞𑣟ıȷ∇∂𞤢𞤣𞤤𞤥𞤦𞤧𞤨𞤩𞤪𞤫𞤬𞤭𞤮𞤯𞤰𞤱𞤲𞤳𞤴𞤵𞤶𞤷𞤸𞤹𞤺𞤻𞤼𞤽𞤾𞤿𞥀𞥁𞥂𞥃ٮڡٯ字双多解交映無前後再新初終販声吹演投捕遊指禁空合満申割営配得可丽丸乁𠄢你侻倂偺備像㒞𠘺兔兤具𠔜㒹內𠕋冗冤仌冬𩇟刃㓟刻剆剷㔕包匆卉博即卽卿𠨬灰及叟𠭣叫叱吆咞吸呈周咢哶唐啓啣善喫喳嗂圖圗噑噴壮城埴堍型堲報墬𡓤売壷夆夢奢𡚨𡛪姬娛娧姘婦㛮嬈嬾𡧈寃寘寳𡬘寿将㞁屠峀岍𡷤嵃𡷦嵮嵫嵼巡巢㠯巽帨帽幩㡢𢆃㡼庰庳庶𪎒𢌱舁弢㣇𣊸𦇚形彫㣣徚忍志忹悁㤺㤜𢛔惇慈慌慺憲憤憯懞戛扝抱拔捐𢬌挽拼捨掃揤𢯱搢揅掩㨮摩摾撝摷㩬敬𣀊旣書晉㬙㬈㫤冒冕最暜肭䏙朡杞杓𣏃㭉柺枅桒𣑭梎栟椔楂榣槪檨𣚣櫛㰘次𣢧歔㱎歲殟殻𣪍𡴋𣫺汎𣲼沿泍汧洖派浩浸涅𣴞洴港湮㴳滇𣻑淹潮𣽞𣾎濆瀹瀛㶖灊災灷炭𠔥煅𤉣熜爨牐𤘈犀犕𤜵𤠔獺王㺬玥㺸瑇瑜璅瓊㼛甤𤰶甾𤲒𢆟瘐𤾡𤾸𥁄㿼䀈𥃳𥃲𥄙𥄳眞真瞋䁆䂖𥐝硎䃣𥘦𥚚𥛅秫䄯穊穏𥥼𥪧䈂𥮫篆築䈧𥲀糒䊠糨糣紀𥾆絣䌁緇縂繅䌴𦈨𦉇䍙𦋙罺𦌾羕翺𦓚𦔣聠𦖨聰𣍟䏕育脃䐋脾媵𦞧𦞵𣎓𣎜舄辞䑫芑芋芝劳花芳芽苦𦬼茝荣莭茣莽菧荓菊菌菜𦰶𦵫𦳕䔫蓱蓳蔖𧏊蕤𦼬䕝䕡𦾱𧃒䕫虐虧虩蚩蚈蜎蛢蜨蝫螆蟡蠁䗹衠𧙧裗裞䘵裺㒻𧢮𧥦䚾䛇誠𧲨貫賁贛起𧼯𠠄跋趼跰𠣞軔𨗒𨗭邔郱鄑𨜮鄛鈸鋗鋘鉼鏹鐕𨯺開䦕閷𨵷䧦雃嶲霣𩅅𩈚䩮䩶韠𩐊䪲𩒖頩𩖶飢䬳餩馧駂駾䯎𩬰鱀鳽䳎䳭鵧𪃎䳸𪄅𪈎𪊑䵖黾鼅鼏鼖𪘀";
+
+  function mapChar(codePoint) {
+    if (codePoint >= 0x30000) {
+      // High planes are special cased.
+      if (codePoint >= 0xE0100 && codePoint <= 0xE01EF) return 18874368;
+      return 0;
+    }
+    return blocks[blockIdxes[codePoint >> 4]][codePoint & 15];
+  }
+
+  return {
+    mapStr: mappingStr,
+    mapChar: mapChar
+  };
+});
+
+},{}],247:[function(require,module,exports){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/* istanbul ignore next */
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['punycode', './idna-map'], function (punycode, idna_map) {
+      return factory(punycode, idna_map);
+    });
+  } else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') {
+    module.exports = factory(require('punycode'), require('./idna-map'));
+  } else {
+    root.uts46 = factory(root.punycode, root.idna_map);
+  }
+})(undefined, function (punycode, idna_map) {
+
+  function mapLabel(label, useStd3ASCII, transitional) {
+    var mapped = [];
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = label[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var ch = _step.value;
+
+        var cp = ch.codePointAt(0);
+        var composite = idna_map.mapChar(cp);
+        var flags = composite >> 23;
+        var kind = composite >> 21 & 3;
+        var index = composite >> 5 & 0xffff;
+        var length = composite & 0x1f;
+        var value = idna_map.mapStr.substr(index, length);
+        if (kind == 0 || useStd3ASCII && flags & 1) {
+          throw new Error("Illegal char " + ch);
+        } else if (kind == 1) {
+          mapped.push(value);
+        } else if (kind == 2) {
+          mapped.push(transitional ? value : ch);
+        } else if (kind == 3) {
+          mapped.push(ch);
+        }
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+
+    var newLabel = mapped.join("").normalize("NFC");
+    return newLabel;
+  }
+
+  function process(domain, transitional, useStd3ASCII) {
+    if (useStd3ASCII === undefined) useStd3ASCII = false;
+    var mappedIDNA = mapLabel(domain, useStd3ASCII, transitional);
+
+    // Step 3. Break
+    var labels = mappedIDNA.split(".");
+
+    // Step 4. Convert/Validate
+    labels = labels.map(function (label) {
+      if (label.startsWith("xn--")) {
+        label = punycode.decode(label.substring(4));
+        validateLabel(label, useStd3ASCII, false);
+      } else {
+        validateLabel(label, useStd3ASCII, transitional);
+      }
+      return label;
+    });
+
+    return labels.join(".");
+  }
+
+  function validateLabel(label, useStd3ASCII, transitional) {
+    // 2. The label must not contain a U+002D HYPHEN-MINUS character in both the
+    // third position and fourth positions.
+    if (label[2] == '-' && label[3] == '-') throw new Error("Failed to validate " + label);
+
+    // 3. The label must neither begin nor end with a U+002D HYPHEN-MINUS
+    // character.
+    if (label.startsWith('-') || label.endsWith('-')) throw new Error("Failed to validate " + label);
+
+    // 4. The label must not contain a U+002E ( . ) FULL STOP.
+    if (label.includes('.')) throw new Error("Failed to validate " + label);
+
+    if (mapLabel(label, useStd3ASCII, transitional) != label) throw new Error("Failed to validate " + label);
+
+    // 5. The label must not begin with a combining mark, that is:
+    // General_Category=Mark.
+    var ch = label.codePointAt(0);
+    if (idna_map.mapChar(ch) & 0x2 << 23) throw new Error("Label contains illegal character: " + ch);
+  }
+
+  function toAscii(domain, options) {
+    if (options === undefined) options = {};
+    var transitional = 'transitional' in options ? options.transitional : true;
+    var useStd3ASCII = 'useStd3ASCII' in options ? options.useStd3ASCII : false;
+    var verifyDnsLength = 'verifyDnsLength' in options ? options.verifyDnsLength : false;
+    var labels = process(domain, transitional, useStd3ASCII).split('.');
+    var asciiLabels = labels.map(punycode.toASCII);
+    var asciiString = asciiLabels.join('.');
+    if (verifyDnsLength) {
+      if (asciiString.length < 1 || asciiString.length > 253) {
+        throw new Error("DNS name has wrong length: " + asciiString);
+      }
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = asciiLabels[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var label = _step2.value;
+
+          if (label.length < 1 || label.length > 63) throw new Error("DNS label has wrong length: " + label);
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+    }
+    return asciiString;
+  }
+
+  function toUnicode(domain, options) {
+    if (options === undefined) options = {};
+    var useStd3ASCII = 'useStd3ASCII' in options ? options.useStd3ASCII : false;
+    return process(domain, false, useStd3ASCII);
+  }
+
+  return {
+    toUnicode: toUnicode,
+    toAscii: toAscii
+  };
+});
+
+},{"./idna-map":246,"punycode":286}],248:[function(require,module,exports){
 "use strict";
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -94047,7 +97165,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128;
 };
 
-},{}],237:[function(require,module,exports){
+},{}],249:[function(require,module,exports){
 "use strict";
 
 var indexOf = [].indexOf;
@@ -94060,7 +97178,7 @@ module.exports = function (arr, obj) {
   return -1;
 };
 
-},{}],238:[function(require,module,exports){
+},{}],250:[function(require,module,exports){
 'use strict';
 
 if (typeof Object.create === 'function') {
@@ -94087,7 +97205,7 @@ if (typeof Object.create === 'function') {
   };
 }
 
-},{}],239:[function(require,module,exports){
+},{}],251:[function(require,module,exports){
 'use strict';
 
 /*!
@@ -94112,7 +97230,7 @@ function isSlowBuffer(obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0));
 }
 
-},{}],240:[function(require,module,exports){
+},{}],252:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -94131,7 +97249,7 @@ module.exports = function isHexPrefixed(str) {
   return str.slice(0, 2) === '0x';
 };
 
-},{}],241:[function(require,module,exports){
+},{}],253:[function(require,module,exports){
 'use strict';
 
 var toString = {}.toString;
@@ -94140,7 +97258,7 @@ module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],242:[function(require,module,exports){
+},{}],254:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -94577,7 +97695,7 @@ module.exports = Array.isArray || function (arr) {
 })(undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],243:[function(require,module,exports){
+},{}],255:[function(require,module,exports){
 /*
  A JavaScript implementation of the SHA family of hashes, as
  defined in FIPS PUB 180-2 as well as the corresponding HMAC implementation
@@ -94830,12 +97948,12 @@ module.exports = Array.isArray || function (arr) {
   }) : "undefined" !== typeof exports ? "undefined" !== typeof module && module.exports ? module.exports = exports = z : exports = z : U.jsSHA = z;
 })(undefined);
 
-},{}],244:[function(require,module,exports){
+},{}],256:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/api')(require('./lib/keccak'));
 
-},{"./lib/api":245,"./lib/keccak":249}],245:[function(require,module,exports){
+},{"./lib/api":257,"./lib/keccak":261}],257:[function(require,module,exports){
 'use strict';
 
 var createKeccak = require('./keccak');
@@ -94877,7 +97995,7 @@ module.exports = function (KeccakState) {
   };
 };
 
-},{"./keccak":246,"./shake":247}],246:[function(require,module,exports){
+},{"./keccak":258,"./shake":259}],258:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -94964,7 +98082,7 @@ module.exports = function (KeccakState) {
   return Keccak;
 };
 
-},{"inherits":238,"safe-buffer":291,"stream":307}],247:[function(require,module,exports){
+},{"inherits":250,"safe-buffer":304,"stream":320}],259:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -95042,7 +98160,7 @@ module.exports = function (KeccakState) {
   return Shake;
 };
 
-},{"inherits":238,"safe-buffer":291,"stream":307}],248:[function(require,module,exports){
+},{"inherits":250,"safe-buffer":304,"stream":320}],260:[function(require,module,exports){
 'use strict';
 
 var P1600_ROUND_CONSTANTS = [1, 0, 32898, 0, 32906, 2147483648, 2147516416, 2147483648, 32907, 0, 2147483649, 0, 2147516545, 2147483648, 32777, 2147483648, 138, 0, 136, 0, 2147516425, 0, 2147483658, 0, 2147516555, 0, 139, 2147483648, 32905, 2147483648, 32771, 2147483648, 32770, 2147483648, 128, 2147483648, 32778, 0, 2147483658, 2147483648, 2147516545, 2147483648, 32896, 2147483648, 2147483649, 0, 2147516424, 2147483648];
@@ -95232,7 +98350,7 @@ exports.p1600 = function (s) {
   }
 };
 
-},{}],249:[function(require,module,exports){
+},{}],261:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -95301,7 +98419,7 @@ Keccak.prototype.copy = function (dest) {
 
 module.exports = Keccak;
 
-},{"./keccak-state-unroll":248,"safe-buffer":291}],250:[function(require,module,exports){
+},{"./keccak-state-unroll":260,"safe-buffer":304}],262:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -96521,7 +99639,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 }());
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],251:[function(require,module,exports){
+},{}],263:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -96671,7 +99789,7 @@ function fnI(a, b, c, d, m, k, s) {
 module.exports = MD5;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"hash-base":252,"inherits":238}],252:[function(require,module,exports){
+},{"buffer":151,"hash-base":264,"inherits":250}],264:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -96770,7 +99888,7 @@ HashBase.prototype._digest = function () {
 
 module.exports = HashBase;
 
-},{"inherits":238,"safe-buffer":291,"stream":307}],253:[function(require,module,exports){
+},{"inherits":250,"safe-buffer":304,"stream":320}],265:[function(require,module,exports){
 'use strict';
 
 var bn = require('bn.js');
@@ -96878,7 +99996,7 @@ MillerRabin.prototype.getDivisor = function getDivisor(n, k) {
   return false;
 };
 
-},{"bn.js":108,"brorand":109}],254:[function(require,module,exports){
+},{"bn.js":118,"brorand":119}],266:[function(require,module,exports){
 'use strict';
 
 module.exports = assert;
@@ -96891,7 +100009,7 @@ assert.equal = function assertEqual(l, r, msg) {
   if (l != r) throw new Error(msg || 'Assertion failed: ' + l + ' != ' + r);
 };
 
-},{}],255:[function(require,module,exports){
+},{}],267:[function(require,module,exports){
 'use strict';
 
 var utils = exports;
@@ -96940,7 +100058,7 @@ utils.encode = function encode(arr, enc) {
   if (enc === 'hex') return toHex(arr);else return arr;
 };
 
-},{}],256:[function(require,module,exports){
+},{}],268:[function(require,module,exports){
 module.exports={"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.2": "aes-128-cbc",
 "2.16.840.1.101.3.4.1.3": "aes-128-ofb",
@@ -96954,7 +100072,7 @@ module.exports={"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.43": "aes-256-ofb",
 "2.16.840.1.101.3.4.1.44": "aes-256-cfb"
 }
-},{}],257:[function(require,module,exports){
+},{}],269:[function(require,module,exports){
 // from https://github.com/indutny/self-signed/blob/gh-pages/lib/asn1.js
 // Fedor, you are amazing.
 'use strict';
@@ -97016,7 +100134,7 @@ exports.signature = asn1.define('signature', function () {
   this.seq().obj(this.key('r').int(), this.key('s').int());
 });
 
-},{"./certificate":258,"asn1.js":81}],258:[function(require,module,exports){
+},{"./certificate":270,"asn1.js":91}],270:[function(require,module,exports){
 // from https://github.com/Rantanen/node-dtls/blob/25a7dc861bda38cfeac93a723500eea4f0ac2e86/Certificate.js
 // thanks to @Rantanen
 
@@ -97075,7 +100193,7 @@ var X509Certificate = asn.define('X509Certificate', function () {
 
 module.exports = X509Certificate;
 
-},{"asn1.js":81}],259:[function(require,module,exports){
+},{"asn1.js":91}],271:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -97111,7 +100229,7 @@ module.exports = function (okey, password) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"browserify-aes":113,"buffer":141,"evp_bytestokey":220}],260:[function(require,module,exports){
+},{"browserify-aes":123,"buffer":151,"evp_bytestokey":230}],272:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -97228,14 +100346,14 @@ function decrypt(data, password) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./aesid.json":256,"./asn1":257,"./fixProc":259,"browserify-aes":113,"buffer":141,"pbkdf2":261}],261:[function(require,module,exports){
+},{"./aesid.json":268,"./asn1":269,"./fixProc":271,"browserify-aes":123,"buffer":151,"pbkdf2":273}],273:[function(require,module,exports){
 'use strict';
 
 exports.pbkdf2 = require('./lib/async');
 
 exports.pbkdf2Sync = require('./lib/sync');
 
-},{"./lib/async":262,"./lib/sync":265}],262:[function(require,module,exports){
+},{"./lib/async":274,"./lib/sync":277}],274:[function(require,module,exports){
 (function (process,global){
 'use strict';
 
@@ -97336,7 +100454,7 @@ module.exports = function (password, salt, iterations, keylen, digest, callback)
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./default-encoding":263,"./precondition":264,"./sync":265,"_process":267,"safe-buffer":291}],263:[function(require,module,exports){
+},{"./default-encoding":275,"./precondition":276,"./sync":277,"_process":279,"safe-buffer":304}],275:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -97352,7 +100470,7 @@ if (process.browser) {
 module.exports = defaultEncoding;
 
 }).call(this,require('_process'))
-},{"_process":267}],264:[function(require,module,exports){
+},{"_process":279}],276:[function(require,module,exports){
 'use strict';
 
 var MAX_ALLOC = Math.pow(2, 30) - 1; // default in iojs
@@ -97375,7 +100493,7 @@ module.exports = function (iterations, keylen) {
   }
 };
 
-},{}],265:[function(require,module,exports){
+},{}],277:[function(require,module,exports){
 'use strict';
 
 var md5 = require('create-hash/md5');
@@ -97482,7 +100600,7 @@ function pbkdf2(password, salt, iterations, keylen, digest) {
 
 module.exports = pbkdf2;
 
-},{"./default-encoding":263,"./precondition":264,"create-hash/md5":148,"ripemd160":289,"safe-buffer":291,"sha.js":300}],266:[function(require,module,exports){
+},{"./default-encoding":275,"./precondition":276,"create-hash/md5":158,"ripemd160":302,"safe-buffer":304,"sha.js":313}],278:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -97527,7 +100645,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 }
 
 }).call(this,require('_process'))
-},{"_process":267}],267:[function(require,module,exports){
+},{"_process":279}],279:[function(require,module,exports){
 'use strict';
 
 // shim for using process in browser
@@ -97716,7 +100834,7 @@ process.umask = function () {
     return 0;
 };
 
-},{}],268:[function(require,module,exports){
+},{}],280:[function(require,module,exports){
 'use strict';
 
 exports.publicEncrypt = require('./publicEncrypt');
@@ -97730,7 +100848,7 @@ exports.publicDecrypt = function publicDecrypt(key, buf) {
   return exports.privateDecrypt(key, buf, true);
 };
 
-},{"./privateDecrypt":270,"./publicEncrypt":271}],269:[function(require,module,exports){
+},{"./privateDecrypt":282,"./publicEncrypt":283}],281:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -97753,7 +100871,7 @@ function i2ops(c) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"create-hash":146}],270:[function(require,module,exports){
+},{"buffer":151,"create-hash":156}],282:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -97867,7 +100985,7 @@ function compare(a, b) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./mgf":269,"./withPublic":272,"./xor":273,"bn.js":108,"browserify-rsa":131,"buffer":141,"create-hash":146,"parse-asn1":260}],271:[function(require,module,exports){
+},{"./mgf":281,"./withPublic":284,"./xor":285,"bn.js":118,"browserify-rsa":141,"buffer":151,"create-hash":156,"parse-asn1":272}],283:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -97968,7 +101086,7 @@ function nonZero(len, crypto) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./mgf":269,"./withPublic":272,"./xor":273,"bn.js":108,"browserify-rsa":131,"buffer":141,"create-hash":146,"parse-asn1":260,"randombytes":274}],272:[function(require,module,exports){
+},{"./mgf":281,"./withPublic":284,"./xor":285,"bn.js":118,"browserify-rsa":141,"buffer":151,"create-hash":156,"parse-asn1":272,"randombytes":287}],284:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -97980,7 +101098,7 @@ function withPublic(paddedMsg, key) {
 module.exports = withPublic;
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":108,"buffer":141}],273:[function(require,module,exports){
+},{"bn.js":118,"buffer":151}],285:[function(require,module,exports){
 "use strict";
 
 module.exports = function xor(a, b) {
@@ -97992,7 +101110,540 @@ module.exports = function xor(a, b) {
   return a;
 };
 
-},{}],274:[function(require,module,exports){
+},{}],286:[function(require,module,exports){
+(function (global){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/*! https://mths.be/punycode v1.4.1 by @mathias */
+;(function (root) {
+
+	/** Detect free variables */
+	var freeExports = (typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) == 'object' && exports && !exports.nodeType && exports;
+	var freeModule = (typeof module === 'undefined' ? 'undefined' : _typeof(module)) == 'object' && module && !module.nodeType && module;
+	var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global;
+	if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal || freeGlobal.self === freeGlobal) {
+		root = freeGlobal;
+	}
+
+	/**
+  * The `punycode` object.
+  * @name punycode
+  * @type Object
+  */
+	var punycode,
+
+
+	/** Highest positive signed 32-bit float value */
+	maxInt = 2147483647,
+	    // aka. 0x7FFFFFFF or 2^31-1
+
+	/** Bootstring parameters */
+	base = 36,
+	    tMin = 1,
+	    tMax = 26,
+	    skew = 38,
+	    damp = 700,
+	    initialBias = 72,
+	    initialN = 128,
+	    // 0x80
+	delimiter = '-',
+	    // '\x2D'
+
+	/** Regular expressions */
+	regexPunycode = /^xn--/,
+	    regexNonASCII = /[^\x20-\x7E]/,
+	    // unprintable ASCII chars + non-ASCII chars
+	regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g,
+	    // RFC 3490 separators
+
+	/** Error messages */
+	errors = {
+		'overflow': 'Overflow: input needs wider integers to process',
+		'not-basic': 'Illegal input >= 0x80 (not a basic code point)',
+		'invalid-input': 'Invalid input'
+	},
+
+
+	/** Convenience shortcuts */
+	baseMinusTMin = base - tMin,
+	    floor = Math.floor,
+	    stringFromCharCode = String.fromCharCode,
+
+
+	/** Temporary variable */
+	key;
+
+	/*--------------------------------------------------------------------------*/
+
+	/**
+  * A generic error utility function.
+  * @private
+  * @param {String} type The error type.
+  * @returns {Error} Throws a `RangeError` with the applicable error message.
+  */
+	function error(type) {
+		throw new RangeError(errors[type]);
+	}
+
+	/**
+  * A generic `Array#map` utility function.
+  * @private
+  * @param {Array} array The array to iterate over.
+  * @param {Function} callback The function that gets called for every array
+  * item.
+  * @returns {Array} A new array of values returned by the callback function.
+  */
+	function map(array, fn) {
+		var length = array.length;
+		var result = [];
+		while (length--) {
+			result[length] = fn(array[length]);
+		}
+		return result;
+	}
+
+	/**
+  * A simple `Array#map`-like wrapper to work with domain name strings or email
+  * addresses.
+  * @private
+  * @param {String} domain The domain name or email address.
+  * @param {Function} callback The function that gets called for every
+  * character.
+  * @returns {Array} A new string of characters returned by the callback
+  * function.
+  */
+	function mapDomain(string, fn) {
+		var parts = string.split('@');
+		var result = '';
+		if (parts.length > 1) {
+			// In email addresses, only the domain name should be punycoded. Leave
+			// the local part (i.e. everything up to `@`) intact.
+			result = parts[0] + '@';
+			string = parts[1];
+		}
+		// Avoid `split(regex)` for IE8 compatibility. See #17.
+		string = string.replace(regexSeparators, '\x2E');
+		var labels = string.split('.');
+		var encoded = map(labels, fn).join('.');
+		return result + encoded;
+	}
+
+	/**
+  * Creates an array containing the numeric code points of each Unicode
+  * character in the string. While JavaScript uses UCS-2 internally,
+  * this function will convert a pair of surrogate halves (each of which
+  * UCS-2 exposes as separate characters) into a single code point,
+  * matching UTF-16.
+  * @see `punycode.ucs2.encode`
+  * @see <https://mathiasbynens.be/notes/javascript-encoding>
+  * @memberOf punycode.ucs2
+  * @name decode
+  * @param {String} string The Unicode input string (UCS-2).
+  * @returns {Array} The new array of code points.
+  */
+	function ucs2decode(string) {
+		var output = [],
+		    counter = 0,
+		    length = string.length,
+		    value,
+		    extra;
+		while (counter < length) {
+			value = string.charCodeAt(counter++);
+			if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+				// high surrogate, and there is a next character
+				extra = string.charCodeAt(counter++);
+				if ((extra & 0xFC00) == 0xDC00) {
+					// low surrogate
+					output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
+				} else {
+					// unmatched surrogate; only append this code unit, in case the next
+					// code unit is the high surrogate of a surrogate pair
+					output.push(value);
+					counter--;
+				}
+			} else {
+				output.push(value);
+			}
+		}
+		return output;
+	}
+
+	/**
+  * Creates a string based on an array of numeric code points.
+  * @see `punycode.ucs2.decode`
+  * @memberOf punycode.ucs2
+  * @name encode
+  * @param {Array} codePoints The array of numeric code points.
+  * @returns {String} The new Unicode string (UCS-2).
+  */
+	function ucs2encode(array) {
+		return map(array, function (value) {
+			var output = '';
+			if (value > 0xFFFF) {
+				value -= 0x10000;
+				output += stringFromCharCode(value >>> 10 & 0x3FF | 0xD800);
+				value = 0xDC00 | value & 0x3FF;
+			}
+			output += stringFromCharCode(value);
+			return output;
+		}).join('');
+	}
+
+	/**
+  * Converts a basic code point into a digit/integer.
+  * @see `digitToBasic()`
+  * @private
+  * @param {Number} codePoint The basic numeric code point value.
+  * @returns {Number} The numeric value of a basic code point (for use in
+  * representing integers) in the range `0` to `base - 1`, or `base` if
+  * the code point does not represent a value.
+  */
+	function basicToDigit(codePoint) {
+		if (codePoint - 48 < 10) {
+			return codePoint - 22;
+		}
+		if (codePoint - 65 < 26) {
+			return codePoint - 65;
+		}
+		if (codePoint - 97 < 26) {
+			return codePoint - 97;
+		}
+		return base;
+	}
+
+	/**
+  * Converts a digit/integer into a basic code point.
+  * @see `basicToDigit()`
+  * @private
+  * @param {Number} digit The numeric value of a basic code point.
+  * @returns {Number} The basic code point whose value (when used for
+  * representing integers) is `digit`, which needs to be in the range
+  * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
+  * used; else, the lowercase form is used. The behavior is undefined
+  * if `flag` is non-zero and `digit` has no uppercase form.
+  */
+	function digitToBasic(digit, flag) {
+		//  0..25 map to ASCII a..z or A..Z
+		// 26..35 map to ASCII 0..9
+		return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
+	}
+
+	/**
+  * Bias adaptation function as per section 3.4 of RFC 3492.
+  * https://tools.ietf.org/html/rfc3492#section-3.4
+  * @private
+  */
+	function adapt(delta, numPoints, firstTime) {
+		var k = 0;
+		delta = firstTime ? floor(delta / damp) : delta >> 1;
+		delta += floor(delta / numPoints);
+		for (; /* no initialization */delta > baseMinusTMin * tMax >> 1; k += base) {
+			delta = floor(delta / baseMinusTMin);
+		}
+		return floor(k + (baseMinusTMin + 1) * delta / (delta + skew));
+	}
+
+	/**
+  * Converts a Punycode string of ASCII-only symbols to a string of Unicode
+  * symbols.
+  * @memberOf punycode
+  * @param {String} input The Punycode string of ASCII-only symbols.
+  * @returns {String} The resulting string of Unicode symbols.
+  */
+	function decode(input) {
+		// Don't use UCS-2
+		var output = [],
+		    inputLength = input.length,
+		    out,
+		    i = 0,
+		    n = initialN,
+		    bias = initialBias,
+		    basic,
+		    j,
+		    index,
+		    oldi,
+		    w,
+		    k,
+		    digit,
+		    t,
+
+		/** Cached calculation results */
+		baseMinusT;
+
+		// Handle the basic code points: let `basic` be the number of input code
+		// points before the last delimiter, or `0` if there is none, then copy
+		// the first basic code points to the output.
+
+		basic = input.lastIndexOf(delimiter);
+		if (basic < 0) {
+			basic = 0;
+		}
+
+		for (j = 0; j < basic; ++j) {
+			// if it's not a basic code point
+			if (input.charCodeAt(j) >= 0x80) {
+				error('not-basic');
+			}
+			output.push(input.charCodeAt(j));
+		}
+
+		// Main decoding loop: start just after the last delimiter if any basic code
+		// points were copied; start at the beginning otherwise.
+
+		for (index = basic > 0 ? basic + 1 : 0; index < inputLength;) /* no final expression */{
+
+			// `index` is the index of the next character to be consumed.
+			// Decode a generalized variable-length integer into `delta`,
+			// which gets added to `i`. The overflow checking is easier
+			// if we increase `i` as we go, then subtract off its starting
+			// value at the end to obtain `delta`.
+			for (oldi = i, w = 1, k = base;; /* no condition */k += base) {
+
+				if (index >= inputLength) {
+					error('invalid-input');
+				}
+
+				digit = basicToDigit(input.charCodeAt(index++));
+
+				if (digit >= base || digit > floor((maxInt - i) / w)) {
+					error('overflow');
+				}
+
+				i += digit * w;
+				t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+
+				if (digit < t) {
+					break;
+				}
+
+				baseMinusT = base - t;
+				if (w > floor(maxInt / baseMinusT)) {
+					error('overflow');
+				}
+
+				w *= baseMinusT;
+			}
+
+			out = output.length + 1;
+			bias = adapt(i - oldi, out, oldi == 0);
+
+			// `i` was supposed to wrap around from `out` to `0`,
+			// incrementing `n` each time, so we'll fix that now:
+			if (floor(i / out) > maxInt - n) {
+				error('overflow');
+			}
+
+			n += floor(i / out);
+			i %= out;
+
+			// Insert `n` at position `i` of the output
+			output.splice(i++, 0, n);
+		}
+
+		return ucs2encode(output);
+	}
+
+	/**
+  * Converts a string of Unicode symbols (e.g. a domain name label) to a
+  * Punycode string of ASCII-only symbols.
+  * @memberOf punycode
+  * @param {String} input The string of Unicode symbols.
+  * @returns {String} The resulting Punycode string of ASCII-only symbols.
+  */
+	function encode(input) {
+		var n,
+		    delta,
+		    handledCPCount,
+		    basicLength,
+		    bias,
+		    j,
+		    m,
+		    q,
+		    k,
+		    t,
+		    currentValue,
+		    output = [],
+
+		/** `inputLength` will hold the number of code points in `input`. */
+		inputLength,
+
+		/** Cached calculation results */
+		handledCPCountPlusOne,
+		    baseMinusT,
+		    qMinusT;
+
+		// Convert the input in UCS-2 to Unicode
+		input = ucs2decode(input);
+
+		// Cache the length
+		inputLength = input.length;
+
+		// Initialize the state
+		n = initialN;
+		delta = 0;
+		bias = initialBias;
+
+		// Handle the basic code points
+		for (j = 0; j < inputLength; ++j) {
+			currentValue = input[j];
+			if (currentValue < 0x80) {
+				output.push(stringFromCharCode(currentValue));
+			}
+		}
+
+		handledCPCount = basicLength = output.length;
+
+		// `handledCPCount` is the number of code points that have been handled;
+		// `basicLength` is the number of basic code points.
+
+		// Finish the basic string - if it is not empty - with a delimiter
+		if (basicLength) {
+			output.push(delimiter);
+		}
+
+		// Main encoding loop:
+		while (handledCPCount < inputLength) {
+
+			// All non-basic code points < n have been handled already. Find the next
+			// larger one:
+			for (m = maxInt, j = 0; j < inputLength; ++j) {
+				currentValue = input[j];
+				if (currentValue >= n && currentValue < m) {
+					m = currentValue;
+				}
+			}
+
+			// Increase `delta` enough to advance the decoder's <n,i> state to <m,0>,
+			// but guard against overflow
+			handledCPCountPlusOne = handledCPCount + 1;
+			if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
+				error('overflow');
+			}
+
+			delta += (m - n) * handledCPCountPlusOne;
+			n = m;
+
+			for (j = 0; j < inputLength; ++j) {
+				currentValue = input[j];
+
+				if (currentValue < n && ++delta > maxInt) {
+					error('overflow');
+				}
+
+				if (currentValue == n) {
+					// Represent delta as a generalized variable-length integer
+					for (q = delta, k = base;; /* no condition */k += base) {
+						t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+						if (q < t) {
+							break;
+						}
+						qMinusT = q - t;
+						baseMinusT = base - t;
+						output.push(stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0)));
+						q = floor(qMinusT / baseMinusT);
+					}
+
+					output.push(stringFromCharCode(digitToBasic(q, 0)));
+					bias = adapt(delta, handledCPCountPlusOne, handledCPCount == basicLength);
+					delta = 0;
+					++handledCPCount;
+				}
+			}
+
+			++delta;
+			++n;
+		}
+		return output.join('');
+	}
+
+	/**
+  * Converts a Punycode string representing a domain name or an email address
+  * to Unicode. Only the Punycoded parts of the input will be converted, i.e.
+  * it doesn't matter if you call it on a string that has already been
+  * converted to Unicode.
+  * @memberOf punycode
+  * @param {String} input The Punycoded domain name or email address to
+  * convert to Unicode.
+  * @returns {String} The Unicode representation of the given Punycode
+  * string.
+  */
+	function toUnicode(input) {
+		return mapDomain(input, function (string) {
+			return regexPunycode.test(string) ? decode(string.slice(4).toLowerCase()) : string;
+		});
+	}
+
+	/**
+  * Converts a Unicode string representing a domain name or an email address to
+  * Punycode. Only the non-ASCII parts of the domain name will be converted,
+  * i.e. it doesn't matter if you call it with a domain that's already in
+  * ASCII.
+  * @memberOf punycode
+  * @param {String} input The domain name or email address to convert, as a
+  * Unicode string.
+  * @returns {String} The Punycode representation of the given domain name or
+  * email address.
+  */
+	function toASCII(input) {
+		return mapDomain(input, function (string) {
+			return regexNonASCII.test(string) ? 'xn--' + encode(string) : string;
+		});
+	}
+
+	/*--------------------------------------------------------------------------*/
+
+	/** Define the public API */
+	punycode = {
+		/**
+   * A string representing the current Punycode.js version number.
+   * @memberOf punycode
+   * @type String
+   */
+		'version': '1.4.1',
+		/**
+   * An object of methods to convert from JavaScript's internal character
+   * representation (UCS-2) to Unicode code points, and back.
+   * @see <https://mathiasbynens.be/notes/javascript-encoding>
+   * @memberOf punycode
+   * @type Object
+   */
+		'ucs2': {
+			'decode': ucs2decode,
+			'encode': ucs2encode
+		},
+		'decode': decode,
+		'encode': encode,
+		'toASCII': toASCII,
+		'toUnicode': toUnicode
+	};
+
+	/** Expose `punycode` */
+	// Some AMD build optimizers, like r.js, check for specific condition patterns
+	// like the following:
+	if (typeof define == 'function' && _typeof(define.amd) == 'object' && define.amd) {
+		define('punycode', function () {
+			return punycode;
+		});
+	} else if (freeExports && freeModule) {
+		if (module.exports == freeExports) {
+			// in Node.js, io.js, or RingoJS v0.8.0+
+			freeModule.exports = punycode;
+		} else {
+			// in Narwhal or RingoJS v0.7.0-
+			for (key in punycode) {
+				punycode.hasOwnProperty(key) && (freeExports[key] = punycode[key]);
+			}
+		}
+	} else {
+		// in Rhino or a web browser
+		root.punycode = punycode;
+	}
+})(undefined);
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],287:[function(require,module,exports){
 (function (process,global){
 'use strict';
 
@@ -98035,7 +101686,7 @@ function randomBytes(size, cb) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":267,"safe-buffer":291}],275:[function(require,module,exports){
+},{"_process":279,"safe-buffer":304}],288:[function(require,module,exports){
 (function (process,global){
 'use strict';
 
@@ -98149,12 +101800,12 @@ function randomFillSync(buf, offset, size) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":267,"randombytes":274,"safe-buffer":291}],276:[function(require,module,exports){
+},{"_process":279,"randombytes":287,"safe-buffer":304}],289:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/_stream_duplex.js');
 
-},{"./lib/_stream_duplex.js":277}],277:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":290}],290:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -98280,7 +101931,7 @@ function forEach(xs, f) {
   }
 }
 
-},{"./_stream_readable":279,"./_stream_writable":281,"core-util-is":144,"inherits":238,"process-nextick-args":266}],278:[function(require,module,exports){
+},{"./_stream_readable":292,"./_stream_writable":294,"core-util-is":154,"inherits":250,"process-nextick-args":278}],291:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -98329,7 +101980,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
 
-},{"./_stream_transform":280,"core-util-is":144,"inherits":238}],279:[function(require,module,exports){
+},{"./_stream_transform":293,"core-util-is":154,"inherits":250}],292:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -99340,7 +102991,7 @@ function indexOf(xs, x) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":277,"./internal/streams/BufferList":282,"./internal/streams/destroy":283,"./internal/streams/stream":284,"_process":267,"core-util-is":144,"events":219,"inherits":238,"isarray":241,"process-nextick-args":266,"safe-buffer":291,"string_decoder/":309,"util":110}],280:[function(require,module,exports){
+},{"./_stream_duplex":290,"./internal/streams/BufferList":295,"./internal/streams/destroy":296,"./internal/streams/stream":297,"_process":279,"core-util-is":154,"events":229,"inherits":250,"isarray":253,"process-nextick-args":278,"safe-buffer":304,"string_decoder/":322,"util":120}],293:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -99556,7 +103207,7 @@ function done(stream, er, data) {
   return stream.push(null);
 }
 
-},{"./_stream_duplex":277,"core-util-is":144,"inherits":238}],281:[function(require,module,exports){
+},{"./_stream_duplex":290,"core-util-is":154,"inherits":250}],294:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -100224,7 +103875,7 @@ Writable.prototype._destroy = function (err, cb) {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":277,"./internal/streams/destroy":283,"./internal/streams/stream":284,"_process":267,"core-util-is":144,"inherits":238,"process-nextick-args":266,"safe-buffer":291,"util-deprecate":313}],282:[function(require,module,exports){
+},{"./_stream_duplex":290,"./internal/streams/destroy":296,"./internal/streams/stream":297,"_process":279,"core-util-is":154,"inherits":250,"process-nextick-args":278,"safe-buffer":304,"util-deprecate":326}],295:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -100304,7 +103955,7 @@ module.exports = function () {
   return BufferList;
 }();
 
-},{"safe-buffer":291}],283:[function(require,module,exports){
+},{"safe-buffer":304}],296:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -100378,17 +104029,17 @@ module.exports = {
   undestroy: undestroy
 };
 
-},{"process-nextick-args":266}],284:[function(require,module,exports){
+},{"process-nextick-args":278}],297:[function(require,module,exports){
 'use strict';
 
 module.exports = require('events').EventEmitter;
 
-},{"events":219}],285:[function(require,module,exports){
+},{"events":229}],298:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./readable').PassThrough;
 
-},{"./readable":286}],286:[function(require,module,exports){
+},{"./readable":299}],299:[function(require,module,exports){
 'use strict';
 
 exports = module.exports = require('./lib/_stream_readable.js');
@@ -100399,17 +104050,17 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":277,"./lib/_stream_passthrough.js":278,"./lib/_stream_readable.js":279,"./lib/_stream_transform.js":280,"./lib/_stream_writable.js":281}],287:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":290,"./lib/_stream_passthrough.js":291,"./lib/_stream_readable.js":292,"./lib/_stream_transform.js":293,"./lib/_stream_writable.js":294}],300:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./readable').Transform;
 
-},{"./readable":286}],288:[function(require,module,exports){
+},{"./readable":299}],301:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/_stream_writable.js');
 
-},{"./lib/_stream_writable.js":281}],289:[function(require,module,exports){
+},{"./lib/_stream_writable.js":294}],302:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -100705,7 +104356,7 @@ function fn5(a, b, c, d, e, m, k, s) {
 module.exports = RIPEMD160;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"hash-base":221,"inherits":238}],290:[function(require,module,exports){
+},{"buffer":151,"hash-base":231,"inherits":250}],303:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -100940,7 +104591,7 @@ function toBuffer(v) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"assert":95,"buffer":141}],291:[function(require,module,exports){
+},{"assert":105,"buffer":151}],304:[function(require,module,exports){
 'use strict';
 
 /* eslint-disable node/no-deprecated-api */
@@ -101006,7 +104657,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size);
 };
 
-},{"buffer":141}],292:[function(require,module,exports){
+},{"buffer":151}],305:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -101192,12 +104843,12 @@ function arraycopy(src, srcPos, dest, destPos, length) {
 module.exports = scrypt;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"crypto":151}],293:[function(require,module,exports){
+},{"buffer":151,"crypto":161}],306:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib')(require('./lib/elliptic'));
 
-},{"./lib":297,"./lib/elliptic":296}],294:[function(require,module,exports){
+},{"./lib":310,"./lib/elliptic":309}],307:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -101246,7 +104897,7 @@ exports.isNumberInInterval = function (number, x, y, message) {
 };
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":239}],295:[function(require,module,exports){
+},{"../../is-buffer/index.js":251}],308:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -101412,7 +105063,7 @@ exports.signatureImportLax = function (sig) {
   return { r: r, s: s };
 };
 
-},{"bip66":107,"safe-buffer":291}],296:[function(require,module,exports){
+},{"bip66":117,"safe-buffer":304}],309:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -101658,7 +105309,7 @@ exports.ecdhUnsafe = function (publicKey, privateKey, compressed) {
   return Buffer.from(pair.pub.mul(scalar).encode(true, compressed));
 };
 
-},{"../messages.json":298,"bn.js":108,"create-hash":146,"elliptic":199,"safe-buffer":291}],297:[function(require,module,exports){
+},{"../messages.json":311,"bn.js":118,"create-hash":156,"elliptic":209,"safe-buffer":304}],310:[function(require,module,exports){
 'use strict';
 
 var assert = require('./assert');
@@ -101892,7 +105543,7 @@ module.exports = function (secp256k1) {
   };
 };
 
-},{"./assert":294,"./der":295,"./messages.json":298}],298:[function(require,module,exports){
+},{"./assert":307,"./der":308,"./messages.json":311}],311:[function(require,module,exports){
 module.exports={
   "COMPRESSED_TYPE_INVALID": "compressed should be a boolean",
   "EC_PRIVATE_KEY_TYPE_INVALID": "private key should be a Buffer",
@@ -101930,7 +105581,7 @@ module.exports={
   "TWEAK_LENGTH_INVALID": "tweak length is invalid"
 }
 
-},{}],299:[function(require,module,exports){
+},{}],312:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -102015,7 +105666,7 @@ Hash.prototype._update = function () {
 
 module.exports = Hash;
 
-},{"safe-buffer":291}],300:[function(require,module,exports){
+},{"safe-buffer":304}],313:[function(require,module,exports){
 'use strict';
 
 var _exports = module.exports = function SHA(algorithm) {
@@ -102034,7 +105685,7 @@ _exports.sha256 = require('./sha256');
 _exports.sha384 = require('./sha384');
 _exports.sha512 = require('./sha512');
 
-},{"./sha":301,"./sha1":302,"./sha224":303,"./sha256":304,"./sha384":305,"./sha512":306}],301:[function(require,module,exports){
+},{"./sha":314,"./sha1":315,"./sha224":316,"./sha256":317,"./sha384":318,"./sha512":319}],314:[function(require,module,exports){
 'use strict';
 
 /*
@@ -102131,7 +105782,7 @@ Sha.prototype._hash = function () {
 
 module.exports = Sha;
 
-},{"./hash":299,"inherits":238,"safe-buffer":291}],302:[function(require,module,exports){
+},{"./hash":312,"inherits":250,"safe-buffer":304}],315:[function(require,module,exports){
 'use strict';
 
 /*
@@ -102233,7 +105884,7 @@ Sha1.prototype._hash = function () {
 
 module.exports = Sha1;
 
-},{"./hash":299,"inherits":238,"safe-buffer":291}],303:[function(require,module,exports){
+},{"./hash":312,"inherits":250,"safe-buffer":304}],316:[function(require,module,exports){
 'use strict';
 
 /**
@@ -102290,7 +105941,7 @@ Sha224.prototype._hash = function () {
 
 module.exports = Sha224;
 
-},{"./hash":299,"./sha256":304,"inherits":238,"safe-buffer":291}],304:[function(require,module,exports){
+},{"./hash":312,"./sha256":317,"inherits":250,"safe-buffer":304}],317:[function(require,module,exports){
 'use strict';
 
 /**
@@ -102413,7 +106064,7 @@ Sha256.prototype._hash = function () {
 
 module.exports = Sha256;
 
-},{"./hash":299,"inherits":238,"safe-buffer":291}],305:[function(require,module,exports){
+},{"./hash":312,"inherits":250,"safe-buffer":304}],318:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -102474,7 +106125,7 @@ Sha384.prototype._hash = function () {
 
 module.exports = Sha384;
 
-},{"./hash":299,"./sha512":306,"inherits":238,"safe-buffer":291}],306:[function(require,module,exports){
+},{"./hash":312,"./sha512":319,"inherits":250,"safe-buffer":304}],319:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -102697,7 +106348,7 @@ Sha512.prototype._hash = function () {
 
 module.exports = Sha512;
 
-},{"./hash":299,"inherits":238,"safe-buffer":291}],307:[function(require,module,exports){
+},{"./hash":312,"inherits":250,"safe-buffer":304}],320:[function(require,module,exports){
 'use strict';
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -102825,7 +106476,7 @@ Stream.prototype.pipe = function (dest, options) {
   return dest;
 };
 
-},{"events":219,"inherits":238,"readable-stream/duplex.js":276,"readable-stream/passthrough.js":285,"readable-stream/readable.js":286,"readable-stream/transform.js":287,"readable-stream/writable.js":288}],308:[function(require,module,exports){
+},{"events":229,"inherits":250,"readable-stream/duplex.js":289,"readable-stream/passthrough.js":298,"readable-stream/readable.js":299,"readable-stream/transform.js":300,"readable-stream/writable.js":301}],321:[function(require,module,exports){
 'use strict';
 
 // Generated by CoffeeScript 1.8.0
@@ -102943,7 +106594,7 @@ Stream.prototype.pipe = function (dest, options) {
   }
 }).call(undefined);
 
-},{}],309:[function(require,module,exports){
+},{}],322:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -103217,7 +106868,7 @@ function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
 
-},{"safe-buffer":291}],310:[function(require,module,exports){
+},{"safe-buffer":304}],323:[function(require,module,exports){
 'use strict';
 
 var isHexPrefixed = require('is-hex-prefixed');
@@ -103235,7 +106886,7 @@ module.exports = function stripHexPrefix(str) {
   return isHexPrefixed(str) ? str.slice(2) : str;
 };
 
-},{"is-hex-prefixed":240}],311:[function(require,module,exports){
+},{"is-hex-prefixed":252}],324:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -103685,7 +107336,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    }
 })(undefined);
 
-},{}],312:[function(require,module,exports){
+},{}],325:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -103933,7 +107584,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 })(undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],313:[function(require,module,exports){
+},{}],326:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -104005,9 +107656,9 @@ function config(name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],314:[function(require,module,exports){
-arguments[4][238][0].apply(exports,arguments)
-},{"dup":238}],315:[function(require,module,exports){
+},{}],327:[function(require,module,exports){
+arguments[4][250][0].apply(exports,arguments)
+},{"dup":250}],328:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -104016,7 +107667,7 @@ module.exports = function isBuffer(arg) {
   return arg && (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && typeof arg.copy === 'function' && typeof arg.fill === 'function' && typeof arg.readUInt8 === 'function';
 };
 
-},{}],316:[function(require,module,exports){
+},{}],329:[function(require,module,exports){
 (function (process,global){
 'use strict';
 
@@ -104568,7 +108219,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":315,"_process":267,"inherits":314}],317:[function(require,module,exports){
+},{"./support/isBuffer":328,"_process":279,"inherits":327}],330:[function(require,module,exports){
 'use strict';
 
 var v1 = require('./v1');
@@ -104580,7 +108231,7 @@ uuid.v4 = v4;
 
 module.exports = uuid;
 
-},{"./v1":320,"./v4":321}],318:[function(require,module,exports){
+},{"./v1":333,"./v4":334}],331:[function(require,module,exports){
 'use strict';
 
 /**
@@ -104600,7 +108251,7 @@ function bytesToUuid(buf, offset) {
 
 module.exports = bytesToUuid;
 
-},{}],319:[function(require,module,exports){
+},{}],332:[function(require,module,exports){
 'use strict';
 
 // Unique ID creation requires a high quality random # generator.  In the
@@ -104635,7 +108286,7 @@ if (getRandomValues) {
   };
 }
 
-},{}],320:[function(require,module,exports){
+},{}],333:[function(require,module,exports){
 'use strict';
 
 var rng = require('./lib/rng');
@@ -104745,7 +108396,7 @@ function v1(options, buf, offset) {
 
 module.exports = v1;
 
-},{"./lib/bytesToUuid":318,"./lib/rng":319}],321:[function(require,module,exports){
+},{"./lib/bytesToUuid":331,"./lib/rng":332}],334:[function(require,module,exports){
 'use strict';
 
 var rng = require('./lib/rng');
@@ -104778,7 +108429,7 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
-},{"./lib/bytesToUuid":318,"./lib/rng":319}],322:[function(require,module,exports){
+},{"./lib/bytesToUuid":331,"./lib/rng":332}],335:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -104918,7 +108569,7 @@ exports.createContext = Script.createContext = function (context) {
     return copy;
 };
 
-},{"indexof":237}],323:[function(require,module,exports){
+},{"indexof":249}],336:[function(require,module,exports){
 'use strict';
 
 // Base58 encoding/decoding
@@ -104980,7 +108631,7 @@ exports.createContext = Script.createContext = function (context) {
     }
 })(typeof module !== 'undefined' && typeof module.exports !== 'undefined');
 
-},{}],324:[function(require,module,exports){
+},{}],337:[function(require,module,exports){
 'use strict';
 
 (function (isNode) {
@@ -105019,7 +108670,7 @@ exports.createContext = Script.createContext = function (context) {
     }
 })(typeof module !== 'undefined' && typeof module.exports !== 'undefined');
 
-},{"jssha":243}],325:[function(require,module,exports){
+},{"jssha":255}],338:[function(require,module,exports){
 'use strict';
 
 (function (isNode) {
@@ -105098,7 +108749,7 @@ exports.createContext = Script.createContext = function (context) {
     }
 })(typeof module !== 'undefined' && typeof module.exports !== 'undefined');
 
-},{}],326:[function(require,module,exports){
+},{}],339:[function(require,module,exports){
 'use strict';
 
 (function (isNode) {
@@ -105168,7 +108819,7 @@ exports.createContext = Script.createContext = function (context) {
     }
 })(typeof module !== 'undefined' && typeof module.exports !== 'undefined');
 
-},{"./base58":323,"./crypto_utils":324,"./currencies":325}],327:[function(require,module,exports){
+},{"./base58":336,"./crypto_utils":337,"./currencies":338}],340:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -105683,7 +109334,7 @@ exports.contractCoinAddress = '0x0000000000000000000000000000000000000064';
 exports.contractStampAddress = '0x00000000000000000000000000000000000000c8';
 
 }).call(this,require("buffer").Buffer)
-},{"./web3_wan.js":334,"bn.js":108,"buffer":141,"crypto":151,"ethereumjs-tx":330,"ethereumjs-util":332,"keccak":244,"secp256k1":293}],328:[function(require,module,exports){
+},{"./web3_wan.js":347,"bn.js":118,"buffer":151,"crypto":161,"ethereumjs-tx":343,"ethereumjs-util":345,"keccak":256,"secp256k1":306}],341:[function(require,module,exports){
 module.exports={
   "genesisGasLimit": {
     "v": 5000,
@@ -105916,12 +109567,12 @@ module.exports={
   }
 }
 
-},{}],329:[function(require,module,exports){
+},{}],342:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./params.json');
 
-},{"./params.json":328}],330:[function(require,module,exports){
+},{"./params.json":341}],343:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -106177,7 +109828,7 @@ Transaction.prototype.validate = function (stringError) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"ethereum-common/params":329,"ethereumjs-util":331}],331:[function(require,module,exports){
+},{"buffer":151,"ethereum-common/params":342,"ethereumjs-util":344}],344:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -106887,7 +110538,7 @@ exports.defineProperties = function (self, fields, data) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"assert":95,"bn.js":108,"buffer":141,"create-hash":146,"keccakjs":333,"rlp":290,"secp256k1":293}],332:[function(require,module,exports){
+},{"assert":105,"bn.js":118,"buffer":151,"create-hash":156,"keccakjs":346,"rlp":303,"secp256k1":306}],345:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -107564,12 +111215,12 @@ exports.defineProperties = function (self, fields, data) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"assert":95,"bn.js":108,"buffer":141,"create-hash":146,"ethjs-util":218,"keccak":244,"rlp":290,"secp256k1":293}],333:[function(require,module,exports){
+},{"assert":105,"bn.js":118,"buffer":151,"create-hash":156,"ethjs-util":228,"keccak":256,"rlp":303,"secp256k1":306}],346:[function(require,module,exports){
 'use strict';
 
 module.exports = require('browserify-sha3').SHA3Hash;
 
-},{"browserify-sha3":132}],334:[function(require,module,exports){
+},{"browserify-sha3":142}],347:[function(require,module,exports){
 'use strict';
 
 var Method = require("web3/lib/web3/method");
@@ -107676,9 +111327,9 @@ var properties = function properties() {
 };
 module.exports = Wan;
 
-},{"web3/lib/web3/formatters":339,"web3/lib/web3/method":341}],335:[function(require,module,exports){
-arguments[4][50][0].apply(exports,arguments)
-},{"bignumber.js":342,"dup":50}],336:[function(require,module,exports){
+},{"web3/lib/web3/formatters":352,"web3/lib/web3/method":354}],348:[function(require,module,exports){
+arguments[4][60][0].apply(exports,arguments)
+},{"bignumber.js":355,"dup":60}],349:[function(require,module,exports){
 'use strict';
 
 /*
@@ -107719,7 +111370,7 @@ module.exports = function (value, options) {
     }).toString();
 };
 
-},{"crypto-js":160,"crypto-js/sha3":181}],337:[function(require,module,exports){
+},{"crypto-js":170,"crypto-js/sha3":191}],350:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -108342,7 +111993,7 @@ module.exports = {
     isTopic: isTopic
 };
 
-},{"./sha3.js":336,"bignumber.js":342,"utf8":312}],338:[function(require,module,exports){
+},{"./sha3.js":349,"bignumber.js":355,"utf8":325}],351:[function(require,module,exports){
 'use strict';
 
 /*
@@ -108389,7 +112040,7 @@ module.exports = {
     }
 };
 
-},{}],339:[function(require,module,exports){
+},{}],352:[function(require,module,exports){
 /*
     This file is part of web3.js.
 
@@ -108690,7 +112341,7 @@ module.exports = {
     outputSyncingFormatter: outputSyncingFormatter
 };
 
-},{"../utils/config":335,"../utils/utils":337,"./iban":340}],340:[function(require,module,exports){
+},{"../utils/config":348,"../utils/utils":350,"./iban":353}],353:[function(require,module,exports){
 'use strict';
 
 /*
@@ -108920,7 +112571,7 @@ Iban.prototype.toString = function () {
 
 module.exports = Iban;
 
-},{"bignumber.js":342}],341:[function(require,module,exports){
+},{"bignumber.js":355}],354:[function(require,module,exports){
 'use strict';
 
 /*
@@ -109088,7 +112739,7 @@ Method.prototype.request = function () {
 
 module.exports = Method;
 
-},{"../utils/utils":337,"./errors":338}],342:[function(require,module,exports){
+},{"../utils/utils":350,"./errors":351}],355:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -111772,4 +115423,4 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
 })(undefined);
 
-},{"crypto":151}]},{},[38]);
+},{"crypto":161}]},{},[48]);

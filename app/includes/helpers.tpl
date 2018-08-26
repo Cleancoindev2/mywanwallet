@@ -146,7 +146,7 @@
   <section class="row">
     <div class="form-group col-sm-6">
       <label>
-        ENS Name you Bid On (no '.eth' at the end!)
+        ENS Name you Bid On (no '.wan' at the end!)
       </label>
       <input class="form-control" type="text" ng-model="ensLabel" ng-change="toEnsLabelHash()" />
     </div>
