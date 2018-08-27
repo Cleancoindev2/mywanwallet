@@ -26,10 +26,9 @@
              type="radio"
              aria-label="MetaMask / Mist"
              ng-model="walletType"
-             value="metamask"
-             style="display: none;" />
+             value="metamask"/>
       <span translate="x_MetaMask">
-        MetaMask / Mist (Coming Soon!)
+        WanMask
       </span>
     </label>
 
@@ -53,14 +52,8 @@
              type="radio"
              aria-label="Trezor Hardware Wallet"
              ng-model="walletType"
-             value="trezor"
-             style="display: none;"/>
-      TREZOR (Coming Soon!)
-      <a href="https://github.com/trezor/connect/pull/195"
-         target="_blank"
-         rel="noopener noreferrer">
-        <img src="images/icon-help-3.svg" width="16px" height="16px" style="margin: 0 5px 5px">
-      </a>
+             value="trezor"/>
+      TREZOR
     </label>
 
 
@@ -163,38 +156,35 @@
     <div id="selectedTypeMetamask"
          ng-if="walletType=='metamask'">
       <h4 translate="x_MetaMask">
-        MetaMask / Mist
+        WanMask
       </h4>
       <h5>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 79.536 79.536"><path fill="#5dba5a" d="M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z"/></svg>
         This is a recommended way to access your wallet.
       </h5>
       <div class="form-group">
-        MetaMask is a browser extension that allows you to access your wallet quickly, safely &amp; easily. It is more secure because you <u>never enter your private key on a website</u>. It protects you from phishing &amp; malicious websites.
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="red"/><g fill="white"><path d="M 42,20 58,20 55,55 45,55 z" stroke-linejoin="round" stroke="white" stroke-width="5"/><circle cx="50" cy="75" r="8"/></g></svg>
+        Only use if you have WanMask installed! To make WanMask run smoothly you need to temporarily disable MetaMask (and other apps that insert a web3 object) while using it.
+        <img width="300px" src="images/disable-metamask.png" title="Disable MetaMask"  />
+      </div>
+      <div class="form-group">
+        WanMask is a browser extension that allows you to access your wallet quickly, safely &amp; easily. It is more secure because you <u>never enter your private key on a website</u>. It protects you from phishing &amp; malicious websites.
       </div>
       <ul>
-        <li class="u__protip">
+        <li class="u__download">
           <a tabindex="0"
-             href="https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html"
+             href="https://chrome.google.com/webstore/detail/omnkcjdohbnjfjmlaiboojplahajnenj"
              target="_blank"
              rel="noopener noreferrer">
-                How to Move to MetaMask
+                Download WanMask for Chrome
           </a>
         </li>
         <li class="u__download">
           <a tabindex="0"
-             href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
+             href="https://wanmask.io/"
              target="_blank"
              rel="noopener noreferrer">
-                Download MetaMask for Chrome
-          </a>
-        </li>
-        <li class="u__download">
-          <a tabindex="0"
-             href="https://metamask.io/"
-             target="_blank"
-             rel="noopener noreferrer">
-                Download MetaMask for Other Browsers
+                Download WanMask for Other Browsers
           </a>
         </li>
       </ul>
@@ -212,7 +202,7 @@
            ng-show="walletType=='metamask'"
            tabindex="0" role="button"
            translate="ADD_MetaMask">
-             Connect to MetaMask
+             Connect to WanMask
         </a>
       </div>
     </div>
@@ -240,7 +230,7 @@
           </a>
         </li>
         <li class="u__protip">
-          <a href="https://www.ledgerwallet.com/r/fa4b?path=/products/"
+          <a href="https://www.ledger.com/products/ledger-nano-s?r=651b52292b63"
              target="_blank"
              rel="noopener noreferrer">
                 Don't have a Ledger? Get one today.
@@ -684,7 +674,7 @@
           <p class="alert alert-danger"
              ng-hide="ajaxReq.type=='WAN'">
                 We do not know the correct path for this network.
-                <a href="https://github.com/kvhnuke/etherwallet/issues"
+                <a href="https://github.com/tyrion70/mywanwallet/issues"
                    target="_blank"
                    rel="noopener noreferrer">
                       Please open a github issue
