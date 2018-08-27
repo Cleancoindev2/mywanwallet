@@ -1,6 +1,6 @@
 {
   "name": "MyWanWallet",
-  "version": "0.9.1",
+  "version": "1.0.0-beta",
   "manifest_version": 2,
   "description": "MyWanWallet Chrome Extension",
   "homepage_url": "https://mywanwallet.nl/",
