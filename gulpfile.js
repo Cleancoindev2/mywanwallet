@@ -244,7 +244,7 @@ gulp.task('zip', gulp.series('getVersion', function() {
         .pipe(rename(function (path) {
           path.dirname = './etherwallet-' + versionNum + '/' + path.dirname;
         }))
-        .pipe(zip('./etherwallet-' + versionNum + '.zip'))
+        .pipe(zip('./wanwallet-' + versionNum + '.zip'))
         .pipe(gulp.dest('./releases/'))
         .pipe(notify(onSuccess('Zip Dist ' + versionNum)));
 }));
