@@ -59,7 +59,7 @@ var globalService = function($http, $httpParamSerializerJQLike) {
   ens: {
     id:7,
     name: "NAV_ENS",
-    url: "ens",
+    url: "wns",
     mew: true,
     cx: false
   },

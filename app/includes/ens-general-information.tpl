@@ -16,7 +16,7 @@
         Decide which account you wish to own the name & ensure you have multiple backups of that account.
       </li>
       <li translate="ENS_Helper_4">
-        Decide the maximum amount of ETH you are willing to pay for the name (your <u>Bid Amount</u>). Ensure that account has enough to cover your bid + 0.01 ETH for gas.
+        Decide the maximum amount of WAN you are willing to pay for the name (your <u>Bid Amount</u>). Ensure that account has enough to cover your bid + 0.2 WAN for gas.
       </li>
     </ul>
 
@@ -103,11 +103,11 @@
         </a>
       </li>
       <li>
-        <a href="https://medium.com/the-ethereum-name-service/announcing-the-ethereum-name-service-relaunch-date-4390af6dd9a2"
+        <a href="https://medium.com/wanchain-foundation/wanchain-name-serivce-wns-has-been-deployed-49c4894cafd9"
            target="_blank"
            rel="noopener noreferrer"
            translate="ENS_Helper_21">
-              Announcing the Ethereum Name Service Relaunch Date!
+              Announcing the Wanchain Name Service!
         </a>
       </li>
     </ul>
@@ -119,7 +119,7 @@
          target="_blank"
          rel="noopener noreferrer"
          translate="ENS_Helper_22">
-            Knowledge Base: ENS
+            Knowledge Base: WNS
       </a>
 
       &nbsp;&middot;&nbsp;

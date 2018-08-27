@@ -5,7 +5,7 @@
       <!-- Title -->
       <article class="cont-md">
         <h1 class="text-center" translate="NAV_ENS">
-          ENS
+          WNS
         </h1>
         <p>
           The
@@ -13,7 +13,7 @@
             Wanchain Name Service
           </a>
           is a distributed, open, and extensible naming system based on the Wanchain blockchain.
-          Once you have a name, you can tell your friends to send ETH to <code>tyrion70.wan</code> instead of <code>0x664949908413517B993c6784b44428d080D1a1Fa</code>.
+          Once you have a name, you can tell your friends to send WAN to <code>tyrion70.wan</code> instead of <code>0x664949908413517B993c6784b44428d080D1a1Fa</code>. This functionality is still experimental, use with care.
         </p>
       </article>
       <!-- / Title -->
@@ -35,7 +35,7 @@
             <div class="input-group-btn"><a class="btn btn-default">.wan</a></div>
           </div>
           <button class="btn btn-primary" ng-click="checkName()">
-            Check ENS Name
+            Check WNS Name
           </button>
         </section>
       </article>

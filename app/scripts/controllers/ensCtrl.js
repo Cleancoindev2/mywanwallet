@@ -14,8 +14,8 @@ var ensCtrl = function($scope, $sce, walletService) {
     $scope.minNameLength = 6;
     $scope.objDomainSale = {};
     $scope.objENS = {
-        bidValue: 0.01,
-        dValue: 0.01,
+        bidValue: 0.1,
+        dValue: 0.1,
         name: '',
         namehash: '',
         nameSHA3: '',
@@ -30,10 +30,10 @@ var ensCtrl = function($scope, $sce, walletService) {
         txSent: false
     };
     $scope.gasLimitDefaults = {
-        startAuction: '200000',
-        newBid: '500000',
-        reveal: '200000',
-        finalize: '200000'
+        startAuction: '500000',
+        newBid: '900000',
+        reveal: '500000',
+        finalize: '500000'
     }
     $scope.tx = {
         gasLimit: '500000',
