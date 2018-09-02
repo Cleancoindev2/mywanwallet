@@ -187,7 +187,7 @@
               </span>
             </td>
             <td>
-              ({{ txFee.eth }} ETH)
+              ({{ txFee.eth }} WAN)
               <small>({{ txFee.usd }} USD)</small>
             </td>
           </tr>

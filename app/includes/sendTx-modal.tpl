@@ -76,7 +76,7 @@
             </tr>
             <tr>
               <td class="small text-right">Amount to Send:</td>
-              <td class="small text-left mono">{{parsedSignedTx.value}} ETH</td>
+              <td class="small text-left mono">{{parsedSignedTx.value}} WAN</td>
             </tr>
             <tr>
               <td class="small text-right">Account Balance:</td>
@@ -96,7 +96,7 @@
             </tr>
             <tr>
               <td class="small text-right">Gas Price:</td>
-              <td class="small text-left mono">{{parsedSignedTx.gasPrice.gwei}} GWEI <small>({{parsedSignedTx.gasPrice.eth}} ETH)</small>
+              <td class="small text-left mono">{{parsedSignedTx.gasPrice.gwei}} GWEI <small>({{parsedSignedTx.gasPrice.eth}} WAN)</small>
               </td>
             </tr>
             <tr>

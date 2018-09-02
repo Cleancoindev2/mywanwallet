@@ -11,17 +11,22 @@ validator.isChecksumAddress = function(address) {
     return ethFuncs.isChecksumAddress(address);
 }
 validator.isValidENSorEtherAddress = function(address) {
-    return (validator.isValidAddress(address));
+    return (validator.isValidAddress(address) || validator.isValidENSAddress(address));
+
 }
 validator.isValidENSName = function(str) {
     try {
-        return (str.length > 6 && ens.normalise(str) != '' && str.substring(0, 2) != '0x');
+        return (str.length > 5 && ens.normalise(str) != '' && str.substring(0, 2) != '0x');
     } catch (e) {
         return false;
     }
 }
 validator.isValidTxHash = function(txHash) {
     return txHash.substring(0, 2) == "0x" && txHash.length == 66 && this.isValidHex(txHash);
+}
+validator.isValidENSAddress = function(address) {
+    address = ens.normalise(address);
+    return address.lastIndexOf(".") != -1;
 }
 validator.isValidBTCAddress = function(address) {
     return ethUtil.WAValidator.validate(address, 'BTC');

@@ -1,22 +1,21 @@
 [![Build Status][travis-image]][travis-url] [![dependency status][dep-image]][dep-url]
 
-### [https://www.MyWanWallet.nl](https://www.MyWanWallet.com)
+### [https://www.mywanwallet.nl](https://www.mywanwallet.com)
 
 ### [Download the Latest Release](https://github.com/tyrion70/mywanwallet/releases/latest)
 
-- etherwallet-vX.X.X.X.zip is the smaller package containing the gh-pages branch aka MyWanWallet.nl
-- source code is the full source for developers to get started with (although cloning or forking the mercury branch is probably a better choice)
+- wanwallet-vX.X.X.X.zip is the  package containing the software
 
 
 ### MEW Around the Web
 
 - [Website: https://www.mywanwallet.nl/](https://www.mywanwallet.nl/)
-- [Anti-phish CX](https://chrome.google.com/webstore/detail/etheraddresslookup/pdknmigbbbhmllnmgdfalmedcmcefdfn)
-- [Twitter: https://twitter.com/tyrion70](https://twitter.com/tyrion70)
-- [Github MEW Repo: https://github.com/kvhnuke/etherwallet](https://github.com/kvhnuke/etherwallet)
 - [tyrion70 (founder) reddit: https://www.reddit.com/user/tyrion70/](https://www.reddit.com/user/tyrion70/)
-- [tyrion70 (founder) bitcointalk: https://bitcointalk.org/index.php?action=profile;u=103907] (https://bitcointalk.org/index.php?action=profile;u=103907)
--  MEW WAN Donation Address: 0x664949908413517B993c6784b44428d080D1a1Fa
+- [tyrion70 (founder) bitcointalk: https://bitcointalk.org/index.php?action=profile;u=103907](https://bitcointalk.org/index.php?action=profile;u=103907)
+- [Twitter: https://twitter.com/tyrion70](https://twitter.com/tyrion70)
+- [Anti-phish CX](https://chrome.google.com/webstore/detail/etheraddresslookup/pdknmigbbbhmllnmgdfalmedcmcefdfn)
+- [Github MEW Repo: https://github.com/kvhnuke/etherwallet](https://github.com/kvhnuke/etherwallet)
+- [MEW WAN Donation Address: 0x664949908413517B993c6784b44428d080D1a1Fa](https://wanscan.io/addr/0x664949908413517B993c6784b44428d080D1a1Fa)
 
 
 ### MyWanWallet
@@ -29,20 +28,9 @@
 
 - Create new wallets completely client side.
 - Access your wallet via unencrypted private key, encrypted private key, keystore files, mnemonics, Ledger Nano S or TREZOR hardware wallet.
-- Easily send WAN and *any* ERC-20 Standard Token. [Many tokens included as default.](https://myetherwallet.groovehq.com/knowledge_base/topics/can-i-send-my-steem-slash-btc-slash-ltc-slash-nem-slash-to-myetherwallet)
+- Easily send WAN and *any* ERC-20 Standard Token.
 - Generate, sign & send transactions offline, ensuring your private keys never touch an internet-connected device.
-- Securely access your WAN & Tokens on your [Ledger or TREZOR Hardware Wallet](https://myetherwallet.groovehq.com/knowledge_base/topics/hardware-wallet-recommends) via the MyWanWallet interface (Chrome & Opera natively, Firefox w/ [add-on](https://addons.mozilla.org/en-US/firefox/addon/u2f-support-add-on/))
-- Supports URI Strings on Send Transaction Page.
-    - to=[address]
-    - value=[number]
-    - sendMode=[ether | token]
-    - tokenSymbol=[ARC | ICN | MKR | ....]
-    - gasLimit=[number] OR gas=[number]
-    - data=[hex data]
-    - Example 1: https://www.mywanwallet.nl/?to=0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8&value=1&tokenSymbol=REP&gaslimit=50000#send-transaction
-    - Example 2: https://www.mywanwallet.nl/?to=0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8&value=1&gaslimit=23000&data=0x5468616e6b20796f752c204d455720322e30#send-transaction
-
-
+- Securely access your WAN & Tokens on your [Ledger](https://www.ledger.com?r=651b52292b63) or [TREZOR](https://shop.trezor.io?a=mywanwallet.nl) Hardware Wallet via the MyWanWallet interface.
 
 ### Our Philosophy
 
@@ -56,15 +44,13 @@
  - **Open source & audit-able**
 
 
-
-
 ### Users (non-developers)
 
 - [It is recommended you start here.](https://myetherwallet.github.io/knowledge-base/getting-started/getting-started-new.html)
 - You can run MyWanWallet.nl on your computer. You can create a wallet completely offline & send transactions from the "Offline Transaction" page.
 
-1. Go to https://github.com/kvhnuke/etherwallet/releases/latest.
-2. Click on dist-vX.X.X.X.zip.
+1. Go to https://github.com/tyrion70/mywanwallet/releases/latest.
+2. Click on wanwallet-vX.X.X.X.zip.
 3. Move zip to an airgapped computer.
 4. Unzip it and double-click index.html.
 5. MyWanWallet.nl is now running entirely on your computer.
