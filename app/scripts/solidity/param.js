@@ -14,32 +14,32 @@
     You should have received a copy of the GNU Lesser General Public License
     along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
 */
-/** 
+/**
  * @file param.js
  * @author Marek Kotewicz <marek@ethdev.com>
  * @date 2015
  */
 
-var utils = require('./utils');
+var utils = require('./utils')
 
 /**
  * SolidityParam object prototype.
  * Should be used when encoding, decoding solidity bytes
  */
 var SolidityParam = function (value, offset) {
-    this.value = value || '';
-    this.offset = offset; // offset in bytes
-};
+    this.value = value || ''
+    this.offset = offset // offset in bytes
+}
 
 /**
  * This method should be used to get length of params's dynamic part
- * 
+ *
  * @method dynamicPartLength
  * @returns {Number} length of dynamic part (in bytes)
  */
 SolidityParam.prototype.dynamicPartLength = function () {
-    return this.dynamicPart().length / 2;
-};
+    return this.dynamicPart().length / 2
+}
 
 /**
  * This method should be used to create copy of solidity param with different offset
@@ -49,8 +49,8 @@ SolidityParam.prototype.dynamicPartLength = function () {
  * @returns {SolidityParam} new solidity param with applied offset
  */
 SolidityParam.prototype.withOffset = function (offset) {
-    return new SolidityParam(this.value, offset);
-};
+    return new SolidityParam(this.value, offset)
+}
 
 /**
  * This method should be used to combine solidity params together
@@ -61,8 +61,8 @@ SolidityParam.prototype.withOffset = function (offset) {
  * @param {SolidityParam} result of combination
  */
 SolidityParam.prototype.combine = function (param) {
-    return new SolidityParam(this.value + param.value); 
-};
+    return new SolidityParam(this.value + param.value)
+}
 
 /**
  * This method should be called to check if param has dynamic size.
@@ -72,8 +72,8 @@ SolidityParam.prototype.combine = function (param) {
  * @returns {Boolean}
  */
 SolidityParam.prototype.isDynamic = function () {
-    return this.offset !== undefined;
-};
+    return this.offset !== undefined
+}
 
 /**
  * This method should be called to transform offset to bytes
@@ -82,8 +82,8 @@ SolidityParam.prototype.isDynamic = function () {
  * @returns {String} bytes representation of offset
  */
 SolidityParam.prototype.offsetAsBytes = function () {
-    return !this.isDynamic() ? '' : utils.padLeft(utils.toTwosComplement(this.offset).toString(16), 64);
-};
+    return !this.isDynamic() ? '' : utils.padLeft(utils.toTwosComplement(this.offset).toString(16), 64)
+}
 
 /**
  * This method should be called to get static part of param
@@ -93,10 +93,10 @@ SolidityParam.prototype.offsetAsBytes = function () {
  */
 SolidityParam.prototype.staticPart = function () {
     if (!this.isDynamic()) {
-        return this.value; 
-    } 
-    return this.offsetAsBytes();
-};
+        return this.value
+    }
+    return this.offsetAsBytes()
+}
 
 /**
  * This method should be called to get dynamic part of param
@@ -105,8 +105,8 @@ SolidityParam.prototype.staticPart = function () {
  * @returns {String} returns a value if it is a dynamic param, otherwise empty string
  */
 SolidityParam.prototype.dynamicPart = function () {
-    return this.isDynamic() ? this.value : '';
-};
+    return this.isDynamic() ? this.value : ''
+}
 
 /**
  * This method should be called to encode param
@@ -115,8 +115,8 @@ SolidityParam.prototype.dynamicPart = function () {
  * @returns {String}
  */
 SolidityParam.prototype.encode = function () {
-    return this.staticPart() + this.dynamicPart();
-};
+    return this.staticPart() + this.dynamicPart()
+}
 
 /**
  * This method should be called to encode array of params
@@ -126,27 +126,26 @@ SolidityParam.prototype.encode = function () {
  * @returns {String}
  */
 SolidityParam.encodeList = function (params) {
-    
+
     // updating offsets
-    var totalOffset = params.length * 32;
+    var totalOffset = params.length * 32
     var offsetParams = params.map(function (param) {
         if (!param.isDynamic()) {
-            return param;
+            return param
         }
-        var offset = totalOffset;
-        totalOffset += param.dynamicPartLength();
-        return param.withOffset(offset);
-    });
+        var offset = totalOffset
+        totalOffset += param.dynamicPartLength()
+        return param.withOffset(offset)
+    })
 
     // encode everything!
     return offsetParams.reduce(function (result, param) {
-        return result + param.dynamicPart();
+        return result + param.dynamicPart()
     }, offsetParams.reduce(function (result, param) {
-        return result + param.staticPart();
-    }, ''));
-};
+        return result + param.staticPart()
+    }, ''))
+}
 
 
-
-module.exports = SolidityParam;
+module.exports = SolidityParam
 

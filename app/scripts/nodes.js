@@ -1,13 +1,13 @@
-'use strict';
-var nodes = function() {}
-nodes.customNode = require('./nodeHelpers/customNode');
-nodes.metamaskNode = require('./nodeHelpers/metamask');
+'use strict'
+var nodes = function () {}
+nodes.customNode = require('./nodeHelpers/customNode')
+nodes.metamaskNode = require('./nodeHelpers/metamask')
 nodes.nodeTypes = {
-    WAN: "WAN",
-    Custom: "CUSTOM ETH"
-};
-nodes.ensNodeTypes = [nodes.nodeTypes.WAN];
-nodes.domainsaleNodeTypes = [nodes.nodeTypes.WAN];
+    WAN: 'WAN',
+    Custom: 'CUSTOM ETH',
+}
+nodes.ensNodeTypes = [nodes.nodeTypes.WAN]
+nodes.domainsaleNodeTypes = [nodes.nodeTypes.WAN]
 nodes.customNodeObj = {
     'name': 'CUS',
     'blockExplorerTX': '',
@@ -18,8 +18,8 @@ nodes.customNodeObj = {
     'tokenList': [],
     'abiList': [],
     'service': 'Custom',
-    'lib': null
-};
+    'lib': null,
+}
 nodes.nodeList = {
     'wan_mew': {
         'name': 'WAN',
@@ -31,10 +31,10 @@ nodes.nodeList = {
         'tokenList': require('./tokens/wanTokens.json'),
         'abiList': require('./abiDefinitions/wanAbi.json'),
         'service': 'mywanwallet.nl',
-        'lib': new nodes.customNode('https://mywanwallet.nl/api', '')
-    }
-};
+        'lib': new nodes.customNode('https://mywanwallet.nl/api', ''),
+    },
+}
 
 
-nodes.wanPrice = require('./nodeHelpers/wanPrice');
-module.exports = nodes;
+nodes.wanPrice = require('./nodeHelpers/wanPrice')
+module.exports = nodes

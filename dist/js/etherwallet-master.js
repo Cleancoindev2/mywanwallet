@@ -23,7 +23,13 @@ module.exports=[{
   "name": "WNS - Reverse Registrar",
   "address": "0x5d33e8cb2cc9851b63be38f35d1ef2c22de8984f",
   "abi": '[{"constant":false,"inputs":[{"name":"owner","type":"address"},{"name":"resolver","type":"address"}],"name":"claimWithResolver","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"owner","type":"address"}],"name":"claim","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"defaultResolver","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"wns","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"addr","type":"address"}],"name":"node","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"name","type":"string"}],"name":"setName","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"wnsAddr","type":"address"},{"name":"resolverAddr","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]'
-}]
+},
+{
+  "name": "WNS - Reverse Public Resolver",
+  "address": "0x76425ed5f5a9f474be167f432841ca50dde40088",
+  "abi": '[{"constant":true,"inputs":[{"name":"interfaceID","type":"bytes4"}],"name":"supportsInterface","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"key","type":"string"},{"name":"value","type":"string"}],"name":"setText","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"},{"name":"contentTypes","type":"uint256"}],"name":"ABI","outputs":[{"name":"contentType","type":"uint256"},{"name":"data","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"x","type":"bytes32"},{"name":"y","type":"bytes32"}],"name":"setPubkey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"content","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"addr","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"},{"name":"key","type":"string"}],"name":"text","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"contentType","type":"uint256"},{"name":"data","type":"bytes"}],"name":"setABI","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"name","type":"string"}],"name":"setName","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"hash","type":"bytes32"}],"name":"setContent","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"pubkey","outputs":[{"name":"x","type":"bytes32"},{"name":"y","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"addr","type":"address"}],"name":"setAddr","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"wnsAddr","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"a","type":"address"}],"name":"AddrChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"hash","type":"bytes32"}],"name":"ContentChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"name","type":"string"}],"name":"NameChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":true,"name":"contentType","type":"uint256"}],"name":"ABIChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"x","type":"bytes32"},{"indexed":false,"name":"y","type":"bytes32"}],"name":"PubkeyChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"indexedKey","type":"string"},{"indexed":false,"name":"key","type":"string"}],"name":"TextChanged","type":"event"}]'
+}
+]
 
 },{}],2:[function(require,module,exports){
 'use strict';
@@ -40,13 +46,13 @@ module.exports = ajaxReq;
 var addWalletCtrl = function addWalletCtrl($scope, $sce) {
     $scope.showBtnGen = $scope.showBtnUnlock = $scope.showBtnAdd = $scope.showBtnAddWallet = $scope.showAddWallet = $scope.requireFPass = $scope.requirePPass = $scope.showPassTxt = false;
     $scope.nickNames = [];
-    $scope.filePassword = $scope.fileContent = "";
+    $scope.filePassword = $scope.fileContent = '';
     $scope.wallet = null;
     $scope.addAccount = {
-        address: "",
-        nickName: "",
-        encStr: "",
-        password: ""
+        address: '',
+        nickName: '',
+        encStr: '',
+        password: ''
     };
     $scope.ajaxReq = ajaxReq;
     $scope.nodeType = $scope.ajaxReq.type;
@@ -72,7 +78,7 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
         $scope.nodeType = $scope.ajaxReq.type;
     });
     $scope.$watch('walletType', function () {
-        if ($scope.walletType == "ledger") {
+        if ($scope.walletType === 'ledger') {
             switch ($scope.nodeType) {
                 case nodes.nodeTypes.ETH:
                     $scope.HDWallet.dPath = $scope.HDWallet.ledgerPath;
@@ -86,7 +92,7 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
                 default:
                     $scope.HDWallet.dPath = $scope.HDWallet.ledgerPath;
             }
-        } else if ($scope.walletType == "trezor") {
+        } else if ($scope.walletType === 'trezor') {
             switch ($scope.nodeType) {
                 case nodes.nodeTypes.ETH:
                     $scope.HDWallet.dPath = $scope.HDWallet.trezorPath;
@@ -111,12 +117,12 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
         var password = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : $scope.mnemonicPassword;
 
         $scope.HDWallet.numWallets = 0;
-        if ($scope.walletType == 'pastemnemonic') {
+        if ($scope.walletType === 'pastemnemonic') {
             $scope.HDWallet.hdk = hd.HDKey.fromMasterSeed(hd.bip39.mnemonicToSeed($scope.manualmnemonic.trim(), password));
             $scope.setHDAddresses($scope.HDWallet.numWallets, $scope.HDWallet.walletsPerDialog);
-        } else if ($scope.walletType == 'ledger') {
+        } else if ($scope.walletType === 'ledger') {
             $scope.scanLedger();
-        } else if ($scope.walletType == 'trezor') {
+        } else if ($scope.walletType === 'trezor') {
             $scope.scanTrezor();
         }
     };
@@ -125,15 +131,15 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
         $scope.onHDDPathChange();
     };
     $scope.onPrivKeyChange = function () {
-        $scope.addWalletStats = "";
-        $scope.requirePPass = $scope.manualprivkey.length == 128 || $scope.manualprivkey.length == 132;
-        $scope.showBtnUnlock = $scope.manualprivkey.length == 64;
+        $scope.addWalletStats = '';
+        $scope.requirePPass = $scope.manualprivkey.length === 128 || $scope.manualprivkey.length === 132;
+        $scope.showBtnUnlock = $scope.manualprivkey.length === 64;
     };
     $scope.onPrivKeyPassChange = function () {
         $scope.showBtnUnlock = $scope.privPassword.length > 6;
     };
     $scope.onMnemonicChange = function () {
-        $scope.addWalletStats = "";
+        $scope.addWalletStats = '';
         $scope.showBtnUnlock = $scope.showDPaths = hd.bip39.validateMnemonic($scope.manualmnemonic);
     };
     $scope.showContent = function ($fileContent) {
@@ -147,7 +153,7 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
         }
     };
     $scope.openFileDialog = function ($fileContent) {
-        $scope.addWalletStats = "";
+        $scope.addWalletStats = '';
         document.getElementById('fselector').click();
     };
     $scope.onFilePassChange = function () {
@@ -156,7 +162,7 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
     $scope.setHDAddresses = function (start, limit) {
         $scope.HDWallet.wallets = [];
         for (var i = start; i < start + limit; i++) {
-            $scope.HDWallet.wallets.push(new Wallet($scope.HDWallet.hdk.derive($scope.HDWallet.dPath + "/" + i)._privateKey));
+            $scope.HDWallet.wallets.push(new Wallet($scope.HDWallet.hdk.derive($scope.HDWallet.dPath + '/' + i)._privateKey));
             $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].setBalance(false);
         }
         $scope.HDWallet.id = 0;
@@ -171,23 +177,23 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
         $scope.addAccount.address = $scope.wallet.getAddressString();
         $scope.notifier.info(globalFuncs.successMsgs[1]);
         $scope.showAddWallet = true;
-        $scope.showPassTxt = $scope.addAccount.password == '';
+        $scope.showPassTxt = $scope.addAccount.password === '';
         $scope.setBalance();
     };
     $scope.decryptWallet = function () {
         $scope.wallet = null;
-        $scope.addWalletStats = "";
+        $scope.addWalletStats = '';
         try {
-            if ($scope.walletType == "pasteprivkey" && $scope.requirePPass) {
+            if ($scope.walletType === 'pasteprivkey' && $scope.requirePPass) {
                 $scope.wallet = Wallet.fromMyEtherWalletKey($scope.manualprivkey, $scope.privPassword);
                 $scope.addAccount.password = $scope.privPassword;
-            } else if ($scope.walletType == "pasteprivkey" && !$scope.requirePPass) {
+            } else if ($scope.walletType === 'pasteprivkey' && !$scope.requirePPass) {
                 $scope.wallet = new Wallet($scope.manualprivkey);
                 $scope.addAccount.password = '';
-            } else if ($scope.walletType == "fileupload") {
+            } else if ($scope.walletType === 'fileupload') {
                 $scope.wallet = Wallet.getWalletFromPrivKeyFile($scope.fileContent, $scope.filePassword);
                 $scope.addAccount.password = $scope.filePassword;
-            } else if ($scope.walletType == "pastemnemonic") {
+            } else if ($scope.walletType === 'pastemnemonic') {
                 $scope.mnemonicModel.open();
                 $scope.HDWallet.hdk = hd.HDKey.fromMasterSeed(hd.bip39.mnemonicToSeed($scope.manualmnemonic.trim()));
                 $scope.HDWallet.numWallets = 0;
@@ -200,7 +206,7 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
             $scope.addAccount.address = $scope.wallet.getAddressString();
             $scope.notifier.info(globalFuncs.successMsgs[1]);
             $scope.showAddWallet = true;
-            $scope.showPassTxt = $scope.addAccount.password == '';
+            $scope.showPassTxt = $scope.addAccount.password === '';
             $scope.setBalance();
         }
     };
@@ -211,12 +217,12 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
     };
     $scope.setNickNames();
     $scope.newWalletChange = function (varStatus, shwbtn) {
-        if ($scope.addAccount.nickName != "" && $scope.nickNames.indexOf($scope.addAccount.nickName) == -1 && $scope.addAccount.password.length > 8) $scope[shwbtn] = true;else $scope[shwbtn] = false;
+        if ($scope.addAccount.nickName !== '' && $scope.nickNames.indexOf($scope.addAccount.nickName) === -1 && $scope.addAccount.password.length > 8) $scope[shwbtn] = true;else $scope[shwbtn] = false;
         if ($scope.nickNames.indexOf($scope.addAccount.nickName) !== -1) $scope.notifier.danger(globalFuncs.errorMsgs[13]);
     };
     $scope.watchOnlyChange = function () {
-        if ($scope.addAccount.address != "" && $scope.addAccount.nickName != "" && $scope.nickNames.indexOf($scope.addAccount.nickName) == -1 && ethFuncs.validateEtherAddress($scope.addAccount.address)) $scope.showBtnAdd = true;else $scope.showBtnAdd = false;
-        if ($scope.addAccount.address != "" && !ethFuncs.validateEtherAddress($scope.addAccount.address)) $scope.notifier.danger(globalFuncs.errorMsgs[5]);else if ($scope.nickNames.indexOf($scope.addAccount.nickName) !== -1) $scope.notifier.danger(globalFuncs.errorMsgs[13]);
+        if ($scope.addAccount.address !== '' && $scope.addAccount.nickName !== '' && $scope.nickNames.indexOf($scope.addAccount.nickName) === -1 && ethFuncs.validateEtherAddress($scope.addAccount.address)) $scope.showBtnAdd = true;else $scope.showBtnAdd = false;
+        if ($scope.addAccount.address !== '' && !ethFuncs.validateEtherAddress($scope.addAccount.address)) $scope.notifier.danger(globalFuncs.errorMsgs[5]);else if ($scope.nickNames.indexOf($scope.addAccount.nickName) !== -1) $scope.notifier.danger(globalFuncs.errorMsgs[13]);
     };
     $scope.addWatchOnly = function () {
         if ($scope.nickNames.indexOf($scope.addAccount.nickName) !== -1) {
@@ -241,13 +247,13 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
     };
     $scope.$watch('walletType', function () {
         $scope.showBtnGen = $scope.showBtnUnlock = $scope.showBtnAdd = $scope.showAddWallet = false;
-        $scope.addNewNick = $scope.addNewPass = "";
-        $scope.addWalletStats = "";
+        $scope.addNewNick = $scope.addNewPass = '';
+        $scope.addWalletStats = '';
         $scope.addAccount = {
-            address: "",
-            nickName: "",
-            encStr: "",
-            password: ""
+            address: '',
+            nickName: '',
+            encStr: '',
+            password: ''
         };
         $scope.requireFPass = false;
         $scope.fileContent = null;
@@ -316,50 +322,56 @@ module.exports = addWalletCtrl;
 'use strict';
 
 var cxDecryptWalletCtrl = function cxDecryptWalletCtrl($scope, $sce, walletService) {
-	$scope.allWallets = [];
-	$scope.selectedWallet = $scope.password = "";
-	$scope.setAllWallets = function () {
-		cxFuncs.getWalletsArr(function (wlts) {
-			$scope.allWallets = wlts;
-			$scope.updateBalance();
-			$scope.$apply();
-		});
-	};
-	$scope.updateBalance = function () {
-		for (var i = 0; i < $scope.allWallets.length; i++) {
-			$scope.setBalance($scope.allWallets[i].addr, i);
-		}
-	};
-	$scope.setBalance = function (address, id) {
-		ajaxReq.getBalance(address, function (data) {
-			if (data.error) {
-				$scope.allWallets[id].balance = data.msg;
-			} else {
-				$scope.allWallets[id].balance = etherUnits.toEther(data.data.balance, 'wei');
-			}
-		});
-	};
-	$scope.setAllWallets();
-	$scope.getPrivFromAdd = function () {
-		if ($scope.selectedWallet == "") throw globalFuncs.errorMsgs[5];
-		for (var i = 0; i < $scope.allWallets.length; i++) {
-			if ($scope.allWallets[i].addr == $scope.selectedWallet) return $scope.allWallets[i].priv;
-		}
-		throw globalFuncs.errorMsgs[14];
-	};
-	$scope.decryptWallet = function () {
-		$scope.wallet = null;
+    $scope.allWallets = [];
+    $scope.selectedWallet = $scope.password = '';
+    $scope.setAllWallets = function () {
+        cxFuncs.getWalletsArr(function (wlts) {
+            $scope.allWallets = wlts;
+            $scope.updateBalance();
+            $scope.$apply();
+        });
+    };
+    $scope.updateBalance = function () {
+        for (var i = 0; i < $scope.allWallets.length; i++) {
+            $scope.setBalance($scope.allWallets[i].addr, i);
+        }
+    };
+    $scope.setBalance = function (address, id) {
+        ajaxReq.getBalance(address, function (data) {
+            if (data.error) {
+                $scope.allWallets[id].balance = data.msg;
+            } else {
+                $scope.allWallets[id].balance = etherUnits.toEther(data.data.balance, 'wei');
+            }
+        });
+    };
+    $scope.setAllWallets();
+    $scope.getPrivFromAdd = function () {
+        if ($scope.selectedWallet === '') throw globalFuncs.errorMsgs[5];
+        for (var i = 0; i < $scope.allWallets.length; i++) {
+            if ($scope.allWallets[i].addr === $scope.selectedWallet) {
+                return $scope.allWallets[i].priv;
+            }
+        }
+        throw globalFuncs.errorMsgs[14];
+    };
+    $scope.decryptWallet = function () {
+        $scope.wallet = null;
 
-		try {
-			var priv = $scope.getPrivFromAdd();
-			if (priv.length == 132) $scope.wallet = Wallet.fromMyEtherWalletKey(priv, $scope.password);else $scope.wallet = Wallet.getWalletFromPrivKeyFile(priv, $scope.password);
-			walletService.password = $scope.password;
-			walletService.wallet = $scope.wallet;
-		} catch (e) {
-			$scope.notifier.danger(globalFuncs.errorMsgs[6] + ":" + e);
-		}
-		if ($scope.wallet != null) $scope.notifier.info(globalFuncs.successMsgs[1]);
-	};
+        try {
+            var priv = $scope.getPrivFromAdd();
+            if (priv.length === 132) {
+                $scope.wallet = Wallet.fromMyEtherWalletKey(priv, $scope.password);
+            } else {
+                $scope.wallet = Wallet.getWalletFromPrivKeyFile(priv, $scope.password);
+            }
+            walletService.password = $scope.password;
+            walletService.wallet = $scope.wallet;
+        } catch (e) {
+            $scope.notifier.danger(globalFuncs.errorMsgs[6] + ':' + e);
+        }
+        if ($scope.wallet != null) $scope.notifier.info(globalFuncs.successMsgs[1]);
+    };
 };
 module.exports = cxDecryptWalletCtrl;
 
@@ -451,8 +463,8 @@ var myWalletsCtrl = function myWalletsCtrl($scope, $sce, walletService) {
                 $scope[varWal][j].tokens.push(new Token($scope.tokens[i].address, $scope[varWal][j].addr, $scope.tokens[i].symbol, $scope.tokens[i].decimal));
                 $scope[varWal][j].tokens[$scope[varWal][j].tokens.length - 1].setBalance();
             }
-            var storedTokens = globalFuncs.localStorage.getItem("localTokens", null) != null ? JSON.parse(globalFuncs.localStorage.getItem("localTokens")) : [];
-            for (var i = 0; i < storedTokens.length; i++) {
+            var storedTokens = globalFuncs.localStorage.getItem('localTokens', null) != null ? JSON.parse(globalFuncs.localStorage.getItem('localTokens')) : [];
+            for (i = 0; i < storedTokens.length; i++) {
                 $scope[varWal][j].tokens.push(new Token(storedTokens[i].contractAddress, $scope[varWal][j].addr, globalFuncs.stripTags(storedTokens[i].symbol), storedTokens[i].decimal));
                 $scope[varWal][j].tokens[$scope[varWal][j].tokens.length - 1].setBalance();
             }
@@ -481,7 +493,7 @@ var myWalletsCtrl = function myWalletsCtrl($scope, $sce, walletService) {
     };
     $scope.setViewWalletObj = function (val, type) {
         var vtype = 'allWallets';
-        if (type == 'watchOnly') vtype = 'allWatchOnly';
+        if (type === 'watchOnly') vtype = 'allWatchOnly';
         $scope.viewWallet = {
             nick: $scope[vtype][val].nick,
             addr: $scope[vtype][val].addr,
@@ -515,12 +527,16 @@ var myWalletsCtrl = function myWalletsCtrl($scope, $sce, walletService) {
 
         try {
             var priv = $scope.allWallets[$scope.viewWallet.id].priv;
-            if (priv.length == 132) $scope.wallet = Wallet.fromMyEtherWalletKey(priv, $scope.password);else $scope.wallet = Wallet.getWalletFromPrivKeyFile(priv, $scope.password);
+            if (priv.length === 132) {
+                $scope.wallet = Wallet.fromMyEtherWalletKey(priv, $scope.password);
+            } else {
+                $scope.wallet = Wallet.getWalletFromPrivKeyFile(priv, $scope.password);
+            }
             $scope.viewModal.close();
             $scope.setWalletInfo();
-            $scope.password = "";
+            $scope.password = '';
         } catch (e) {
-            $scope.notifier.danger(globalFuncs.errorMsgs[6] + ":" + e);
+            $scope.notifier.danger(globalFuncs.errorMsgs[6] + ':' + e);
         }
     };
     $scope.printQRCode = function () {
@@ -533,7 +549,7 @@ var myWalletsCtrl = function myWalletsCtrl($scope, $sce, walletService) {
         $scope.wallet = null;
         walletService.wallet = null;
         walletService.password = '';
-        $scope.blob = $scope.blobEnc = $scope.password = "";
+        $scope.blob = $scope.blobEnc = $scope.password = '';
     };
     $scope.setWalletInfo = function () {
         walletService.wallet = $scope.wallet;
@@ -565,14 +581,14 @@ module.exports = myWalletsCtrl;
 
 var quickSendCtrl = function quickSendCtrl($scope, $sce) {
 	$scope.allWallets = [];
-	$scope.selectedWallet = "";
+	$scope.selectedWallet = '';
 	$scope.showConfirm = false;
 	$scope.tx = {
 		gasLimit: globalFuncs.defaultTxGasLimit,
-		data: "",
-		to: "",
-		unit: "ether",
-		value: "",
+		data: '',
+		to: '',
+		unit: 'ether',
+		value: '',
 		nonce: null,
 		gasPrice: null,
 		donate: false
@@ -635,7 +651,7 @@ var quickSendCtrl = function quickSendCtrl($scope, $sce) {
 				if (!rawTx.isError) {
 					uiFuncs.sendTx(rawTx.signedTx, function (resp) {
 						if (!resp.isError) {
-							$scope.sendTxStatus = $sce.trustAsHtml(globalFuncs.getSuccessText(globalFuncs.successMsgs[2] + "<br />" + resp.data + "<br /><a href='http://wanscan.io/tx/" + resp.data + "' target='_blank' rel='noopener'> WAN TX via Wanscan.io </a>"));
+							$scope.sendTxStatus = $sce.trustAsHtml(globalFuncs.getSuccessText(globalFuncs.successMsgs[2] + '<br />' + resp.data + "<br /><a href='http://wanscan.io/tx/" + resp.data + "' target='_blank' rel='noopener'> WAN TX via Wanscan.io </a>"));
 							$scope.setBalance();
 						} else {
 							$scope.sendTxStatus = $sce.trustAsHtml(globalFuncs.getDangerText(resp.error));
@@ -652,14 +668,14 @@ var quickSendCtrl = function quickSendCtrl($scope, $sce) {
 	};
 	$scope.decryptWallet = function () {
 		$scope.wallet = null;
-		$scope.validateTxStatus = "";
+		$scope.validateTxStatus = '';
 		$scope.wallet = Wallet.getWalletFromPrivKeyFile($scope.allWallets[$scope.selectedWallet].priv, $scope.password);
 	};
-	$scope.selectedWallet = "";
-	$scope.password = "";
-	$scope.$parent.selectedWallet = "";
-	$scope.tx.to = "";
-	$scope.tx.value = "";
+	$scope.selectedWallet = '';
+	$scope.password = '';
+	$scope.$parent.selectedWallet = '';
+	$scope.tx.to = '';
+	$scope.tx.value = '';
 
 	$scope.setAllWallets();
 };
@@ -671,7 +687,7 @@ module.exports = quickSendCtrl;
 var bulkGenCtrl = function bulkGenCtrl($scope) {
     $scope.showWallets = false;
     $scope.genWallets = function () {
-        if ($scope.amount == '' || $scope.amount != parseInt($scope.amount, 10)) alert(globalFuncs.errorMsgs[0]);else {
+        if ($scope.amount === '' || $scope.amount !== parseInt($scope.amount, 10)) alert(globalFuncs.errorMsgs[0]);else {
             $scope.wallets = [];
             var csv = '';var txt = '';
             $scope.jsonWallets = [];
@@ -686,9 +702,9 @@ var bulkGenCtrl = function bulkGenCtrl($scope) {
                 $scope.wallets.push(tWallet);
             }
             $scope.showWallets = true;
-            $scope.bJSON = globalFuncs.getBlob("text/json;charset=UTF-8", JSON.stringify($scope.jsonWallets));
-            $scope.bTXT = globalFuncs.getBlob("text/plain;charset=UTF-8", txt);
-            $scope.bCSV = globalFuncs.getBlob("text/csv;charset=UTF-8", csv);
+            $scope.bJSON = globalFuncs.getBlob('text/json;charset=UTF-8', JSON.stringify($scope.jsonWallets));
+            $scope.bTXT = globalFuncs.getBlob('text/plain;charset=UTF-8', txt);
+            $scope.bCSV = globalFuncs.getBlob('text/csv;charset=UTF-8', csv);
         }
     };
     $scope.printQRCode = function () {
@@ -703,17 +719,17 @@ module.exports = bulkGenCtrl;
 var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
     $scope.ajaxReq = ajaxReq;
     walletService.wallet = null;
-    $scope.visibility = "interactView";
+    $scope.visibility = 'interactView';
     $scope.sendContractModal = new Modal(document.getElementById('sendContract'));
     $scope.showReadWrite = false;
     $scope.sendTxModal = new Modal(document.getElementById('deployContract'));
     $scope.Validator = Validator;
     $scope.tx = {
-        Txtype: "0x01",
+        Txtype: '0x01',
         gasLimit: '',
         data: '',
         to: '',
-        unit: "ether",
+        unit: 'ether',
         value: 0,
         nonce: null,
         gasPrice: null
@@ -737,11 +753,11 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
     });
     $scope.$watch('visibility', function (newValue, oldValue) {
         $scope.tx = {
-            Txtype: "0x01",
+            Txtype: '0x01',
             gasLimit: '',
             data: '',
             to: '',
-            unit: "ether",
+            unit: 'ether',
             value: 0,
             nonce: null,
             gasPrice: null
@@ -749,7 +765,7 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
     });
     $scope.$watch('tx', function (newValue, oldValue) {
         $scope.showRaw = false;
-        if (newValue.gasLimit == oldValue.gasLimit && $scope.Validator.isValidHex($scope.tx.data) && $scope.tx.data != '' && $scope.Validator.isPositiveNumber($scope.tx.value)) {
+        if (newValue.gasLimit === oldValue.gasLimit && $scope.Validator.isValidHex($scope.tx.data) && $scope.tx.data !== '' && $scope.Validator.isPositiveNumber($scope.tx.value)) {
             if ($scope.estimateTimer) clearTimeout($scope.estimateTimer);
             $scope.estimateTimer = setTimeout(function () {
                 $scope.estimateGasLimit();
@@ -759,7 +775,7 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
     $scope.$watch('contract.address', function (newValue, oldValue) {
         if ($scope.Validator.isValidAddress($scope.contract.address)) {
             for (var i in ajaxReq.abiList) {
-                if (ajaxReq.abiList[i].address.toLowerCase() == $scope.contract.address.toLowerCase()) {
+                if (ajaxReq.abiList[i].address.toLowerCase() === $scope.contract.address.toLowerCase()) {
                     $scope.contract.abi = ajaxReq.abiList[i].abi;
                     break;
                 }
@@ -786,7 +802,7 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
             value: ethFuncs.sanitizeHex(ethFuncs.decimalToHex(etherUnits.toWei($scope.tx.value, $scope.tx.unit))),
             data: ethFuncs.sanitizeHex($scope.tx.data)
         };
-        if ($scope.tx.to != '') estObj.to = $scope.tx.to;
+        if ($scope.tx.to !== '') estObj.to = $scope.tx.to;
         ethFuncs.estimateGas(estObj, function (data) {
             if (!data.error) $scope.tx.gasLimit = data.data;
         });
@@ -798,8 +814,8 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
             ajaxReq.getTransactionData($scope.wallet.getAddressString(), function (data) {
                 if (data.error) $scope.notifier.danger(data.msg);
                 data = data.data;
-                $scope.tx.to = $scope.tx.to == '' ? '0xCONTRACT' : $scope.tx.to;
-                $scope.tx.contractAddr = $scope.tx.to == '0xCONTRACT' ? ethFuncs.getDeteministicContractAddress($scope.wallet.getAddressString(), data.nonce) : '';
+                $scope.tx.to = $scope.tx.to === '' ? '0xCONTRACT' : $scope.tx.to;
+                $scope.tx.contractAddr = $scope.tx.to === '0xCONTRACT' ? ethFuncs.getDeteministicContractAddress($scope.wallet.getAddressString(), data.nonce) : '';
                 var txData = uiFuncs.getTxData($scope);
                 uiFuncs.generateTx(txData, function (rawTx) {
                     if (!rawTx.isError) {
@@ -823,9 +839,9 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
         $scope.sendContractModal.close();
         uiFuncs.sendTx($scope.signedTx, function (resp) {
             if (!resp.isError) {
-                var bExStr = $scope.ajaxReq.type != nodes.nodeTypes.Custom ? "<a href='" + $scope.ajaxReq.blockExplorerTX.replace("[[txHash]]", resp.data) + "' target='_blank' rel='noopener'> View your transaction </a>" : '';
-                var contractAddr = $scope.tx.contractAddr != '' ? " & Contract Address <a href='" + ajaxReq.blockExplorerAddr.replace('[[address]]', $scope.tx.contractAddr) + "' target='_blank' rel='noopener'>" + $scope.tx.contractAddr + "</a>" : '';
-                $scope.notifier.success(globalFuncs.successMsgs[2] + "<br />" + resp.data + "<br />" + bExStr + contractAddr);
+                var bExStr = $scope.ajaxReq.type !== nodes.nodeTypes.Custom ? "<a href='" + $scope.ajaxReq.blockExplorerTX.replace('[[txHash]]', resp.data) + "' target='_blank' rel='noopener'> View your transaction </a>" : '';
+                var contractAddr = $scope.tx.contractAddr !== '' ? " & Contract Address <a href='" + ajaxReq.blockExplorerAddr.replace('[[address]]', $scope.tx.contractAddr) + "' target='_blank' rel='noopener'>" + $scope.tx.contractAddr + '</a>' : '';
+                $scope.notifier.success(globalFuncs.successMsgs[2] + '<br />' + resp.data + '<br />' + bExStr + contractAddr);
             } else {
                 $scope.notifier.danger(resp.error);
             }
@@ -848,7 +864,7 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
         var funcSig = ethFuncs.getFunctionSignature(fullFuncName);
         var typeName = ethUtil.solidityUtils.extractTypeName(fullFuncName);
         var types = typeName.split(',');
-        types = types[0] == "" ? [] : types;
+        types = types[0] === '' ? [] : types;
         var values = [];
         for (var i in curFunc.inputs) {
             if (curFunc.inputs[i].value) {
@@ -877,13 +893,14 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
             $scope.contract.functions = [];
             var tAbi = JSON.parse($scope.contract.abi);
             for (var i in tAbi) {
-                if (tAbi[i].type == "function") {
+                if (tAbi[i].type === 'function') {
                     tAbi[i].inputs.map(function (i) {
                         i.value = '';
                     });
                     $scope.contract.functions.push(tAbi[i]);
                 }
-            }$scope.showReadWrite = true;
+            }
+            $scope.showReadWrite = true;
         } catch (e) {
             $scope.notifier.danger(e);
         }
@@ -905,12 +922,12 @@ module.exports = contractsCtrl;
 'use strict';
 
 var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) {
-    $scope.walletType = "";
+    $scope.walletType = '';
     $scope.requireFPass = $scope.requirePPass = $scope.showFDecrypt = $scope.showPDecrypt = $scope.showAOnly = $scope.showParityDecrypt = false;
-    $scope.filePassword = "";
-    $scope.fileContent = "";
+    $scope.filePassword = '';
+    $scope.fileContent = '';
     $scope.Validator = Validator;
-    $scope.isSSL = window.location.protocol == 'https:';
+    $scope.isSSL = window.location.protocol === 'https:';
     $scope.ajaxReq = ajaxReq;
     $scope.nodeType = $scope.ajaxReq.type;
     $scope.HDWallet = {
@@ -936,9 +953,9 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
         $scope.setdPath();
     });
     $scope.setdPath = function () {
-        if ($scope.walletType == "ledger") {
+        if ($scope.walletType === 'ledger') {
             $scope.HDWallet.dPath = $scope.HDWallet.ledgerWanPath;
-        } else if ($scope.walletType == "trezor") {
+        } else if ($scope.walletType === 'trezor') {
             $scope.HDWallet.dPath = $scope.HDWallet.trezorWanPath;
         } else {
             $scope.HDWallet.dPath = $scope.HDWallet.ledgerWanPath;
@@ -948,14 +965,14 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
         var password = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : $scope.mnemonicPassword;
 
         $scope.HDWallet.numWallets = 0;
-        if ($scope.walletType == 'pastemnemonic') {
+        if ($scope.walletType === 'pastemnemonic') {
             $scope.HDWallet.hdk = hd.HDKey.fromMasterSeed(hd.bip39.mnemonicToSeed($scope.manualmnemonic.trim(), password));
             $scope.setHDAddresses($scope.HDWallet.numWallets, $scope.HDWallet.walletsPerDialog);
-        } else if ($scope.walletType == 'ledger') {
+        } else if ($scope.walletType === 'ledger') {
             $scope.scanLedger();
-        } else if ($scope.walletType == 'trezor') {
+        } else if ($scope.walletType === 'trezor') {
             $scope.scanTrezor();
-        } else if ($scope.walletType == 'digitalBitbox') {
+        } else if ($scope.walletType === 'digitalBitbox') {
             $scope.scanDigitalBitbox();
         }
     };
@@ -985,8 +1002,8 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
         $scope.showAOnly = false;
         var manualprivkey = fixPkey($scope.manualprivkey);
 
-        $scope.requirePPass = manualprivkey.length == 128 || manualprivkey.length == 132;
-        $scope.showPDecrypt = manualprivkey.length == 64;
+        $scope.requirePPass = manualprivkey.length === 128 || manualprivkey.length === 132;
+        $scope.showPDecrypt = manualprivkey.length === 64;
     };
     $scope.onPrivKeyPassChange = function () {
         $scope.showAOnly = false;
@@ -1006,7 +1023,7 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
     $scope.setHDAddresses = function (start, limit) {
         $scope.HDWallet.wallets = [];
         for (var i = start; i < start + limit; i++) {
-            $scope.HDWallet.wallets.push(new Wallet($scope.HDWallet.hdk.derive($scope.HDWallet.dPath + "/" + i)._privateKey));
+            $scope.HDWallet.wallets.push(new Wallet($scope.HDWallet.hdk.derive($scope.HDWallet.dPath + '/' + i)._privateKey));
             $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].setBalance(false);
         }
         $scope.HDWallet.id = 0;
@@ -1015,22 +1032,22 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
     $scope.setHDAddressesHWWallet = function (start, limit, ledger) {
         $scope.HDWallet.wallets = [];
         for (var i = start; i < start + limit; i++) {
-            var derivedKey = $scope.HDWallet.hdk.derive("m/" + i);
-            if ($scope.walletType == "ledger") {
-                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + "/" + i, $scope.walletType, $scope.ledger));
-            } else if ($scope.walletType == "digitalBitbox") {
-                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + "/" + i, $scope.walletType, $scope.digitalBitbox));
+            var derivedKey = $scope.HDWallet.hdk.derive('m/' + i);
+            if ($scope.walletType === 'ledger') {
+                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType, $scope.ledger));
+            } else if ($scope.walletType === 'digitalBitbox') {
+                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType, $scope.digitalBitbox));
             } else {
-                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + "/" + i, $scope.walletType));
+                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType));
             }
-            $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].type = "addressOnly";
+            $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].type = 'addressOnly';
             $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].setBalance(false);
         }
         $scope.HDWallet.id = 0;
         $scope.HDWallet.numWallets = start + limit;
     };
     $scope.AddRemoveHDAddresses = function (isAdd) {
-        if ($scope.walletType == "ledger" || $scope.walletType == "trezor" || $scope.walletType == "digitalBitbox") {
+        if ($scope.walletType === 'ledger' || $scope.walletType === 'trezor' || $scope.walletType === 'digitalBitbox') {
             if (isAdd) $scope.setHDAddressesHWWallet($scope.HDWallet.numWallets, $scope.HDWallet.walletsPerDialog);else $scope.setHDAddressesHWWallet($scope.HDWallet.numWallets - 2 * $scope.HDWallet.walletsPerDialog, $scope.HDWallet.walletsPerDialog);
         } else {
             if (isAdd) $scope.setHDAddresses($scope.HDWallet.numWallets, $scope.HDWallet.walletsPerDialog);else $scope.setHDAddresses($scope.HDWallet.numWallets - 2 * $scope.HDWallet.walletsPerDialog, $scope.HDWallet.walletsPerDialog);
@@ -1040,7 +1057,7 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
         walletService.wallet = $scope.wallet = $scope.HDWallet.wallets[$scope.HDWallet.id];
         $scope.mnemonicModel.close();
         $scope.notifier.info(globalFuncs.successMsgs[1]);
-        $scope.wallet.type = "default";
+        $scope.wallet.type = 'default';
     };
     $scope.decryptWallet = function () {
         $scope.wallet = null;
@@ -1070,13 +1087,13 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
             $scope.notifier.danger(globalFuncs.errorMsgs[6] + e);
         }
         if ($scope.wallet != null) $scope.notifier.info(globalFuncs.successMsgs[1]);
-        $scope.wallet.type = "default";
+        $scope.wallet.type = 'default';
     };
     $scope.decryptAddressOnly = function () {
         if ($scope.Validator.isValidAddress($scope.addressOnly)) {
             var tempWallet = new Wallet();
             $scope.wallet = {
-                type: "addressOnly",
+                type: 'addressOnly',
                 address: $scope.addressOnly,
                 getAddressString: function getAddressString() {
                     return this.address;
@@ -1103,8 +1120,8 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
         walletService.wallet = null;
     };
     $scope.ledgerCallback = function (result, error) {
-        if (typeof result != "undefined") {
-            $scope.HWWalletCreate(result['publicKey'], result['chainCode'], "ledger", $scope.getLedgerPath());
+        if (typeof result !== 'undefined') {
+            $scope.HWWalletCreate(result['publicKey'], result['chainCode'], 'ledger', $scope.getLedgerPath());
         } else {
             $scope.ledgerError = true;
             $scope.ledgerErrorString = error;
@@ -1113,7 +1130,7 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
     };
     $scope.trezorCallback = function (response) {
         if (response.success) {
-            $scope.HWWalletCreate(response.payload.publicKey, response.payload.chainCode, "trezor", $scope.getTrezorPath());
+            $scope.HWWalletCreate(response.payload.publicKey, response.payload.chainCode, 'trezor', $scope.getTrezorPath());
         } else {
             $scope.trezorError = true;
             $scope.trezorErrorString = response.error;
@@ -1122,13 +1139,15 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
     };
     $scope.digitalBitboxCallback = function (result, error) {
         $scope.HDWallet.digitalBitboxSecret = '';
-        if (typeof result != "undefined") {
-            $scope.HWWalletCreate(result['publicKey'], result['chainCode'], "digitalBitbox", $scope.HDWallet.dPath);
-        } else $scope.notifier.danger(error);
+        if (typeof result !== 'undefined') {
+            $scope.HWWalletCreate(result['publicKey'], result['chainCode'], 'digitalBitbox', $scope.HDWallet.dPath);
+        } else {
+            $scope.notifier.danger(error);
+        }
     };
     $scope.scanLedger = function () {
         $scope.ledgerError = false;
-        $scope.ledger = new Ledger3("w0w");
+        $scope.ledger = new Ledger3('w0w');
         var app = new ledgerEth($scope.ledger);
         var path = $scope.getLedgerPath();
         app.getAddress(path, $scope.ledgerCallback, false, true);
@@ -1143,7 +1162,7 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
         // trezor is using the path without change level id
         var path = $scope.getTrezorPath();
 
-        console.warn("SCANTR", path, $scope.HDWallet);
+        console.warn('SCANTR', path, $scope.HDWallet);
         /*
         TrezorConnect.getXPubKey(path, $scope.trezorCallback, '1.5.2');
          */
@@ -1170,7 +1189,7 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
             $scope.wallet = wallet;
             walletService.wallet = wallet;
             $scope.notifier.info(globalFuncs.successMsgs[6]);
-            $scope.wallet.type = "default";
+            $scope.wallet.type = 'default';
         });
     };
 
@@ -1189,7 +1208,7 @@ module.exports = decryptWalletCtrl;
 'use strict';
 
 var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
-    $scope.referrer = "0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8";
+    $scope.referrer = '0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8';
     $scope.ajaxReq = ajaxReq;
     $scope.hideDomainSaleInfoPanel = false;
     walletService.wallet = null;
@@ -1232,7 +1251,7 @@ var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
     $scope.tx = {
         data: '',
         to: '',
-        unit: "ether",
+        unit: 'ether',
         value: 0,
         gasPrice: null
     };
@@ -1240,10 +1259,10 @@ var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
         return nodes.domainsaleNodeTypes.indexOf(ajaxReq.type) > -1;
     };
     $scope.$watch(function () {
-        if (walletService.wallet == null) return null;
+        if (walletService.wallet === null) return null;
         return walletService.wallet.getAddressString();
     }, function () {
-        if (walletService.wallet == null) return;
+        if (walletService.wallet === null) return;
         $scope.wallet = walletService.wallet;
         $scope.wd = true;
         $scope.objDomainSale.nameReadOnly = true;
@@ -1260,7 +1279,7 @@ var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
         var rem = timeUntil - new Date();
         if (rem < 0) {
             clearInterval($scope.objDomainSale.timer);
-            $scope.objDomainSale.timeRemaining = "FINISHED";
+            $scope.objDomainSale.timeRemaining = 'FINISHED';
             return;
         }
         var _second = 1000;
@@ -1311,10 +1330,10 @@ var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
     $scope.checkName = function () {
         // checks if it's the same length as a PK and if so, warns them.
         // If they confirm they can set haveNotAlreadyCheckedLength to true and carry on
-        if ($scope.haveNotAlreadyCheckedLength && ($scope.objDomainSale.name.length == 128 || $scope.objDomainSale.name.length == 132 || $scope.objDomainSale.name.length == 64 || $scope.objDomainSale.name.length == 66)) {
-            $scope.notifier.danger("That looks an awful lot like a private key. Are you sure you would like to check if this name is available on the ENS network? If so, click `Check`. If it is your private key, click refresh & try again.");
+        if ($scope.haveNotAlreadyCheckedLength && ($scope.objDomainSale.name.length === 128 || $scope.objDomainSale.name.length === 132 || $scope.objDomainSale.name.length === 64 || $scope.objDomainSale.name.length === 66)) {
+            $scope.notifier.danger('That looks an awful lot like a private key. Are you sure you would like to check if this name is available on the ENS network? If so, click `Check`. If it is your private key, click refresh & try again.');
             $scope.haveNotAlreadyCheckedLength = false;
-        } else if ($scope.Validator.isValidENSName($scope.objDomainSale.name) && $scope.objDomainSale.name.indexOf('.') == -1) {
+        } else if ($scope.Validator.isValidENSName($scope.objDomainSale.name) && $scope.objDomainSale.name.indexOf('.') === -1) {
             $scope.objDomainSale.name = ens.normalise($scope.objDomainSale.name);
             $scope.objDomainSale.namehash = ens.getNameHash($scope.objDomainSale.name + '.wan');
             $scope.objDomainSale.nameSHA3 = ENS.getSHA3($scope.objDomainSale.name);
@@ -1323,8 +1342,8 @@ var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
                 if (data.error) $scope.notifier.danger(data.msg);else {
                     var entries = data.data;
                     for (var key in entries) {
-                        if (key != 'status') $scope.objDomainSale[key] = entries[key];
-                    }if (data.data.status != $scope.ensModes.owned) {
+                        if (key !== 'status') $scope.objDomainSale[key] = entries[key];
+                    }if (data.data.status !== $scope.ensModes.owned) {
                         // Not owned so ineligible for domainsale
                         $scope.objDomainSale.status = $scope.domainsaleModes.ineligible;
                         updateScope();
@@ -1332,7 +1351,7 @@ var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
                         $scope.objDomainSale.valueEth = Number(etherUnits.toEther($scope.objDomainSale.value.toString(), 'wei'));
                         ENS.getDeedOwner($scope.objDomainSale.deed, function (data) {
                             $scope.objDomainSale.deedOwner = data.data;
-                            if (data.data.toLowerCase() != DomainSale.getContractAddress().toLowerCase()) {
+                            if (data.data.toLowerCase() !== DomainSale.getContractAddress().toLowerCase()) {
                                 // Not owned by DomainSale contract
                                 $scope.objDomainSale.status = $scope.domainsaleModes.nottransferred;
                                 updateScope();
@@ -1343,10 +1362,10 @@ var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
                                         var entries = data.data;
                                         for (var key in entries) {
                                             $scope.objDomainSale[key] = entries[key];
-                                        }if ($scope.objDomainSale.price == 0 && $scope.objDomainSale.reserve == 0) {
+                                        }if ($scope.objDomainSale.price === 0 && $scope.objDomainSale.reserve === 0) {
                                             // Not yet offered for sale
                                             $scope.objDomainSale.status = $scope.domainsaleModes.notoffered;
-                                        } else if ($scope.objDomainSale.auctionStarted.getTime() == 0) {
+                                        } else if ($scope.objDomainSale.auctionStarted.getTime() === 0) {
                                             // Available for sale
                                             $scope.objDomainSale.status = $scope.domainsaleModes.available;
                                             $scope.objDomainSale.minimumBid = $scope.objDomainSale.reserve;
@@ -1384,37 +1403,37 @@ var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
 
     // Sync internal values with inputs
     $scope.syncPrice = function () {
-        if ($scope.objDomainSale.priceEth == null) {
+        if ($scope.objDomainSale.priceEth === null) {
             $scope.objDomainSale.price = 0;
         } else {
             $scope.objDomainSale.price = Number(etherUnits.toWei($scope.objDomainSale.priceEth, 'ether'));
         }
     };
     $scope.syncReserve = function () {
-        if ($scope.objDomainSale.reserveEth == null) {
+        if ($scope.objDomainSale.reserveEth === null) {
             $scope.objDomainSale.reserve = 0;
         } else {
             $scope.objDomainSale.reserve = Number(etherUnits.toWei($scope.objDomainSale.reserveEth, 'ether'));
         }
     };
     $scope.syncBid = function () {
-        if ($scope.objDomainSale.bidEth == null) {
+        if ($scope.objDomainSale.bidEth === null) {
             $scope.objDomainSale.bid = 0;
         } else {
             $scope.objDomainSale.bid = Number(etherUnits.toWei($scope.objDomainSale.bidEth, 'ether'));
         }
     };
 
-    $scope.sendTxStatus = "";
+    $scope.sendTxStatus = '';
     $scope.sendTx = function () {
         $scope.domainsaleConfirmModalModal.close();
         $scope.objDomainSale.status = -1;
         var signedTx = $scope.generatedTxs.shift();
         uiFuncs.sendTx(signedTx, function (resp) {
             if (!resp.isError) {
-                var emailLink = '<a class="strong" href="mailto:support@myetherwallet.com?subject=Issue%20regarding%20my%20DomainSale%20&body=Hi%20Taylor%2C%20%0A%0AI%20have%20a%20question%20concerning%20my%20DomainSale%20transaction.%20%0A%0AI%20was%20attempting%20to%3A%0A-%20Start%20an%20ENS%20auction%0A-%20Bid%20on%20an%20ENS%20name%0A-%20Reveal%20my%20ENS%20bid%0A-%20Finalize%20my%20ENS%20name%0A%0AUnfortunately%20it%3A%0A-%20Never%20showed%20on%20the%20blockchain%0A-%20Failed%20due%20to%20out%20of%20gas%0A-%20Failed%20for%20another%20reason%0A-%20Never%20showed%20up%20in%20the%20account%20I%20was%20sending%20to%0A%0APlease%20see%20the%20below%20details%20for%20additional%20information.%0A%0AThank%20you.%20%0A%0A_%0A%0A%20name%3A%20' + $scope.objDomainSale.name + "%0A%20txSent%3A%20" + $scope.objDomainSale.txSent + "%0A%20to%3A%20" + $scope.tx.to + "%0A%20from%20address%3A%20" + $scope.wallet.getAddressString() + "%0A%20data%3A%20" + $scope.tx.data + "%0A%20value%3A%20" + $scope.tx.value + '" rel="noopener noreferrer">Confused? Email Us.</a>';
-                var bExStr = $scope.ajaxReq.type != nodes.nodeTypes.Custom ? "<a class='strong' href='" + $scope.ajaxReq.blockExplorerTX.replace("[[txHash]]", resp.data) + "' target='_blank' rel='noopener'> View your transaction </a>" : '';
-                $scope.sendTxStatus += globalFuncs.successMsgs[2] + "<p>" + resp.data + "</p><p>" + bExStr + "</p><p>" + emailLink + "</p>";
+                var emailLink = '<a class="strong" href="mailto:support@myetherwallet.com?subject=Issue%20regarding%20my%20DomainSale%20&body=Hi%20Taylor%2C%20%0A%0AI%20have%20a%20question%20concerning%20my%20DomainSale%20transaction.%20%0A%0AI%20was%20attempting%20to%3A%0A-%20Start%20an%20ENS%20auction%0A-%20Bid%20on%20an%20ENS%20name%0A-%20Reveal%20my%20ENS%20bid%0A-%20Finalize%20my%20ENS%20name%0A%0AUnfortunately%20it%3A%0A-%20Never%20showed%20on%20the%20blockchain%0A-%20Failed%20due%20to%20out%20of%20gas%0A-%20Failed%20for%20another%20reason%0A-%20Never%20showed%20up%20in%20the%20account%20I%20was%20sending%20to%0A%0APlease%20see%20the%20below%20details%20for%20additional%20information.%0A%0AThank%20you.%20%0A%0A_%0A%0A%20name%3A%20' + $scope.objDomainSale.name + '%0A%20txSent%3A%20' + $scope.objDomainSale.txSent + '%0A%20to%3A%20' + $scope.tx.to + '%0A%20from%20address%3A%20' + $scope.wallet.getAddressString() + '%0A%20data%3A%20' + $scope.tx.data + '%0A%20value%3A%20' + $scope.tx.value + '" rel="noopener noreferrer">Confused? Email Us.</a>';
+                var bExStr = $scope.ajaxReq.type !== nodes.nodeTypes.Custom ? "<a class='strong' href='" + $scope.ajaxReq.blockExplorerTX.replace('[[txHash]]', resp.data) + "' target='_blank' rel='noopener'> View your transaction </a>" : '';
+                $scope.sendTxStatus += globalFuncs.successMsgs[2] + '<p>' + resp.data + '</p><p>' + bExStr + '</p><p>' + emailLink + '</p>';
                 $scope.notifier.success($scope.sendTxStatus);
                 if ($scope.generatedTxs.length) $scope.sendTx();else $scope.sendTxStatus = '';
             } else {
@@ -1442,7 +1461,7 @@ var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
         try {
             $scope.objDomainSale.tx = domainsale.transactions.offer;
             if (!$scope.Validator.isValidENSName($scope.objDomainSale.name)) throw globalFuncs.errorMsgs[30];
-            if ($scope.objDomainSale.price == 0 && $scope.objDomainSale.reserve == 0) throw globalFuncs.errorMsgs[38];
+            if ($scope.objDomainSale.price === 0 && $scope.objDomainSale.reserve === 0) throw globalFuncs.errorMsgs[38];
             $scope.tx.to = DomainSale.getContractAddress();
             $scope.tx.gasLimit = $scope.gasLimitDefaults.offer;
             $scope.tx.data = DomainSale.getOfferData($scope.objDomainSale.name, $scope.objDomainSale.price, $scope.objDomainSale.reserve, $scope.referrer);
@@ -1566,7 +1585,7 @@ var ensCtrl = function ensCtrl($scope, $sce, walletService) {
         nameReadOnly: false,
         resolvedAddress: null,
         revealObject: null,
-        secret: hd.bip39.generateMnemonic().split(" ").splice(0, 3).join(" "),
+        secret: hd.bip39.generateMnemonic().split(' ').splice(0, 3).join(' '),
         status: -1,
         timer: null,
         timeRemaining: null,
@@ -1583,7 +1602,7 @@ var ensCtrl = function ensCtrl($scope, $sce, walletService) {
         gasLimit: '500000',
         data: '',
         to: '',
-        unit: "ether",
+        unit: 'ether',
         value: 0,
         gasPrice: null
     };
@@ -1591,10 +1610,10 @@ var ensCtrl = function ensCtrl($scope, $sce, walletService) {
         return nodes.ensNodeTypes.indexOf(ajaxReq.type) > -1;
     };
     $scope.$watch(function () {
-        if (walletService.wallet == null) return null;
+        if (walletService.wallet === null) return null;
         return walletService.wallet.getAddressString();
     }, function () {
-        if (walletService.wallet == null) return;
+        if (walletService.wallet === null) return;
         $scope.wallet = walletService.wallet;
         $scope.wd = true;
         $scope.objENS.nameReadOnly = true;
@@ -1611,7 +1630,7 @@ var ensCtrl = function ensCtrl($scope, $sce, walletService) {
         var rem = timeUntil - new Date();
         if (rem < 0) {
             clearInterval($scope.objENS.timer);
-            $scope.objENS.timeRemaining = "EXPIRED";
+            $scope.objENS.timeRemaining = 'EXPIRED';
             return;
         }
         var _second = 1000;
@@ -1638,10 +1657,10 @@ var ensCtrl = function ensCtrl($scope, $sce, walletService) {
     $scope.checkName = function () {
         // checks if it's the same length as a PK and if so, warns them.
         // If they confirm they can set haveNotAlreadyCheckedLength to true and carry on
-        if ($scope.haveNotAlreadyCheckedLength && ($scope.objENS.name.length == 128 || $scope.objENS.name.length == 132 || $scope.objENS.name.length == 64 || $scope.objENS.name.length == 66)) {
-            $scope.notifier.danger("That looks an awful lot like a private key. Are you sure you would like to check if this name is available on the ENS network? If so, click `Check`. If it is your private key, click refresh & try again.");
+        if ($scope.haveNotAlreadyCheckedLength && ($scope.objENS.name.length === 128 || $scope.objENS.name.length === 132 || $scope.objENS.name.length === 64 || $scope.objENS.name.length === 66)) {
+            $scope.notifier.danger('That looks an awful lot like a private key. Are you sure you would like to check if this name is available on the ENS network? If so, click `Check`. If it is your private key, click refresh & try again.');
             $scope.haveNotAlreadyCheckedLength = false;
-        } else if ($scope.Validator.isValidENSName($scope.objENS.name) && $scope.objENS.name.indexOf('.') == -1) {
+        } else if ($scope.Validator.isValidENSName($scope.objENS.name) && $scope.objENS.name.indexOf('.') === -1) {
             $scope.objENS.name = ens.normalise($scope.objENS.name);
             $scope.objENS.namehash = ens.getNameHash($scope.objENS.name + '.wan');
             $scope.objENS.nameSHA3 = ENS.getSHA3($scope.objENS.name);
@@ -1702,16 +1721,16 @@ var ensCtrl = function ensCtrl($scope, $sce, walletService) {
             $scope.objENS.revealObject = null;
             var tObj = JSON.parse($scope.longJsonString.replace(/\\/g, ''));
             $scope.objENS.revealObject = tObj;
-            if (tObj.value) $scope.objENS.bidValue = Number(etherUnits.toEther(tObj.value, "wei"));
+            if (tObj.value) $scope.objENS.bidValue = Number(etherUnits.toEther(tObj.value, 'wei'));
             if (tObj.secret) $scope.objENS.secret = tObj.secret;
-            if (tObj.name && ens.normalise(tObj.name) != $scope.objENS.name) {
+            if (tObj.name && ens.normalise(tObj.name) !== $scope.objENS.name) {
                 // check if correct name
                 $scope.notifier.danger(globalFuncs.errorMsgs[34]);
-            } else if (tObj.owner && tObj.owner != $scope.wallet.getAddressString()) {
+            } else if (tObj.owner && tObj.owner !== $scope.wallet.getAddressString()) {
                 // check owner = bidder
                 $scope.notifier.danger(globalFuncs.errorMsgs[33]);
-            } else {//estimate gas to see if it would not work
-                //$scope.estimateGasLimit();
+            } else {// estimate gas to see if it would not work
+                // $scope.estimateGasLimit();
             }
             updateScope();
         } catch (e) {
@@ -1786,7 +1805,7 @@ var ensCtrl = function ensCtrl($scope, $sce, walletService) {
     };
     $scope.finalizeDomain = function () {
         $scope.tx.gasLimit = $scope.gasLimitDefaults.finalize;
-        if ($scope.wallet.getAddressString() != $scope.objENS.deedOwner) {
+        if ($scope.wallet.getAddressString() !== $scope.objENS.deedOwner) {
             $scope.notifier.danger(globalFuncs.errorMsgs[33]);
             return;
         }
@@ -1843,16 +1862,16 @@ var ensCtrl = function ensCtrl($scope, $sce, walletService) {
             }
         });
     };
-    $scope.sendTxStatus = "";
+    $scope.sendTxStatus = '';
     $scope.sendTx = function () {
         $scope.ensConfirmModalModal.close();
         $scope.ensFinalizeModal.close();
         var signedTx = $scope.generatedTxs.shift();
         uiFuncs.sendTx(signedTx, function (resp) {
             if (!resp.isError) {
-                var emailLink = '<a class="strong" href="mailto:support@mywanwallet.nl?Subject=Issue%20regarding%20my%20ENS%20&Body=Hi%20Peter%2C%20%0A%0AI%20have%20a%20question%20concerning%20my%20ENS%20transaction.%20%0A%0AI%20was%20attempting%20to%3A%0A-%20Start%20an%20ENS%20auction%0A-%20Bid%20on%20an%20ENS%20name%0A-%20Reveal%20my%20ENS%20bid%0A-%20Finalize%20my%20ENS%20name%0A%0AUnfortunately%20it%3A%0A-%20Never%20showed%20on%20the%20blockchain%0A-%20Failed%20due%20to%20out%20of%20gas%0A-%20Failed%20for%20another%20reason%0A-%20Never%20showed%20up%20in%20the%20account%20I%20was%20sending%20to%0A%0APlease%20see%20the%20below%20details%20for%20additional%20information.%0A%0AThank%20you.%20%0A%0A_%0A%0A%20name%3A%20' + $scope.objENS.name + '%0A%20timeRemaining%3A%20' + $scope.getRevealTime().toString() + '%0A%20revealDate%3A%20' + $scope.objENS.registrationDate.toString() + "%0A%20timer%3A%20" + $scope.objENS.timer + "%0A%20txSent%3A%20" + $scope.objENS.txSent + "%0A%20to%3A%20" + $scope.tx.to + "%0A%20from%20address%3A%20" + $scope.wallet.getAddressString() + "%0A%20data%3A%20" + $scope.tx.data + "%0A%20value%3A%20" + $scope.tx.value + '" target="_blank" rel="noopener noreferrer">Confused? Email Us.</a>';
-                var bExStr = $scope.ajaxReq.type != nodes.nodeTypes.Custom ? "<a class='strong' href='" + $scope.ajaxReq.blockExplorerTX.replace("[[txHash]]", resp.data) + "' target='_blank' rel='noopener'> View your transaction </a>" : '';
-                $scope.sendTxStatus += globalFuncs.successMsgs[2] + "<p>" + resp.data + "</p><p>" + bExStr + "</p><p>" + emailLink + "</p>";
+                var emailLink = '<a class="strong" href="mailto:support@mywanwallet.nl?Subject=Issue%20regarding%20my%20ENS%20&Body=Hi%20Peter%2C%20%0A%0AI%20have%20a%20question%20concerning%20my%20ENS%20transaction.%20%0A%0AI%20was%20attempting%20to%3A%0A-%20Start%20an%20ENS%20auction%0A-%20Bid%20on%20an%20ENS%20name%0A-%20Reveal%20my%20ENS%20bid%0A-%20Finalize%20my%20ENS%20name%0A%0AUnfortunately%20it%3A%0A-%20Never%20showed%20on%20the%20blockchain%0A-%20Failed%20due%20to%20out%20of%20gas%0A-%20Failed%20for%20another%20reason%0A-%20Never%20showed%20up%20in%20the%20account%20I%20was%20sending%20to%0A%0APlease%20see%20the%20below%20details%20for%20additional%20information.%0A%0AThank%20you.%20%0A%0A_%0A%0A%20name%3A%20' + $scope.objENS.name + '%0A%20timeRemaining%3A%20' + $scope.getRevealTime().toString() + '%0A%20revealDate%3A%20' + $scope.objENS.registrationDate.toString() + '%0A%20timer%3A%20' + $scope.objENS.timer + '%0A%20txSent%3A%20' + $scope.objENS.txSent + '%0A%20to%3A%20' + $scope.tx.to + '%0A%20from%20address%3A%20' + $scope.wallet.getAddressString() + '%0A%20data%3A%20' + $scope.tx.data + '%0A%20value%3A%20' + $scope.tx.value + '" target="_blank" rel="noopener noreferrer">Confused? Email Us.</a>';
+                var bExStr = $scope.ajaxReq.type !== nodes.nodeTypes.Custom ? "<a class='strong' href='" + $scope.ajaxReq.blockExplorerTX.replace('[[txHash]]', resp.data) + "' target='_blank' rel='noopener'> View your transaction </a>" : '';
+                $scope.sendTxStatus += globalFuncs.successMsgs[2] + '<p>' + resp.data + '</p><p>' + bExStr + '</p><p>' + emailLink + '</p>';
                 $scope.notifier.success($scope.sendTxStatus);
                 if ($scope.generatedTxs.length) $scope.sendTx();else $scope.sendTxStatus = '';
             } else {
@@ -1867,8 +1886,8 @@ var ensCtrl = function ensCtrl($scope, $sce, walletService) {
             var _objENS = $scope.objENS;
             $scope.sentTxs = [];
             $scope.generatedTxs = [];
-            if (!$scope.Validator.isValidENSName(_objENS.name)) throw globalFuncs.errorMsgs[30];else if (!$scope.Validator.isPositiveNumber(_objENS.bidValue) || _objENS.bidValue < 0.01) throw globalFuncs.errorMsgs[0];else if (_objENS.status != $scope.ensModes.reveal && (!$scope.Validator.isPositiveNumber(_objENS.dValue) || _objENS.dValue < _objENS.bidValue || $scope.wallet.balance <= _objENS.dValue)) throw globalFuncs.errorMsgs[0];else if (!$scope.Validator.isPasswordLenValid(_objENS.secret, 0)) throw globalFuncs.errorMsgs[31];else if (_objENS.revealObject && _objENS.revealObject.name && ens.normalise(_objENS.revealObject.name) != _objENS.name) throw globalFuncs.errorMsgs[34];else {
-                if ($scope.objENS.status == $scope.ensModes.open) $scope.openAndBidAuction();else if ($scope.objENS.status == $scope.ensModes.auction) $scope.bidAuction();else if ($scope.objENS.status == $scope.ensModes.reveal) $scope.revealBid();
+            if (!$scope.Validator.isValidENSName(_objENS.name)) throw globalFuncs.errorMsgs[30];else if (!$scope.Validator.isPositiveNumber(_objENS.bidValue) || _objENS.bidValue < 0.01) throw globalFuncs.errorMsgs[0];else if (_objENS.status !== $scope.ensModes.reveal && (!$scope.Validator.isPositiveNumber(_objENS.dValue) || _objENS.dValue < _objENS.bidValue || $scope.wallet.balance <= _objENS.dValue)) throw globalFuncs.errorMsgs[0];else if (!$scope.Validator.isPasswordLenValid(_objENS.secret, 0)) throw globalFuncs.errorMsgs[31];else if (_objENS.revealObject && _objENS.revealObject.name && ens.normalise(_objENS.revealObject.name) !== _objENS.name) throw globalFuncs.errorMsgs[34];else {
+                if ($scope.objENS.status === $scope.ensModes.open) $scope.openAndBidAuction();else if ($scope.objENS.status === $scope.ensModes.auction) $scope.bidAuction();else if ($scope.objENS.status === $scope.ensModes.reveal) $scope.revealBid();
             }
         } catch (e) {
             $scope.notifier.danger(e);
@@ -1881,11 +1900,11 @@ module.exports = ensCtrl;
 'use strict';
 
 var footerCtrl = function footerCtrl($scope, globalService) {
-    var gasPriceKey = "gasPrice";
+    var gasPriceKey = 'gasPrice';
     $scope.footerModal = new Modal(document.getElementById('disclaimerModal'));
-    $scope.ethBlockNumber = "loading";
-    $scope.etcBlockNumber = "loading";
-    $scope.showBlocks = window.location.protocol == "https:";
+    $scope.ethBlockNumber = 'loading';
+    $scope.etcBlockNumber = 'loading';
+    $scope.showBlocks = window.location.protocol === 'https:';
     $scope.setBlockNumbers = function () {
         if (!$scope.showBlocks) return;
         ajaxReq.getCurrentBlock(function (data) {
@@ -2033,7 +2052,7 @@ var helpersCtrl = function helpersCtrl($scope) {
         };
         var basePrivateKey = $scope.mistypedPK;
         var targetPublicAddress = $scope.mistypedAddr;
-        basePrivateKey = basePrivateKey.substring(0, 2) == '0x' ? basePrivateKey.substring(2) : basePrivateKey;
+        basePrivateKey = basePrivateKey.substring(0, 2) === '0x' ? basePrivateKey.substring(2) : basePrivateKey;
         var characters = ['a', 'b', 'c', 'd', 'e', 'f', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
         var isFound = false;
         for (var keyPosition = 0; keyPosition < basePrivateKey.length; keyPosition++) {
@@ -2041,13 +2060,15 @@ var helpersCtrl = function helpersCtrl($scope) {
                 var privateKeyGuess = setCharAt(basePrivateKey, keyPosition, characters[character]);
                 var wallet = Wallet.fromPrivateKey(privateKeyGuess);
                 var publicAddress = wallet.getAddressString();
-                if (publicAddress.toLowerCase() == targetPublicAddress.toLowerCase()) {
+                if (publicAddress.toLowerCase() === targetPublicAddress.toLowerCase()) {
                     $scope.actualPK = privateKeyGuess;
                     isFound = true;
                 }
             }
         }
-        if (!isFound) $scope.actualPK = "Sorry not found :(";
+        if (!isFound) {
+            $scope.actualPK = 'Sorry not found :(';
+        }
     };
 
     $scope.convertUnit('ether');
@@ -2087,7 +2108,7 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
     walletService.wallet = null;
     walletService.password = '';
     $scope.unitReadable = ajaxReq.type;
-    $scope.valueReadable = "";
+    $scope.valueReadable = '';
     $scope.showAdvance = false;
     $scope.dropdownEnabled = true;
     $scope.showRaw = false;
@@ -2097,12 +2118,12 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
     $scope.tokens = Token.popTokens;
     $scope.Validator = Validator;
     $scope.tx = {
-        Txtype: "0x01",
+        Txtype: '0x01',
         gasLimit: globalFuncs.defaultTxGasLimit,
-        from: "",
-        data: "",
-        to: "",
-        unit: "ether",
+        from: '',
+        data: '',
+        to: '',
+        unit: 'ether',
         value: '',
         nonce: null,
         gasPrice: null,
@@ -2115,10 +2136,10 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
         gasLimit: 150000
     };
     $scope.localToken = {
-        contractAdd: "",
-        symbol: "",
-        decimals: "",
-        type: "custom"
+        contractAdd: '',
+        symbol: '',
+        decimals: '',
+        type: 'custom'
     };
     $scope.$watch(function () {
         if (walletService.wallet == null) return null;
@@ -2132,8 +2153,8 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
         for (var i = 0; i < $scope.tokens.length; i++) {
             $scope.tokenObjs.push(new Token($scope.tokens[i].address, '', $scope.tokens[i].symbol, $scope.tokens[i].decimal, $scope.tokens[i].type));
         }
-        var storedTokens = globalFuncs.localStorage.getItem("localTokens", null) != null ? JSON.parse(globalFuncs.localStorage.getItem("localTokens")) : [];
-        for (var i = 0; i < storedTokens.length; i++) {
+        var storedTokens = globalFuncs.localStorage.getItem('localTokens', null) != null ? JSON.parse(globalFuncs.localStorage.getItem('localTokens')) : [];
+        for (i = 0; i < storedTokens.length; i++) {
             $scope.tokenObjs.push(new Token(storedTokens[i].contractAddress, '', globalFuncs.stripTags(storedTokens[i].symbol), storedTokens[i].decimal, storedTokens[i].type));
         }
     };
@@ -2153,7 +2174,7 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
         $scope.showRaw = false;
     }, true);
     $scope.$watch('tokenTx.id', function () {
-        if ($scope.tokenTx.id != 'ether') {
+        if ($scope.tokenTx.id !== 'ether') {
             $scope.tx.gasLimit = 150000;
         } else {
             $scope.tx.gasLimit = globalFuncs.defaultTxGasLimit;
@@ -2161,7 +2182,7 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
     });
     $scope.$watch('[tx.to]', function () {
         // if golem crowdfund address
-        if ($scope.tx.to == "0xa74476443119A942dE498590Fe1f2454d7D4aC0d") {
+        if ($scope.tx.to === '0xa74476443119A942dE498590Fe1f2454d7D4aC0d') {
             $scope.setSendMode('ether');
             $scope.dropdownEnabled = false;
             $scope.tx.data = '0xefc81a8c';
@@ -2174,7 +2195,7 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
         var tokensymbol = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
         $scope.tokenTx.id = index;
-        if (index == 'ether') {
+        if (index === 'ether') {
             $scope.unitReadable = ajaxReq.type;
         } else {
             $scope.unitReadable = tokensymbol;
@@ -2185,8 +2206,8 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
         $scope.customGasMsg = '';
         if (ethFuncs.validateEtherAddress(address)) {
             for (var i in CustomGasMessages) {
-                if ($scope.tx.to.toLowerCase() == CustomGasMessages[i].to.toLowerCase()) {
-                    $scope.customGasMsg = CustomGasMessages[i].msg != '' ? CustomGasMessages[i].msg : '';
+                if ($scope.tx.to.toLowerCase() === CustomGasMessages[i].to.toLowerCase()) {
+                    $scope.customGasMsg = CustomGasMessages[i].msg !== '' ? CustomGasMessages[i].msg : '';
                 }
             }
             return true;
@@ -2203,7 +2224,7 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
         txData.isOffline = true;
         txData.nonce = ethFuncs.sanitizeHex(ethFuncs.decimalToHex($scope.nonceDec));
         txData.gasPrice = ethFuncs.sanitizeHex(ethFuncs.decimalToHex($scope.gasPriceDec));
-        if ($scope.tokenTx.id != 'ether') {
+        if ($scope.tokenTx.id !== 'ether') {
             txData.data = $scope.tokenObjs[$scope.tokenTx.id].getData($scope.tx.to, $scope.tx.value).data;
             txData.to = $scope.tokenObjs[$scope.tokenTx.id].getContractAddress();
             txData.value = '0x00';
@@ -2222,11 +2243,11 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
     };
     $scope.confirmSendTx = function () {
         try {
-            if ($scope.signedTx == "" || !ethFuncs.validateHexString($scope.signedTx)) throw globalFuncs.errorMsgs[12];
+            if ($scope.signedTx === '' || !ethFuncs.validateHexString($scope.signedTx)) throw globalFuncs.errorMsgs[12];
             var eTx = new wanUtil.wanchainTx($scope.signedTx);
-            if (eTx.data.length && Token.transferHex == ethFuncs.sanitizeHex(eTx.data.toString('hex').substr(0, 8))) {
+            if (eTx.data.length && Token.transferHex === ethFuncs.sanitizeHex(eTx.data.toString('hex').substr(0, 8))) {
                 var token = Token.getTokenByAddress(ethFuncs.sanitizeHex(eTx.to.toString('hex')));
-                var decoded = ethUtil.solidityCoder.decodeParams(["address", "uint256"], ethFuncs.sanitizeHex(eTx.data.toString('hex').substr(10)));
+                var decoded = ethUtil.solidityCoder.decodeParams(['address', 'uint256'], ethFuncs.sanitizeHex(eTx.data.toString('hex').substr(10)));
                 $scope.tx.sendMode = 'token';
                 $scope.tokenTx.value = decoded[1].div(new BigNumber(10).pow(token.decimal)).toString();
                 $scope.tokenTx.to = decoded[0];
@@ -2250,7 +2271,7 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
             if (data.error) {
                 $scope.notifier.danger(data.msg);
             } else {
-                $scope.notifier.success(globalFuncs.successMsgs[2] + "<a href='https://wanscan.io/tx/" + data.data + "' target='_blank' rel='noopener'>" + data.data + "</a>");
+                $scope.notifier.success(globalFuncs.successMsgs[2] + "<a href='https://wanscan.io/tx/" + data.data + "' target='_blank' rel='noopener'>" + data.data + '</a>');
             }
         });
     };
@@ -2269,17 +2290,17 @@ var onboardingCtrl = function onboardingCtrl($scope, globalService, $translate, 
   $scope.showOnboardSlide = 1; // show slide 1
 
   // if there is onboardStatus in localStorage....
-  if (globalFuncs.localStorage.getItem("onboardStatus", null) != null) {
+  if (globalFuncs.localStorage.getItem('onboardStatus', null) != null) {
 
     // get the slide number from localStorage
-    $scope.onboardStatus = parseInt(globalFuncs.localStorage.getItem("onboardStatus"));
+    $scope.onboardStatus = parseInt(globalFuncs.localStorage.getItem('onboardStatus'));
 
     // if they've seen a few slides...
     if ($scope.onboardStatus > 0 && $scope.onboardStatus < 10) {
       $scope.showOnboardSlide = $scope.onboardStatus; // set the slide to the last slide they viewed
       $scope.onboardMsg = true; // show a msg explaining they need to finish it
       $scope.onboardModal.open(); // show the modal
-      //console.log( $scope.onboardStatus )
+      // console.log( $scope.onboardStatus )
     }
 
     // otherwise, show the modal (starts at slide 1 by default, above)
@@ -2290,8 +2311,8 @@ var onboardingCtrl = function onboardingCtrl($scope, globalService, $translate, 
   // whenever a user clicks a button on the modal...
   $scope.setOnboardStatus = function (slideNum) {
     $scope.showOnboardSlide = slideNum; // show the slide indicated
-    globalFuncs.localStorage.setItem("onboardStatus", JSON.stringify(slideNum)); // save number to localStorage for later
-    //console.log( "setOnboardStatus " + slideNum )
+    globalFuncs.localStorage.setItem('onboardStatus', JSON.stringify(slideNum)); // save number to localStorage for later
+    // console.log( "setOnboardStatus " + slideNum )
   };
 
   $scope.setOnboardStatus($scope.onboardStatus);
@@ -2314,9 +2335,9 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
     $scope.dropdownEnabled = true;
     $scope.Validator = Validator;
     $scope.gasLimitChanged = false;
-    $scope.tx.readOnly = globalFuncs.urlGet('readOnly') == null ? false : true;
-    var currentTab = $scope.globalService.currentTab;
-    var tabs = $scope.globalService.tabs;
+    $scope.tx.readOnly = globalFuncs.urlGet('readOnly') != null;
+    // var currentTab = $scope.globalService.currentTab
+    // var tabs = $scope.globalService.tabs
     $scope.tokenTx = {
         to: '',
         value: 0,
@@ -2328,13 +2349,13 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
 
     $scope.tx = {
         // if there is no gasLimit or gas key in the URI, use the default value. Otherwise use value of gas or gasLimit. gasLimit wins over gas if both present
-        Txtype: "0x01",
+        Txtype: '0x01',
         gasLimit: globalFuncs.urlGet('gaslimit') != null || globalFuncs.urlGet('gas') != null ? globalFuncs.urlGet('gaslimit') != null ? globalFuncs.urlGet('gaslimit') : globalFuncs.urlGet('gas') : globalFuncs.defaultTxGasLimit,
-        from: globalFuncs.urlGet('from') == null ? "" : globalFuncs.urlGet('from'),
-        data: globalFuncs.urlGet('data') == null ? "" : globalFuncs.urlGet('data'),
-        to: globalFuncs.urlGet('to') == null ? "" : globalFuncs.urlGet('to'),
-        unit: "ether",
-        value: globalFuncs.urlGet('value') == null ? "" : globalFuncs.urlGet('value'),
+        from: globalFuncs.urlGet('from') == null ? '' : globalFuncs.urlGet('from'),
+        data: globalFuncs.urlGet('data') == null ? '' : globalFuncs.urlGet('data'),
+        to: globalFuncs.urlGet('to') == null ? '' : globalFuncs.urlGet('to'),
+        unit: 'ether',
+        value: globalFuncs.urlGet('value') == null ? '' : globalFuncs.urlGet('value'),
         nonce: null,
         gasPrice: globalFuncs.urlGet('gasprice') == null ? null : globalFuncs.urlGet('gasprice'),
         donate: false,
@@ -2350,7 +2371,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         if (globalFuncs.urlGet('tokensymbol') != null) {
             $scope.unitReadable = $scope.tx.tokensymbol;
             $scope.tx.sendMode = 'token';
-        } else if (sendMode == 'ether') {
+        } else if (sendMode === 'ether') {
             $scope.unitReadable = ajaxReq.type;
         } else {
             $scope.unitReadable = tokensymbol;
@@ -2360,20 +2381,20 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
     };
 
     $scope.setTokenSendMode = function () {
-        if ($scope.tx.sendMode == 'token' && !$scope.tx.tokensymbol) {
+        if ($scope.tx.sendMode === 'token' && !$scope.tx.tokensymbol) {
             $scope.tx.tokensymbol = $scope.wallet.tokenObjs[0].symbol;
-            $scope.wallet.tokenObjs[0].type = "custom";
+            $scope.wallet.tokenObjs[0].type = 'custom';
             $scope.setSendMode($scope.tx.sendMode, 0, $scope.tx.tokensymbol);
         } else if ($scope.tx.tokensymbol) {
             for (var i = 0; i < $scope.wallet.tokenObjs.length; i++) {
                 if ($scope.wallet.tokenObjs[i].symbol.toLowerCase().indexOf($scope.tx.tokensymbol.toLowerCase()) !== -1) {
-                    $scope.wallet.tokenObjs[i].type = "custom";
+                    $scope.wallet.tokenObjs[i].type = 'custom';
                     $scope.setSendMode('token', i, $scope.wallet.tokenObjs[i].symbol);
                     break;
                 } else $scope.tokenTx.id = -1;
             }
         }
-        if ($scope.tx.sendMode != 'token') $scope.tokenTx.id = -1;
+        if ($scope.tx.sendMode !== 'token') $scope.tokenTx.id = -1;
     };
 
     var applyScope = function applyScope() {
@@ -2382,12 +2403,12 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
 
     var defaultInit = function defaultInit() {
         globalFuncs.urlGet('sendMode') == null ? $scope.setSendMode('ether') : $scope.setSendMode(globalFuncs.urlGet('sendMode'));
-        $scope.gasLimitChanged = globalFuncs.urlGet('gaslimit') != null ? true : false;
+        $scope.gasLimitChanged = globalFuncs.urlGet('gaslimit') != null;
         $scope.showAdvance = globalFuncs.urlGet('gaslimit') != null || globalFuncs.urlGet('gas') != null || globalFuncs.urlGet('data') != null;
         if (globalFuncs.urlGet('data') || globalFuncs.urlGet('value') || globalFuncs.urlGet('to') || globalFuncs.urlGet('gaslimit') || globalFuncs.urlGet('sendMode') || globalFuncs.urlGet('gas') || globalFuncs.urlGet('tokensymbol')) $scope.hasQueryString = true; // if there is a query string, show an warning at top of page
     };
     $scope.$watch(function () {
-        if (walletService.wallet == null) return null;
+        if (walletService.wallet === null) return null;
         return walletService.wallet.getAddressString();
     }, function () {
         if (walletService.wallet == null) return;
@@ -2437,24 +2458,24 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
 
     $scope.$watch('tx', function (newValue, oldValue) {
         $rootScope.rootScopeShowRawTx = false;
-        if (oldValue.sendMode && oldValue.sendMode != newValue.sendMode && newValue.sendMode == 'ether') {
-            $scope.tx.data = globalFuncs.urlGet('data') == null ? "" : globalFuncs.urlGet('data');
+        if (oldValue.sendMode && oldValue.sendMode !== newValue.sendMode && newValue.sendMode === 'ether') {
+            $scope.tx.data = globalFuncs.urlGet('data') == null ? '' : globalFuncs.urlGet('data');
             $scope.tx.gasLimit = globalFuncs.defaultTxGasLimit;
         }
-        if (newValue.gasLimit == oldValue.gasLimit && $scope.wallet && $scope.Validator.isValidAddress($scope.tx.to) && $scope.Validator.isPositiveNumber($scope.tx.value) && $scope.Validator.isValidHex($scope.tx.data) && $scope.tx.sendMode != 'token') {
+        if (newValue.gasLimit === oldValue.gasLimit && $scope.wallet && $scope.Validator.isValidAddress($scope.tx.to) && $scope.Validator.isPositiveNumber($scope.tx.value) && $scope.Validator.isValidHex($scope.tx.data) && $scope.tx.sendMode !== 'token') {
             if ($scope.estimateTimer) clearTimeout($scope.estimateTimer);
             $scope.estimateTimer = setTimeout(function () {
                 $scope.estimateGasLimit();
             }, 500);
         }
-        if ($scope.tx.sendMode == 'token') {
+        if ($scope.tx.sendMode === 'token') {
             $scope.tokenTx.to = $scope.tx.to;
             $scope.tokenTx.value = $scope.tx.value;
         }
         if (newValue.to !== oldValue.to) {
             for (var i in $scope.customGas) {
-                if ($scope.tx.to.toLowerCase() == $scope.customGas[i].to.toLowerCase()) {
-                    $scope.customGasMsg = $scope.customGas[i].msg != '' ? $scope.customGas[i].msg : '';
+                if ($scope.tx.to.toLowerCase() === $scope.customGas[i].to.toLowerCase()) {
+                    $scope.customGasMsg = $scope.customGas[i].msg !== '' ? $scope.customGas[i].msg : '';
                     return;
                 }
             }
@@ -2466,11 +2487,11 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         $scope.customGasMsg = '';
         if ($scope.gasLimitChanged) return;
         for (var i in $scope.customGas) {
-            if ($scope.tx.to.toLowerCase() == $scope.customGas[i].to.toLowerCase()) {
-                $scope.showAdvance = $scope.tx.data != '' || $scope.customGas[i].data != '' ? true : false;
+            if ($scope.tx.to.toLowerCase() === $scope.customGas[i].to.toLowerCase()) {
+                $scope.showAdvance = !!($scope.tx.data !== '' || $scope.customGas[i].data !== '');
                 $scope.tx.gasLimit = $scope.customGas[i].gasLimit;
-                if ($scope.customGas[i].data != '') $scope.tx.data = $scope.customGas[i].data;
-                $scope.customGasMsg = $scope.customGas[i].msg != '' ? $scope.customGas[i].msg : '';
+                if ($scope.customGas[i].data !== '') $scope.tx.data = $scope.customGas[i].data;
+                $scope.customGasMsg = $scope.customGas[i].msg !== '' ? $scope.customGas[i].msg : '';
                 return;
             }
         }
@@ -2483,8 +2504,8 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
             from: $scope.wallet.getAddressString(),
             value: ethFuncs.sanitizeHex(ethFuncs.decimalToHex(etherUnits.toWei($scope.tx.value, $scope.tx.unit)))
         };
-        if ($scope.tx.data != "") estObj.data = ethFuncs.sanitizeHex($scope.tx.data);
-        if ($scope.tx.sendMode == 'token') {
+        if ($scope.tx.data !== '') estObj.data = ethFuncs.sanitizeHex($scope.tx.data);
+        if ($scope.tx.sendMode === 'token') {
             estObj.to = $scope.wallet.tokenObjs[$scope.tokenTx.id].getContractAddress();
             estObj.data = $scope.wallet.tokenObjs[$scope.tokenTx.id].getData($scope.tokenTx.to, $scope.tokenTx.value).data;
             estObj.value = '0x00';
@@ -2492,7 +2513,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         ethFuncs.estimateGas(estObj, function (data) {
 
             if (!data.error) {
-                if (data.data == '-1') $scope.notifier.danger(globalFuncs.errorMsgs[21]);
+                if (data.data === '-1') $scope.notifier.danger(globalFuncs.errorMsgs[21]);
                 $scope.tx.gasLimit = data.data;
             } else $scope.notifier.danger(data.msg);
         });
@@ -2503,7 +2524,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
     };
 
     $scope.hasEnoughBalance = function () {
-        if ($scope.wallet.balance == 'loading') return false;
+        if ($scope.wallet.balance === 'loading') return false;
         return isEnough($scope.tx.value, $scope.wallet.balance);
     };
 
@@ -2522,7 +2543,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         // if false, replace gas price and nonce. gas price from slider. nonce from server.
         if (txData.gasPrice && txData.nonce) txData.isOffline = true;
 
-        if ($scope.tx.sendMode == 'token') {
+        if ($scope.tx.sendMode === 'token') {
             // if the amount of tokens you are trying to send > tokens you have, throw error
             if (!isEnough($scope.tx.value, $scope.wallet.tokenObjs[$scope.tokenTx.id].balance)) {
                 $scope.notifier.danger(globalFuncs.errorMsgs[0]);
@@ -2549,16 +2570,16 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         $scope.sendTxModal.close();
         uiFuncs.sendTx($scope.signedTx, function (resp) {
             if (!resp.isError) {
-                var checkTxLink = "https://mywanwallet.nl?txHash=" + resp.data + "#check-tx-status";
-                var txHashLink = $scope.ajaxReq.blockExplorerTX.replace("[[txHash]]", resp.data);
-                var emailBody = 'I%20was%20trying%20to..............%0A%0A%0A%0ABut%20I%27m%20confused%20because...............%0A%0A%0A%0A%0A%0ATo%20Address%3A%20https%3A%2F%2Fwanscan.io%2Faddr%2F' + $scope.tx.to + '%0AFrom%20Address%3A%20https%3A%2F%2Fwanscan.io%2Faddr%2F' + $scope.wallet.getAddressString() + '%0ATX%20Hash%3A%20https%3A%2F%2Fwanscan.io%2Ftx%2F' + resp.data + '%0AAmount%3A%20' + $scope.tx.value + '%20' + $scope.unitReadable + '%0ANode%3A%20' + $scope.ajaxReq.type + '%0AToken%20To%20Addr%3A%20' + $scope.tokenTx.to + '%0AToken%20Amount%3A%20' + $scope.tokenTx.value + '%20' + $scope.unitReadable + '%0AData%3A%20' + $scope.tx.data + '%0AGas%20Limit%3A%20' + $scope.tx.gasLimit + '%0AGas%20Price%3A%20' + $scope.tx.gasPrice;
-                var verifyTxBtn = $scope.ajaxReq.type != nodes.nodeTypes.Custom ? '<a class="btn btn-xs btn-info" href="' + txHashLink + '" class="strong" target="_blank" rel="noopener noreferrer">Verify Transaction</a>' : '';
+                var checkTxLink = 'https://mywanwallet.nl?txHash=' + resp.data + '#check-tx-status';
+                var txHashLink = $scope.ajaxReq.blockExplorerTX.replace('[[txHash]]', resp.data);
+                // var emailBody = 'I%20was%20trying%20to..............%0A%0A%0A%0ABut%20I%27m%20confused%20because...............%0A%0A%0A%0A%0A%0ATo%20Address%3A%20https%3A%2F%2Fwanscan.io%2Faddr%2F' + $scope.tx.to + '%0AFrom%20Address%3A%20https%3A%2F%2Fwanscan.io%2Faddr%2F' + $scope.wallet.getAddressString() + '%0ATX%20Hash%3A%20https%3A%2F%2Fwanscan.io%2Ftx%2F' + resp.data + '%0AAmount%3A%20' + $scope.tx.value + '%20' + $scope.unitReadable + '%0ANode%3A%20' + $scope.ajaxReq.type + '%0AToken%20To%20Addr%3A%20' + $scope.tokenTx.to + '%0AToken%20Amount%3A%20' + $scope.tokenTx.value + '%20' + $scope.unitReadable + '%0AData%3A%20' + $scope.tx.data + '%0AGas%20Limit%3A%20' + $scope.tx.gasLimit + '%0AGas%20Price%3A%20' + $scope.tx.gasPrice
+                var verifyTxBtn = $scope.ajaxReq.type !== nodes.nodeTypes.Custom ? '<a class="btn btn-xs btn-info" href="' + txHashLink + '" class="strong" target="_blank" rel="noopener noreferrer">Verify Transaction</a>' : '';
                 var checkTxBtn = '<a class="btn btn-xs btn-info" href="' + checkTxLink + '" target="_blank" rel="noopener noreferrer"> Check TX Status </a>';
-                var emailBtn = '<a class="btn btn-xs btn-info " href="mailto:support@mywanwallet.nl?Subject=Issue%20regarding%20my%20TX%20&Body=' + emailBody + '" target="_blank" rel="noopener noreferrer">Confused? Email Us.</a>';
+                // var emailBtn = '<a class="btn btn-xs btn-info " href="mailto:support@mywanwallet.nl?Subject=Issue%20regarding%20my%20TX%20&Body=' + emailBody + '" target="_blank" rel="noopener noreferrer">Confused? Email Us.</a>'
                 var completeMsg = '<p>' + globalFuncs.successMsgs[2] + '<strong>' + resp.data + '</strong></p><p>' + verifyTxBtn + ' ' + checkTxBtn + '</p>';
                 $scope.notifier.success(completeMsg, 0);
                 $scope.wallet.setBalance(applyScope);
-                if ($scope.tx.sendMode == 'token') $scope.wallet.tokenObjs[$scope.tokenTx.id].setBalance();
+                if ($scope.tx.sendMode === 'token') $scope.wallet.tokenObjs[$scope.tokenTx.id].setBalance();
             } else {
                 $scope.notifier.danger(resp.error);
             }
@@ -2566,7 +2587,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
     };
 
     $scope.transferAllBalance = function () {
-        if ($scope.tx.sendMode != 'token') {
+        if ($scope.tx.sendMode !== 'token') {
             uiFuncs.transferAllBalance($scope.wallet.getAddressString(), $scope.tx.gasLimit, function (resp) {
                 if (!resp.isError) {
                     $scope.tx.unit = resp.unit;
@@ -2582,7 +2603,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
     };
 
     $scope.parseSignedTx = function (signedTx) {
-        if (signedTx.slice(0, 2) == "0x") signedTx = signedTx.slice(2, signedTx.length);
+        if (signedTx.slice(0, 2) === '0x') signedTx = signedTx.slice(2, signedTx.length);
         $scope.parsedSignedTx = {};
         var txData = new wanUtil.wanchainTx(signedTx);
         $scope.parsedSignedTx.gasPrice = {};
@@ -2591,7 +2612,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         $scope.parsedSignedTx.txtype = txData.Txtype.toString('hex');
         $scope.parsedSignedTx.from = ethFuncs.sanitizeHex(wanUtil.toChecksumAddress(txData.from.toString('hex')));
         $scope.parsedSignedTx.to = ethFuncs.sanitizeHex(wanUtil.toChecksumAddress(txData.to.toString('hex')));
-        $scope.parsedSignedTx.value = txData.value == '0x' || txData.value == '' || txData.value == null ? '0' : etherUnits.toEther(new BigNumber(ethFuncs.sanitizeHex(txData.value.toString('hex'))).toString(), 'wei');
+        $scope.parsedSignedTx.value = txData.value === '0x' || txData.value === '' || txData.value == null ? '0' : etherUnits.toEther(new BigNumber(ethFuncs.sanitizeHex(txData.value.toString('hex'))).toString(), 'wei');
         $scope.parsedSignedTx.gasLimit = new BigNumber(ethFuncs.sanitizeHex(txData.gasLimit.toString('hex'))).toString();
         $scope.parsedSignedTx.gasPrice.wei = new BigNumber(ethFuncs.sanitizeHex(txData.gasPrice.toString('hex'))).toString();
         $scope.parsedSignedTx.gasPrice.gwei = new BigNumber(ethFuncs.sanitizeHex(txData.gasPrice.toString('hex'))).div(etherUnits.getValueOfUnit('gwei')).toString();
@@ -2599,8 +2620,8 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         $scope.parsedSignedTx.txFee.wei = new BigNumber(parseInt($scope.parsedSignedTx.gasLimit)).times(new BigNumber(parseInt($scope.parsedSignedTx.gasPrice.wei)));
         $scope.parsedSignedTx.txFee.gwei = new BigNumber($scope.parsedSignedTx.txFee.wei).div(etherUnits.getValueOfUnit('gwei')).toString();
         $scope.parsedSignedTx.txFee.eth = etherUnits.toEther(parseInt($scope.parsedSignedTx.txFee.wei), 'wei').toString();
-        $scope.parsedSignedTx.nonce = txData.nonce == '0x' || txData.nonce == '' || txData.nonce == null ? '0' : new BigNumber(ethFuncs.sanitizeHex(txData.nonce.toString('hex'))).toString();
-        $scope.parsedSignedTx.data = txData.data == '0x' || txData.data == '' || txData.data == null ? '(none)' : ethFuncs.sanitizeHex(txData.data.toString('hex'));
+        $scope.parsedSignedTx.nonce = txData.nonce === '0x' || txData.nonce === '' || txData.nonce == null ? '0' : new BigNumber(ethFuncs.sanitizeHex(txData.nonce.toString('hex'))).toString();
+        $scope.parsedSignedTx.data = txData.data === '0x' || txData.data === '' || txData.data == null ? '(none)' : ethFuncs.sanitizeHex(txData.data.toString('hex'));
     };
 };
 module.exports = sendTxCtrl;
@@ -2611,7 +2632,7 @@ module.exports = sendTxCtrl;
 
 var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
     walletService.wallet = null;
-    $scope.visibility = "signView";
+    $scope.visibility = 'signView';
     $scope.$watch(function () {
         if (walletService.wallet == null) return null;
         return walletService.wallet.getAddressString();
@@ -2630,18 +2651,20 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
     };
 
     $scope.generateSignedMsg = function () {
+        var msg, localCallback, app, signingAddr;
+
         try {
             var thisMessage = $scope.signMsg.message;
             var hwType = $scope.wallet.getHWType();
 
             // Sign via MetaMask
-            if (typeof hwType != "undefined" && hwType == "web3") {
+            if (typeof hwType !== 'undefined' && hwType === 'web3') {
 
-                var msg = ethUtil.bufferToHex(new Buffer(thisMessage, 'utf8'));
-                var signingAddr = web3.eth.accounts[0];
+                msg = ethUtil.bufferToHex(new Buffer(thisMessage, 'utf8'));
+                signingAddr = web3.eth.accounts[0];
                 var params = [msg, signingAddr];
                 var method = 'personal_sign';
-                $scope.notifier.info("Sent message for signing via MetaMask / Mist.");
+                $scope.notifier.info('Sent message for signing via MetaMask / Mist.');
 
                 web3.currentProvider.sendAsync({
                     method: method,
@@ -2660,16 +2683,18 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
                 });
 
                 // Sign via Ledger
-            } else if (typeof hwType != "undefined" && hwType == "ledger") {
-                var msg = Buffer.from(thisMessage).toString("hex");
-                var app = new ledgerEth($scope.wallet.getHWTransport());
-                var localCallback = function localCallback(signed, error) {
-                    if (typeof error != "undefined") {
+            } else if (typeof hwType !== 'undefined' && hwType === 'ledger') {
+                msg = Buffer.from(thisMessage).toString('hex');
+                app = new ledgerEth($scope.wallet.getHWTransport());
+                localCallback = function localCallback(signed, error) {
+                    if (typeof error !== 'undefined') {
                         error = error.errorCode ? u2f.getErrorByCode(error.errorCode) : error;
-                        if (callback !== undefined) callback({
-                            isError: true,
-                            error: error
-                        });
+                        if (callback !== undefined) {
+                            callback({
+                                isError: true,
+                                error: error
+                            });
+                        }
                         return;
                     }
                     var combined = signed['r'] + signed['s'] + signed['v'];
@@ -2686,17 +2711,17 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
                 app.signPersonalMessage_async($scope.wallet.getPath(), msg, localCallback);
 
                 // Sign via Digital Bitbox
-            } else if (typeof hwType != "undefined" && hwType == "digitalBitbox") {
-                var msg = ethUtil.hashPersonalMessage(ethUtil.toBuffer(thisMessage));
-                var localCallback = function localCallback(signed, error) {
-                    if (typeof error != "undefined") {
+            } else if (typeof hwType !== 'undefined' && hwType === 'digitalBitbox') {
+                msg = ethUtil.hashPersonalMessage(ethUtil.toBuffer(thisMessage));
+                localCallback = function localCallback(signed, error) {
+                    if (typeof error !== 'undefined') {
                         error = error.errorCode ? u2f.getErrorByCode(error.errorCode) : error;
                         $scope.notifier.danger(error);
                         return;
                     }
                     var combined = signed['r'] + signed['s'] + signed['v'];
                     var combinedHex = combined.toString('hex');
-                    var signingAddr = $scope.wallet.getAddressString();
+                    signingAddr = $scope.wallet.getAddressString();
                     $scope.signMsg.signedMsg = JSON.stringify({
                         address: $scope.wallet.getAddressString(),
                         msg: thisMessage,
@@ -2705,12 +2730,12 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
                     }, null, 2);
                     $scope.notifier.success('Successfully Signed Message with ' + signingAddr);
                 };
-                $scope.notifier.info("Touch the LED for 3 seconds to sign the message. Or tap the LED to cancel.");
-                var app = new DigitalBitboxEth($scope.wallet.getHWTransport(), '');
+                $scope.notifier.info('Touch the LED for 3 seconds to sign the message. Or tap the LED to cancel.');
+                app = new DigitalBitboxEth($scope.wallet.getHWTransport(), '');
                 app.signMessage($scope.wallet.getPath(), msg, localCallback);
 
                 // Sign via trezor
-            } else if (typeof hwType != "undefined" && hwType == "trezor") {
+            } else if (typeof hwType !== 'undefined' && hwType === 'trezor') {
                 TrezorConnect.ethereumSignMessage($scope.wallet.getPath(), thisMessage, function (response) {
                     if (response.success) {
                         $scope.signMsg.signedMsg = JSON.stringify({
@@ -2727,14 +2752,14 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
 
                 // Sign via PK
             } else {
-                var msg = ethUtil.hashPersonalMessage(ethUtil.toBuffer(thisMessage));
+                msg = ethUtil.hashPersonalMessage(ethUtil.toBuffer(thisMessage));
                 var signed = ethUtil.ecsign(msg, $scope.wallet.getPrivateKey());
-                //console.log(signed.r)
-                //console.log(signed.s)
-                //console.log([signed.v])
+                // console.log(signed.r)
+                // console.log(signed.s)
+                // console.log([signed.v])
                 var combined = Buffer.concat([Buffer.from(signed.r), Buffer.from(signed.s), Buffer.from([signed.v])]);
                 var combinedHex = combined.toString('hex');
-                var signingAddr = $scope.wallet.getAddressString();
+                signingAddr = $scope.wallet.getAddressString();
                 $scope.signMsg.signedMsg = JSON.stringify({
                     address: $scope.wallet.getAddressString(),
                     msg: thisMessage,
@@ -2749,12 +2774,13 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
     };
 
     $scope.verifySignedMessage = function () {
+        var json, sig;
         var hwType = $scope.wallet.getHWType();
         // Verify via trezor
-        if (typeof hwType != "undefined" && hwType == "trezor") {
-            var json = JSON.parse($scope.verifyMsg.signedMsg);
+        if (typeof hwType !== 'undefined' && hwType === 'trezor') {
+            json = JSON.parse($scope.verifyMsg.signedMsg);
             var address = ethFuncs.getNakedAddress(json.address);
-            var sig = ethFuncs.getNakedAddress(json.sig);
+            sig = ethFuncs.getNakedAddress(json.sig);
             var message = json.msg;
             TrezorConnect.ethereumVerifyMessage(address, sig, message, function (response) {
                 if (response.success) {
@@ -2774,13 +2800,13 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
 
         try {
 
-            var json = JSON.parse($scope.verifyMsg.signedMsg);
-            var sig = new Buffer(ethFuncs.getNakedAddress(json.sig), 'hex');
-            if (sig.length != 65) throw globalFuncs.errorMsgs[12];
-            sig[64] = sig[64] == 0 || sig[64] == 1 ? sig[64] + 27 : sig[64];
-            var hash = json.version == '2' ? ethUtil.hashPersonalMessage(ethUtil.toBuffer(json.msg)) : ethUtil.sha3(json.msg);
+            json = JSON.parse($scope.verifyMsg.signedMsg);
+            sig = new Buffer(ethFuncs.getNakedAddress(json.sig), 'hex');
+            if (sig.length !== 65) throw globalFuncs.errorMsgs[12];
+            sig[64] = sig[64] === 0 || sig[64] === 1 ? sig[64] + 27 : sig[64];
+            var hash = json.version === '2' ? ethUtil.hashPersonalMessage(ethUtil.toBuffer(json.msg)) : ethUtil.sha3(json.msg);
             var pubKey = ethUtil.ecrecover(hash, sig[64], sig.slice(0, 32), sig.slice(32, 64));
-            if (ethFuncs.getNakedAddress(json.address) != ethUtil.pubToAddress(pubKey).toString('hex')) throw globalFuncs.errorMsgs[12];else {
+            if (ethFuncs.getNakedAddress(json.address) !== ethUtil.pubToAddress(pubKey).toString('hex')) throw globalFuncs.errorMsgs[12];else {
                 $scope.notifier.success(globalFuncs.successMsgs[6]);
                 $scope.verifiedMsg = {
                     address: json.address,
@@ -2841,11 +2867,11 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     };
     $scope.setArrowVisibility();
 
-    var gasPriceKey = "gasPrice";
+    var gasPriceKey = 'gasPrice';
     $scope.gasChanged = function () {
         globalFuncs.localStorage.setItem(gasPriceKey, $scope.gas.value);
         ethFuncs.gasAdjustment = $scope.gas.value;
-        $scope.gasPriceMsg = ethFuncs.gasAdjustment < 41 ? true : false;
+        $scope.gasPriceMsg = ethFuncs.gasAdjustment < 41;
     };
     var setGasValues = function setGasValues() {
         $scope.gas = {
@@ -2854,12 +2880,11 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
             max: 300,
             min: 182,
             step: 1
-        };
 
-        var curNode = globalFuncs.localStorage.getItem('curNode', null);
+            // var curNode = globalFuncs.localStorage.getItem('curNode', null)
 
-        ethFuncs.gasAdjustment = $scope.gas.value;
-        $scope.gasPriceMsg = ethFuncs.gasAdjustment < 41 ? true : false;
+        };ethFuncs.gasAdjustment = $scope.gas.value;
+        $scope.gasPriceMsg = ethFuncs.gasAdjustment < 41;
     };
     setGasValues();
     $scope.gasChanged();
@@ -2894,9 +2919,12 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
         ajaxReq['key'] = key;
         for (var attrname in $scope.curNode.lib) {
             ajaxReq[attrname] = $scope.curNode.lib[attrname];
-        }for (var attrname in $scope.curNode) {
-            if (attrname != 'name' && attrname != 'tokenList' && attrname != 'lib') ajaxReq[attrname] = $scope.curNode[attrname];
-        }globalFuncs.localStorage.setItem('curNode', JSON.stringify({
+        }for (attrname in $scope.curNode) {
+            if (attrname !== 'name' && attrname !== 'tokenList' && attrname !== 'lib') {
+                ajaxReq[attrname] = $scope.curNode[attrname];
+            }
+        }
+        globalFuncs.localStorage.setItem('curNode', JSON.stringify({
             key: key
         }));
         ajaxReq.getCurrentBlock(function (data) {
@@ -2921,13 +2949,13 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     };
     $scope.setCurNodeFromStorage = function () {
         var node = globalFuncs.localStorage.getItem('curNode', null);
-        if (node === JSON.stringify({ "key": "eth_metamask" })) {
-            node = JSON.stringify({ "key": "eth_infura" });
+        if (node === JSON.stringify({ 'key': 'eth_metamask' })) {
+            node = JSON.stringify({ 'key': 'eth_infura' });
         }
 
         var requestedNetwork = globalFuncs.urlGet('network');
         if (requestedNetwork && nodes.nodeList.hasOwnProperty(requestedNetwork)) {
-            node = JSON.stringify({ "key": requestedNetwork });
+            node = JSON.stringify({ 'key': requestedNetwork });
         }
 
         if (node == null) {
@@ -2940,7 +2968,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     };
     $scope.addCustomNodeToList = function (nodeInfo) {
         var tempObj = null;
-        if (nodeInfo.options == 'wan') tempObj = JSON.parse(JSON.stringify(nodes.nodeList.wan_mew));else if (nodeInfo.options == 'cus') {
+        if (nodeInfo.options === 'wan') tempObj = JSON.parse(JSON.stringify(nodes.nodeList.wan_mew));else if (nodeInfo.options === 'cus') {
             tempObj = JSON.parse(JSON.stringify(nodes.customNodeObj));
             tempObj.eip155 = nodeInfo.eip155;
             tempObj.chainId = parseInt(nodeInfo.chainId);
@@ -2955,7 +2983,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     };
     $scope.getCustomNodesFromStorage = function () {
         for (var key in $scope.nodeList) {
-            if (key.indexOf("cus_") != -1) delete $scope.nodeList[key];
+            if (key.indexOf('cus_') !== -1) delete $scope.nodeList[key];
         }
         var localNodes = globalFuncs.localStorage.getItem('localNodes', null);
         if (localNodes) {
@@ -2970,7 +2998,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
 
     $scope.saveCustomNode = function () {
         try {
-            if (!$scope.Validator.isAlphaNumericSpace($scope.customNode.name)) throw globalFuncs.errorMsgs[22];else if (!$scope.checkNodeUrl($scope.customNode.url)) throw globalFuncs.errorMsgs[23];else if (!$scope.Validator.isPositiveNumber($scope.customNode.port) && $scope.customNode.port != '') throw globalFuncs.errorMsgs[24];else if ($scope.customNode.eip155 && !$scope.Validator.isPositiveNumber($scope.customNode.chainId)) throw globalFuncs.errorMsgs[25];else if ($scope.customNode.httpBasicAuth && ($scope.customNode.httpBasicAuth.user == '' || $scope.customNode.httpBasicAuth.password == '')) throw globalFuncs.errorMsgs[29];
+            if (!$scope.Validator.isAlphaNumericSpace($scope.customNode.name)) throw globalFuncs.errorMsgs[22];else if (!$scope.checkNodeUrl($scope.customNode.url)) throw globalFuncs.errorMsgs[23];else if (!$scope.Validator.isPositiveNumber($scope.customNode.port) && $scope.customNode.port !== '') throw globalFuncs.errorMsgs[24];else if ($scope.customNode.eip155 && !$scope.Validator.isPositiveNumber($scope.customNode.chainId)) throw globalFuncs.errorMsgs[25];else if ($scope.customNode.httpBasicAuth && ($scope.customNode.httpBasicAuth.user === '' || $scope.customNode.httpBasicAuth.password === '')) throw globalFuncs.errorMsgs[29];
         } catch (e) {
             $scope.notifier.danger(e);
             return;
@@ -2981,7 +3009,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
         localNodes.push(customNode);
         $scope.addCustomNodeToList(customNode);
         $scope.changeNode('cus_' + customNode.options + '_' + ($scope.customNodeCount - 1));
-        globalFuncs.localStorage.setItem("localNodes", JSON.stringify(localNodes));
+        globalFuncs.localStorage.setItem('localNodes', JSON.stringify(localNodes));
         $scope.customNodeModal.close();
         $scope.customNode = { options: 'eth', name: '', url: '', port: '', httpBasicAuth: null, eip155: false, chainId: '' };
     };
@@ -2990,7 +3018,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
         var localNodes = globalFuncs.localStorage.getItem('localNodes', null);
         localNodes = !localNodes ? [] : JSON.parse(localNodes);
         for (var i = 0; i < localNodes.length; i++) {
-            if (localNodes[i].name + ':' + localNodes[i].options == localNodeName) localNodes.splice(i, 1);
+            if (localNodes[i].name + ':' + localNodes[i].options === localNodeName) localNodes.splice(i, 1);
         }
         globalFuncs.localStorage.setItem('localNodes', JSON.stringify(localNodes));
         $scope.getCustomNodesFromStorage();
@@ -2998,10 +3026,10 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     };
 
     $scope.setTab = function (hval) {
-        if (hval != '') {
+        if (hval !== '') {
             hval = hval.replace('#', '');
             for (var key in $scope.tabNames) {
-                if ($scope.tabNames[key].url == hval) {
+                if ($scope.tabNames[key].url === hval) {
                     $scope.activeTab = globalService.currentTab = $scope.tabNames[key].id;
                     break;
                 }
@@ -3017,7 +3045,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
         globalService.tokensLoaded = false;
         $scope.activeTab = globalService.currentTab = id;
         for (var key in $scope.tabNames) {
-            if ($scope.tabNames[key].id == id) location.hash = $scope.tabNames[key].url;
+            if ($scope.tabNames[key].id === id) location.hash = $scope.tabNames[key].url;
         }
     };
 
@@ -3032,7 +3060,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     $scope.setErrorMsgLanguage = function () {
         for (var i = 0; i < globalFuncs.errorMsgs.length; i++) {
             $scope.setLanguageVal('ERROR_' + i, 'errorMsgs', i);
-        }for (var i = 0; i < globalFuncs.successMsgs.length; i++) {
+        }for (i = 0; i < globalFuncs.successMsgs.length; i++) {
             $scope.setLanguageVal('SUCCESS_' + (i + 1), 'successMsgs', i);
         }
     };
@@ -3060,7 +3088,11 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     $scope.changeLanguage = function (key, value) {
         $translate.use(key);
         $scope.setErrorMsgLanguage();
-        if (globalFuncs.getEthNodeName() == 'geth') $scope.setGethErrMsgLanguage();else $scope.setParityErrMsgLanguage();
+        if (globalFuncs.getEthNodeName() === 'geth') {
+            $scope.setGethErrMsgLanguage();
+        } else {
+            $scope.setParityErrMsgLanguage();
+        }
         $scope.curLang = value;
         $scope.setArrowVisibility();
         $scope.dropdown = false;
@@ -3072,7 +3104,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     };
     $scope.setLanguageFromStorage = function () {
         var lang = globalFuncs.localStorage.getItem('language', null);
-        if (lang == null) lang = "{\"key\":\"en\",\"value\":\"English\"}";
+        if (lang == null) lang = '{"key":"en","value":"English"}';
         lang = JSON.parse(lang);
         var key = globalFuncs.stripTags(lang.key);
         var value = globalFuncs.stripTags(lang.value);
@@ -3135,7 +3167,7 @@ var txStatusCtrl = function txStatusCtrl($scope) {
     var MIN_GAS = 182;
     $scope.txInfo = {
         status: null, // notFound foundInPending foundOnChain
-        hash: globalFuncs.urlGet('txHash') == null ? "" : globalFuncs.urlGet('txHash'),
+        hash: globalFuncs.urlGet('txHash') == null ? '' : globalFuncs.urlGet('txHash'),
         from: '',
         to: '',
         value: '',
@@ -3167,17 +3199,17 @@ var txStatusCtrl = function txStatusCtrl($scope) {
                 from: wanUtil.toChecksumAddress(tx.from),
                 to: tx.to ? wanUtil.toChecksumAddress(tx.to) : '',
                 value: new BigNumber(tx.value).toString(),
-                valueStr: etherUnits.toEther(tx.value, 'wei') + " WAN",
+                valueStr: etherUnits.toEther(tx.value, 'wei') + ' WAN',
                 gasLimit: new BigNumber(tx.gas).toString(),
                 gasPrice: {
                     wei: new BigNumber(tx.gasPrice).toString(),
                     gwei: new BigNumber(tx.gasPrice).div(etherUnits.getValueOfUnit('gwei')).toString(),
                     eth: etherUnits.toEther(tx.gasPrice, 'wei')
                 },
-                data: tx.input == '0x' ? '' : tx.input,
+                data: tx.input === '0x' ? '' : tx.input,
                 nonce: new BigNumber(tx.nonce).toString()
             };
-            if ($scope.txInfo.status == txStatus.found) {
+            if ($scope.txInfo.status === txStatus.found) {
                 var _gasPrice = new BigNumber($scope.txInfo.gasPrice.wei).mul(1.1).floor();
                 if (_gasPrice.lt(etherUnits.getValueOfUnit('gwei') * MIN_GAS)) _gasPrice = new BigNumber(etherUnits.getValueOfUnit('gwei') * MIN_GAS);
                 $scope.parentTxConfig = {
@@ -3231,12 +3263,12 @@ module.exports = viewCtrl;
 'use strict';
 
 var viewWalletCtrl = function viewWalletCtrl($scope, walletService) {
-    $scope.usdBalance = "loading";
-    $scope.gbpBalance = "loading";
-    $scope.eurBalance = "loading";
-    $scope.btcBalance = "loading";
-    $scope.etherBalance = "loading";
-    $scope.tokenVisibility = "hidden";
+    $scope.usdBalance = 'loading';
+    $scope.gbpBalance = 'loading';
+    $scope.eurBalance = 'loading';
+    $scope.btcBalance = 'loading';
+    $scope.etherBalance = 'loading';
+    $scope.tokenVisibility = 'hidden';
     $scope.pkeyVisible = false;
 
     walletService.wallet = null;
@@ -3249,10 +3281,10 @@ var viewWalletCtrl = function viewWalletCtrl($scope, walletService) {
         if (walletService.wallet == null) return;
         $scope.wallet = walletService.wallet;
         $scope.wd = true;
-        $scope.showEnc = walletService.password != '';
-        if (walletService.wallet.type == "default") $scope.blob = globalFuncs.getBlob("text/json;charset=UTF-8", $scope.wallet.toJSON());
-        if (walletService.password != '') {
-            $scope.blobEnc = globalFuncs.getBlob("text/json;charset=UTF-8", $scope.wallet.toV3(walletService.password, {
+        $scope.showEnc = walletService.password !== '';
+        if (walletService.wallet.type === 'default') $scope.blob = globalFuncs.getBlob('text/json;charset=UTF-8', $scope.wallet.toJSON());
+        if (walletService.password !== '') {
+            $scope.blobEnc = globalFuncs.getBlob('text/json;charset=UTF-8', $scope.wallet.toV3(walletService.password, {
                 kdf: globalFuncs.kdf,
                 n: globalFuncs.scrypt.n
             }));
@@ -3282,7 +3314,7 @@ var viewWalletCtrl = function viewWalletCtrl($scope, walletService) {
         $scope.wallet = null;
         walletService.wallet = null;
         walletService.password = '';
-        $scope.blob = $scope.blobEnc = $scope.password = "";
+        $scope.blob = $scope.blobEnc = $scope.password = '';
     };
 };
 module.exports = viewWalletCtrl;
@@ -3295,10 +3327,10 @@ var walletBalanceCtrl = function walletBalanceCtrl($scope, $sce, $rootScope) {
     $scope.tokensLoaded = false;
     $scope.showAllTokens = false;
     $scope.localToken = {
-        contractAdd: "",
-        symbol: "",
-        decimals: "",
-        type: "custom"
+        contractAdd: '',
+        symbol: '',
+        decimals: '',
+        type: 'custom'
     };
 
     $scope.slide = 1;
@@ -3308,12 +3340,12 @@ var walletBalanceCtrl = function walletBalanceCtrl($scope, $sce, $rootScope) {
     $scope.saveTokenToLocal = function () {
         globalFuncs.saveTokenToLocal($scope.localToken, function (data) {
             if (!data.error) {
-                $scope.addressDrtv.ensAddressField = "";
+                $scope.addressDrtv.ensAddressField = '';
                 $scope.localToken = {
-                    contractAdd: "",
-                    symbol: "",
-                    decimals: "",
-                    type: "custom"
+                    contractAdd: '',
+                    symbol: '',
+                    decimals: '',
+                    type: 'custom'
                 };
                 $scope.wallet.setTokens();
                 $scope.validateLocalToken = $sce.trustAsHtml('');
@@ -3325,7 +3357,7 @@ var walletBalanceCtrl = function walletBalanceCtrl($scope, $sce, $rootScope) {
     };
 
     $scope.setAndVerifyBalance = function (token) {
-        if (token.balance == 'Click to Load') {
+        if (token.balance === 'Click to Load') {
             token.balance = 'loading';
 
             token.setBalance(function () {
@@ -3391,10 +3423,10 @@ module.exports = walletBalanceCtrl;
 'use strict';
 
 var walletGenCtrl = function walletGenCtrl($scope) {
-    $scope.password = "";
+    $scope.password = '';
     $scope.wallet = null;
     $scope.showWallet = false;
-    $scope.blob = $scope.blobEnc = "";
+    $scope.blob = $scope.blobEnc = '';
     $scope.isDone = true;
     $scope.showPass = true;
     $scope.fileDownloaded = false;
@@ -3409,13 +3441,15 @@ var walletGenCtrl = function walletGenCtrl($scope) {
             $scope.isDone = false;
             $scope.wallet = Wallet.generate(false);
             $scope.showWallet = true;
-            $scope.blob = globalFuncs.getBlob("text/json;charset=UTF-8", $scope.wallet.toJSON());
-            $scope.blobEnc = globalFuncs.getBlob("text/json;charset=UTF-8", $scope.wallet.toV3($scope.password, {
+            $scope.blob = globalFuncs.getBlob('text/json;charset=UTF-8', $scope.wallet.toJSON());
+            $scope.blobEnc = globalFuncs.getBlob('text/json;charset=UTF-8', $scope.wallet.toV3($scope.password, {
                 kdf: globalFuncs.kdf,
                 n: globalFuncs.scrypt.n
             }));
             $scope.encFileName = $scope.wallet.getV3Filename();
-            if (parent != null) parent.postMessage(JSON.stringify({ address: $scope.wallet.getAddressString(), checksumAddress: $scope.wallet.getChecksumAddressString() }), "*");
+            if (parent != null) {
+                parent.postMessage(JSON.stringify({ address: $scope.wallet.getAddressString(), checksumAddress: $scope.wallet.getChecksumAddressString() }), '*');
+            }
             $scope.isDone = true;
             if (!$scope.$$phase) $scope.$apply();
         }
@@ -3714,85 +3748,85 @@ module.exports = [{
 var cxFuncs = function cxFuncs() {};
 cxFuncs.storage = chrome.storage.sync;
 cxFuncs.getAllNickNames = function (callback) {
-	var nickNames = [];
-	this.storage.get(null, function (items) {
-		for (var key in items) {
-			if (items.hasOwnProperty(key)) {
-				var tobj = JSON.parse(items[key]);
-				if (tobj.type == 'wallet' || tobj.type == 'watchOnly') {
-					nickNames.push(tobj.nick);
-					nickNames.push(key);
-				}
-			}
-		}
-		callback(nickNames);
-	});
+    var nickNames = [];
+    this.storage.get(null, function (items) {
+        for (var key in items) {
+            if (items.hasOwnProperty(key)) {
+                var tobj = JSON.parse(items[key]);
+                if (tobj.type === 'wallet' || tobj.type === 'watchOnly') {
+                    nickNames.push(tobj.nick);
+                    nickNames.push(key);
+                }
+            }
+        }
+        callback(nickNames);
+    });
 };
 cxFuncs.addWalletToStorage = function (address, encStr, nickname, callback) {
-	nickname = nickname.replace(/(<([^>]+)>)/ig, "");
-	var value = {
-		nick: nickname,
-		priv: encStr,
-		type: 'wallet'
-	};
-	var keyname = wanUtil.toChecksumAddress(address);
-	var obj = {};
-	obj[keyname] = JSON.stringify(value);
-	this.storage.set(obj, callback);
+    nickname = nickname.replace(/(<([^>]+)>)/ig, '');
+    var value = {
+        nick: nickname,
+        priv: encStr,
+        type: 'wallet'
+    };
+    var keyname = wanUtil.toChecksumAddress(address);
+    var obj = {};
+    obj[keyname] = JSON.stringify(value);
+    this.storage.set(obj, callback);
 };
 cxFuncs.addWatchOnlyAddress = function (address, nickname, callback) {
-	nickname = nickname.replace(/(<([^>]+)>)/ig, "");
-	var value = {
-		nick: nickname,
-		type: 'watchOnly'
-	};
-	var keyname = wanUtil.toChecksumAddress(address);
-	var obj = {};
-	obj[keyname] = JSON.stringify(value);
-	this.storage.set(obj, callback);
+    nickname = nickname.replace(/(<([^>]+)>)/ig, '');
+    var value = {
+        nick: nickname,
+        type: 'watchOnly'
+    };
+    var keyname = wanUtil.toChecksumAddress(address);
+    var obj = {};
+    obj[keyname] = JSON.stringify(value);
+    this.storage.set(obj, callback);
 };
 cxFuncs.getStorageArr = function (filter, callback) {
-	var wallets = [];
-	this.storage.get(null, function (items) {
-		for (var key in items) {
-			if (items.hasOwnProperty(key)) {
-				var tobj = JSON.parse(items[key]);
-				if (tobj.type == filter) {
-					tobj['addr'] = key;
-					wallets.push(tobj);
-				}
-			}
-		}
-		wallets.sort(function (a, b) {
-			if (a.nick < b.nick) return -1;
-			if (a.nick > b.nick) return 1;
-			return 0;
-		});
-		callback(wallets);
-	});
+    var wallets = [];
+    this.storage.get(null, function (items) {
+        for (var key in items) {
+            if (items.hasOwnProperty(key)) {
+                var tobj = JSON.parse(items[key]);
+                if (tobj.type === filter) {
+                    tobj['addr'] = key;
+                    wallets.push(tobj);
+                }
+            }
+        }
+        wallets.sort(function (a, b) {
+            if (a.nick < b.nick) return -1;
+            if (a.nick > b.nick) return 1;
+            return 0;
+        });
+        callback(wallets);
+    });
 };
 cxFuncs.getWalletsArr = function (callback) {
-	this.getStorageArr('wallet', callback);
+    this.getStorageArr('wallet', callback);
 };
 cxFuncs.getWatchOnlyArr = function (callback) {
-	this.getStorageArr('watchOnly', callback);
+    this.getStorageArr('watchOnly', callback);
 };
 cxFuncs.deleteAccount = function (address, callback) {
-	this.storage.remove(address, function () {
-		callback(address);
-	});
+    this.storage.remove(address, function () {
+        callback(address);
+    });
 };
 cxFuncs.editNickName = function (address, newNick, callback) {
-	newNick = newNick.replace(/(<([^>]+)>)/ig, "");
-	this.storage.get(address, function (account) {
-		var accountInfo = account[address];
-		accountInfo = JSON.parse(accountInfo);
-		accountInfo['nick'] = newNick;
-		account[address] = JSON.stringify(accountInfo);
-		cxFuncs.storage.set(account, function () {
-			callback(newNick);
-		});
-	});
+    newNick = newNick.replace(/(<([^>]+)>)/ig, '');
+    this.storage.get(address, function (account) {
+        var accountInfo = account[address];
+        accountInfo = JSON.parse(accountInfo);
+        accountInfo['nick'] = newNick;
+        account[address] = JSON.stringify(accountInfo);
+        cxFuncs.storage.set(account, function () {
+            callback(newNick);
+        });
+    });
 };
 module.exports = cxFuncs;
 
@@ -3806,14 +3840,14 @@ var QRCodeDrtv = function QRCodeDrtv() {
 			var value = attrs.qrCode;
 			element.empty();
 			var delay = 0;
-			if (element[0].clientWidth == 0) delay = 200;
+			if (element[0].clientWidth === 0) delay = 200;
 			setTimeout(function () {
 				new QRCode(element[0], {
 					text: value,
 					width: element[0].clientWidth,
 					height: element[0].clientWidth,
-					colorDark: "#000000",
-					colorLight: "#ffffff",
+					colorDark: '#000000',
+					colorLight: '#ffffff',
 					correctLevel: QRCode.CorrectLevel.M
 				});
 			}, delay);
@@ -3828,33 +3862,33 @@ module.exports = QRCodeDrtv;
 var wanUtil = require('wanchain-util');
 var addressFieldDrtv = function addressFieldDrtv($compile) {
     return {
-        restrict: "E",
+        restrict: 'E',
         link: function link(scope, element, attrs) {
             var varName = attrs.varName;
             var varArr = varName.split('.');
-            var placeholder = attrs.placeholder == undefined ? 'mewtopia.eth or 0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8' : attrs.placeholder;
-            var labelTranslated = attrs.labeltranslated == undefined ? 'SEND_addr' : attrs.labeltranslated;
+            var placeholder = attrs.placeholder === undefined ? 'mewtopia.eth or 0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8' : attrs.placeholder;
+            var labelTranslated = attrs.labeltranslated === undefined ? 'SEND_addr' : attrs.labeltranslated;
             var setValue = function setValue(value) {
                 var temp = scope;
                 for (var i in varArr) {
-                    if (i == varArr.length - 1) temp[varArr[i]] = value;else {
+                    if (i === varArr.length - 1) temp[varArr[i]] = value;else {
                         temp = temp[varArr[i]];
                     }
                 }
             };
             scope.addressDrtv = {
                 showDerivedAddress: false,
-                ensAddressField: globalFuncs.urlGet('to') == null ? "" : globalFuncs.urlGet('to'),
+                ensAddressField: globalFuncs.urlGet('to') == null ? '' : globalFuncs.urlGet('to'),
                 derivedAddress: '',
                 readOnly: false
             };
-            element.html('<div class=\"col-xs-11\">\n \
-                    <label translate=\"' + labelTranslated + '\"></label>\n \
-                    <input class=\"form-control\" type=\"text\" placeholder=\"' + placeholder + '\" ng-model=\"addressDrtv.ensAddressField\" ng-disabled=\"addressDrtv.readOnly\" ng-class=\"Validator.isValidENSorEtherAddress(' + varName + ') ? \'is-valid\' : \'is-invalid\'\"/>\n \
+            element.html('<div class="col-xs-11">\n \
+                    <label translate="' + labelTranslated + '"></label>\n \
+                    <input class="form-control" type="text" placeholder="' + placeholder + '" ng-model="addressDrtv.ensAddressField" ng-disabled="addressDrtv.readOnly" ng-class="Validator.isValidENSorEtherAddress(' + varName + ') ? \'is-valid\' : \'is-invalid\'"/>\n \
                     <p class="ens-response" ng-show="addressDrtv.showDerivedAddress"> ↳ <span class="mono ng-binding"> {{addressDrtv.derivedAddress}} </span> </p>\n \
                 </div>\n \
-                <div class=\"col-xs-1 address-identicon-container\">\n \
-                   <div class=\"addressIdenticon\" title=\"Address Indenticon\" blockie-address=\"{{' + varName + '}}\" watch-var=\"' + varName + '\"></div>\n \
+                <div class="col-xs-1 address-identicon-container">\n \
+                   <div class="addressIdenticon" title="Address Indenticon" blockie-address="{{' + varName + '}}" watch-var="' + varName + '"></div>\n \
                 </div>');
             scope.$watch('addressDrtv.ensAddressField', function () {
                 var _ens = new ens();
@@ -3865,7 +3899,7 @@ var addressFieldDrtv = function addressFieldDrtv($compile) {
                     }
                 } else if (Validator.isValidENSAddress(scope.addressDrtv.ensAddressField)) {
                     _ens.getAddress(scope.addressDrtv.ensAddressField, function (data) {
-                        if (data.error) uiFuncs.notifier.danger(data.msg);else if (data.data == '0x0000000000000000000000000000000000000000' || data.data == '0x') {
+                        if (data.error) uiFuncs.notifier.danger(data.msg);else if (data.data === '0x0000000000000000000000000000000000000000' || data.data === '0x') {
                             setValue('0x0000000000000000000000000000000000000000');
                             scope.addressDrtv.derivedAddress = '0x0000000000000000000000000000000000000000';
                             scope.addressDrtv.showDerivedAddress = true;
@@ -3893,7 +3927,7 @@ module.exports = "<aside ng-controller=\"walletBalanceCtrl\">\n\n\n\n\n\n  <!-- 
 
 var balanceDrtv = function balanceDrtv() {
        return {
-              restrict: "E",
+              restrict: 'E',
               template: require('./balanceDrtv.html')
        };
 };
@@ -3921,7 +3955,7 @@ module.exports = blockiesDrtv;
 
 var cxWalletDecryptDrtv = function cxWalletDecryptDrtv() {
   return {
-    restrict: "E",
+    restrict: 'E',
     template: '<div class="row" ng-controller=\'cxDecryptWalletCtrl\'>\n \
       <div class="col-md-4 col-sm-6">\n \
         <h4 translate="decrypt_Select"> Select a Wallet: </h4>\n \
@@ -3974,7 +4008,7 @@ module.exports = "<article class=\"block decrypt-drtv clearfix\" ng-controller='
 
 var walletDecryptDrtv = function walletDecryptDrtv() {
        return {
-              restrict: "E",
+              restrict: 'E',
               template: require('./walletDecryptDrtv.html')
        };
 };
@@ -4122,7 +4156,7 @@ domainsale.prototype.getDataString = function (func, inputs) {
     var funcSig = ethFuncs.getFunctionSignature(fullFuncName);
     var typeName = ethUtil.solidityUtils.extractTypeName(fullFuncName);
     var types = typeName.split(',');
-    types = types[0] == "" ? [] : types;
+    types = types[0] === '' ? [] : types;
     return '0x' + funcSig + ethUtil.solidityCoder.encodeParams(types, inputs);
 };
 domainsale.modes = {
@@ -4577,13 +4611,13 @@ var ens = function ens() {
     for (var i in registryInterface) {
         this.registryABI[registryInterface[i].name] = registryInterface[i];
     }this.resolverABI = {};
-    for (var i in resolverInterface) {
+    for (i in resolverInterface) {
         this.resolverABI[resolverInterface[i].name] = resolverInterface[i];
     }this.auctionABI = {};
-    for (var i in auctionInterface) {
+    for (i in auctionInterface) {
         this.auctionABI[auctionInterface[i].name] = auctionInterface[i];
     }this.deedABI = {};
-    for (var i in deedInterface) {
+    for (i in deedInterface) {
         this.deedABI[deedInterface[i].name] = deedInterface[i];
     }switch (ajaxReq.type) {
         case nodes.nodeTypes.WAN:
@@ -4622,8 +4656,8 @@ ens.prototype.getRegistryAddress = function () {
 function namehash(name) {
     name = ens.normalise(name);
     var node = Buffer.alloc(32);
-    if (name && name != '') {
-        var labels = name.split(".");
+    if (name && name !== '') {
+        var labels = name.split('.');
         for (var i = labels.length - 1; i >= 0; i--) {
             node = ethUtil.sha3(Buffer.concat([node, ethUtil.sha3(labels[i])]));
         }
@@ -4677,9 +4711,9 @@ ens.prototype.getName = function (name, callback) {
     var _this = this;
     name = ens.normalise(name);
     _this.getResolver(name, function (data) {
-        if (data.error || data.data == '0x') callback(data);else {
+        if (data.error || data.data === '0x') callback(data);else {
             ajaxReq.getEthCall({ to: data.data, data: _this.getDataString(_this.resolverABI.name, [namehash(name)]) }, function (data) {
-                if (data.error || data.data == '0x') callback(data);else {
+                if (data.error || data.data === '0x') callback(data);else {
                     var outTypes = _this.resolverABI.name.outputs.map(function (i) {
                         return i.type;
                     });
@@ -4694,10 +4728,10 @@ ens.prototype.resolveAddressByName = function (name, callback) {
     var _this = this;
     name = ens.normalise(name);
     _this.getOwner(name, function (data) {
-        if (data.error || data.data == '0x') callback(data);else {
+        if (data.error || data.data === '0x') callback(data);else {
             var owner = data.data;
             _this.getName(name, function (data) {
-                if (data.error || data.data == '0x') {
+                if (data.error || data.data === '0x') {
                     callback({ data: owner, error: false });
                 } else {
                     callback({ data: data.data, error: false });
@@ -4728,7 +4762,7 @@ ens.prototype.getFinalizeAuctionData = function (name) {
     return _this.getDataString(funcABI, [name]);
 };
 var isSecretHashed = function isSecretHashed(secret) {
-    return secret.substring(0, 2) == '0x' && secret.length == 66 && Validator.isValidHex(secret);
+    return secret.substring(0, 2) === '0x' && secret.length === 66 && Validator.isValidHex(secret);
 };
 ens.prototype.getRevealBidData = function (name, value, secret) {
     var _this = this;
@@ -4811,7 +4845,7 @@ ens.prototype.getDataString = function (func, inputs) {
     var funcSig = ethFuncs.getFunctionSignature(fullFuncName);
     var typeName = ethUtil.solidityUtils.extractTypeName(fullFuncName);
     var types = typeName.split(',');
-    types = types[0] == "" ? [] : types;
+    types = types[0] === '' ? [] : types;
     return '0x' + funcSig + ethUtil.solidityCoder.encodeParams(types, inputs);
 };
 module.exports = ens;
@@ -6190,30 +6224,32 @@ var ethFuncs = function ethFuncs() {};
 var wanUtil = require('wanchain-util');
 ethFuncs.gasAdjustment = 40;
 ethFuncs.validateEtherAddress = function (address) {
-    if (address.substring(0, 2) != "0x") return false;else if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) return false;else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) return true;else return this.isChecksumAddress(address);
+    if (address.substring(0, 2) !== '0x') return false;else if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) return false;else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) return true;else {
+        return this.isChecksumAddress(address);
+    }
 };
 ethFuncs.isChecksumAddress = function (address) {
-    return address == wanUtil.toChecksumAddress(address);
+    return address === wanUtil.toChecksumAddress(address);
 };
 ethFuncs.validateHexString = function (str) {
-    if (str == "") return true;
-    str = str.substring(0, 2) == '0x' ? str.substring(2).toUpperCase() : str.toUpperCase();
+    if (str === '') return true;
+    str = str.substring(0, 2) === '0x' ? str.substring(2).toUpperCase() : str.toUpperCase();
     var re = /^[0-9A-F]+$/g;
     return re.test(str);
 };
 ethFuncs.sanitizeHex = function (hex) {
-    hex = hex.substring(0, 2) == '0x' ? hex.substring(2) : hex;
-    if (hex == "") return "";
+    hex = hex.substring(0, 2) === '0x' ? hex.substring(2) : hex;
+    if (hex === '') return '';
     return '0x' + this.padLeftEven(hex);
 };
 ethFuncs.trimHexZero = function (hex) {
-    if (hex == "0x00" || hex == "0x0") return "0x0";
+    if (hex === '0x00' || hex === '0x0') return '0x0';
     hex = this.sanitizeHex(hex);
     hex = hex.substring(2).replace(/^0+/, '');
     return '0x' + hex;
 };
 ethFuncs.padLeftEven = function (hex) {
-    hex = hex.length % 2 != 0 ? '0' + hex : hex;
+    hex = hex.length % 2 !== 0 ? '0' + hex : hex;
     return hex;
 };
 ethFuncs.addTinyMoreToGas = function (hex) {
@@ -6230,7 +6266,7 @@ ethFuncs.contractOutToArray = function (hex) {
     hex = hex.replace('0x', '').match(/.{64}/g);
     for (var i = 0; i < hex.length; i++) {
         hex[i] = hex[i].replace(/^0+/, '');
-        hex[i] = hex[i] == "" ? "0" : hex[i];
+        hex[i] = hex[i] === '' ? '0' : hex[i];
     }
     return hex;
 };
@@ -6239,7 +6275,7 @@ ethFuncs.getNakedAddress = function (address) {
 };
 ethFuncs.getDeteministicContractAddress = function (address, nonce) {
     nonce = new BigNumber(nonce).toString();
-    address = address.substring(0, 2) == '0x' ? address : '0x' + address;
+    address = address.substring(0, 2) === '0x' ? address : '0x' + address;
     return '0x' + ethUtil.generateAddress(address, nonce).toString('hex');
 };
 ethFuncs.padLeft = function (n, width, z) {
@@ -6248,7 +6284,7 @@ ethFuncs.padLeft = function (n, width, z) {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 };
 ethFuncs.getDataObj = function (to, func, arrVals) {
-    var val = "";
+    var val = '';
     for (var i = 0; i < arrVals.length; i++) {
         val += this.padLeft(arrVals[i], 64);
     }return {
@@ -6261,8 +6297,8 @@ ethFuncs.getFunctionSignature = function (name) {
 };
 ethFuncs.estimateGas = function (dataObj, callback) {
     var adjustGas = function adjustGas(gasLimit) {
-        if (gasLimit == "0x5209") return "21000";
-        if (new BigNumber(gasLimit).gt(4000000)) return "-1";
+        if (gasLimit === '0x5209') return '21000';
+        if (new BigNumber(gasLimit).gt(4000000)) return '-1';
         return new BigNumber(gasLimit).toString();
     };
     ajaxReq.getEstimatedGas(dataObj, function (data) {
@@ -6271,9 +6307,9 @@ ethFuncs.estimateGas = function (dataObj, callback) {
             return;
         } else {
             callback({
-                "error": false,
-                "msg": "",
-                "data": adjustGas(data.data)
+                'error': false,
+                'msg': '',
+                'data': adjustGas(data.data)
             });
         }
     });
@@ -6360,14 +6396,14 @@ globalFuncs.getBlockie = function (address) {
     }).toDataURL();
 };
 globalFuncs.printPaperWallets = function (strJson) {
-    var win = window.open("about:blank", "_blank");
-    var data = "<html>\r\n\r\n<head>\r\n <link rel=\"stylesheet\" href=\"css\/etherwallet-master.min.css\" \/>\r\n <script type=\"text\/javascript\" src=\"js\/jquery-1.12.3.min.js\"><\/script>\r\n <script type=\"text\/javascript\" src=\"js\/etherwallet-static.min.js\"><\/script>\r\n <script type=\"text\/javascript\">\r\n function getBlockie(address) {\r\n return blockies.create({\r\n seed: address.toLowerCase(),\r\n size: 8,\r\n scale: 16\r\n }).toDataURL();\r\n    }\r\n    function generateWallets() {\r\n var json = JSON.parse($(\"#printwalletjson\").html());\r\n for (var i = 0; i < json.length; i++) {\r\n var walletTemplate = $(\'<div\/>\').append($(\"#print-container\").clone());\r\n new QRCode($(walletTemplate).find(\"#paperwalletaddqr\")[0], {\r\n text: json[i][\'address\'],\r\n colorDark: \"#000000\",\r\n colorLight: \"#ffffff\",\r\n correctLevel: QRCode.CorrectLevel.H\r\n });\r\n new QRCode($(walletTemplate).find(\"#paperwalletprivqr\")[0], {\r\n text: json[i][\'private\'],\r\n colorDark: \"#000000\",\r\n colorLight: \"#ffffff\",\r\n correctLevel: QRCode.CorrectLevel.H\r\n });\r\n $(walletTemplate).find(\"#paperwalletadd\").html(json[i][\'address\']);\r\n $(walletTemplate).find(\"#paperwalletpriv\").html(json[i][\'private\']);\r\n $(walletTemplate).find(\"#identicon\").css(\'background-image\',\'url(\' + getBlockie(json[i][\'address\']) +\')\');\r\n walletTemplate = $(walletTemplate).find(\"#print-container\").show();\r\n $(\"body\").append(walletTemplate);\r\n }\r\n setTimeout(function() {\r\n window.print();\r\n }, 2000);\r\n    }\r\n    <\/script>\r\n<\/head>\r\n\r\n<body><span id=\"printwalletjson\" style=\"display: none;\">{{WALLETJSON}}<\/span>\r\n    <div class=\"print-container\" style=\"display: none; margin-bottom: 50px;\" id=\"print-container\"><img src=\"images\/logo-ethereum-1.png\" class=\"ether-logo-1\" height=\"100%\" width=\"auto\" \/> <div id=\"identicon\" class=\"addressIdenticon med float\"><\/div>\r\n <img src=\"images\/print-sidebar.png\" height=\"100%\" width=\"auto\" class=\"print-title\" \/>\r\n <div class=\"print-qr-code-1\">\r\n <div id=\"paperwalletaddqr\"><\/div>\r\n <p class=\"print-text\" style=\"padding-top: 25px;\">YOUR ADDRESS<\/p>\r\n <\/div>\r\n <div class=\"print-notes\"><img src=\"images\/notes-bg.png\" width=\"90%;\" height=\"auto\" class=\"pull-left\" \/>\r\n <p class=\"print-text\">AMOUNT \/ NOTES<\/p>\r\n <\/div>\r\n <div class=\"print-qr-code-2\">\r\n <div id=\"paperwalletprivqr\"><\/div>\r\n <p class=\"print-text\" style=\"padding-top: 30px;\">YOUR PRIVATE KEY<\/p>\r\n <\/div>\r\n <div class=\"print-address-container\">\r\n <p><strong>Your Address:<\/strong>\r\n <br \/><span id=\"paperwalletadd\"><\/span><\/p>\r\n <p><strong>Your Private Key:<\/strong>\r\n <br \/><span id=\"paperwalletpriv\"><\/span><\/p>\r\n <\/div>\r\n    <\/div>\r\n<\/body>\r\n\r\n<\/html>\r\n";
-    data = data.replace("{{WALLETJSON}}", strJson);
+    var win = window.open('about:blank', '_blank');
+    var data = "<html>\r\n\r\n<head>\r\n <link rel=\"stylesheet\" href=\"css/etherwallet-master.min.css\" />\r\n <script type=\"text/javascript\" src=\"js/jquery-1.12.3.min.js\"></script>\r\n <script type=\"text/javascript\" src=\"js/etherwallet-static.min.js\"></script>\r\n <script type=\"text/javascript\">\r\n function getBlockie(address) {\r\n return blockies.create({\r\n seed: address.toLowerCase(),\r\n size: 8,\r\n scale: 16\r\n }).toDataURL();\r\n    }\r\n    function generateWallets() {\r\n var json = JSON.parse($(\"#printwalletjson\").html());\r\n for (var i = 0; i < json.length; i++) {\r\n var walletTemplate = $('<div/>').append($(\"#print-container\").clone());\r\n new QRCode($(walletTemplate).find(\"#paperwalletaddqr\")[0], {\r\n text: json[i]['address'],\r\n colorDark: \"#000000\",\r\n colorLight: \"#ffffff\",\r\n correctLevel: QRCode.CorrectLevel.H\r\n });\r\n new QRCode($(walletTemplate).find(\"#paperwalletprivqr\")[0], {\r\n text: json[i]['private'],\r\n colorDark: \"#000000\",\r\n colorLight: \"#ffffff\",\r\n correctLevel: QRCode.CorrectLevel.H\r\n });\r\n $(walletTemplate).find(\"#paperwalletadd\").html(json[i]['address']);\r\n $(walletTemplate).find(\"#paperwalletpriv\").html(json[i]['private']);\r\n $(walletTemplate).find(\"#identicon\").css('background-image','url(' + getBlockie(json[i]['address']) +')');\r\n walletTemplate = $(walletTemplate).find(\"#print-container\").show();\r\n $(\"body\").append(walletTemplate);\r\n }\r\n setTimeout(function() {\r\n window.print();\r\n }, 2000);\r\n    }\r\n    </script>\r\n</head>\r\n\r\n<body><span id=\"printwalletjson\" style=\"display: none;\">{{WALLETJSON}}</span>\r\n    <div class=\"print-container\" style=\"display: none; margin-bottom: 50px;\" id=\"print-container\"><img src=\"images/logo-ethereum-1.png\" class=\"ether-logo-1\" height=\"100%\" width=\"auto\" /> <div id=\"identicon\" class=\"addressIdenticon med float\"></div>\r\n <img src=\"images/print-sidebar.png\" height=\"100%\" width=\"auto\" class=\"print-title\" />\r\n <div class=\"print-qr-code-1\">\r\n <div id=\"paperwalletaddqr\"></div>\r\n <p class=\"print-text\" style=\"padding-top: 25px;\">YOUR ADDRESS</p>\r\n </div>\r\n <div class=\"print-notes\"><img src=\"images/notes-bg.png\" width=\"90%;\" height=\"auto\" class=\"pull-left\" />\r\n <p class=\"print-text\">AMOUNT / NOTES</p>\r\n </div>\r\n <div class=\"print-qr-code-2\">\r\n <div id=\"paperwalletprivqr\"></div>\r\n <p class=\"print-text\" style=\"padding-top: 30px;\">YOUR PRIVATE KEY</p>\r\n </div>\r\n <div class=\"print-address-container\">\r\n <p><strong>Your Address:</strong>\r\n <br /><span id=\"paperwalletadd\"></span></p>\r\n <p><strong>Your Private Key:</strong>\r\n <br /><span id=\"paperwalletpriv\"></span></p>\r\n </div>\r\n    </div>\r\n</body>\r\n\r\n</html>\r\n";
+    data = data.replace('{{WALLETJSON}}', strJson);
     win.document.write(data);
-    win.document.write("<script>generateWallets();</script>");
+    win.document.write('<script>generateWallets();</script>');
 };
 globalFuncs.getBlob = function (mime, str) {
-    var str = (typeof str === "undefined" ? "undefined" : _typeof(str)) === 'object' ? JSON.stringify(str) : str;
+    str = (typeof str === 'undefined' ? 'undefined' : _typeof(str)) === 'object' ? JSON.stringify(str) : str;
     if (str == null) return '';
     var blob = new Blob([str], {
         type: mime
@@ -6421,8 +6457,7 @@ globalFuncs.errorMsgs = ['Please enter a valid amount.', // 0
 'Please enter valid TX hash', // 36
 'Please enter valid hex string. Hex only contains: 0x, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, a, b, c, d, e, f', // 37
 'Offer must have either price or reserve set to more than 0', // 38
-'Bid must be more than the specified minimum' // 39
-];
+'Bid must be more than the specified minimum'];
 
 // These are translated in the translation files
 globalFuncs.successMsgs = ['Valid address', 'Wallet successfully decrypted', 'Transaction submitted. TX Hash: ', 'Your wallet was successfully added: ', 'File Selected: ', 'You are connected to the node ', 'Message Signature Verified'];
@@ -6430,7 +6465,7 @@ globalFuncs.successMsgs = ['Valid address', 'Wallet successfully decrypted', 'Tr
 // These are translated in the translation files
 globalFuncs.gethErrors = {
     '(geth-06) Invalid sender\\.': 'GETH_InvalidSender',
-    "(geth-08) This TX's [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html) is too low\\. Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)\\.": "GETH_Nonce",
+    "(geth-08) This TX's [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html) is too low\\. Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)\\.": 'GETH_Nonce',
     '(geth-02) Gas price too low for acceptance\\. Try raising the gas price to 21 GWEI via the dropdown in top-right\\.': 'GETH_Cheap',
     '(geth-01) Insufficient balance\\. Your gas limit * gas price + amount to send exceeds your current balance\\. Send more ETH to your account or use the "Send Entire Balance" button\\. If you believe this is in error, try pressing generate again\\. Required (d+) WEI and got: (d+) WEI\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)': 'GETH_Balance',
     '(geth-09) Account does not exist or account balance too low\\.': 'GETH_NonExistentAccount',
@@ -6453,20 +6488,20 @@ globalFuncs.getGethMsg = function (str) {
 
 // These are translated in the translation files
 globalFuncs.parityErrors = {
-    "A (parity-01) A transaction with the same hash was already imported. It was probably already broadcast. To avoid duplicate transactions, check your address on [wanscan.io](https://wanscan.io) & wait 10 minutes before attempting to send again. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\. This means it was already broadcast. Please check your address on wanscan.io & wait 10 minutes before attempting to send again to avoid duplicate transactions. <a target='_blank' rel='noopener noreferrer' href='https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html'>Learn more</a>": "PARITY_AlreadyImported",
-    "(parity-07) There is already a transaction with this [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html)\\. Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)\\.": "PARITY_Old",
-    "(parity-04) There is another transaction with same nonce in the queue, or the transaction fee is too low\\. Try incrementing the nonce by clicking the Generate button again\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": "PARITY_TooCheapToReplace",
-    "(parity-06) There are too many transactions in the queue\\. Your transaction was dropped due to limit\\. Try increasing the gas price\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": "PARITY_LimitReached",
-    "(parity-08) TX Fee is too low\\. It does not satisfy your node's minimal fee (minimal: (d+) WEI, got: (d+) WEI)\\. Try increasing the gas price and/or gas limit\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": "PARITY_InsufficientGasPrice",
-    "(parity-03) Insufficient balance\\. The account you tried to send transaction from does not have enough funds\\. If you believe this is in error, try using the 'Send Entire Balance' button, or pressing generate again. Required (d+) WEI and got: (d+) WEI\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": "ERROR_17",
-    "(parity-02) Transaction cost exceeds current gas limit\\. Limit: (d+) WEI, got: (d+) WEI\\. Please lower the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again\\. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)\\.": "PARITY_GasLimitExceeded",
-    "(parity-05) Supplied gas limit is beyond limit\\. Try lowering the gas limit to 21000\\. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)\\.": "PARITY_InvalidGasLimit"
+    "A (parity-01) A transaction with the same hash was already imported. It was probably already broadcast. To avoid duplicate transactions, check your address on [wanscan.io](https://wanscan.io) & wait 10 minutes before attempting to send again. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\. This means it was already broadcast. Please check your address on wanscan.io & wait 10 minutes before attempting to send again to avoid duplicate transactions. <a target='_blank' rel='noopener noreferrer' href='https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html'>Learn more</a>": 'PARITY_AlreadyImported',
+    '(parity-07) There is already a transaction with this [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html)\\. Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)\\.': 'PARITY_Old',
+    '(parity-04) There is another transaction with same nonce in the queue, or the transaction fee is too low\\. Try incrementing the nonce by clicking the Generate button again\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.': 'PARITY_TooCheapToReplace',
+    '(parity-06) There are too many transactions in the queue\\. Your transaction was dropped due to limit\\. Try increasing the gas price\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.': 'PARITY_LimitReached',
+    "(parity-08) TX Fee is too low\\. It does not satisfy your node's minimal fee (minimal: (d+) WEI, got: (d+) WEI)\\. Try increasing the gas price and/or gas limit\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": 'PARITY_InsufficientGasPrice',
+    "(parity-03) Insufficient balance\\. The account you tried to send transaction from does not have enough funds\\. If you believe this is in error, try using the 'Send Entire Balance' button, or pressing generate again. Required (d+) WEI and got: (d+) WEI\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": 'ERROR_17',
+    '(parity-02) Transaction cost exceeds current gas limit\\. Limit: (d+) WEI, got: (d+) WEI\\. Please lower the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again\\. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)\\.': 'PARITY_GasLimitExceeded',
+    '(parity-05) Supplied gas limit is beyond limit\\. Try lowering the gas limit to 21000\\. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)\\.': 'PARITY_InvalidGasLimit'
 };
 globalFuncs.parityErrorMsgs = {};
 globalFuncs.getParityMsg = function (str) {
     for (var reg in this.parityErrors) {
         if (this.parityErrors.hasOwnProperty(reg)) {
-            var args = str.match("^" + reg + "$");
+            var args = str.match('^' + reg + '$');
             if (args) {
                 var key = this.parityErrors[reg];
                 if (key in this.parityErrorMsgs) {
@@ -6480,39 +6515,43 @@ globalFuncs.getParityMsg = function (str) {
 };
 globalFuncs.getEthNodeName = function () {
     //  return "geth";
-    return "parity";
+    return 'parity';
 };
 globalFuncs.getEthNodeMsg = function (str) {
     var ethNode = this.getEthNodeName();
-    if (ethNode == "geth") return this.getGethMsg(str);else return this.getParityMsg(str);
+    if (ethNode === 'geth') return this.getGethMsg(str);else {
+        return this.getParityMsg(str);
+    }
 };
 globalFuncs.scrypt = {
     n: 8192
 };
 globalFuncs.postDelay = 300;
-globalFuncs.kdf = "scrypt";
+globalFuncs.kdf = 'scrypt';
 globalFuncs.defaultTxGasLimit = 21000;
 globalFuncs.defaultTokenGasLimit = 200000;
-globalFuncs.donateAddress = "0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8";
+globalFuncs.donateAddress = '0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8';
 globalFuncs.isNumeric = function (n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
 globalFuncs.urlGet = function (name) {
     name = name.toLowerCase();
-    if (name = new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)').exec(location.search.toLowerCase())) return this.stripTags(decodeURIComponent(name[1]));
+    // if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search.toLowerCase())) return this.stripTags(decodeURIComponent(name[1]))
+    name = new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)').exec(location.search.toLowerCase());
+    if (name !== null) return stripTags(decodeURIComponent(name[1]));
 };
 globalFuncs.stripTags = function (str) {
     var SCRIPT_REGEX = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
     while (SCRIPT_REGEX.test(str)) {
-        str = str.replace(SCRIPT_REGEX, "");
+        str = str.replace(SCRIPT_REGEX, '');
     }
     return str;
 };
 globalFuncs.checkAndRedirectHTTPS = function () {
-    var host = "www.mywanwallet.nl";
-    var hostw = "https://mywanwallet.nl";
+    var host = 'www.mywanwallet.nl';
+    var hostw = 'https://mywanwallet.nl';
     var path = window.location.pathname;
-    if (host == window.location.host) window.location = hostw + path;
+    if (host === window.location.host) window.location = hostw + path;
 };
 globalFuncs.isStrongPass = function (password) {
     return password.length > 8;
@@ -6550,9 +6589,9 @@ globalFuncs.getDefaultTokensAndNetworkType = function getDefaultTokensAndNetwork
 
     var nodeErrMsg = 'Node does not exist, contact support@mywanwallet.nl CODE:localstorageNodeMissing';
     // localStorage selected node
-    var currentNodeKey = getFromLS("curNode", nodeErrMsg).key;
+    var currentNodeKey = getFromLS('curNode', nodeErrMsg).key;
     // custom nodes in local storage
-    var customLocalNodes = getFromLS("localNodes") || [];
+    var customLocalNodes = getFromLS('localNodes') || [];
 
     var customNodeNetworkType = currentNodeKey.split('_')[1];
 
@@ -6573,12 +6612,12 @@ globalFuncs.getDefaultTokensAndNetworkType = function getDefaultTokensAndNetwork
 
         // if the reference the custom local node is invalid, throw
         if (!firstCustomNodeWithMatchingNetwork) {
-            throw Error("Custom Local Node does not exist. Please clear local storage, and re-input your custom node.");
+            throw Error('Custom Local Node does not exist. Please clear local storage, and re-input your custom node.');
         }
     } else {
         defaultNode = defaultNodes[currentNodeKey];
         if (!defaultNode) {
-            throw Error("Default Node does not exist. Please clear local storage and try again.");
+            throw Error('Default Node does not exist. Please clear local storage and try again.');
         }
     }
 
@@ -6636,10 +6675,10 @@ globalFuncs.saveTokenToLocal = function (localToken, callback) {
             throw globalFuncs.errorMsgs[5];
         } else if (!globalFuncs.isNumeric(localToken.decimals) || parseFloat(localToken.decimals) < 0) {
             throw globalFuncs.errorMsgs[7];
-        } else if (!globalFuncs.isAlphaNumeric(localToken.symbol) || localToken.symbol == "") {
+        } else if (!globalFuncs.isAlphaNumeric(localToken.symbol) || localToken.symbol === '') {
             throw globalFuncs.errorMsgs[19];
         }
-        var storedTokens = globalFuncs.localStorage.getItem("localTokens", null) != null ? JSON.parse(globalFuncs.localStorage.getItem("localTokens")) : [];
+        var storedTokens = globalFuncs.localStorage.getItem('localTokens', null) != null ? JSON.parse(globalFuncs.localStorage.getItem('localTokens')) : [];
 
         // catch if TOKEN SYMBOL is already in storedTokens
         for (var i = 0; i < storedTokens.length; i++) {
@@ -6649,7 +6688,7 @@ globalFuncs.saveTokenToLocal = function (localToken, callback) {
         }
 
         // catch if CONTRACT ADDRESS is already in storedTokens
-        for (var i = 0; i < storedTokens.length; i++) {
+        for (i = 0; i < storedTokens.length; i++) {
             if (storedTokens[i].contractAddress.toLowerCase().replace(/ /g, '') === localToken.contractAdd.toLowerCase().replace(/ /g, '')) {
                 throw Error('Unable to add custom token. It has the same address as custom token ' + storedTokens[i].symbol + '. Try clicking the "Load Tokens" button to see it. :)');
             }
@@ -6666,11 +6705,11 @@ globalFuncs.saveTokenToLocal = function (localToken, callback) {
             contractAddress: localToken.contractAdd,
             symbol: localToken.symbol,
             decimal: parseInt(localToken.decimals),
-            type: "custom",
+            type: 'custom',
             network: globalFuncs.getDefaultTokensAndNetworkType().networkType
         });
 
-        globalFuncs.localStorage.setItem("localTokens", JSON.stringify(storedTokens));
+        globalFuncs.localStorage.setItem('localTokens', JSON.stringify(storedTokens));
 
         callback({
             error: false
@@ -6683,17 +6722,18 @@ globalFuncs.saveTokenToLocal = function (localToken, callback) {
     }
 };
 globalFuncs.removeTokenFromLocal = function (symbol, tokenObj) {
-    var storedTokens = globalFuncs.localStorage.getItem("localTokens", null) != null ? JSON.parse(globalFuncs.localStorage.getItem("localTokens", null)) : [];
+    var storedTokens = globalFuncs.localStorage.getItem('localTokens', null) != null ? JSON.parse(globalFuncs.localStorage.getItem('localTokens', null)) : [];
     // remove from localstorage so it doesn't show up on refresh
     for (var i = 0; i < storedTokens.length; i++) {
         if (storedTokens[i].symbol === symbol) {
             storedTokens.splice(i, 1);
             break;
         }
-    }globalFuncs.localStorage.setItem("localTokens", JSON.stringify(storedTokens));
+    }
+    globalFuncs.localStorage.setItem('localTokens', JSON.stringify(storedTokens));
     if (!tokenObj) return;
     // remove from tokenObj so it removes from display
-    for (var i = 0; i < tokenObj.length; i++) {
+    for (i = 0; i < tokenObj.length; i++) {
         if (tokenObj[i].symbol === symbol) {
             tokenObj.splice(i, 1);
             break;
@@ -6717,7 +6757,7 @@ globalFuncs.localStorage = {
         }
     },
     getItem: function getItem(key) {
-        var dValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+        var dValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
         if (this.isAvailable()) {
             return localStorage.getItem(key);
@@ -6734,8 +6774,9 @@ module.exports = globalFuncs;
 
 function storageAvailable(type) {
   try {
-    var storage = window[type],
-        x = '__storage_test__';
+    var storage = window[type];
+
+    var x = '__storage_test__';
     storage.setItem(x, x);
     storage.removeItem(x);
     return true;
@@ -6756,10 +6797,9 @@ function storageAvailable(type) {
 }
 
 if (!storageAvailable('localStorage')) {
-  Object.defineProperty(window, "localStorage", new function () {
-    var aKeys = [],
-        oStorage = {};
-    Object.defineProperty(oStorage, "getItem", {
+  Object.defineProperty(window, 'localStorage', new function () {
+    var aKeys = [];var oStorage = {};
+    Object.defineProperty(oStorage, 'getItem', {
       value: function value(sKey) {
         return sKey ? this[sKey] : null;
       },
@@ -6767,7 +6807,7 @@ if (!storageAvailable('localStorage')) {
       configurable: false,
       enumerable: false
     });
-    Object.defineProperty(oStorage, "key", {
+    Object.defineProperty(oStorage, 'key', {
       value: function value(nKeyId) {
         return aKeys[nKeyId];
       },
@@ -6775,30 +6815,30 @@ if (!storageAvailable('localStorage')) {
       configurable: false,
       enumerable: false
     });
-    Object.defineProperty(oStorage, "setItem", {
+    Object.defineProperty(oStorage, 'setItem', {
       value: function value(sKey, sValue) {
         if (!sKey) {
           return;
         }
-        document.cookie = escape(sKey) + "=" + escape(sValue) + "; expires=Tue, 19 Jan 2038 03:14:07 GMT; path=/";
+        document.cookie = escape(sKey) + '=' + escape(sValue) + '; expires=Tue, 19 Jan 2038 03:14:07 GMT; path=/';
       },
       writable: false,
       configurable: false,
       enumerable: false
     });
-    Object.defineProperty(oStorage, "length", {
+    Object.defineProperty(oStorage, 'length', {
       get: function get() {
         return aKeys.length;
       },
       configurable: false,
       enumerable: false
     });
-    Object.defineProperty(oStorage, "removeItem", {
+    Object.defineProperty(oStorage, 'removeItem', {
       value: function value(sKey) {
         if (!sKey) {
           return;
         }
-        document.cookie = escape(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+        document.cookie = escape(sKey) + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
       },
       writable: false,
       configurable: false,
@@ -6839,7 +6879,7 @@ module.exports = null;
 
 require('./localStoragePolyfill');
 var IS_CX = false;
-if (typeof chrome != 'undefined') IS_CX = chrome.windows === undefined ? false : true;
+if (typeof chrome !== 'undefined') IS_CX = chrome.windows !== undefined;
 var angular = require('angular');
 var angularTranslate = require('angular-translate');
 var angularTranslateErrorLog = require('angular-translate-handler-log');
@@ -6989,14 +7029,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var wanUtil = require('wanchain-util');
 var Wallet = function Wallet(priv, pub, path, hwType, hwTransport) {
-    if (typeof priv != "undefined") {
-        this.privKey = priv.length == 32 ? priv : Buffer(priv, 'hex');
+    if (typeof priv !== 'undefined') {
+        this.privKey = priv.length === 32 ? priv : Buffer(priv, 'hex');
     }
     this.pubKey = pub;
     this.path = path;
     this.hwType = hwType;
     this.hwTransport = hwTransport;
-    this.type = "default";
+    this.type = 'default';
 };
 Wallet.generate = function (icapDirect) {
     if (icapDirect) {
@@ -7020,7 +7060,7 @@ Wallet.prototype.setTokens = function () {
         this.tokenObjs.push(new Token(tokens[i].address, this.getAddressString(), tokens[i].symbol, tokens[i].decimal, tokens[i].type));
 
         var autoTokens = globalFuncs.localStorage.getItem('autoLoadTokens');
-        var autoLoadTokens = autoTokens ? autoTokens : [];
+        var autoLoadTokens = autoTokens || [];
         var thisAddr = tokens[i].address;
 
         if (autoLoadTokens.indexOf(thisAddr) > -1) {
@@ -7079,7 +7119,7 @@ function removeDuplicates(originalArray, objKey) {
 function removeAllTokenConflicts(conflictWithDefaultTokens, localTokens) {
     var deConflictedTokens = removeConflictingTokensFromLocalStorage(conflictWithDefaultTokens, localTokens);
     var deDuplicatedTokens = removeDuplicates(deConflictedTokens, 'symbol');
-    saveToLocalStorage("localTokens", deDuplicatedTokens);
+    saveToLocalStorage('localTokens', deDuplicatedTokens);
 }
 
 Wallet.prototype.setBalance = function (callback) {
@@ -7123,28 +7163,28 @@ Wallet.prototype.getPrivateKey = function () {
     return this.privKey;
 };
 Wallet.prototype.getPrivateKeyString = function () {
-    if (typeof this.privKey != "undefined") {
+    if (typeof this.privKey !== 'undefined') {
         return this.getPrivateKey().toString('hex');
     } else {
-        return "";
+        return '';
     }
 };
 Wallet.prototype.getPublicKey = function () {
-    if (typeof this.pubKey == "undefined") {
+    if (typeof this.pubKey === 'undefined') {
         return ethUtil.privateToPublic(this.privKey);
     } else {
         return this.pubKey;
     }
 };
 Wallet.prototype.getPublicKeyString = function () {
-    if (typeof this.pubKey == "undefined") {
+    if (typeof this.pubKey === 'undefined') {
         return '0x' + this.getPublicKey().toString('hex');
     } else {
-        return "0x" + this.pubKey.toString('hex');
+        return '0x' + this.pubKey.toString('hex');
     }
 };
 Wallet.prototype.getAddress = function () {
-    if (typeof this.pubKey == "undefined") {
+    if (typeof this.pubKey === 'undefined') {
         return ethUtil.privateToAddress(this.privKey);
     } else {
         return ethUtil.publicToAddress(this.pubKey, true);
@@ -7163,7 +7203,7 @@ Wallet.fromParityPhrase = function (phrase) {
     var hash = ethUtil.sha3(new Buffer(phrase));
     for (var i = 0; i < 16384; i++) {
         hash = ethUtil.sha3(hash);
-    }while (ethUtil.privateToAddress(hash)[0] != 0) {
+    }while (ethUtil.privateToAddress(hash)[0] !== 0) {
         hash = ethUtil.sha3(hash);
     }return new Wallet(hash);
 };
@@ -7220,7 +7260,7 @@ Wallet.prototype.toJSON = function () {
         checksumAddress: this.getChecksumAddressString(),
         privKey: this.getPrivateKeyString(),
         pubKey: this.getPublicKeyString(),
-        publisher: "MyEtherWallet",
+        publisher: 'MyEtherWallet',
         encrypted: false,
         version: 2
     };
@@ -7380,11 +7420,15 @@ Wallet.walletRequirePass = function (ethjson) {
     } catch (err) {
         throw globalFuncs.errorMsgs[3];
     }
-    if (jsonArr.encseed != null) return true;else if (jsonArr.Crypto != null || jsonArr.crypto != null) return true;else if (jsonArr.hash != null && jsonArr.locked) return true;else if (jsonArr.hash != null && !jsonArr.locked) return false;else if (jsonArr.publisher == "MyEtherWallet" && !jsonArr.encrypted) return false;else throw globalFuncs.errorMsgs[2];
+    if (jsonArr.encseed != null) return true;else if (jsonArr.Crypto != null || jsonArr.crypto != null) return true;else if (jsonArr.hash != null && jsonArr.locked) return true;else if (jsonArr.hash != null && !jsonArr.locked) return false;else if (jsonArr.publisher === 'MyEtherWallet' && !jsonArr.encrypted) return false;else {
+        throw globalFuncs.errorMsgs[2];
+    }
 };
 Wallet.getWalletFromPrivKeyFile = function (strjson, password) {
     var jsonArr = JSON.parse(strjson);
-    if (jsonArr.encseed != null) return Wallet.fromEthSale(strjson, password);else if (jsonArr.Crypto != null || jsonArr.crypto != null) return Wallet.fromV3(strjson, password, true);else if (jsonArr.hash != null) return Wallet.fromMyEtherWallet(strjson, password);else if (jsonArr.publisher == "MyEtherWallet") return Wallet.fromMyEtherWalletV2(strjson);else throw globalFuncs.errorMsgs[2];
+    if (jsonArr.encseed != null) return Wallet.fromEthSale(strjson, password);else if (jsonArr.Crypto != null || jsonArr.crypto != null) return Wallet.fromV3(strjson, password, true);else if (jsonArr.hash != null) return Wallet.fromMyEtherWallet(strjson, password);else if (jsonArr.publisher === 'MyEtherWallet') return Wallet.fromMyEtherWalletV2(strjson);else {
+        throw globalFuncs.errorMsgs[2];
+    }
 };
 module.exports = Wallet;
 
@@ -7395,7 +7439,7 @@ module.exports = Wallet;
 var customNode = function customNode(srvrUrl, port, httpBasicAuthentication) {
     this.SERVERURL = port ? srvrUrl + ':' + port : srvrUrl;
     if (httpBasicAuthentication) {
-        var authorization = 'Basic ' + btoa(httpBasicAuthentication.user + ":" + httpBasicAuthentication.password);
+        var authorization = 'Basic ' + btoa(httpBasicAuthentication.user + ':' + httpBasicAuthentication.password);
         this.config.headers['Authorization'] = authorization;
     }
 };
@@ -7438,7 +7482,7 @@ customNode.prototype.getTransaction = function (txHash, callback) {
 customNode.prototype.getTransactionData = function (addr, callback) {
     var response = { error: false, msg: '', data: { address: addr, balance: '', gasprice: '', nonce: '' } };
     var parentObj = this;
-    var reqObj = [{ "id": parentObj.getRandomID(), "jsonrpc": "2.0", "method": "eth_getBalance", "params": [addr, 'pending'] }, { "id": parentObj.getRandomID(), "jsonrpc": "2.0", "method": "eth_gasPrice", "params": [] }, { "id": parentObj.getRandomID(), "jsonrpc": "2.0", "method": "eth_getTransactionCount", "params": [addr, 'pending'] }];
+    var reqObj = [{ 'id': parentObj.getRandomID(), 'jsonrpc': '2.0', 'method': 'eth_getBalance', 'params': [addr, 'pending'] }, { 'id': parentObj.getRandomID(), 'jsonrpc': '2.0', 'method': 'eth_gasPrice', 'params': [] }, { 'id': parentObj.getRandomID(), 'jsonrpc': '2.0', 'method': 'eth_getTransactionCount', 'params': [addr, 'pending'] }];
     this.rawPost(reqObj, function (data) {
         for (var i in data) {
             if (data[i].error) {
@@ -7488,13 +7532,13 @@ customNode.prototype.getEthCall = function (txobj, callback) {
             });
         }, 500);
     }
-    ethCallArr.calls.push({ "id": parentObj.getRandomID(), "jsonrpc": "2.0", "method": "eth_call", "params": [{ to: txobj.to, data: txobj.data }, 'pending'] });
+    ethCallArr.calls.push({ 'id': parentObj.getRandomID(), 'jsonrpc': '2.0', 'method': 'eth_call', 'params': [{ to: txobj.to, data: txobj.data }, 'pending'] });
     ethCallArr.callbacks.push(callback);
 };
 customNode.prototype.getTraceCall = function (txobj, callback) {
     this.post({
         method: 'trace_call',
-        params: [txobj, ["stateDiff", "trace", "vmTrace"]]
+        params: [txobj, ['stateDiff', 'trace', 'vmTrace']]
     }, function (data) {
         if (data.error) callback({ error: true, msg: data.error.message, data: '' });else callback({ error: false, msg: '', data: data.result });
     });
@@ -7503,7 +7547,7 @@ customNode.prototype.rawPost = function (data, callback) {
     ajaxReq.http.post(this.SERVERURL, JSON.stringify(data), this.config).then(function (data) {
         callback(data.data);
     }, function (data) {
-        callback({ error: true, msg: "connection error", data: "" });
+        callback({ error: true, msg: 'connection error', data: '' });
     });
 };
 customNode.prototype.getRandomID = function () {
@@ -7511,7 +7555,7 @@ customNode.prototype.getRandomID = function () {
 };
 customNode.prototype.post = function (data, callback) {
     data.id = this.getRandomID();
-    data.jsonrpc = "2.0";
+    data.jsonrpc = '2.0';
     this.rawPost(data, callback);
 };
 module.exports = customNode;
@@ -7563,7 +7607,7 @@ function forEachPayload(maybeArray, fn) {
 'use strict';
 
 var wanPrice = function wanPrice() {};
-var CCRATEAPI = "https://min-api.cryptocompare.com/data/price?fsym=WAN&tsyms=USD,EUR,GBP,BTC,CHF,REP";
+var CCRATEAPI = 'https://min-api.cryptocompare.com/data/price?fsym=WAN&tsyms=USD,EUR,GBP,BTC,CHF,REP';
 wanPrice.getWANvalue = function (callback) {
     ajaxReq.http.get(CCRATEAPI).then(function (data) {
         data = data['data'];
@@ -7587,8 +7631,8 @@ var nodes = function nodes() {};
 nodes.customNode = require('./nodeHelpers/customNode');
 nodes.metamaskNode = require('./nodeHelpers/metamask');
 nodes.nodeTypes = {
-    WAN: "WAN",
-    Custom: "CUSTOM ETH"
+    WAN: 'WAN',
+    Custom: 'CUSTOM ETH'
 };
 nodes.ensNodeTypes = [nodes.nodeTypes.WAN];
 nodes.domainsaleNodeTypes = [nodes.nodeTypes.WAN];
@@ -7635,91 +7679,91 @@ var globalService = function globalService($http, $httpParamSerializerJQLike) {
   var tabs = {
     generateWallet: {
       id: 0,
-      name: "NAV_GenerateWallet_alt",
-      url: "generate-wallet",
+      name: 'NAV_GenerateWallet_alt',
+      url: 'generate-wallet',
       mew: false, // TODO: No wallet creation until that part is working
       cx: false
     },
     myWallet: {
       id: 1,
-      name: "NAV_MyWallets",
-      url: "my-wallet",
+      name: 'NAV_MyWallets',
+      url: 'my-wallet',
       mew: false,
       cx: true
     },
     addWallet: {
       id: 2,
-      name: "NAV_AddWallet",
-      url: "add-wallet",
+      name: 'NAV_AddWallet',
+      url: 'add-wallet',
       mew: false,
       cx: true
     },
     sendTransaction: {
       id: 3,
-      name: "NAV_SendEther",
-      url: "send-transaction",
+      name: 'NAV_SendEther',
+      url: 'send-transaction',
       mew: true,
       cx: true
     },
     swap: {
       id: 4,
-      name: "NAV_Swap",
-      url: "swap",
+      name: 'NAV_Swap',
+      url: 'swap',
       mew: false,
       cx: false
     },
     offlineTransaction: {
       id: 5,
-      name: "NAV_Offline",
-      url: "offline-transaction",
+      name: 'NAV_Offline',
+      url: 'offline-transaction',
       mew: true,
       cx: false
     },
     contracts: {
       id: 6,
-      name: "NAV_Contracts",
-      url: "contracts",
+      name: 'NAV_Contracts',
+      url: 'contracts',
       mew: true,
       cx: true
     },
     ens: {
       id: 7,
-      name: "NAV_ENS",
-      url: "wns",
+      name: 'NAV_ENS',
+      url: 'wns',
       mew: true,
       cx: false
     },
     domainsale: {
       id: 8,
-      name: "NAV_DomainSale",
-      url: "domainsale",
+      name: 'NAV_DomainSale',
+      url: 'domainsale',
       mew: false,
       cx: false
     },
     txStatus: {
       id: 9,
-      name: "NAV_CheckTxStatus",
-      url: "check-tx-status",
+      name: 'NAV_CheckTxStatus',
+      url: 'check-tx-status',
       mew: true,
       cx: true
     },
     viewWalletInfo: {
       id: 10,
-      name: "NAV_ViewWallet",
-      url: "view-wallet-info",
+      name: 'NAV_ViewWallet',
+      url: 'view-wallet-info',
       mew: true,
       cx: false
     }
   };
 
   var currentTab = 3;
-  if (typeof chrome != 'undefined') currentTab = chrome.windows === undefined ? 3 : 3;
+  if (typeof chrome !== 'undefined') {
+    currentTab = chrome.windows === undefined ? 3 : 3;
+  }
   return {
     tabs: tabs,
     currentTab: currentTab
   };
-
-  var tokensLoaded = false;
 };
 
 module.exports = globalService;
@@ -7864,7 +7908,6 @@ var SolidityTypeString = require('./string');
 var SolidityTypeReal = require('./real');
 var SolidityTypeUReal = require('./ureal');
 var SolidityTypeBytes = require('./bytes');
-var utils = require('./utils');
 
 var isDynamic = function isDynamic(solidityType, type) {
     return solidityType.isDynamicType(type) || solidityType.isDynamicArray(type);
@@ -7937,7 +7980,7 @@ SolidityCoder.prototype.encodeParams = function (types, params) {
 };
 
 SolidityCoder.prototype.encodeMultiWithOffset = function (types, solidityTypes, encodeds, dynamicOffset) {
-    var result = "";
+    var result = '';
     var self = this;
 
     types.forEach(function (type, i) {
@@ -7997,7 +8040,7 @@ SolidityCoder.prototype.encodeWithOffset = function (type, solidityType, encoded
         return function () {
             var nestedName = solidityType.nestedName(type);
             var nestedStaticPartLength = solidityType.staticPartLength(nestedName);
-            var result = "";
+            var result = '';
 
             if (solidityType.isDynamicArray(nestedName)) {
                 (function () {
@@ -8081,7 +8124,7 @@ var coder = new SolidityCoder([new SolidityTypeAddress(), new SolidityTypeBool()
 
 module.exports = coder;
 
-},{"./address":56,"./bool":57,"./bytes":58,"./dynamicbytes":61,"./formatters":62,"./int":63,"./real":65,"./string":66,"./uint":68,"./ureal":69,"./utils":70}],60:[function(require,module,exports){
+},{"./address":56,"./bool":57,"./bytes":58,"./dynamicbytes":61,"./formatters":62,"./int":63,"./real":65,"./string":66,"./uint":68,"./ureal":69}],60:[function(require,module,exports){
 'use strict';
 
 /*
@@ -8108,18 +8151,18 @@ module.exports = coder;
 
 /**
  * Utils
- * 
+ *
  * @module utils
  */
 
 /**
  * Utility functions
- * 
+ *
  * @class [utils] config
  * @constructor
  */
 
-/// required to define ETH_BIGNUMBER_ROUNDING_MODE
+// / required to define ETH_BIGNUMBER_ROUNDING_MODE
 var BigNumber = require('bignumber.js');
 
 var ETH_UNITS = ['wei', 'kwei', 'Mwei', 'Gwei', 'szabo', 'finney', 'femtoether', 'picoether', 'nanoether', 'microether', 'milliether', 'nano', 'micro', 'milli', 'ether', 'grand', 'Mether', 'Gether', 'Tether', 'Pether', 'Eether', 'Zether', 'Yether', 'Nether', 'Dether', 'Vether', 'Uether'];
@@ -8290,7 +8333,7 @@ var signedIsNegative = function signedIsNegative(value) {
  * @returns {BigNumber} right-aligned output bytes formatted to big number
  */
 var formatOutputInt = function formatOutputInt(param) {
-    var value = param.staticPart() || "0";
+    var value = param.staticPart() || '0';
 
     // check if it's negative number
     // it it is, return two's complement
@@ -8308,7 +8351,7 @@ var formatOutputInt = function formatOutputInt(param) {
  * @returns {BigNumeber} right-aligned output bytes formatted to uint
  */
 var formatOutputUInt = function formatOutputUInt(param) {
-    var value = param.staticPart() || "0";
+    var value = param.staticPart() || '0';
     return new BigNumber(value, 16);
 };
 
@@ -8342,7 +8385,7 @@ var formatOutputUReal = function formatOutputUReal(param) {
  * @returns {Boolean} right-aligned input bytes formatted to bool
  */
 var formatOutputBool = function formatOutputBool(param) {
-    return param.staticPart() === '0000000000000000000000000000000000000000000000000000000000000001' ? true : false;
+    return param.staticPart() === '0000000000000000000000000000000000000000000000000000000000000001';
 };
 
 /**
@@ -8392,7 +8435,7 @@ var formatOutputString = function formatOutputString(param) {
  */
 var formatOutputAddress = function formatOutputAddress(param) {
     var value = param.staticPart();
-    return "0x" + value.slice(value.length - 40, value.length);
+    return '0x' + value.slice(value.length - 40, value.length);
 };
 
 module.exports = {
@@ -8468,7 +8511,7 @@ module.exports = SolidityTypeInt;
     You should have received a copy of the GNU Lesser General Public License
     along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
 */
-/** 
+/**
  * @file param.js
  * @author Marek Kotewicz <marek@ethdev.com>
  * @date 2015
@@ -8487,7 +8530,7 @@ var SolidityParam = function SolidityParam(value, offset) {
 
 /**
  * This method should be used to get length of params's dynamic part
- * 
+ *
  * @method dynamicPartLength
  * @returns {Number} length of dynamic part (in bytes)
  */
@@ -8684,7 +8727,7 @@ var SolidityType = function SolidityType(config) {
  * @return {Bool} true if type match this SolidityType, otherwise false
  */
 SolidityType.prototype.isType = function (name) {
-    throw "this method should be overrwritten for type " + name;
+    throw new Error('this method should be overrwritten for type ' + name);
 };
 
 /**
@@ -9060,19 +9103,18 @@ var unitMap = {
     'mether': '1000000000000000000000000',
     'gether': '1000000000000000000000000000',
     'tether': '1000000000000000000000000000000'
-};
 
-/**
- * Should be called to pad string to expected length
- *
- * @method padLeft
- * @param {String} string to be padded
- * @param {Number} characters that result string should have
- * @param {String} sign, by default 0
- * @returns {String} right aligned string
- */
-var padLeft = function padLeft(string, chars, sign) {
-    return new Array(chars - string.length + 1).join(sign ? sign : "0") + string;
+    /**
+     * Should be called to pad string to expected length
+     *
+     * @method padLeft
+     * @param {String} string to be padded
+     * @param {Number} characters that result string should have
+     * @param {String} sign, by default 0
+     * @returns {String} right aligned string
+     */
+};var padLeft = function padLeft(string, chars, sign) {
+    return new Array(chars - string.length + 1).join(sign || '0') + string;
 };
 
 /**
@@ -9085,7 +9127,7 @@ var padLeft = function padLeft(string, chars, sign) {
  * @returns {String} right aligned string
  */
 var padRight = function padRight(string, chars, sign) {
-    return string + new Array(chars - string.length + 1).join(sign ? sign : "0");
+    return string + new Array(chars - string.length + 1).join(sign || '0');
 };
 
 /**
@@ -9097,15 +9139,16 @@ var padRight = function padRight(string, chars, sign) {
  */
 var toUtf8 = function toUtf8(hex) {
     // Find termination
-    var str = "";
-    var i = 0,
-        l = hex.length;
+    var str = '';
+    var i = 0;var l = hex.length;
     if (hex.substring(0, 2) === '0x') {
         i = 2;
     }
     for (; i < l; i += 2) {
         var code = parseInt(hex.substr(i, 2), 16);
-        if (code === 0) break;
+        if (code === 0) {
+            break;
+        }
         str += String.fromCharCode(code);
     }
 
@@ -9121,9 +9164,8 @@ var toUtf8 = function toUtf8(hex) {
  */
 var toAscii = function toAscii(hex) {
     // Find termination
-    var str = "";
-    var i = 0,
-        l = hex.length;
+    var str = '';
+    var i = 0;var l = hex.length;
     if (hex.substring(0, 2) === '0x') {
         i = 2;
     }
@@ -9145,15 +9187,17 @@ var toAscii = function toAscii(hex) {
  */
 var fromUtf8 = function fromUtf8(str) {
     str = utf8.encode(str);
-    var hex = "";
+    var hex = '';
     for (var i = 0; i < str.length; i++) {
         var code = str.charCodeAt(i);
-        if (code === 0) break;
+        if (code === 0) {
+            break;
+        }
         var n = code.toString(16);
         hex += n.length < 2 ? '0' + n : n;
     }
 
-    return "0x" + hex;
+    return '0x' + hex;
 };
 
 /**
@@ -9165,14 +9209,14 @@ var fromUtf8 = function fromUtf8(str) {
  * @returns {String} hex representation of input string
  */
 var fromAscii = function fromAscii(str) {
-    var hex = "";
+    var hex = '';
     for (var i = 0; i < str.length; i++) {
         var code = str.charCodeAt(i);
         var n = code.toString(16);
         hex += n.length < 2 ? '0' + n : n;
     }
 
-    return "0x" + hex;
+    return '0x' + hex;
 };
 
 /**
@@ -9205,11 +9249,11 @@ var extractDisplayName = function extractDisplayName(name) {
     return length !== -1 ? name.substr(0, length) : name;
 };
 
-/// @returns overloaded part of function/event name
+// / @returns overloaded part of function/event name
 var extractTypeName = function extractTypeName(name) {
-    /// TODO: make it invulnerable
+    // / TODO: make it invulnerable
     var length = name.indexOf('(');
-    return length !== -1 ? name.substr(length + 1, name.length - 1 - (length + 1)).replace(' ', '') : "";
+    return length !== -1 ? name.substr(length + 1, name.length - 1 - (length + 1)).replace(' ', '') : '';
 };
 
 /**
@@ -9247,17 +9291,29 @@ var fromDecimal = function fromDecimal(value) {
  * @return {String}
  */
 var toHex = function toHex(val) {
-    /*jshint maxcomplexity: 8 */
+    /* jshint maxcomplexity: 8 */
 
-    if (isBoolean(val)) return fromDecimal(+val);
+    if (isBoolean(val)) {
+        return fromDecimal(+val);
+    }
 
-    if (isBigNumber(val)) return fromDecimal(val);
+    if (isBigNumber(val)) {
+        return fromDecimal(val);
+    }
 
-    if (isObject(val)) return fromUtf8(JSON.stringify(val));
+    if (isObject(val)) {
+        return fromUtf8(JSON.stringify(val));
+    }
 
     // if its a negative number, pass it through fromDecimal
     if (isString(val)) {
-        if (val.indexOf('-0x') === 0) return fromDecimal(val);else if (val.indexOf('0x') === 0) return val;else if (!isFinite(val)) return fromAscii(val);
+        if (val.indexOf('-0x') === 0) {
+            return fromDecimal(val);
+        } else if (val.indexOf('0x') === 0) {
+            return val;
+        } else if (!isFinite(val)) {
+            return fromAscii(val);
+        }
     }
 
     return fromDecimal(val);
@@ -9343,9 +9399,11 @@ var toWei = function toWei(number, unit) {
  * @return {BigNumber} BigNumber
 */
 var toBigNumber = function toBigNumber(number) {
-    /*jshint maxcomplexity:5 */
+    /* jshint maxcomplexity:5 */
     number = number || 0;
-    if (isBigNumber(number)) return number;
+    if (isBigNumber(number)) {
+        return number;
+    }
 
     if (isString(number) && (number.indexOf('0x') === 0 || number.indexOf('-0x') === 0)) {
         return new BigNumber(number.replace('0x', ''), 16);
@@ -9364,7 +9422,7 @@ var toBigNumber = function toBigNumber(number) {
 var toTwosComplement = function toTwosComplement(number) {
     var bigNumber = toBigNumber(number).round();
     if (bigNumber.lessThan(0)) {
-        return new BigNumber("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16).plus(bigNumber).plus(1);
+        return new BigNumber('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', 16).plus(bigNumber).plus(1);
     }
     return bigNumber;
 };
@@ -9436,7 +9494,7 @@ var toChecksumAddress = function toChecksumAddress(address) {
     var checksumAddress = '0x';
 
     for (var i = 0; i < address.length; i++) {
-        // If ith character is 9 to f then make it uppercase 
+        // If ith character is 9 to f then make it uppercase
         if (parseInt(addressHash[i], 16) > 7) {
             checksumAddress += address[i].toUpperCase();
         } else {
@@ -10627,10 +10685,10 @@ var Token = function Token(contractAddress, userAddress, symbol, decimal, type) 
     this.symbol = symbol;
     this.decimal = decimal;
     this.type = type;
-    this.balance = "Click to Load";
+    this.balance = 'Click to Load';
 };
-Token.balanceHex = "0x70a08231";
-Token.transferHex = "0xa9059cbb";
+Token.balanceHex = '0x70a08231';
+Token.transferHex = '0xa9059cbb';
 Token.popTokens = [];
 Token.prototype.getContractAddress = function () {
     return this.contractAddress;
@@ -10674,20 +10732,20 @@ Token.prototype.setBalance = function (callback) {
 Token.getTokenByAddress = function (toAdd) {
     toAdd = ethFuncs.sanitizeHex(toAdd);
     for (var i = 0; i < Token.popTokens.length; i++) {
-        if (toAdd.toLowerCase() == Token.popTokens[i].address.toLowerCase()) return Token.popTokens[i];
+        if (toAdd.toLowerCase() === Token.popTokens[i].address.toLowerCase()) return Token.popTokens[i];
     }
     return {
-        "address": toAdd,
-        "symbol": "Unknown",
-        "decimal": 0,
-        "type": "default"
+        'address': toAdd,
+        'symbol': 'Unknown',
+        'decimal': 0,
+        'type': 'default'
     };
 };
 Token.prototype.getData = function (toAdd, value) {
     try {
         if (!ethFuncs.validateEtherAddress(toAdd)) throw globalFuncs.errorMsgs[5];else if (!globalFuncs.isNumeric(value) || parseFloat(value) < 0) throw globalFuncs.errorMsgs[7];
-        var value = ethFuncs.padLeft(new BigNumber(value).times(new BigNumber(10).pow(this.getDecimal())).toString(16), 64);
-        var toAdd = ethFuncs.padLeft(ethFuncs.getNakedAddress(toAdd), 64);
+        value = ethFuncs.padLeft(new BigNumber(value).times(new BigNumber(10).pow(this.getDecimal())).toString(16), 64);
+        toAdd = ethFuncs.padLeft(ethFuncs.getNakedAddress(toAdd), 64);
         var data = Token.transferHex + toAdd + value;
         return {
             isError: false,
@@ -10718,13 +10776,9 @@ module.exports=[
 // English
 'use strict';
 
-var _en$data;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var en = function en() {};
 en.code = 'en';
-en.data = (_en$data = {
+en.data = {
 
   GEN_Help_0: 'Already have a wallet somewhere?',
   GEN_Help_MetaMask: 'So easy! Keys stay in WanMask, not on a phishing site! Try it today.',
@@ -10879,8 +10933,646 @@ en.data = (_en$data = {
   ONBOARD_why_content__7: '**You** and **only you** are responsible for your security.',
   ONBOARD_why_content__8: 'Be diligent to keep your private key and password safe. Your private key is sometimes called your mnemonic phrase, keystore file, UTC file, JSON file,  wallet file.',
   ONBOARD_why_content__9: 'If you lose your private key or password, no one can recover it.',
-  ONBOARD_why_content__10: 'If you enter your private key on a phishing website, you will have **all your funds taken**.'
-}, _defineProperty(_en$data, 'ONBOARD_blockchain_title__alt', 'WTF is a Blockchain?'), _defineProperty(_en$data, 'ONBOARD_point_title__alt', 'What\'s the Point of MEW then?'), _defineProperty(_en$data, 'ONBOARD_whymew_title', 'If MyWanWallet can\'t do those things, what\'s the point?'), _defineProperty(_en$data, 'ONBOARD_whymew_content__1', 'Because that is the point of decentralization and the blockchain.'), _defineProperty(_en$data, 'ONBOARD_whymew_content__2', 'You don\'t have to rely on your bank, government, or anyone else when you want to move your funds.'), _defineProperty(_en$data, 'ONBOARD_whymew_content__3', 'You don\'t have to rely on the security of an exchange or bank to keep your funds safe.'), _defineProperty(_en$data, 'ONBOARD_whymew_content__4', 'If you don\'t find these things valuable, ask yourself why you think the blockchain and cryptocurrencies are valuable. 😉'), _defineProperty(_en$data, 'ONBOARD_whymew_content__5', 'If you don\'t like the sound of this, consider using [Coinbase](https://www.coinbase.com/) or [Blockchain.info](https://blockchain.info/wallet/#/signup). They have more familiar accounts with usernames & passwords.'), _defineProperty(_en$data, 'ONBOARD_whymew_content__6', 'If you are scared but want to use MEW, [get a hardware wallet](https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html)! These keep your keys secure.'), _defineProperty(_en$data, 'ONBOARD_why_title__alt', 'But...why?'), _defineProperty(_en$data, 'ONBOARD_secure_title', 'How To Protect Yourself & Your Funds'), _defineProperty(_en$data, 'ONBOARD_secure_1_title', 'How To Protect Yourself from Phishers'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__1', 'Phishers send you a message with a link to a website that looks just like MyWanWallet, EtherDelta, Paypal, or your bank, but is not the real website. They steal your information and then steal your money.'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__2', 'Install [WanMask](https://chrome.google.com/webstore/detail/omnkcjdohbnjfjmlaiboojplahajnenj).'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__3', 'Always check the URL: `https://www.MyWanWallet.nl`.'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__4', 'Always make sure the URL bar has `MyWanWallet.nl` in green.'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__5', 'Do not trust messages or links sent to you randomly via email, Slack, Reddit, Twitter, etc.'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__6', 'Always navigate directly to a site before you enter information. Do not enter information after clicking a link from a message or email.'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__7', '[Install an AdBlocker](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en) and do not click ads on your search engine (e.g. Google).'), _defineProperty(_en$data, 'ONBOARD_point_title__alt_2', 'What\'s the point?'), _defineProperty(_en$data, 'ONBOARD_secure_2_title', 'How To Protect Yourself from Scams'), _defineProperty(_en$data, 'ONBOARD_secure_2_content__1', 'People will try to get you to give them money in return for nothing.'), _defineProperty(_en$data, 'ONBOARD_secure_2_content__2', 'If it is too good to be true, it probably is.'), _defineProperty(_en$data, 'ONBOARD_secure_2_content__3', 'Research before sending money to someone or some project. Look for information on a variety of websites and forums. Be wary.'), _defineProperty(_en$data, 'ONBOARD_secure_2_content__4', 'Ask questions when you don\'t understand something or it doesn\'t seem right.'), _defineProperty(_en$data, 'ONBOARD_secure_2_content__5', 'Don\'t let fear, FUD, or FOMO win over common sense. If something is very urgent, ask yourself "why?". It may be to create FOMO or prevent you from doing research.'), _defineProperty(_en$data, 'ONBOARD_secure_3_title__alt', 'Phuck Phishers'), _defineProperty(_en$data, 'ONBOARD_secure_3_title', 'How To Protect Yourself from Loss'), _defineProperty(_en$data, 'ONBOARD_secure_3_content__1', 'If you lose your private key or password, it is gone forever. Don\'t lose it.'), _defineProperty(_en$data, 'ONBOARD_secure_3_content__2', 'Make a backup of your private key and password. Do NOT just store it on your computer. Print it out on a piece of paper or save it to a USB drive.'), _defineProperty(_en$data, 'ONBOARD_secure_3_content__3', 'Store this paper or USB drive in a different physical location. A backup is not useful if it is destroyed by a fire or flood along with your laptop.'), _defineProperty(_en$data, 'ONBOARD_secure_3_content__4', 'Do not store your private key in Dropbox, Google Drive, or other cloud storage. If that account is compromised, your funds will be stolen.'), _defineProperty(_en$data, 'ONBOARD_secure_3_content__5', 'If you have more than 1-week\'s worth of pay worth of cryptocurrency, get a hardware wallet. No excuses. It\'s worth it. I promise.'), _defineProperty(_en$data, 'ONBOARD_secure_3_content__6', '[Even more Security Tips!](https://myetherwallet.github.io/knowledge-base/getting-started/protecting-yourself-and-your-funds.html)'), _defineProperty(_en$data, 'ONBOARD_secure_2_title__alt_2', 'Screw Scams'), _defineProperty(_en$data, 'ONBOARD_final_title__alt', 'One more click & you\'re done! 🤘'), _defineProperty(_en$data, 'ONBOARD_final_title', 'Alright, I\'m done lecturing you!'), _defineProperty(_en$data, 'ONBOARD_final_subtitle', 'Sorry for being like this. Onwards!'), _defineProperty(_en$data, 'ONBOARD_final_content__1', 'Create a wallet'), _defineProperty(_en$data, 'ONBOARD_final_content__2', 'Get a hardware wallet'), _defineProperty(_en$data, 'ONBOARD_final_content__3', 'How to Set up MEW + WanMask'), _defineProperty(_en$data, 'ONBOARD_final_content__4', 'How to Run MEW Offline / Locally'), _defineProperty(_en$data, 'ONBOARD_final_content__5', 'How to Send via Ledger hardware wallet'), _defineProperty(_en$data, 'ONBOARD_final_content__6', 'How to Send via TREZOR hardware wallet'), _defineProperty(_en$data, 'ONBOARD_final_content__7', 'How to Send via WanMask'), _defineProperty(_en$data, 'ONBOARD_final_content__8', 'Learn More or Contact Us'), _defineProperty(_en$data, 'ONBOARD_final_content__9', 'OMG, please just let me send FFS.'), _defineProperty(_en$data, 'ONBOARD_resume', 'It looks like you didn\'t finish reading through these slides last time. ProTip: Finish reading through the slides 😉'), _defineProperty(_en$data, 'ADD_DigitalBitbox_0a', 'Re-open MyWanWallet on a secure (SSL) connection'), _defineProperty(_en$data, 'ADD_DigitalBitbox_0b', 'Re-open MyWanWallet using [Chrome](https://www.google.com/chrome/browser/desktop/) or [Opera](https://www.opera.com/)'), _defineProperty(_en$data, 'ADD_DigitalBitbox_scan', 'Connect your Digital Bitbox'), _defineProperty(_en$data, 'ADD_Label_1', 'What would you like to do?'), _defineProperty(_en$data, 'ADD_Label_2', 'Create a Nickname'), _defineProperty(_en$data, 'ADD_Label_3', 'Your wallet is encrypted. Good! Please enter the password.'), _defineProperty(_en$data, 'ADD_Label_4', 'Add an Account to Watch'), _defineProperty(_en$data, 'ADD_Label_5', 'Enter the Address'), _defineProperty(_en$data, 'ADD_Label_6', 'Unlock your Wallet'), _defineProperty(_en$data, 'ADD_Label_6_short', 'Unlock'), _defineProperty(_en$data, 'ADD_Label_7', 'Add Account'), _defineProperty(_en$data, 'ADD_Label_8', 'Password (optional):'), _defineProperty(_en$data, 'ADD_Ledger_0a', 'Please use MyWanWallet on a secure (SSL / HTTPS) connection to connect.'), _defineProperty(_en$data, 'ADD_Ledger_0b', 'Re-open MyWanWallet using [Chrome](https://www.google.com/chrome/browser/desktop/) or [Opera](https://www.opera.com/)'), _defineProperty(_en$data, 'ADD_Ledger_1', 'Connect your Ledger Wallet'), _defineProperty(_en$data, 'ADD_Ledger_2', 'Open the Wanchain application (or a contract application)'), _defineProperty(_en$data, 'ADD_Ledger_2_Exp', 'Open the Expanse application (or a contract application)'), _defineProperty(_en$data, 'ADD_Ledger_2_Ubq', 'Open the Ubiq application (or a contract application)'), _defineProperty(_en$data, 'ADD_Ledger_3', 'Verify that Browser Support is enabled in Settings'), _defineProperty(_en$data, 'ADD_Ledger_4', 'If no Browser Support is found in settings, verify that you have [Firmware >1.2](https://www.ledgerwallet.com/apps/manager)'), _defineProperty(_en$data, 'ADD_Ledger_scan', 'Connect to Ledger Wallet'), _defineProperty(_en$data, 'ADD_MetaMask', 'Connect to WanMask'), _defineProperty(_en$data, 'ADD_Radio_1', 'Generate New Wallet'), _defineProperty(_en$data, 'ADD_Radio_2', 'Select Your Wallet File (Keystore / JSON)'), _defineProperty(_en$data, 'ADD_Radio_2_alt', 'Select Your Wallet File'), _defineProperty(_en$data, 'ADD_Radio_2_short', 'SELECT WALLET FILE...'), _defineProperty(_en$data, 'ADD_Radio_3', 'Paste Your Private Key'), _defineProperty(_en$data, 'ADD_Radio_4', 'Add an Account to Watch'), _defineProperty(_en$data, 'ADD_Radio_5', 'Paste Your Mnemonic'), _defineProperty(_en$data, 'ADD_Radio_5_Path', 'Select HD derivation path'), _defineProperty(_en$data, 'ADD_Radio_5_PathAlternative', '(Ledger)'), _defineProperty(_en$data, 'ADD_Radio_5_PathCustom', 'Custom'), _defineProperty(_en$data, 'ADD_Radio_5_PathTrezor', '(TREZOR)'), _defineProperty(_en$data, 'ADD_Radio_5_withTrezor', '(Jaxx, WanMask, Exodus, imToken, TREZOR)'), _defineProperty(_en$data, 'ADD_Radio_5_woTrezor', '(Jaxx, WanMask, Exodus, imToken)'), _defineProperty(_en$data, 'ADD_Trezor_scan', 'Connect to TREZOR'), _defineProperty(_en$data, 'ADD_Warning_1', 'You can add any account to "watch" on the wallets tab without uploading a private key. This does ** not ** mean you have access to this wallet, nor can you transfer Wancoins from it.'), _defineProperty(_en$data, 'BULK_Label_1', 'Number of Wallets To Generate'), _defineProperty(_en$data, 'BULK_Label_2', 'Generate Wallets'), _defineProperty(_en$data, 'BULK_SuccessMsg', 'Success! Your wallets have been generated.'), _defineProperty(_en$data, 'CONTRACT_ByteCode', 'Byte Code'), _defineProperty(_en$data, 'CONTRACT_Interact_CTA', 'Select a function'), _defineProperty(_en$data, 'CONTRACT_Interact_Title', 'Read / Write Contract'), _defineProperty(_en$data, 'CONTRACT_Json', 'ABI / JSON Interface'), _defineProperty(_en$data, 'CONTRACT_Read', 'READ'), _defineProperty(_en$data, 'CONTRACT_Title', 'Contract Address'), _defineProperty(_en$data, 'CONTRACT_Title_2', 'Select Existing Contract'), _defineProperty(_en$data, 'CONTRACT_Write', 'WRITE'), _defineProperty(_en$data, 'CX_error_1', 'You don\'t have any wallets saved. Click ["Add Wallet"](/cx-wallet.html#add-wallet) to add one!'), _defineProperty(_en$data, 'CX_quicksend', 'QuickSend'), _defineProperty(_en$data, 'CX_Tagline', 'Open Source JavaScript Client-Side Wancoins Wallet Chrome Extension'), _defineProperty(_en$data, 'CX_Warning_1', 'Make sure you have **external backups** of any wallets you store here. Many things could happen that would cause you to lose the data in this Chrome Extension, including uninstalling and reinstalling the extension. This extension is a way to easily access your wallets, **not** a way to back them up.'), _defineProperty(_en$data, 'decrypt_Access', 'How would you like to access your wallet?'), _defineProperty(_en$data, 'decrypt_Select', 'Select a Wallet'), _defineProperty(_en$data, 'decrypt_Title', 'Select the format of your private key'), _defineProperty(_en$data, 'DEP_generate', 'Generate Bytecode'), _defineProperty(_en$data, 'DEP_generated', 'Generated Bytecode'), _defineProperty(_en$data, 'DEP_interface', 'Generated Interface'), _defineProperty(_en$data, 'DEP_signtx', 'Sign Transaction'), _defineProperty(_en$data, 'ERROR_0', '(error_01) Please enter a valid amount.'), _defineProperty(_en$data, 'ERROR_1', '(error_02) Your password must be at least 9 characters. Please ensure it is a strong password.'), _defineProperty(_en$data, 'ERROR_2', '(error_03) Sorry! We don\'t recognize this type of wallet file.'), _defineProperty(_en$data, 'ERROR_3', '(error_04) This is not a valid wallet file.'), _defineProperty(_en$data, 'ERROR_4', '(error_05) This unit doesn\'t exists, please use the one of the following units'), _defineProperty(_en$data, 'ERROR_5', '(error_06) Please enter a valid address.'), _defineProperty(_en$data, 'ERROR_6', '(error_07) Please enter a valid password.'), _defineProperty(_en$data, 'ERROR_7', '(error_08) Please enter valid decimals     (Must be an integer. Try 0-18.)'), _defineProperty(_en$data, 'ERROR_8', '(error_09) Please enter a valid gas limit  (Must be an integer. Try 21000-4000000.)'), _defineProperty(_en$data, 'ERROR_9', '(error_10) Please enter a valid data value (Must be hex.)'), _defineProperty(_en$data, 'ERROR_10', '(error_11) Please enter a valid gas price. (Must be an integer. Try 20 GWEI / 20000000000 WEI.)'), _defineProperty(_en$data, 'ERROR_11', '(error_12) Please enter a valid nonce (Must be an integer.)'), _defineProperty(_en$data, 'ERROR_12', '(error_13) Invalid signed transaction.'), _defineProperty(_en$data, 'ERROR_13', '(error_14) A wallet with this nickname already exists.'), _defineProperty(_en$data, 'ERROR_14', '(error_15) Wallet not found.'), _defineProperty(_en$data, 'ERROR_15', '(error_16) Whoops. It doesn\'t look like a proposal with this ID exists yet or there is an error reading this proposal.'), _defineProperty(_en$data, 'ERROR_16', '(error_17) A wallet with this address already exists in storage. Please check your wallets page.'), _defineProperty(_en$data, 'ERROR_17', '(error_18) Insufficient balance. Your gas limit * gas price + amount to send exceeds your current balance. Send more WAN to your account or use the "Send Entire Balance" button. If you believe this is in error, try pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)'), _defineProperty(_en$data, 'ERROR_18', '(error_19) All gas would be used on this transaction. This means you have already voted on this proposal or the debate period has ended.'), _defineProperty(_en$data, 'ERROR_19', '(error_20) Please enter a valid symbol'), _defineProperty(_en$data, 'ERROR_20', '(error_21) Not a valid ERC-20 token'), _defineProperty(_en$data, 'ERROR_21', '(error_22) Could not estimate gas. There are not enough funds in the account, or the receiving contract address would throw an error. Feel free to manually set the gas and proceed. The error message upon sending may be more informative.'), _defineProperty(_en$data, 'ERROR_22', '(error_23) Please enter a valid node name'), _defineProperty(_en$data, 'ERROR_23', '(error_24) Please enter a valid URL. If you are on https, your URL must be https'), _defineProperty(_en$data, 'ERROR_24', '(error_25) Please enter a valid port.'), _defineProperty(_en$data, 'ERROR_25', '(error_26) Please enter a valid chain ID.'), _defineProperty(_en$data, 'ERROR_26', '(error_27) Please enter a valid ABI.'), _defineProperty(_en$data, 'ERROR_27', '(error_28) Minimum amount: 0.01. Max amount:'), _defineProperty(_en$data, 'ERROR_28', '(error_29) You need this `Keystore File + Password` or the `Private Key` (next page) to access this wallet in the future. '), _defineProperty(_en$data, 'ERROR_29', '(error_30) Please enter a valid user and password.'), _defineProperty(_en$data, 'ERROR_30', '(error_31) Please enter a valid name (7+ characters, limited punctuation)'), _defineProperty(_en$data, 'ERROR_31', '(error_32) Please enter a valid secret phrase.'), _defineProperty(_en$data, 'ERROR_32', '(error_33) Could not connect to the node. Refresh your page, try a different node (top-right corner), check your firewall settings. If custom node, check your configs.'), _defineProperty(_en$data, 'ERROR_33', '(error_34) The wallet you have unlocked does not match the owner\'s address.'), _defineProperty(_en$data, 'ERROR_34', '(error_35) The name you are attempting to reveal does not match the name you have entered.'), _defineProperty(_en$data, 'ERROR_35', '(error_36) Input address is not checksummed. <a href="https://myetherwallet.github.io/knowledge-base/addresses/not-checksummed-shows-when-i-enter-an-address.html" target="_blank" rel="noopener noreferrer">What does that mean?</a>'), _defineProperty(_en$data, 'ERROR_36', '(error_37) Please enter a valid TX hash'), _defineProperty(_en$data, 'ERROR_37', '(error_38) Please enter valid hex string. Hex only contains: 0x, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, a, b, c, d, e, f'), _defineProperty(_en$data, 'ERROR_38', '(error_39) Offer must have either price or reserve set to more than 0'), _defineProperty(_en$data, 'ERROR_39', '(error_40) Bid must be more than the specified minimum'), _defineProperty(_en$data, 'GETH_Balance', '(gwan-01) Insufficient balance. Your gas limit * gas price + amount to send exceeds your current balance. Send more WAN to your account or use the "Send Entire Balance" button. If you believe this is in error, try pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)'), _defineProperty(_en$data, 'GETH_Cheap', '(gwan-02) Gas price too low for acceptance. Try raising the gas price to 21 GWEI via the dropdown in top-right.'), _defineProperty(_en$data, 'GETH_GasLimit', '(gwan-03) Exceeds block gas limit. Transaction cost exceeds current gas limit. Limit: (d+), got: (d+). Please lower the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)'), _defineProperty(_en$data, 'GETH_InsufficientFunds', '(gwan-04) Insufficient balance. Your gas limit * gas price + amount to send exceeds your current balance. Send more WAN to your account or use the "Send Entire Balance" button. If you believe this is in error, try pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)'), _defineProperty(_en$data, 'GETH_IntrinsicGas', '(gwan-05) Intrinsic gas too low. Try raising the gas price to 21 GWEI via the dropdown in top-right or the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again.'), _defineProperty(_en$data, 'GETH_InvalidSender', '(gwan-06) Invalid sender.'), _defineProperty(_en$data, 'GETH_NegativeValue', '(gwan-07) Negative value.'), _defineProperty(_en$data, 'GETH_Nonce', "(gwan-08) This TX's [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html) is too low. Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)."), _defineProperty(_en$data, 'GETH_NonExistentAccount', '(gwan-09) Account does not exist or account balance too low'), _defineProperty(_en$data, 'PARITY_AlreadyImported', "(parity-01) A transaction with the same hash was already imported. It was probably already broadcast. To avoid duplicate transactions, check your address on [wanscan.io](https://wanscan.io) & wait 10 minutes before attempting to send again. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)"), _defineProperty(_en$data, 'PARITY_GasLimitExceeded', "(parity-02) Transaction cost exceeds current gas limit. Limit: (d+), got: (d+). Please lower the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)"), _defineProperty(_en$data, 'PARITY_InsufficientBalance', "(parity-03) Insufficient balance. The account you tried to send transaction from does not have enough funds. If you believe this is in error, try using the 'Send Entire Balance' button, or pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)"), _defineProperty(_en$data, 'PARITY_InsufficientGasPrice', "(parity-04) There is another transaction with same nonce in the queue, or the transaction fee is too low. Try incrementing the nonce by clicking the Generate button again. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)"), _defineProperty(_en$data, 'PARITY_InvalidGasLimit', "(parity-05) Supplied gas limit is beyond limit. Try lowering the gas limit to 21000. [Learn More.](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)"), _defineProperty(_en$data, 'PARITY_LimitReached', "(parity-06) There are too many transactions in the queue. Your transaction was dropped due to limit. Try increasing the gas price. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)"), _defineProperty(_en$data, 'PARITY_Old', "(parity-07) There is already a transaction with this [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html). Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)."), _defineProperty(_en$data, 'PARITY_TooCheapToReplace', "(parity-08) TX Fee is too low. It does not satisfy your node's minimal fee (minimal: (d+), got: (d+)). Try increasing the gas price and/or gas limit. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)"), _defineProperty(_en$data, 'FOOTER_1', 'Free, open-source, client-side interface for generating Wanchain wallets &amp; more. Interact with the Wanchain blockchain easily &amp; securely. Double-check the URL ( MyWanWallet.nl ) before unlocking your wallet.'), _defineProperty(_en$data, 'FOOTER_1b', 'Created by'), _defineProperty(_en$data, 'FOOTER_2', 'Donations greatly appreciated'), _defineProperty(_en$data, 'FOOTER_3', 'Client-side wallet generation by'), _defineProperty(_en$data, 'FOOTER_4', 'Disclaimer'), _defineProperty(_en$data, 'GAS_LIMIT_Desc', 'Gas limit is the amount of gas to send with your TX. `TX fee` = gas price * gas limit & is paid to miners for including your TX in a block. Increasing this number will not get your TX mined faster. Sending WAN = `21000`. Sending Tokens = ~`200000`.'), _defineProperty(_en$data, 'GAS_PRICE_Desc', 'Gas Price is the amount you pay per unit of gas. `TX fee = gas price * gas limit` & is paid to miners for including your TX in a block. Higher the gas price = faster transaction, but more expensive. Default is `182 GWEI`.'), _defineProperty(_en$data, 'GEN_desc', 'If you want to generate multiple wallets, you can do so here'), _defineProperty(_en$data, 'GEN_Help_1', 'Use your'), _defineProperty(_en$data, 'GEN_Help_10', 'Right click & save file as. Filename:'), _defineProperty(_en$data, 'GEN_Help_11', 'Don\'t open this file on your computer'), _defineProperty(_en$data, 'GEN_Help_12', 'Use it to unlock your wallet via MyWanWallet (or Mist, gwan, Parity and other wallet clients.)'), _defineProperty(_en$data, 'GEN_Help_13', 'How to Back Up Your Keystore File'), _defineProperty(_en$data, 'GEN_Help_14', 'What are these Different Formats?'), _defineProperty(_en$data, 'GEN_Help_15', 'Preventing loss &amp; theft of your funds.'), _defineProperty(_en$data, 'GEN_Help_16', 'What are these Different Formats?'), _defineProperty(_en$data, 'GEN_Help_17', 'Why Should I?'), _defineProperty(_en$data, 'GEN_Help_18', 'To have a secondary backup.'), _defineProperty(_en$data, 'GEN_Help_19', 'In case you ever forget your password.'), _defineProperty(_en$data, 'GEN_Help_2', 'to access your account.'), _defineProperty(_en$data, 'GEN_Help_20', 'Cold Storage'), _defineProperty(_en$data, 'GEN_Help_3', 'Your device * is * your wallet.'), _defineProperty(_en$data, 'GEN_Help_4', 'Guides & FAQ'), _defineProperty(_en$data, 'GEN_Help_5', 'How to Create a Wallet'), _defineProperty(_en$data, 'GEN_Help_6', 'Getting Started'), _defineProperty(_en$data, 'GEN_Help_7', 'Keep it safe · Make a backup · Don\'t share it with anyone · Don\'t lose it · It cannot be recovered if you lose it.'), _defineProperty(_en$data, 'GEN_Help_8', 'Not Downloading a File?'), _defineProperty(_en$data, 'GEN_Help_9', 'Try using Google Chrome'), _defineProperty(_en$data, 'GEN_Label_1', 'Enter a password'), _defineProperty(_en$data, 'GEN_Label_2', 'Save your `Keystore` File.'), _defineProperty(_en$data, 'GEN_Label_3', 'Save Your Address.'), _defineProperty(_en$data, 'GEN_Label_4', 'Print paper wallet or a QR code.'), _defineProperty(_en$data, 'GEN_Label_5', 'Save Your `Private Key`.'), _defineProperty(_en$data, 'GEN_Placeholder_1', 'Do NOT forget to save this!'), _defineProperty(_en$data, 'GEN_SuccessMsg', 'Success! Your wallet has been generated.'), _defineProperty(_en$data, 'GEN_Unlock', 'Unlock your wallet to see your address'), _defineProperty(_en$data, 'GET_ConfButton', 'I understand. Continue.'), _defineProperty(_en$data, 'MEW_Tagline', 'Open Source JavaScript Client-Side Wancoins Wallet'), _defineProperty(_en$data, 'MEW_Warning_1', 'Always check the URL before accessing your wallet or creating a new wallet. Beware of phishing sites!'), _defineProperty(_en$data, 'MNEM_1', 'Please select the address you would like to interact with.'), _defineProperty(_en$data, 'MNEM_2', 'Your single HD mnemonic phrase can access a number of wallets / addresses. Please select the address you would like to interact with at this time.'), _defineProperty(_en$data, 'MNEM_more', 'More Addresses'), _defineProperty(_en$data, 'MNEM_prev', 'Previous Addresses'), _defineProperty(_en$data, 'MSG_date', 'Date'), _defineProperty(_en$data, 'MSG_info1', 'Include the current date so the signature cannot be reused on a different date.'), _defineProperty(_en$data, 'MSG_info2', 'Include your nickname and where you use the nickname so someone else cannot use it.'), _defineProperty(_en$data, 'MSG_info3', 'Include a specific reason for the message so it cannot be reused for a different purpose.'), _defineProperty(_en$data, 'MSG_message', 'Message'), _defineProperty(_en$data, 'MSG_signature', 'Signature'), _defineProperty(_en$data, 'MSG_verify', 'Verify Message'), _defineProperty(_en$data, 'MYWAL_Address', 'Wallet Address'), _defineProperty(_en$data, 'MYWAL_Bal', 'Balance'), _defineProperty(_en$data, 'MYWAL_Content_1', 'Warning! You are about to remove your wallet'), _defineProperty(_en$data, 'MYWAL_Content_2', 'Be sure you have **saved the private key and/or Keystore File and the password** before you remove it.'), _defineProperty(_en$data, 'MYWAL_Content_3', 'If you want to use this wallet with your MyWanWallet CX in the future, you will need to manually re-add it using the private key/JSON and password.'), _defineProperty(_en$data, 'MYWAL_Edit', 'Edit'), _defineProperty(_en$data, 'MYWAL_Edit_2', 'Edit Wallet'), _defineProperty(_en$data, 'MYWAL_Hide', 'Hide Wallet Info'), _defineProperty(_en$data, 'MYWAL_Name', 'Wallet Name'), _defineProperty(_en$data, 'MYWAL_Nick', 'Wallet Nickname'), _defineProperty(_en$data, 'MYWAL_Remove', 'Remove'), _defineProperty(_en$data, 'MYWAL_RemoveWal', 'Remove Wallet'), _defineProperty(_en$data, 'MYWAL_View', 'View'), _defineProperty(_en$data, 'MYWAL_Viewing', 'Viewing Wallet'), _defineProperty(_en$data, 'MYWAL_WatchOnly', 'Your Watch-Only Accounts'), _defineProperty(_en$data, 'NAV_AddWallet', 'Add Wallet'), _defineProperty(_en$data, 'NAV_BulkGenerate', 'Bulk Generate'), _defineProperty(_en$data, 'NAV_CheckTxStatus', 'Check TX Status'), _defineProperty(_en$data, 'NAV_Contact', 'Contact'), _defineProperty(_en$data, 'NAV_Contracts', 'Contracts'), _defineProperty(_en$data, 'NAV_DeployContract', 'Deploy Contract'), _defineProperty(_en$data, 'NAV_DomainSale', 'DomainSale'), _defineProperty(_en$data, 'NAV_ENS', 'WNS'), _defineProperty(_en$data, 'NAV_GenerateWallet', 'Create New Wallet'), _defineProperty(_en$data, 'NAV_GenerateWallet_alt', 'New Wallet'), _defineProperty(_en$data, 'NAV_Help', 'Help'), _defineProperty(_en$data, 'NAV_InteractContract', 'Interact with Contract'), _defineProperty(_en$data, 'NAV_Multisig', 'Multisig'), _defineProperty(_en$data, 'NAV_MyWallets', 'My Wallets'), _defineProperty(_en$data, 'NAV_Offline', 'Send Offline'), _defineProperty(_en$data, 'NAV_SendEther', 'Send Wancoins & Tokens'), _defineProperty(_en$data, 'NAV_SendTokens', 'Send Tokens'), _defineProperty(_en$data, 'NAV_SignMsg', 'Sign Message'), _defineProperty(_en$data, 'NAV_Swap', 'Swap'), _defineProperty(_en$data, 'NAV_TxStatus', 'TX Status'), _defineProperty(_en$data, 'NAV_ViewWallet', 'View Wallet Info'), _defineProperty(_en$data, 'NAV_YourWallets', 'Your Wallets'), _defineProperty(_en$data, 'NODE_CTA', 'Save & Use Custom Node'), _defineProperty(_en$data, 'NODE_Name', 'Node Name'), _defineProperty(_en$data, 'NODE_Port', 'Node Port'), _defineProperty(_en$data, 'NODE_Subtitle', 'To connect to a local node...'), _defineProperty(_en$data, 'NODE_Title', 'Set Up Your Custom Node'), _defineProperty(_en$data, 'NODE_Warning', 'Your node must be HTTPS in order to connect to it via MyWanWallet.nl. You can [download the MyWanWallet repo & run it locally](https://github.com/tyrion70/mywanwallet/releases/latest) to connect to any node. Or, get free SSL certificate via [LetsEncrypt](https://letsencrypt.org/)'), _defineProperty(_en$data, 'NONCE_Desc', 'The nonce is the number of transactions sent from a given address. It ensures transactions are sent in order & not more than once.'), _defineProperty(_en$data, 'OFFLINE_Desc', 'Generating offline transactions can be done in three steps. You will complete steps 1 and 3 on an online computer, and step 2 on an offline/airgapped computer. This ensures your private keys do not touch an internet-connected device.'), _defineProperty(_en$data, 'OFFLINE_Step1_Button', 'Generate Information'), _defineProperty(_en$data, 'OFFLINE_Step1_Label_1', 'From Address'), _defineProperty(_en$data, 'OFFLINE_Step1_Label_2', 'Note: This is the FROM address, not the TO address. Nonce is generated from the originating account. If using an airgapped computer, it would be the address of the cold-storage account.'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_1', 'To Address'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_2', 'Value / Amount to Send'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_3', 'Gas Price'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_3b', 'This was displayed in Step 1 on your online computer.'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_4', 'Gas Limit'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_4b', '21000 is the default gas limit. When you send contracts or add\'l data, this may need to be different. Any unused gas will be returned to you.'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_5', 'Nonce'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_5b', 'This was displayed in Step 1 on your online computer.'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_6', 'Data'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_6b', 'This is optional. Data is often used when you send transactions to contracts.'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_7', 'Enter / Select your Private Key / JSON.'), _defineProperty(_en$data, 'OFFLINE_Step2_Title', 'Step 2: Generate Transaction (Offline Computer)'), _defineProperty(_en$data, 'OFFLINE_Step3_Label_1', 'Paste the signed transaction from Step 2 here and press the "SEND TRANSACTION" button.'), _defineProperty(_en$data, 'OFFLINE_Step3_Title', 'Step 3: Send / Publish Transaction (Online Computer)'), _defineProperty(_en$data, 'OFFLINE_Title', 'Generate & Send Offline Transaction'), _defineProperty(_en$data, 'OFFLLINE_Step1_Title', 'Step 1: Generate Information (Online Computer)'), _defineProperty(_en$data, 'SEND_addr', 'To Address'), _defineProperty(_en$data, 'SEND_amount', 'Amount to Send'), _defineProperty(_en$data, 'SEND_amount_short', 'Amount'), _defineProperty(_en$data, 'SEND_custom', 'Add Custom Token'), _defineProperty(_en$data, 'SEND_gas', 'Gas'), _defineProperty(_en$data, 'SEND_generate', 'Generate Transaction'), _defineProperty(_en$data, 'SEND_raw', 'Raw Transaction'), _defineProperty(_en$data, 'SEND_signed', 'Signed Transaction'), _defineProperty(_en$data, 'SEND_trans', 'Send Transaction'), _defineProperty(_en$data, 'SEND_TransferTotal', 'Send Entire Balance'), _defineProperty(_en$data, 'SENDModal_Content_1', 'You are about to send'), _defineProperty(_en$data, 'SENDModal_Content_2', 'to address'), _defineProperty(_en$data, 'SENDModal_Content_3', 'Are you sure you want to do this?'), _defineProperty(_en$data, 'SENDModal_Content_4', 'NOTE: If you encounter an error, you most likely need to add Wancoins to your account to cover the gas cost of sending tokens. Gas is paid in Wancoins.'), _defineProperty(_en$data, 'SENDModal_No', 'No, get me out of here!'), _defineProperty(_en$data, 'SENDModal_Title', 'Warning!'), _defineProperty(_en$data, 'SENDModal_Yes', 'Yes, I am sure! Make transaction.'), _defineProperty(_en$data, 'sidebar_AccountAddr', 'Account Address'), _defineProperty(_en$data, 'sidebar_AccountBal', 'Account Balance'), _defineProperty(_en$data, 'sidebar_AccountInfo', 'Account Information'), _defineProperty(_en$data, 'sidebar_DisplayOnLedger', 'Display address on Ledger'), _defineProperty(_en$data, 'sidebar_DisplayOnTrezor', 'Display address on TREZOR'), _defineProperty(_en$data, 'sidebar_donate', 'Donate'), _defineProperty(_en$data, 'sidebar_donation', 'MyWanWallet is a free, open-source service dedicated to your privacy and security. The more donations we receive, the more time we spend creating new features, listening to your feedback, and giving you what you want. We are just two people trying to change the world. Help us?'), _defineProperty(_en$data, 'sidebar_Equiv', 'Equivalent Values'), _defineProperty(_en$data, 'sidebar_thanks', 'THANK YOU!!!'), _defineProperty(_en$data, 'sidebar_TokenBal', 'Token Balances'), _defineProperty(_en$data, 'sidebar_TransHistory', 'Transaction History'), _defineProperty(_en$data, 'SUCCESS_1', 'Valid address'), _defineProperty(_en$data, 'SUCCESS_2', 'Wallet successfully decrypted'), _defineProperty(_en$data, 'SUCCESS_3', 'Your TX has been broadcast to the network. This does not mean it has been mined & sent. During times of extreme volume, it may take 3+ hours to send. 1) Check your TX below. 2) If it is pending for hours or disappears, use the Check TX Status Page to replace. 3) Use [WAN Gas Station](https://ethgasstation.info/) to see what gas price is optimal. 4) Save your TX Hash in case you need it later:  '), _defineProperty(_en$data, 'SUCCESS_4', 'Your wallet was successfully added'), _defineProperty(_en$data, 'SUCCESS_5', 'File Selected'), _defineProperty(_en$data, 'SUCCESS_6', 'You are successfully connected'), _defineProperty(_en$data, 'SUCCESS_7', 'Message Signature Verified'), _defineProperty(_en$data, 'SWAP_elapsed', "Time elapsed since sent "), _defineProperty(_en$data, 'SWAP_information', "Your Information "), _defineProperty(_en$data, 'SWAP_init_1', "I want to swap my "), _defineProperty(_en$data, 'SWAP_init_2', " for "), _defineProperty(_en$data, 'SWAP_init_CTA', "Let's do this! "), _defineProperty(_en$data, 'SWAP_order_CTA', "Please send "), _defineProperty(_en$data, 'SWAP_progress_1', "Order Initiated "), _defineProperty(_en$data, 'SWAP_progress_2', "Waiting for your "), _defineProperty(_en$data, 'SWAP_progress_3', "Received! "), _defineProperty(_en$data, 'SWAP_progress_4', "Sending your {{orderResult.output.currency}} "), _defineProperty(_en$data, 'SWAP_progress_5', "Order Complete "), _defineProperty(_en$data, 'SWAP_rates', "Current Rates "), _defineProperty(_en$data, 'SWAP_rec_add', "Your Receiving Address "), _defineProperty(_en$data, 'SWAP_rec_amt', "Amount to receive "), _defineProperty(_en$data, 'SWAP_ref_num', "Your reference number "), _defineProperty(_en$data, 'SWAP_send_amt', "Amount to send "), _defineProperty(_en$data, 'SWAP_start_CTA', "Start Swap "), _defineProperty(_en$data, 'SWAP_time', "Time remaining to send "), _defineProperty(_en$data, 'SWAP_unlock', "Unlock your wallet to send WAN or Tokens directly from this page. "), _defineProperty(_en$data, 'SWAP_your_rate', "Your rate "), _defineProperty(_en$data, 'TOKEN_Addr', 'Token Contract Address'), _defineProperty(_en$data, 'TOKEN_Dec', 'Decimals'), _defineProperty(_en$data, 'TOKEN_hide', 'Hide Tokens'), _defineProperty(_en$data, 'TOKEN_show', 'Show All Tokens'), _defineProperty(_en$data, 'TOKEN_Symbol', 'Token Symbol'), _defineProperty(_en$data, 'TRANS_advanced', '+Advanced: Add Data'), _defineProperty(_en$data, 'TRANS_data', 'Data'), _defineProperty(_en$data, 'TRANS_desc', 'If you want to send Tokens, please use the "Send Token" page instead.'), _defineProperty(_en$data, 'TRANS_gas', 'Gas Limit'), _defineProperty(_en$data, 'TRANS_sendInfo', 'A standard transaction using 21000 gas will cost 0.000441 WAN. We do not take a transaction fee.'), _defineProperty(_en$data, 'translate_version', '0.5'), _defineProperty(_en$data, 'Translator_Desc', ''), _defineProperty(_en$data, 'TranslatorAddr_1', ''), _defineProperty(_en$data, 'TranslatorAddr_2', ''), _defineProperty(_en$data, 'TranslatorAddr_3', ''), _defineProperty(_en$data, 'TranslatorAddr_4', ''), _defineProperty(_en$data, 'TranslatorAddr_5', ''), _defineProperty(_en$data, 'TranslatorName_1', ''), _defineProperty(_en$data, 'TranslatorName_2', ''), _defineProperty(_en$data, 'TranslatorName_3', ''), _defineProperty(_en$data, 'TranslatorName_4', ''), _defineProperty(_en$data, 'TranslatorName_5', ''), _defineProperty(_en$data, 'tx_Details', 'Transaction Details'), _defineProperty(_en$data, 'tx_foundInPending', 'Pending Transaction Found'), _defineProperty(_en$data, 'tx_foundInPending_1', 'Your transaction was located in the TX Pool of the node you are connected to.'), _defineProperty(_en$data, 'tx_foundInPending_2', 'It is currently pending (waiting to be mined).'), _defineProperty(_en$data, 'tx_foundInPending_3', 'There is a chance you can "cancel" or replace this transaction. Unlock your wallet below.'), _defineProperty(_en$data, 'tx_FoundOnChain', 'Transaction Found'), _defineProperty(_en$data, 'tx_FoundOnChain_1', 'Your transaction was successfully mined and is on the blockchain.'), _defineProperty(_en$data, 'tx_FoundOnChain_2', '**If you see a red `( ! )`, a `BAD INSTRUCTION` or `OUT OF GAS` error message**, it means that the transaction was not successfully *sent*. You cannot cancel or replace this transaction. Instead, send a new transaction. If you received an "Out of Gas" error, you should double the gas limit you specified originally.'), _defineProperty(_en$data, 'tx_FoundOnChain_3', '**If you do not see any errors, your transaction was successfully sent.** Your WAN or Tokens are where you sent them. If you cannot see this WAN or Tokens credited in your other wallet / exchange account, and it has been 24+ hours since you sent, please [contact that service](https://myetherwallet.github.io/knowledge-base/diving-deeper/ethereum-list-of-support-and-communities.html). Send them the *link* to your transaction and ask them, nicely, to look into your situation.'), _defineProperty(_en$data, 'tx_notFound', 'Transaction Not Found'), _defineProperty(_en$data, 'tx_notFound_1', 'This TX cannot be found in the TX Pool of the node you are connected to.'), _defineProperty(_en$data, 'tx_notFound_2', 'If you just sent the transaction, please wait 15 seconds and press the "Check TX Status" button again.'), _defineProperty(_en$data, 'tx_notFound_3', 'It could still be in the TX Pool of a different node, waiting to be mined.'), _defineProperty(_en$data, 'tx_notFound_4', 'Please use the dropdown in the top-right & select a different WAN node (e.g. `WAN (MyWanWallet)`) and check again.'), _defineProperty(_en$data, 'tx_Summary', 'During times of high volume (like during ICOs) transactions can be pending for hours, if not days. This tool aims to give you the ability to find and "cancel" / replace these TXs. ** This is not typically something you can do. It should not be relied upon & will only work when the TX Pools are full. [Please, read about this tool here.](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)**'), _defineProperty(_en$data, 'TXFEE_Desc', 'The TX Fee is paid to miners for including your TX in a block. Is is the `gas limit` * `gas price`. [You can convert GWEI -> WAN here](https://www.MyWanWallet.nl/helpers.html)'), _defineProperty(_en$data, 'VIEWWALLET_HidePrivKey', '(hide)'), _defineProperty(_en$data, 'VIEWWALLET_ShowPrivKey', '(show)'), _defineProperty(_en$data, 'VIEWWALLET_Subtitle', 'This allows you to download different versions of private keys and re-print your paper wallet. You may want to do this in order to [import your account into gwan/Mist](http://ethereum.stackexchange.com/questions/465/how-to-import-a-plain-private-key-into-geth/). If you want to check your balance, we recommend using a blockchain explorer like [wanscan.io](https://wanscan.io/).'), _defineProperty(_en$data, 'VIEWWALLET_Subtitle_Short', 'This allows you to download different versions of private keys and re-print your paper wallet.'), _defineProperty(_en$data, 'VIEWWALLET_SuccessMsg', 'Success! Here are your wallet details.'), _defineProperty(_en$data, 'WARN_Send_Link', 'You arrived via a link that has the address, value, gas, data fields, or transaction type (send mode) filled in for you. You can change any information before sending. Unlock your wallet to get started.'), _defineProperty(_en$data, 'x_Access', 'Access'), _defineProperty(_en$data, 'x_AddessDesc', 'Your Address can also be known as you `Account #` or your `Public Key`. It is what you share with people so they can send you Wancoins or Tokens. Find the colorful address icon. Make sure it matches your paper wallet & whenever you enter your address somewhere.'), _defineProperty(_en$data, 'x_Address', 'Your Address'), _defineProperty(_en$data, 'x_Cancel', 'Cancel'), _defineProperty(_en$data, 'x_CancelReplaceTx', 'Cancel or Replace Transaction'), _defineProperty(_en$data, 'x_CancelTx', 'Cancel Transaction'), _defineProperty(_en$data, 'x_CSV', 'CSV file (unencrypted)'), _defineProperty(_en$data, 'x_DigitalBitbox', 'Digital Bitbox'), _defineProperty(_en$data, 'x_Download', 'Download'), _defineProperty(_en$data, 'x_Json', 'JSON File (unencrypted)'), _defineProperty(_en$data, 'x_JsonDesc', 'This is the unencrypted, JSON format of your private key. This means you do not need the password but anyone who finds your JSON can access your wallet & Wancoins without the password.'), _defineProperty(_en$data, 'x_Keystore', 'Keystore File (UTC / JSON · Recommended · Encrypted)'), _defineProperty(_en$data, 'x_Keystore2', 'Keystore File (UTC / JSON)'), _defineProperty(_en$data, 'x_KeystoreDesc', 'This Keystore file matches the format used by Mist so you can easily import it in the future. It is the recommended file to download and back up.'), _defineProperty(_en$data, 'x_Ledger', 'Ledger Wallet'), _defineProperty(_en$data, 'x_MetaMask', 'WanMask'), _defineProperty(_en$data, 'x_Mnemonic', 'Mnemonic Phrase'), _defineProperty(_en$data, 'x_ParityPhrase', 'Parity Phrase'), _defineProperty(_en$data, 'x_Password', 'Password'), _defineProperty(_en$data, 'x_PasswordDesc', 'This password * encrypts * your private key. This does not act as a seed to generate your keys. **You will need this password + your private key to unlock your wallet.**'), _defineProperty(_en$data, 'x_Print', 'Print Paper Wallet'), _defineProperty(_en$data, 'x_PrintDesc', 'ProTip: If you cannot print this right now, click "Print" and save it as a PDF until you are able to get it printed. Remove it from your computer afterwards!'), _defineProperty(_en$data, 'x_PrintShort', 'Print'), _defineProperty(_en$data, 'x_PrivKey', 'Private Key (unencrypted)'), _defineProperty(_en$data, 'x_PrivKey2', 'Private Key'), _defineProperty(_en$data, 'x_PrivKeyDesc', 'This is the unencrypted text version of your private key, meaning no password is necessary. If someone were to find your unencrypted private key, they could access your wallet without a password. For this reason, encrypted versions are typically recommended.'), _defineProperty(_en$data, 'x_ReadMore', 'Read More'), _defineProperty(_en$data, 'x_ReplaceTx', 'Replace Transaction'), _defineProperty(_en$data, 'x_Save', 'Save'), _defineProperty(_en$data, 'x_TransHash', 'Transaction Hash'), _defineProperty(_en$data, 'x_Trezor', 'TREZOR'), _defineProperty(_en$data, 'x_TXFee', 'TX Fee'), _defineProperty(_en$data, 'x_TxHash', 'TX Hash'), _defineProperty(_en$data, 'x_TXT', 'TXT file (unencrypted)'), _defineProperty(_en$data, 'x_Wallet', 'Wallet'), _defineProperty(_en$data, 'HELP_0_Desc_1', 'MyWanWallet gives you the ability to generate new wallets so you can store your Wancoins yourself, not on an exchange. This process happens entirely on your computer, not our servers. Therefore, when you generate a new wallet, **you are responsible for safely backing it up**.'), _defineProperty(_en$data, 'HELP_0_Desc_2', 'Create a new wallet.'), _defineProperty(_en$data, 'HELP_0_Desc_3', 'Back the wallet up.'), _defineProperty(_en$data, 'HELP_0_Desc_4', 'Verify you have access to this new wallet and have correctly saved all necessary information.'), _defineProperty(_en$data, 'HELP_0_Desc_5', 'Transfer Wancoins to this new wallet.'), _defineProperty(_en$data, 'HELP_0_Title', '0) I\'m new. What do I do?'), _defineProperty(_en$data, 'HELP_10_Desc_1', 'Navigate to the "Offline Transaction" page via your online computer.'), _defineProperty(_en$data, 'HELP_10_Desc_10', 'The data field below this button will populate with your signed transaction. Copy this and move it back to your online computer.'), _defineProperty(_en$data, 'HELP_10_Desc_11', 'On your online computer, paste the signed transaction into the text field in step #3 and click send. This will broadcast your transaction.'), _defineProperty(_en$data, 'HELP_10_Desc_2', 'Enter the "From Address". Please note, this is the address you are sending FROM, not TO. This generates the nonce and gas price.'), _defineProperty(_en$data, 'HELP_10_Desc_3', 'Move to your offline computer. Enter the "TO ADDRESS" and the "AMOUNT" you wish to send.'), _defineProperty(_en$data, 'HELP_10_Desc_4', 'Enter the "GAS PRICE" as it was displayed to you on your online computer in step #1.'), _defineProperty(_en$data, 'HELP_10_Desc_5', 'Enter the "NONCE" as it was displayed to you on your online computer in step #1.'), _defineProperty(_en$data, 'HELP_10_Desc_6', 'The "GAS LIMIT" has a default value of 21000. This will cover a standard transaction. If you are sending to a contract or are including additional data with your transaction, you will need to increase the gas limit. Any excess gas will be returned to you.'), _defineProperty(_en$data, 'HELP_10_Desc_7', 'If you wish, enter some data. If you enter data, you will need to include more than the 21000 default gas limit. All data is in HEX format.'), _defineProperty(_en$data, 'HELP_10_Desc_8', 'Select your wallet file -or- your private key and unlock your wallet.'), _defineProperty(_en$data, 'HELP_10_Desc_9', 'Press the "GENERATE SIGNED TRANSACTION" button.'), _defineProperty(_en$data, 'HELP_10_Title', '10) How do I make an offline transaction?'), _defineProperty(_en$data, 'HELP_12_Desc_1', 'Using an gwan/Mist JSON file from MyWanWallet v2+....'), _defineProperty(_en$data, 'HELP_12_Desc_10', 'Your account should show up immediately under "Accounts."'), _defineProperty(_en$data, 'HELP_12_Desc_11', 'Using your unencrypted private key...'), _defineProperty(_en$data, 'HELP_12_Desc_12', 'If you do not already have your unencrypted private key, navigate to the "View Wallet Details" page.'), _defineProperty(_en$data, 'HELP_12_Desc_13', 'Select your wallet file -or- enter/paste your private key to unlock your wallet.'), _defineProperty(_en$data, 'HELP_12_Desc_14', 'Copy Your Private Key (unencrypted).'), _defineProperty(_en$data, 'HELP_12_Desc_15', 'If you are on a Mac'), _defineProperty(_en$data, 'HELP_12_Desc_15b', 'If you are on a PC'), _defineProperty(_en$data, 'HELP_12_Desc_16', 'Open Text Edit and paste this private key.'), _defineProperty(_en$data, 'HELP_12_Desc_17', 'Go to the menu bar and click "Format" -> "Make Plain Text".'), _defineProperty(_en$data, 'HELP_12_Desc_18', 'Save this file to your `desktop/` as `nothing_special_delete_me.txt`. Make sure it says "UTF-8" and "If no extension is provided use .txt" in the save dialog.'), _defineProperty(_en$data, 'HELP_12_Desc_19', 'Open terminal and run the following command: `gwan account import ~/Desktop/nothing_special_delete_me.txt`'), _defineProperty(_en$data, 'HELP_12_Desc_2', 'Go to the "View Wallet Info" page.'), _defineProperty(_en$data, 'HELP_12_Desc_20', 'This will prompt you to make a new password. This is the password you will use in gwan / Wanchain Wallet / Mist whenever you send a transaction, so don\'t forget it.'), _defineProperty(_en$data, 'HELP_12_Desc_21', 'After successful import, delete `nothing_special_delete_me.txt`'), _defineProperty(_en$data, 'HELP_12_Desc_22', 'The next time you open the Wanchain Wallet application, your account will be listed under "Accounts".'), _defineProperty(_en$data, 'HELP_12_Desc_23', 'Open Notepad & paste the private key'), _defineProperty(_en$data, 'HELP_12_Desc_24', 'Save the file as `nothing_special_delete_me.txt` at `C:`'), _defineProperty(_en$data, 'HELP_12_Desc_25', 'Run the command, `gwan account import C:\\nothing_special_delete_me.txt`'), _defineProperty(_en$data, 'HELP_12_Desc_26', 'This will prompt you to make a new password. This is the password you will use in gwan / Wanchain Wallet / Mist whenever you send a transaction, so don\'t forget it.'), _defineProperty(_en$data, 'HELP_12_Desc_27', 'After successful import, delete `nothing_special_delete_me.txt`'), _defineProperty(_en$data, 'HELP_12_Desc_28', 'The next time you open the Wanchain Wallet application, your account will be listed under "Accounts".'), _defineProperty(_en$data, 'HELP_12_Desc_3', 'Unlock your wallet using your **encrypted** private key or JSON file.'), _defineProperty(_en$data, 'HELP_12_Desc_4', 'Go to the "My Wallets" page.'), _defineProperty(_en$data, 'HELP_12_Desc_5', 'Select the wallet you want to import into Mist, click the "View" icon, enter your password, and access your wallet.'), _defineProperty(_en$data, 'HELP_12_Desc_6', 'Find the "Download JSON file - gwan/Mist Format (encrypted)" section. Press the "Download" button below that. You now have your keystore file.'), _defineProperty(_en$data, 'HELP_12_Desc_7', 'Open the Wanchain Wallet application.'), _defineProperty(_en$data, 'HELP_12_Desc_8', 'In the menu bar, go "Accounts" -> "Backup" -> "Accounts"'), _defineProperty(_en$data, 'HELP_12_Desc_9', 'This will open your keystore folder. Copy the file you just downloaded (`UTC--2016-04-14......../`) into that keystore folder.'), _defineProperty(_en$data, 'HELP_12_Title', '12) How do I import a wallet created with MyWanWallet into gwan / Wanchain Wallet / Mist?'), _defineProperty(_en$data, 'HELP_13_Desc_1', 'This means you do not have enough Wancoins in your account to cover the cost of gas. Each transaction (including token and contract transactions) require gas and that gas is paid in Wancoins. The number displayed is the amount required to cover the cost of the transaction in Wei. Take that number, divide by `1000000000000000000`, and subtract the amount of Wancoin you were trying to send (if you were attempting to send Wancoin). This will give you the amount of Wancoins you need to send to that account to make the transaction.'), _defineProperty(_en$data, 'HELP_13_Title', '13) What does "Insufficient funds. Account you try to send transaction from does not have enough funds. Required XXXXXXXXXXXXXXXXXXX and got: XXXXXXXXXXXXXXXX." Mean?'), _defineProperty(_en$data, 'HELP_14_Desc_1', 'While the mouse moving thing is clever and we understand why people like it, the reality is window.crypto ensures more entropy than your mouse movements. The mouse movements aren\'t unsafe, it\'s just that we (and tons of other crypto experiments) believe in window.crypto. In addition, MyWanWallet.nl can be used on touch devices. Here\'s a [conversation between an angry redditor and Vitalik Buterin regarding mouse movements v. window.crypto](https://www.reddit.com/r/ethereum/comments/2bilqg/note_there_is_a_paranoid_highsecurity_way_to/cj5sgrm) and here is the [the window.crypto w3 spec](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-GlobalCrypto).'), _defineProperty(_en$data, 'HELP_14_Title', '14) Some sites randomize (seed) the private key generation via mouse movements. MyWanWallet.nl doesn\'t do this. Is the random number generation for MyWanWallet safe?'), _defineProperty(_en$data, 'HELP_15_Desc_1', 'Accounts will only show up in a blockchain explorer once the account has activity on it&mdash;for example, once you have transferred some Wancoins to it.'), _defineProperty(_en$data, 'HELP_15_Title', '15) Why hasn\'t the account I just created show up in the blockchain explorer? (ie: wanscan.io)'), _defineProperty(_en$data, 'HELP_16_Desc_1', 'You can use a blockchain explorer like [wanscan.io](https://wanscan.io/). Paste your address into the search bar and it will pull up your address and transaction history. For example, here\'s what our [donation account](https://wanscan.io/addr/0x7cb57b5a97eabe94205c07890be4c1ad31e486a8) looks like on wanscan.io'), _defineProperty(_en$data, 'HELP_16_Title', '16) How do I check the balance of my account?'), _defineProperty(_en$data, 'HELP_17_Desc_1', 'This is most likely due to the fact that you are behind a firewall. The API that we use to get the balance and convert said balance is often blocked by firewalls for whatever reason. You will still be able to send transactions, you just need to use a different method to see said balance, like wanscan.io'), _defineProperty(_en$data, 'HELP_17_Title', '17) Why isn\'t my balance showing up when I unlock my wallet?'), _defineProperty(_en$data, 'HELP_18_Title', '18) Where is my gwan wallet file?'), _defineProperty(_en$data, 'HELP_19_Desc_1', 'Mist files are typically found in the file locations above, but it\'s much easier to open Mist, select "Accounts" in the top bar, select "Backup", and select "Accounts". This will open the folder where your files are stored.'), _defineProperty(_en$data, 'HELP_19_Title', '19) Where is my Mist wallet file?'), _defineProperty(_en$data, 'HELP_1_Desc_1', 'Go to the "Generate Wallet" page.'), _defineProperty(_en$data, 'HELP_1_Desc_2', 'Go to the "Add Wallet" page & select "Generate New Wallet"'), _defineProperty(_en$data, 'HELP_1_Desc_3', 'Enter a strong password. If you think you may forget it, save it somewhere safe. You will need this password to send transactions.'), _defineProperty(_en$data, 'HELP_1_Desc_4', 'Click "GENERATE".'), _defineProperty(_en$data, 'HELP_1_Desc_5', 'Your wallet has now been generated.'), _defineProperty(_en$data, 'HELP_1_Title', '1) How do I create a new wallet?'), _defineProperty(_en$data, 'HELP_20_Desc_1', 'Wherever you saved it. ;) It also was emailed to you, so check there. Look for the file called `"ethereum_wallet_backup.json"` and select that file. This wallet file will be encrypted with a password that you created during the purchase of the pre-sale.'), _defineProperty(_en$data, 'HELP_20_Title', '20) Where is my pre-sale wallet file?'), _defineProperty(_en$data, 'HELP_21_Desc_1', 'Short version: yes, but finding an account with a balance would take longer than the universe...so...no.'), _defineProperty(_en$data, 'HELP_21_Desc_2', 'Long ELI5 Version: So Wanchain is based on [Public Key Cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), specifically [Elliptic curve cryptography](https://eprint.iacr.org/2013/734.pdf) which is very widely used, not just in Wanchain. Most servers are protected via ECC. Bitcoin uses the same, as well as SSH and TLS and a lot of other stuff. The Wanchain keys specifically are 256-bit keys, which are stronger than 128-bit and 192-bit, which are also widely used and still considered secure by experts.'), _defineProperty(_en$data, 'HELP_21_Desc_3', 'In this you have a private key and a public key. The private key can derive the public key, but the public key cannot be turned back into the private key. The fact that the internet and the world’s secrets are using this cryptography means that if there is a way to go from public key to private key, your lost Wancoins is the least of everyone’s problems.'), _defineProperty(_en$data, 'HELP_21_Desc_4', 'Now, that said, YES if someone else has your private key then they can indeed send Wancoin from your account. Just like if someone has your password to your email, they can read and send your email, or the password to your bank account, they could make transfers. You could download the Keystore version of your private key which is the private key that is encrypted with a password. This is like having a password that is also protected by another password.'), _defineProperty(_en$data, 'HELP_21_Desc_5', 'And YES, in theory you could just type in a string of 64 hexadecimal characters until you got one that matched. In fact, smart people could write a program to very quickly check random private keys. This is known as "brute-forcing" or "mining" private keys. People have thought about this long and hard. With a few very high end servers, they may be able to check 1M+ keys / second. However, even checking that many per second would not yield access to make the cost of running those servers even close to worthwhile - it is more likely you, and your great-grandchildren, will die before getting a match.'), _defineProperty(_en$data, 'HELP_21_Desc_6', 'If you know anything about Bitcoin, [this will put it in perspective:](http://bitcoin.stackexchange.com/questions/32331/two-people-with-same-public-address-how-will-people-network-know-how-to-deliver) *To illustrate how unlikely this is: suppose every satoshi of every bitcoin ever to be generated was sent to its own unique private keys. The probability that among those keys there could be two that would correspond to the same address is roughly one in 100 quintillion.'), _defineProperty(_en$data, 'HELP_21_Desc_7', '[If you want something a bit more technical:](http://security.stackexchange.com/questions/25375/why-not-use-larger-cipher-keys/25392#25392) *These numbers have nothing to do with the technology of the devices; they are the maximums that thermodynamics will allow. And they strongly imply that brute-force attacks against 256-bit keys will be infeasible until computers are built from something other than matter and occupy something other than space.'), _defineProperty(_en$data, 'HELP_21_Desc_8', 'Of course, this all assumes that keys are generated in a truly random way & with sufficient entropy. The keys generated here meet that criteria, as do Jaxx and Mist/gwan. The Wanchain wallets are all pretty good. Keys generated by brainwallets do not, as a person\'s brain is not capable of creating a truly random seed. There have been a number of other issues regarding lack of entropy or seeds not being generated in a truly random way in Bitcoin-land, but that\'s a separate issue that can wait for another day.'), _defineProperty(_en$data, 'HELP_21_Title', '21) Couldn\'t everybody put in random private keys, look for a balance, and send to their own address?'), _defineProperty(_en$data, 'HELP_2a_Desc_1', 'You should always back up your wallet externally and in multiple physical locations - like on a USB drive and/or a piece of paper.'), _defineProperty(_en$data, 'HELP_2a_Desc_2', 'Save the address. You can keep it to yourself or share it with others. That way, others can transfer Wancoins to you.'), _defineProperty(_en$data, 'HELP_2a_Desc_3', 'Save versions of the private key. Do not share it with anyone else. Your private key is necessary when you want to access your Wancoins to send it! There are 3 types of private keys'), _defineProperty(_en$data, 'HELP_2a_Desc_4', 'Place your address, versions of the private key, and the PDF version of your paper wallet in a folder. Save this on your computer and a USB drive.'), _defineProperty(_en$data, 'HELP_2a_Desc_5', 'Print the wallet if you have a printer. Otherwise, write down your private key and address on a piece of paper. Store this as a secure location, separate from your computer and the USB drive.'), _defineProperty(_en$data, 'HELP_2a_Desc_6', 'Keep in mind, you must prevent loss of the keys and password due to loss or failure of you hard drive failure, or USB drive, or piece of paper. You also must keep in mind physical loss / damage of an entire area (think fire or flood).'), _defineProperty(_en$data, 'HELP_2a_Title', 'How do I save/backup my wallet?'), _defineProperty(_en$data, 'HELP_2b_Desc_1', 'Go to [https://github.com/tyrion70/mywanwallet/releases/latest](https://github.com/tyrion70/etherwallet/releases/latest).'), _defineProperty(_en$data, 'HELP_2b_Desc_2', 'Click on `etherwallet-vX.X.X.X.zip`.'), _defineProperty(_en$data, 'HELP_2b_Desc_3', 'Move zip to an airgapped computer.'), _defineProperty(_en$data, 'HELP_2b_Desc_4', 'Unzip it and double-click `index.html`.'), _defineProperty(_en$data, 'HELP_2b_Desc_5', 'Generate a wallet with a strong password.'), _defineProperty(_en$data, 'HELP_2b_Desc_6', 'Save the address. Save versions of the private key. Save the password if you might not remember it forever.'), _defineProperty(_en$data, 'HELP_2b_Desc_7', 'Store these papers / USBs in multiple physically separate locations.'), _defineProperty(_en$data, 'HELP_2b_Desc_8', 'Go to the "View Wallet Info" page and type in your private key / password to ensure they are correct and access your wallet. Check that the address you wrote down is the same.'), _defineProperty(_en$data, 'HELP_2b_Title', '2b) How do I safely / offline / cold storage with MyWanWallet?'), _defineProperty(_en$data, 'HELP_3_Desc_1', '**Before you send any Wancoins to your new wallet**, you should ensure you have access to it.'), _defineProperty(_en$data, 'HELP_3_Desc_2', 'Navigate to the "View Wallet Info" page.'), _defineProperty(_en$data, 'HELP_3_Desc_3', 'Navigate to the MyWanWallet.nl "View Wallet Info" page.'), _defineProperty(_en$data, 'HELP_3_Desc_4', 'Select your wallet file -or- your private key and unlock your wallet.'), _defineProperty(_en$data, 'HELP_3_Desc_5', 'If the wallet is encrypted, a text box will automatically appear. Enter the password.'), _defineProperty(_en$data, 'HELP_3_Desc_6', 'Click the "Unlock Wallet" button.'), _defineProperty(_en$data, 'HELP_3_Desc_7', 'Your wallet information should show up. Find your account address, next to a colorful, circular icon. This icon visually represents your address. Be certain that the address is the address you have saved to your text document and is on your paper wallet.'), _defineProperty(_en$data, 'HELP_3_Desc_8', 'If you are planning on holding a large amount of Wancoins, we recommend that send a small amount of Wancoins from new wallet before depositing a large amount. Send 0.001 Wancoins to your new wallet, access that wallet, send that 0.001 Wancoins to another address, and ensure everything works smoothly.'), _defineProperty(_en$data, 'HELP_3_Title', '3) How do I verify I have access to my new wallet?'), _defineProperty(_en$data, 'HELP_4_Desc_1', 'If you plan to move a large amount of Wancoins, you should test sending a small amount to your wallet first to ensure everything goes as planned.'), _defineProperty(_en$data, 'HELP_4_Desc_10', 'A couple more fields will appear. This is your browser generating the transaction.'), _defineProperty(_en$data, 'HELP_4_Desc_11', 'Click the blue "Send Transaction" button below that.'), _defineProperty(_en$data, 'HELP_4_Desc_12', 'A pop-up will appear. Verify that the amount and the address you are sending to are correct. Then click "Yes, I am sure! Make transaction." button.'), _defineProperty(_en$data, 'HELP_4_Desc_13', 'The transaction will be submitted. The TX Hash will display. You can click that TX Hash to see it on the blockchain.'), _defineProperty(_en$data, 'HELP_4_Desc_2', 'Navigate to the "Send Wancoin & Tokens" page.'), _defineProperty(_en$data, 'HELP_4_Desc_3', 'Select your wallet file -or- your private key and unlock your wallet.'), _defineProperty(_en$data, 'HELP_4_Desc_4', 'If the wallet is encrypted, a text box will automatically appear. Enter the password.'), _defineProperty(_en$data, 'HELP_4_Desc_5', 'Click the "Unlock Wallet" button.'), _defineProperty(_en$data, 'HELP_4_Desc_6', 'Enter the address you would like to send to in the "To Address:" field.'), _defineProperty(_en$data, 'HELP_4_Desc_7', 'Enter the amount you would like to send. You can also click the "Send Entire Balance" link if you would like the transfer the entire balance.'), _defineProperty(_en$data, 'HELP_4_Desc_9', 'Click "Generate Transaction".'), _defineProperty(_en$data, 'HELP_4_Title', '4) How do I send Wancoin from one wallet to another?'), _defineProperty(_en$data, 'HELP_4CX_Desc_1', 'First, you need to add a wallet. Once you have done that, you have 2 options: the "QuickSend" functionality from the Chrome Extension icon or the "Send Wancoins & Tokens" page.'), _defineProperty(_en$data, 'HELP_4CX_Desc_10', 'Enter the password for that wallet.'), _defineProperty(_en$data, 'HELP_4CX_Desc_11', 'Click "Send Transaction."'), _defineProperty(_en$data, 'HELP_4CX_Desc_12', 'Using "Send Wancoins & Tokens" Page'), _defineProperty(_en$data, 'HELP_4CX_Desc_2', 'QuickSend'), _defineProperty(_en$data, 'HELP_4CX_Desc_3', 'Click the Chrome Extension Icon.'), _defineProperty(_en$data, 'HELP_4CX_Desc_4', 'Click the "QuickSend" button.'), _defineProperty(_en$data, 'HELP_4CX_Desc_5', 'Select the wallet you wish to send from.'), _defineProperty(_en$data, 'HELP_4CX_Desc_6', 'Enter the address you would like to send to in the "To Address:" field.'), _defineProperty(_en$data, 'HELP_4CX_Desc_7', 'Enter the amount you would like to send. You can also click the "Send Entire Balance" link if you would like the transfer the entire balance.'), _defineProperty(_en$data, 'HELP_4CX_Desc_8', 'Click "Send Transaction".'), _defineProperty(_en$data, 'HELP_4CX_Desc_9', 'Verify the address and the amount you are sending is correct.'), _defineProperty(_en$data, 'HELP_4CX_Title', '4) How do I Send Wancoins using MyWanWallet CX?'), _defineProperty(_en$data, 'HELP_5_Desc_1', 'You can run MyWanWallet.nl on your computer instead of from the GitHub servers. You can generate a wallet completely offline and send transactions from the "Offline Transaction" page.'), _defineProperty(_en$data, 'HELP_5_Desc_7', 'MyWanWallet.nl is now running entirely on your computer.'), _defineProperty(_en$data, 'HELP_5_Desc_8', 'In case you are not familiar, you need to keep the entire folder in order to run the website, not just `index.html`. Don\'t touch or move anything around in the folder. If you are storing a backup of the MyWanWallet repo for the future, we recommend just storing the ZIP so you can be sure the folder contents stay intact.'), _defineProperty(_en$data, 'HELP_5_Desc_9', 'As we are constantly updating MyWanWallet.nl, we recommend you periodically update your saved version of the repo.'), _defineProperty(_en$data, 'HELP_5_Title', '5) How do I run MyWanWallet.nl offline/locally?'), _defineProperty(_en$data, 'HELP_5CX_Desc_2', 'Click on `chrome-extension-vX.X.X.X.zip` and unzip it.'), _defineProperty(_en$data, 'HELP_5CX_Desc_3', 'Go to Google Chrome and find you settings (in the menu in the upper right).'), _defineProperty(_en$data, 'HELP_5CX_Desc_4', 'Click "Extensions" on the left.'), _defineProperty(_en$data, 'HELP_5CX_Desc_5', 'Check the "Developer Mode" button at the top of that page.'), _defineProperty(_en$data, 'HELP_5CX_Desc_6', 'Click the "Load unpacked extension..." button.'), _defineProperty(_en$data, 'HELP_5CX_Desc_7', 'Navigate to the now-unzipped folder that you downloaded earlier. Click "select".'), _defineProperty(_en$data, 'HELP_5CX_Desc_8', 'The extension should now show up in your extensions and in your Chrome Extension bar.'), _defineProperty(_en$data, 'HELP_5CX_Title', '5) How can I install this extension from the repo instead of the Chrome Store?'), _defineProperty(_en$data, 'HELP_7_Desc_0', '[Ethplorer.io](https://ethplorer.io/) is a great way to explore tokens and find the decimals of a token.'), _defineProperty(_en$data, 'HELP_7_Desc_1', 'Navigate to the "Send Wancoins & Tokens" page.'), _defineProperty(_en$data, 'HELP_7_Desc_10', 'You can now send that token as well as see it\'s balance in the sidebar.'), _defineProperty(_en$data, 'HELP_7_Desc_11', 'Click "Generate Transaction".'), _defineProperty(_en$data, 'HELP_7_Desc_12', 'A couple more fields will appear. This is your browser generating the transaction.'), _defineProperty(_en$data, 'HELP_7_Desc_13', 'Click the blue "Send Transaction" button below that.'), _defineProperty(_en$data, 'HELP_7_Desc_14', 'A pop-up will appear. Verify that the amount and the address you are sending to are correct. Then click "Yes, I am sure! Make transaction." button.'), _defineProperty(_en$data, 'HELP_7_Desc_15', 'The transaction will be submitted. The TX Hash will display. You can click that TX Hash to see it on the blockchain.'), _defineProperty(_en$data, 'HELP_7_Desc_2', 'Unlock your wallet.'), _defineProperty(_en$data, 'HELP_7_Desc_3', 'Enter the address you would like to send to in the "To Address:" field.'), _defineProperty(_en$data, 'HELP_7_Desc_4', 'Enter the amount you would like to send.'), _defineProperty(_en$data, 'HELP_7_Desc_5', 'Select which token you would like to send.'), _defineProperty(_en$data, 'HELP_7_Desc_6', 'If you do not see the token listed'), _defineProperty(_en$data, 'HELP_7_Desc_7', 'Click "Custom".'), _defineProperty(_en$data, 'HELP_7_Desc_8', 'Enter the address, name, and decimals of the token. These are provided by the developers of the token and are also needed when you "Add a Watch Token" to Mist.'), _defineProperty(_en$data, 'HELP_7_Desc_9', 'Click "Save".'), _defineProperty(_en$data, 'HELP_7_Title', '7) How do I send tokens & add custom tokens?'), _defineProperty(_en$data, 'HELP_8_Desc_1', 'MyWanWallet is not a web wallet. You don\'t have a login and nothing ever gets saved to our servers. It is simply an interface that allows you interact with the blockchain.'), _defineProperty(_en$data, 'HELP_8_Desc_2', 'If MyWanWallet.nl goes down, you would have to find another way (like gwan or Wanchain Wallet / Mist) to do what we are doing. But you wouldn\'t have to "get" your Wancoins out of MyWanWallet because it\'s not in MyWanWallet. It\'s in whatever wallet your generated via our site.'), _defineProperty(_en$data, 'HELP_8_Desc_3', 'You can import your unencrypted private key and your gwan/Mist Format (encrypted) files directly into gwan / Wanchain Wallet / Mist very easily now. See question #12 below.'), _defineProperty(_en$data, 'HELP_8_Desc_4', 'In addition, the likelihood of us taking MyWanWallet down is slim to none. It costs us almost nothing to maintain as we aren\'t storing any information. If we do take the domain down, it still is, and always will be, publicly available at [https://github.com/tyrion70/mywanwallet](https://github.com/tyrion70/mywanwallet). You can download the ZIP there and run it locally.'), _defineProperty(_en$data, 'HELP_8_Title', '8) What happens if your site goes down?'), _defineProperty(_en$data, 'HELP_8CX_Desc_1', 'First, all data is saved on your computer, not our servers. I know it can be confusing, but when you look at the Chrome Extension, you are NOT looking at stuff saved on our servers somewhere - it\'s all saved on your own computer.'), _defineProperty(_en$data, 'HELP_8CX_Desc_2', 'That said, it is **very important** that you back up all your information for any new wallets generated with MyWanWallet CX. That way if anything happens to MyWanWallet CX or your computer, you still have all the information necessary to access your Wancoins. See the #2a for how to back up your wallets.'), _defineProperty(_en$data, 'HELP_8CX_Desc_3', 'If for some reason MyWanWallet CX disappears from the Chrome Store, you can find the source on Github and load it manually. See #5 above.'), _defineProperty(_en$data, 'HELP_8CX_Title', '8) What happens if MyWanWallet CX disappears?'), _defineProperty(_en$data, 'HELP_9_Desc_1', 'No. It needs the internet in order to get the current gas price, nonce of your account, and broadcast the transaction (aka "send"). However, it only sends the signed transaction. Your private key safely stays with you. We also now provide an "Offline Transaction" page so that you can ensure your private keys are on an offline/airgapped computer at all times.'), _defineProperty(_en$data, 'HELP_9_Title', '9) Is the "Send Wancoins & Tokens" page offline?'), _defineProperty(_en$data, 'HELP_Contact_Title', 'Ways to Get in Touch'), _defineProperty(_en$data, 'HELP_Desc', 'Do you see something missing? Have another question? [Get in touch with us](mailto:support@MyWanWallet.nl), and we will not only answer your question, we will update this page to be more useful to people in the future!'), _defineProperty(_en$data, 'HELP_FAQ_Title', 'More Helpful Answers to Frequent Questions'), _defineProperty(_en$data, 'HELP_Remind_Desc_1', '**Wanchain, MyWanWallet.com & MyWanWallet CX, and some of the underlying Javascript libraries we use are under active development.** While we have thoroughly tested & tens of thousands of wallets have been successfully created by people all over the globe, there is always the remote possibility that something unexpected happens that causes your WAN to be lost. Please do not invest more than you are willing to lose, and please be careful. If something were to happen, we are sorry, but **we are not responsible for the lost Wancoins**.'), _defineProperty(_en$data, 'HELP_Remind_Desc_2', 'MyWanWallet.nl & MyWanWallet CX are not "web wallets". You do not create an account or give us your Wancoins to hold onto. All data never leaves your computer/your browser. We make it easy for you to create, save, and access your information and interact with the blockchain.'), _defineProperty(_en$data, 'HELP_Remind_Desc_3', 'If you do not save your private key & password, there is no way to recover access to your wallet or the funds it holds.  Back them up in multiple physical locations &ndash; not just on your computer!'), _defineProperty(_en$data, 'HELP_Remind_Title', 'Some reminders'), _defineProperty(_en$data, 'HELP_Sec_Desc_1', 'If one of your first questions is "Why should I trust these people?", that is a good thing. Hopefully the following will help ease your fears.'), _defineProperty(_en$data, 'HELP_Sec_Desc_2', 'We\'ve been up and running since August 2015. If you search for ["MyWanWallet" on reddit](https://www.reddit.com/search?q=MyWanWallet), you can see numerous people who use us with great success.'), _defineProperty(_en$data, 'HELP_Sec_Desc_3', 'We aren\'t going to take your money or steal your private key(s). There is no malicious code on this site. In fact the "GENERATE WALLET" pages are completely client-side. That means that all the code is executed on ** your computer** and it is never saved and transmitted anywhere.'), _defineProperty(_en$data, 'HELP_Sec_Desc_4', 'Check the URL -- This site is being served through GitHub and you can see the source code here: [https://github.com/tyrion70/mywanwallet/releases/latest](https://github.com/tyrion70/etherwallet/releases/latest) to [https://www.MyWanWallet.nl](https://www.MyWanWallet.nl).'), _defineProperty(_en$data, 'HELP_Sec_Desc_5', 'For generating wallets, you can download the [source code and run it locally](https://github.com/tyrion70/mywanwallet/releases/latest). See #5 above.'), _defineProperty(_en$data, 'HELP_Sec_Desc_6', 'Generate a test wallet and check and see what network activity is happening. The easiest way for you to do this is to right click on the page and click "inspect element". Go to the "Network" tab. Generate a test wallet. You will see there is no network activity. You may see something happening that looks like data:image/gif and data:image/png. Those are the QR codes being generated...on your computer...by your computer. No bytes were transferred.'), _defineProperty(_en$data, 'HELP_Sec_Desc_8', 'If you do not feel comfortable using this tool, then by all means, do not use it. We created this tool as a helpful way for people to generate wallets and make transactions without needing to dive into command line or run a full node. Again, feel free to reach out if you have concerns and we will respond as quickly as possible. Thanks!'), _defineProperty(_en$data, 'HELP_Sec_Title', 'Security'), _defineProperty(_en$data, 'HELP_SecCX_Desc_1', 'Where is this extension saving my information?'), _defineProperty(_en$data, 'HELP_SecCX_Desc_2', 'The information you store in this Chrome Extension is saved via [chrome.storage](http://chrome.storage/). - this is the same place your passwords are saved when you save your password in Chrome.'), _defineProperty(_en$data, 'HELP_SecCX_Desc_3', 'What information is saved?'), _defineProperty(_en$data, 'HELP_SecCX_Desc_4', 'The address, nickname, private key is stored in chrome.storage. The private key is encrypted using the password you set when you added the wallet. The nickname and wallet address is not encrypted.'), _defineProperty(_en$data, 'HELP_SecCX_Desc_5', 'Why aren\'t the nickname and wallet address encrypted?'), _defineProperty(_en$data, 'HELP_SecCX_Desc_6', 'If we were to encrypt these items, you would need to enter a password each time you wanted to view your account balance or view the nicknames. If this concerns you, we recommend you use MyWanWallet.nl instead of this Chrome Extension.'), _defineProperty(_en$data, 'HELP_SecCX_Title', 'Security - MyWanWallet CX'), _defineProperty(_en$data, 'HELP_Warning', 'If you created a wallet -or- downloaded the repo before **Dec. 31st, 2015**, please check your wallets &amp; download a new version of the repo. Click for details.'), _en$data);
+  ONBOARD_why_content__10: 'If you enter your private key on a phishing website, you will have **all your funds taken**.',
+  ONBOARD_point_title__alt: 'What\'s the Point of MEW then?',
+  ONBOARD_whymew_title: 'If MyWanWallet can\'t do those things, what\'s the point?',
+  ONBOARD_whymew_content__1: 'Because that is the point of decentralization and the blockchain.',
+  ONBOARD_whymew_content__2: 'You don\'t have to rely on your bank, government, or anyone else when you want to move your funds.',
+  ONBOARD_whymew_content__3: 'You don\'t have to rely on the security of an exchange or bank to keep your funds safe.',
+  ONBOARD_whymew_content__4: 'If you don\'t find these things valuable, ask yourself why you think the blockchain and cryptocurrencies are valuable. 😉',
+  ONBOARD_whymew_content__5: 'If you don\'t like the sound of this, consider using [Coinbase](https://www.coinbase.com/) or [Blockchain.info](https://blockchain.info/wallet/#/signup). They have more familiar accounts with usernames & passwords.',
+  ONBOARD_whymew_content__6: 'If you are scared but want to use MEW, [get a hardware wallet](https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html)! These keep your keys secure.',
+  ONBOARD_secure_title: 'How To Protect Yourself & Your Funds',
+  ONBOARD_secure_1_title: 'How To Protect Yourself from Phishers',
+  ONBOARD_secure_1_content__1: 'Phishers send you a message with a link to a website that looks just like MyWanWallet, EtherDelta, Paypal, or your bank, but is not the real website. They steal your information and then steal your money.',
+  ONBOARD_secure_1_content__2: 'Install [WanMask](https://chrome.google.com/webstore/detail/omnkcjdohbnjfjmlaiboojplahajnenj).',
+  ONBOARD_secure_1_content__3: 'Always check the URL: `https://www.MyWanWallet.nl`.',
+  ONBOARD_secure_1_content__4: 'Always make sure the URL bar has `MyWanWallet.nl` in green.',
+  ONBOARD_secure_1_content__5: 'Do not trust messages or links sent to you randomly via email, Slack, Reddit, Twitter, etc.',
+  ONBOARD_secure_1_content__6: 'Always navigate directly to a site before you enter information. Do not enter information after clicking a link from a message or email.',
+  ONBOARD_secure_1_content__7: '[Install an AdBlocker](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en) and do not click ads on your search engine (e.g. Google).',
+  ONBOARD_point_title__alt_2: 'What\'s the point?',
+  ONBOARD_secure_2_title: 'How To Protect Yourself from Scams',
+  ONBOARD_secure_2_content__1: 'People will try to get you to give them money in return for nothing.',
+  ONBOARD_secure_2_content__2: 'If it is too good to be true, it probably is.',
+  ONBOARD_secure_2_content__3: 'Research before sending money to someone or some project. Look for information on a variety of websites and forums. Be wary.',
+  ONBOARD_secure_2_content__4: 'Ask questions when you don\'t understand something or it doesn\'t seem right.',
+  ONBOARD_secure_2_content__5: 'Don\'t let fear, FUD, or FOMO win over common sense. If something is very urgent, ask yourself "why?". It may be to create FOMO or prevent you from doing research.',
+  ONBOARD_secure_3_title__alt: 'Phuck Phishers',
+  ONBOARD_secure_3_title: 'How To Protect Yourself from Loss',
+  ONBOARD_secure_3_content__1: 'If you lose your private key or password, it is gone forever. Don\'t lose it.',
+  ONBOARD_secure_3_content__2: 'Make a backup of your private key and password. Do NOT just store it on your computer. Print it out on a piece of paper or save it to a USB drive.',
+  ONBOARD_secure_3_content__3: 'Store this paper or USB drive in a different physical location. A backup is not useful if it is destroyed by a fire or flood along with your laptop.',
+  ONBOARD_secure_3_content__4: 'Do not store your private key in Dropbox, Google Drive, or other cloud storage. If that account is compromised, your funds will be stolen.',
+  ONBOARD_secure_3_content__5: 'If you have more than 1-week\'s worth of pay worth of cryptocurrency, get a hardware wallet. No excuses. It\'s worth it. I promise.',
+  ONBOARD_secure_3_content__6: '[Even more Security Tips!](https://myetherwallet.github.io/knowledge-base/getting-started/protecting-yourself-and-your-funds.html)',
+  ONBOARD_secure_2_title__alt_2: 'Screw Scams',
+  ONBOARD_final_title__alt: 'One more click & you\'re done! 🤘',
+  ONBOARD_final_title: 'Alright, I\'m done lecturing you!',
+  ONBOARD_final_subtitle: 'Sorry for being like this. Onwards!',
+  ONBOARD_final_content__1: 'Create a wallet',
+  ONBOARD_final_content__2: 'Get a hardware wallet',
+  ONBOARD_final_content__3: 'How to Set up MEW + WanMask',
+  ONBOARD_final_content__4: 'How to Run MEW Offline / Locally',
+  ONBOARD_final_content__5: 'How to Send via Ledger hardware wallet',
+  ONBOARD_final_content__6: 'How to Send via TREZOR hardware wallet',
+  ONBOARD_final_content__7: 'How to Send via WanMask',
+  ONBOARD_final_content__8: 'Learn More or Contact Us',
+  ONBOARD_final_content__9: 'OMG, please just let me send FFS.',
+  ONBOARD_resume: 'It looks like you didn\'t finish reading through these slides last time. ProTip: Finish reading through the slides 😉',
+
+  /* Old */
+  ADD_DigitalBitbox_0a: 'Re-open MyWanWallet on a secure (SSL) connection',
+  ADD_DigitalBitbox_0b: 'Re-open MyWanWallet using [Chrome](https://www.google.com/chrome/browser/desktop/) or [Opera](https://www.opera.com/)',
+  ADD_DigitalBitbox_scan: 'Connect your Digital Bitbox',
+  ADD_Label_1: 'What would you like to do?',
+  ADD_Label_2: 'Create a Nickname',
+  ADD_Label_3: 'Your wallet is encrypted. Good! Please enter the password.',
+  ADD_Label_4: 'Add an Account to Watch',
+  ADD_Label_5: 'Enter the Address',
+  ADD_Label_6: 'Unlock your Wallet',
+  ADD_Label_6_short: 'Unlock',
+  ADD_Label_7: 'Add Account',
+  ADD_Label_8: 'Password (optional):',
+  ADD_Ledger_0a: 'Please use MyWanWallet on a secure (SSL / HTTPS) connection to connect.',
+  ADD_Ledger_0b: 'Re-open MyWanWallet using [Chrome](https://www.google.com/chrome/browser/desktop/) or [Opera](https://www.opera.com/)',
+  ADD_Ledger_1: 'Connect your Ledger Wallet',
+  ADD_Ledger_2: 'Open the Wanchain application (or a contract application)',
+  ADD_Ledger_2_Exp: 'Open the Expanse application (or a contract application)',
+  ADD_Ledger_2_Ubq: 'Open the Ubiq application (or a contract application)',
+  ADD_Ledger_3: 'Verify that Browser Support is enabled in Settings',
+  ADD_Ledger_4: 'If no Browser Support is found in settings, verify that you have [Firmware >1.2](https://www.ledgerwallet.com/apps/manager)',
+  ADD_Ledger_scan: 'Connect to Ledger Wallet',
+  ADD_MetaMask: 'Connect to WanMask',
+  ADD_Radio_1: 'Generate New Wallet',
+  ADD_Radio_2: 'Select Your Wallet File (Keystore / JSON)',
+  ADD_Radio_2_alt: 'Select Your Wallet File',
+  ADD_Radio_2_short: 'SELECT WALLET FILE...',
+  ADD_Radio_3: 'Paste Your Private Key',
+  ADD_Radio_4: 'Add an Account to Watch',
+  ADD_Radio_5: 'Paste Your Mnemonic',
+  ADD_Radio_5_Path: 'Select HD derivation path',
+  ADD_Radio_5_PathAlternative: '(Ledger)',
+  ADD_Radio_5_PathCustom: 'Custom',
+  ADD_Radio_5_PathTrezor: '(TREZOR)',
+  ADD_Radio_5_withTrezor: '(Jaxx, WanMask, Exodus, imToken, TREZOR)',
+  ADD_Radio_5_woTrezor: '(Jaxx, WanMask, Exodus, imToken)',
+  ADD_Trezor_scan: 'Connect to TREZOR',
+  ADD_Warning_1: 'You can add any account to "watch" on the wallets tab without uploading a private key. This does ** not ** mean you have access to this wallet, nor can you transfer Wancoins from it.',
+
+  BULK_Label_1: 'Number of Wallets To Generate',
+  BULK_Label_2: 'Generate Wallets',
+  BULK_SuccessMsg: 'Success! Your wallets have been generated.',
+
+  CONTRACT_ByteCode: 'Byte Code',
+  CONTRACT_Interact_CTA: 'Select a function',
+  CONTRACT_Interact_Title: 'Read / Write Contract',
+  CONTRACT_Json: 'ABI / JSON Interface',
+  CONTRACT_Read: 'READ',
+  CONTRACT_Title: 'Contract Address',
+  CONTRACT_Title_2: 'Select Existing Contract',
+  CONTRACT_Write: 'WRITE',
+
+  CX_error_1: 'You don\'t have any wallets saved. Click ["Add Wallet"](/cx-wallet.html#add-wallet) to add one!',
+  CX_quicksend: 'QuickSend', // if no appropriate translation, just use "Send"
+  CX_Tagline: 'Open Source JavaScript Client-Side Wancoins Wallet Chrome Extension',
+  CX_Warning_1: 'Make sure you have **external backups** of any wallets you store here. Many things could happen that would cause you to lose the data in this Chrome Extension, including uninstalling and reinstalling the extension. This extension is a way to easily access your wallets, **not** a way to back them up.',
+
+  decrypt_Access: 'How would you like to access your wallet?',
+  decrypt_Select: 'Select a Wallet',
+  decrypt_Title: 'Select the format of your private key',
+
+  DEP_generate: 'Generate Bytecode',
+  DEP_generated: 'Generated Bytecode',
+  DEP_interface: 'Generated Interface',
+  DEP_signtx: 'Sign Transaction',
+
+  ERROR_0: '(error_01) Please enter a valid amount.',
+  ERROR_1: '(error_02) Your password must be at least 9 characters. Please ensure it is a strong password.',
+  ERROR_2: '(error_03) Sorry! We don\'t recognize this type of wallet file.',
+  ERROR_3: '(error_04) This is not a valid wallet file.',
+  ERROR_4: '(error_05) This unit doesn\'t exists, please use the one of the following units',
+  ERROR_5: '(error_06) Please enter a valid address.',
+  ERROR_6: '(error_07) Please enter a valid password.',
+  ERROR_7: '(error_08) Please enter valid decimals     (Must be an integer. Try 0-18.)',
+  ERROR_8: '(error_09) Please enter a valid gas limit  (Must be an integer. Try 21000-4000000.)',
+  ERROR_9: '(error_10) Please enter a valid data value (Must be hex.)',
+  ERROR_10: '(error_11) Please enter a valid gas price. (Must be an integer. Try 20 GWEI / 20000000000 WEI.)',
+  ERROR_11: '(error_12) Please enter a valid nonce (Must be an integer.)',
+  ERROR_12: '(error_13) Invalid signed transaction.',
+  ERROR_13: '(error_14) A wallet with this nickname already exists.',
+  ERROR_14: '(error_15) Wallet not found.',
+  ERROR_15: '(error_16) Whoops. It doesn\'t look like a proposal with this ID exists yet or there is an error reading this proposal.',
+  ERROR_16: '(error_17) A wallet with this address already exists in storage. Please check your wallets page.',
+  ERROR_17: '(error_18) Insufficient balance. Your gas limit * gas price + amount to send exceeds your current balance. Send more WAN to your account or use the "Send Entire Balance" button. If you believe this is in error, try pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)',
+  ERROR_18: '(error_19) All gas would be used on this transaction. This means you have already voted on this proposal or the debate period has ended.',
+  ERROR_19: '(error_20) Please enter a valid symbol',
+  ERROR_20: '(error_21) Not a valid ERC-20 token',
+  ERROR_21: '(error_22) Could not estimate gas. There are not enough funds in the account, or the receiving contract address would throw an error. Feel free to manually set the gas and proceed. The error message upon sending may be more informative.',
+  ERROR_22: '(error_23) Please enter a valid node name',
+  ERROR_23: '(error_24) Please enter a valid URL. If you are on https, your URL must be https',
+  ERROR_24: '(error_25) Please enter a valid port.',
+  ERROR_25: '(error_26) Please enter a valid chain ID.',
+  ERROR_26: '(error_27) Please enter a valid ABI.',
+  ERROR_27: '(error_28) Minimum amount: 0.01. Max amount:',
+  ERROR_28: '(error_29) You need this `Keystore File + Password` or the `Private Key` (next page) to access this wallet in the future. ',
+  ERROR_29: '(error_30) Please enter a valid user and password.',
+  ERROR_30: '(error_31) Please enter a valid name (7+ characters, limited punctuation)',
+  ERROR_31: '(error_32) Please enter a valid secret phrase.',
+  ERROR_32: '(error_33) Could not connect to the node. Refresh your page, try a different node (top-right corner), check your firewall settings. If custom node, check your configs.',
+  ERROR_33: '(error_34) The wallet you have unlocked does not match the owner\'s address.',
+  ERROR_34: '(error_35) The name you are attempting to reveal does not match the name you have entered.',
+  ERROR_35: '(error_36) Input address is not checksummed. <a href="https://myetherwallet.github.io/knowledge-base/addresses/not-checksummed-shows-when-i-enter-an-address.html" target="_blank" rel="noopener noreferrer">What does that mean?</a>',
+  ERROR_36: '(error_37) Please enter a valid TX hash',
+  ERROR_37: '(error_38) Please enter valid hex string. Hex only contains: 0x, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, a, b, c, d, e, f',
+  ERROR_38: '(error_39) Offer must have either price or reserve set to more than 0',
+  ERROR_39: '(error_40) Bid must be more than the specified minimum',
+
+  GETH_Balance: '(gwan-01) Insufficient balance. Your gas limit * gas price + amount to send exceeds your current balance. Send more WAN to your account or use the "Send Entire Balance" button. If you believe this is in error, try pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)',
+  GETH_Cheap: '(gwan-02) Gas price too low for acceptance. Try raising the gas price to 21 GWEI via the dropdown in top-right.',
+  GETH_GasLimit: '(gwan-03) Exceeds block gas limit. Transaction cost exceeds current gas limit. Limit: (d+), got: (d+). Please lower the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)',
+  GETH_InsufficientFunds: '(gwan-04) Insufficient balance. Your gas limit * gas price + amount to send exceeds your current balance. Send more WAN to your account or use the "Send Entire Balance" button. If you believe this is in error, try pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)',
+  GETH_IntrinsicGas: '(gwan-05) Intrinsic gas too low. Try raising the gas price to 21 GWEI via the dropdown in top-right or the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again.',
+  GETH_InvalidSender: '(gwan-06) Invalid sender.',
+  GETH_NegativeValue: '(gwan-07) Negative value.',
+  GETH_Nonce: "(gwan-08) This TX's [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html) is too low. Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html).",
+  GETH_NonExistentAccount: '(gwan-09) Account does not exist or account balance too low',
+
+  PARITY_AlreadyImported: '(parity-01) A transaction with the same hash was already imported. It was probably already broadcast. To avoid duplicate transactions, check your address on [wanscan.io](https://wanscan.io) & wait 10 minutes before attempting to send again. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)',
+  PARITY_GasLimitExceeded: '(parity-02) Transaction cost exceeds current gas limit. Limit: (d+), got: (d+). Please lower the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)',
+  PARITY_InsufficientBalance: "(parity-03) Insufficient balance. The account you tried to send transaction from does not have enough funds. If you believe this is in error, try using the 'Send Entire Balance' button, or pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)",
+  PARITY_InsufficientGasPrice: '(parity-04) There is another transaction with same nonce in the queue, or the transaction fee is too low. Try incrementing the nonce by clicking the Generate button again. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)',
+  PARITY_InvalidGasLimit: '(parity-05) Supplied gas limit is beyond limit. Try lowering the gas limit to 21000. [Learn More.](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)',
+  PARITY_LimitReached: '(parity-06) There are too many transactions in the queue. Your transaction was dropped due to limit. Try increasing the gas price. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)',
+  PARITY_Old: '(parity-07) There is already a transaction with this [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html). Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html).',
+  PARITY_TooCheapToReplace: "(parity-08) TX Fee is too low. It does not satisfy your node's minimal fee (minimal: (d+), got: (d+)). Try increasing the gas price and/or gas limit. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)",
+
+  FOOTER_1: 'Free, open-source, client-side interface for generating Wanchain wallets &amp; more. Interact with the Wanchain blockchain easily &amp; securely. Double-check the URL ( MyWanWallet.nl ) before unlocking your wallet.',
+  FOOTER_1b: 'Created by',
+  FOOTER_2: 'Donations greatly appreciated',
+  FOOTER_3: 'Client-side wallet generation by',
+  FOOTER_4: 'Disclaimer',
+
+  GAS_LIMIT_Desc: 'Gas limit is the amount of gas to send with your TX. `TX fee` = gas price * gas limit & is paid to miners for including your TX in a block. Increasing this number will not get your TX mined faster. Sending WAN = `21000`. Sending Tokens = ~`200000`.',
+  GAS_PRICE_Desc: 'Gas Price is the amount you pay per unit of gas. `TX fee = gas price * gas limit` & is paid to miners for including your TX in a block. Higher the gas price = faster transaction, but more expensive. Default is `182 GWEI`.',
+
+  GEN_desc: 'If you want to generate multiple wallets, you can do so here',
+  GEN_Help_1: 'Use your',
+  GEN_Help_10: 'Right click & save file as. Filename:',
+  GEN_Help_11: 'Don\'t open this file on your computer',
+  GEN_Help_12: 'Use it to unlock your wallet via MyWanWallet (or Mist, gwan, Parity and other wallet clients.)',
+  GEN_Help_13: 'How to Back Up Your Keystore File',
+  GEN_Help_14: 'What are these Different Formats?',
+  GEN_Help_15: 'Preventing loss &amp; theft of your funds.',
+  GEN_Help_16: 'What are these Different Formats?',
+  GEN_Help_17: 'Why Should I?',
+  GEN_Help_18: 'To have a secondary backup.',
+  GEN_Help_19: 'In case you ever forget your password.',
+  GEN_Help_2: 'to access your account.',
+  GEN_Help_20: 'Cold Storage',
+  GEN_Help_3: 'Your device * is * your wallet.',
+  GEN_Help_4: 'Guides & FAQ',
+  GEN_Help_5: 'How to Create a Wallet',
+  GEN_Help_6: 'Getting Started',
+  GEN_Help_7: 'Keep it safe · Make a backup · Don\'t share it with anyone · Don\'t lose it · It cannot be recovered if you lose it.',
+  GEN_Help_8: 'Not Downloading a File?',
+  GEN_Help_9: 'Try using Google Chrome',
+  GEN_Label_1: 'Enter a password',
+  GEN_Label_2: 'Save your `Keystore` File.',
+  GEN_Label_3: 'Save Your Address.',
+  GEN_Label_4: 'Print paper wallet or a QR code.',
+  GEN_Label_5: 'Save Your `Private Key`.',
+  GEN_Placeholder_1: 'Do NOT forget to save this!',
+  GEN_SuccessMsg: 'Success! Your wallet has been generated.',
+  GEN_Unlock: 'Unlock your wallet to see your address',
+  GET_ConfButton: 'I understand. Continue.',
+
+  MEW_Tagline: 'Open Source JavaScript Client-Side Wancoins Wallet',
+  MEW_Warning_1: 'Always check the URL before accessing your wallet or creating a new wallet. Beware of phishing sites!',
+
+  MNEM_1: 'Please select the address you would like to interact with.',
+  MNEM_2: 'Your single HD mnemonic phrase can access a number of wallets / addresses. Please select the address you would like to interact with at this time.',
+  MNEM_more: 'More Addresses',
+  MNEM_prev: 'Previous Addresses',
+
+  MSG_date: 'Date',
+  MSG_info1: 'Include the current date so the signature cannot be reused on a different date.',
+  MSG_info2: 'Include your nickname and where you use the nickname so someone else cannot use it.',
+  MSG_info3: 'Include a specific reason for the message so it cannot be reused for a different purpose.',
+  MSG_message: 'Message',
+  MSG_signature: 'Signature',
+  MSG_verify: 'Verify Message',
+
+  MYWAL_Address: 'Wallet Address',
+  MYWAL_Bal: 'Balance',
+  MYWAL_Content_1: 'Warning! You are about to remove your wallet',
+  MYWAL_Content_2: 'Be sure you have **saved the private key and/or Keystore File and the password** before you remove it.',
+  MYWAL_Content_3: 'If you want to use this wallet with your MyWanWallet CX in the future, you will need to manually re-add it using the private key/JSON and password.',
+  MYWAL_Edit: 'Edit',
+  MYWAL_Edit_2: 'Edit Wallet',
+  MYWAL_Hide: 'Hide Wallet Info',
+  MYWAL_Name: 'Wallet Name',
+  MYWAL_Nick: 'Wallet Nickname',
+  MYWAL_Remove: 'Remove',
+  MYWAL_RemoveWal: 'Remove Wallet',
+  MYWAL_View: 'View',
+  MYWAL_Viewing: 'Viewing Wallet',
+  MYWAL_WatchOnly: 'Your Watch-Only Accounts',
+
+  NAV_AddWallet: 'Add Wallet',
+  NAV_BulkGenerate: 'Bulk Generate',
+  NAV_CheckTxStatus: 'Check TX Status',
+  NAV_Contact: 'Contact',
+  NAV_Contracts: 'Contracts',
+  NAV_DeployContract: 'Deploy Contract',
+  NAV_DomainSale: 'DomainSale',
+  NAV_ENS: 'WNS',
+  NAV_GenerateWallet: 'Create New Wallet',
+  NAV_GenerateWallet_alt: 'New Wallet',
+  NAV_Help: 'Help',
+  NAV_InteractContract: 'Interact with Contract',
+  NAV_Multisig: 'Multisig',
+  NAV_MyWallets: 'My Wallets',
+  NAV_Offline: 'Send Offline',
+  NAV_SendEther: 'Send Wancoins & Tokens',
+  NAV_SendTokens: 'Send Tokens',
+  NAV_SignMsg: 'Sign Message',
+  NAV_Swap: 'Swap',
+  NAV_TxStatus: 'TX Status',
+  NAV_ViewWallet: 'View Wallet Info',
+  NAV_YourWallets: 'Your Wallets',
+
+  NODE_CTA: 'Save & Use Custom Node',
+  NODE_Name: 'Node Name',
+  NODE_Port: 'Node Port',
+  NODE_Subtitle: 'To connect to a local node...',
+  NODE_Title: 'Set Up Your Custom Node',
+  NODE_Warning: 'Your node must be HTTPS in order to connect to it via MyWanWallet.nl. You can [download the MyWanWallet repo & run it locally](https://github.com/tyrion70/mywanwallet/releases/latest) to connect to any node. Or, get free SSL certificate via [LetsEncrypt](https://letsencrypt.org/)',
+
+  NONCE_Desc: 'The nonce is the number of transactions sent from a given address. It ensures transactions are sent in order & not more than once.',
+
+  OFFLINE_Desc: 'Generating offline transactions can be done in three steps. You will complete steps 1 and 3 on an online computer, and step 2 on an offline/airgapped computer. This ensures your private keys do not touch an internet-connected device.',
+  OFFLINE_Step1_Button: 'Generate Information',
+  OFFLINE_Step1_Label_1: 'From Address',
+  OFFLINE_Step1_Label_2: 'Note: This is the FROM address, not the TO address. Nonce is generated from the originating account. If using an airgapped computer, it would be the address of the cold-storage account.',
+  OFFLINE_Step2_Label_1: 'To Address',
+  OFFLINE_Step2_Label_2: 'Value / Amount to Send',
+  OFFLINE_Step2_Label_3: 'Gas Price',
+  OFFLINE_Step2_Label_3b: 'This was displayed in Step 1 on your online computer.',
+  OFFLINE_Step2_Label_4: 'Gas Limit',
+  OFFLINE_Step2_Label_4b: '21000 is the default gas limit. When you send contracts or add\'l data, this may need to be different. Any unused gas will be returned to you.',
+  OFFLINE_Step2_Label_5: 'Nonce',
+  OFFLINE_Step2_Label_5b: 'This was displayed in Step 1 on your online computer.',
+  OFFLINE_Step2_Label_6: 'Data',
+  OFFLINE_Step2_Label_6b: 'This is optional. Data is often used when you send transactions to contracts.',
+  OFFLINE_Step2_Label_7: 'Enter / Select your Private Key / JSON.',
+  OFFLINE_Step2_Title: 'Step 2: Generate Transaction (Offline Computer)',
+  OFFLINE_Step3_Label_1: 'Paste the signed transaction from Step 2 here and press the "SEND TRANSACTION" button.',
+  OFFLINE_Step3_Title: 'Step 3: Send / Publish Transaction (Online Computer)',
+  OFFLINE_Title: 'Generate & Send Offline Transaction',
+  OFFLLINE_Step1_Title: 'Step 1: Generate Information (Online Computer)',
+
+  SEND_addr: 'To Address',
+  SEND_amount: 'Amount to Send',
+  SEND_amount_short: 'Amount',
+  SEND_custom: 'Add Custom Token',
+  SEND_gas: 'Gas',
+  SEND_generate: 'Generate Transaction',
+  SEND_raw: 'Raw Transaction',
+  SEND_signed: 'Signed Transaction',
+  SEND_trans: 'Send Transaction',
+  SEND_TransferTotal: 'Send Entire Balance',
+  SENDModal_Content_1: 'You are about to send',
+  SENDModal_Content_2: 'to address',
+  SENDModal_Content_3: 'Are you sure you want to do this?',
+  SENDModal_Content_4: 'NOTE: If you encounter an error, you most likely need to add Wancoins to your account to cover the gas cost of sending tokens. Gas is paid in Wancoins.',
+  SENDModal_No: 'No, get me out of here!',
+  SENDModal_Title: 'Warning!',
+  SENDModal_Yes: 'Yes, I am sure! Make transaction.',
+
+  sidebar_AccountAddr: 'Account Address',
+  sidebar_AccountBal: 'Account Balance',
+  sidebar_AccountInfo: 'Account Information',
+  sidebar_DisplayOnLedger: 'Display address on Ledger',
+  sidebar_DisplayOnTrezor: 'Display address on TREZOR',
+  sidebar_donate: 'Donate',
+  sidebar_donation: 'MyWanWallet is a free, open-source service dedicated to your privacy and security. The more donations we receive, the more time we spend creating new features, listening to your feedback, and giving you what you want. We are just two people trying to change the world. Help us?',
+  sidebar_Equiv: 'Equivalent Values',
+  sidebar_thanks: 'THANK YOU!!!',
+  sidebar_TokenBal: 'Token Balances',
+  sidebar_TransHistory: 'Transaction History',
+
+  SUCCESS_1: 'Valid address',
+  SUCCESS_2: 'Wallet successfully decrypted',
+  SUCCESS_3: 'Your TX has been broadcast to the network. This does not mean it has been mined & sent. During times of extreme volume, it may take 3+ hours to send. 1) Check your TX below. 2) If it is pending for hours or disappears, use the Check TX Status Page to replace. 3) Use [WAN Gas Station](https://ethgasstation.info/) to see what gas price is optimal. 4) Save your TX Hash in case you need it later:  ',
+  SUCCESS_4: 'Your wallet was successfully added',
+  SUCCESS_5: 'File Selected',
+  SUCCESS_6: 'You are successfully connected',
+  SUCCESS_7: 'Message Signature Verified',
+
+  SWAP_elapsed: 'Time elapsed since sent ',
+  SWAP_information: 'Your Information ',
+  SWAP_init_1: 'I want to swap my ',
+  SWAP_init_2: ' for ', // "I want to swap my X WAN for X BTC"
+  SWAP_init_CTA: "Let's do this! ", // or "Continue"
+  SWAP_order_CTA: 'Please send ', // Please send 1 WAN...
+  SWAP_progress_1: 'Order Initiated ',
+  SWAP_progress_2: 'Waiting for your ', // Waiting for your BTC...
+  SWAP_progress_3: 'Received! ', // WAN Received!
+  SWAP_progress_4: 'Sending your {{orderResult.output.currency}} ',
+  SWAP_progress_5: 'Order Complete ',
+  SWAP_rates: 'Current Rates ',
+  SWAP_rec_add: 'Your Receiving Address ',
+  SWAP_rec_amt: 'Amount to receive ',
+  SWAP_ref_num: 'Your reference number ',
+  SWAP_send_amt: 'Amount to send ',
+  SWAP_start_CTA: 'Start Swap ',
+  SWAP_time: 'Time remaining to send ',
+  SWAP_unlock: 'Unlock your wallet to send WAN or Tokens directly from this page. ',
+  SWAP_your_rate: 'Your rate ',
+
+  TOKEN_Addr: 'Token Contract Address',
+  TOKEN_Dec: 'Decimals',
+  TOKEN_hide: 'Hide Tokens',
+  TOKEN_show: 'Show All Tokens',
+  TOKEN_Symbol: 'Token Symbol',
+
+  TRANS_advanced: '+Advanced: Add Data',
+  TRANS_data: 'Data',
+  TRANS_desc: 'If you want to send Tokens, please use the "Send Token" page instead.',
+  TRANS_gas: 'Gas Limit',
+  TRANS_sendInfo: 'A standard transaction using 21000 gas will cost 0.000441 WAN. We do not take a transaction fee.',
+
+  translate_version: '0.5',
+  Translator_Desc: '',
+  TranslatorAddr_1: '',
+  TranslatorAddr_2: '',
+  TranslatorAddr_3: '',
+  TranslatorAddr_4: '',
+  TranslatorAddr_5: '',
+  TranslatorName_1: '',
+  TranslatorName_2: '',
+  TranslatorName_3: '',
+  TranslatorName_4: '',
+  TranslatorName_5: '',
+
+  tx_Details: 'Transaction Details',
+  tx_foundInPending: 'Pending Transaction Found',
+  tx_foundInPending_1: 'Your transaction was located in the TX Pool of the node you are connected to.',
+  tx_foundInPending_2: 'It is currently pending (waiting to be mined).',
+  tx_foundInPending_3: 'There is a chance you can "cancel" or replace this transaction. Unlock your wallet below.',
+  tx_FoundOnChain: 'Transaction Found',
+  tx_FoundOnChain_1: 'Your transaction was successfully mined and is on the blockchain.',
+  tx_FoundOnChain_2: '**If you see a red `( ! )`, a `BAD INSTRUCTION` or `OUT OF GAS` error message**, it means that the transaction was not successfully *sent*. You cannot cancel or replace this transaction. Instead, send a new transaction. If you received an "Out of Gas" error, you should double the gas limit you specified originally.',
+  tx_FoundOnChain_3: '**If you do not see any errors, your transaction was successfully sent.** Your WAN or Tokens are where you sent them. If you cannot see this WAN or Tokens credited in your other wallet / exchange account, and it has been 24+ hours since you sent, please [contact that service](https://myetherwallet.github.io/knowledge-base/diving-deeper/ethereum-list-of-support-and-communities.html). Send them the *link* to your transaction and ask them, nicely, to look into your situation.',
+  tx_notFound: 'Transaction Not Found',
+  tx_notFound_1: 'This TX cannot be found in the TX Pool of the node you are connected to.',
+  tx_notFound_2: 'If you just sent the transaction, please wait 15 seconds and press the "Check TX Status" button again.',
+  tx_notFound_3: 'It could still be in the TX Pool of a different node, waiting to be mined.',
+  tx_notFound_4: 'Please use the dropdown in the top-right & select a different WAN node (e.g. `WAN (MyWanWallet)`) and check again.',
+  tx_Summary: 'During times of high volume (like during ICOs) transactions can be pending for hours, if not days. This tool aims to give you the ability to find and "cancel" / replace these TXs. ** This is not typically something you can do. It should not be relied upon & will only work when the TX Pools are full. [Please, read about this tool here.](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)**',
+
+  TXFEE_Desc: 'The TX Fee is paid to miners for including your TX in a block. Is is the `gas limit` * `gas price`. [You can convert GWEI -> WAN here](https://www.MyWanWallet.nl/helpers.html)',
+
+  VIEWWALLET_HidePrivKey: '(hide)',
+  VIEWWALLET_ShowPrivKey: '(show)',
+  VIEWWALLET_Subtitle: 'This allows you to download different versions of private keys and re-print your paper wallet. You may want to do this in order to [import your account into gwan/Mist](http://ethereum.stackexchange.com/questions/465/how-to-import-a-plain-private-key-into-geth/). If you want to check your balance, we recommend using a blockchain explorer like [wanscan.io](https://wanscan.io/).',
+  VIEWWALLET_Subtitle_Short: 'This allows you to download different versions of private keys and re-print your paper wallet.',
+  VIEWWALLET_SuccessMsg: 'Success! Here are your wallet details.',
+
+  WARN_Send_Link: 'You arrived via a link that has the address, value, gas, data fields, or transaction type (send mode) filled in for you. You can change any information before sending. Unlock your wallet to get started.',
+
+  x_Access: 'Access',
+  x_AddessDesc: 'Your Address can also be known as you `Account #` or your `Public Key`. It is what you share with people so they can send you Wancoins or Tokens. Find the colorful address icon. Make sure it matches your paper wallet & whenever you enter your address somewhere.',
+  x_Address: 'Your Address',
+  x_Cancel: 'Cancel',
+  x_CancelReplaceTx: 'Cancel or Replace Transaction',
+  x_CancelTx: 'Cancel Transaction',
+  x_CSV: 'CSV file (unencrypted)',
+  x_DigitalBitbox: 'Digital Bitbox',
+  x_Download: 'Download',
+  x_Json: 'JSON File (unencrypted)',
+  x_JsonDesc: 'This is the unencrypted, JSON format of your private key. This means you do not need the password but anyone who finds your JSON can access your wallet & Wancoins without the password.',
+  x_Keystore: 'Keystore File (UTC / JSON · Recommended · Encrypted)',
+  x_Keystore2: 'Keystore File (UTC / JSON)',
+  x_KeystoreDesc: 'This Keystore file matches the format used by Mist so you can easily import it in the future. It is the recommended file to download and back up.',
+  x_Ledger: 'Ledger Wallet',
+  x_MetaMask: 'WanMask',
+  x_Mnemonic: 'Mnemonic Phrase',
+  x_ParityPhrase: 'Parity Phrase',
+  x_Password: 'Password',
+  x_PasswordDesc: 'This password * encrypts * your private key. This does not act as a seed to generate your keys. **You will need this password + your private key to unlock your wallet.**',
+  x_Print: 'Print Paper Wallet',
+  x_PrintDesc: 'ProTip: If you cannot print this right now, click "Print" and save it as a PDF until you are able to get it printed. Remove it from your computer afterwards!',
+  x_PrintShort: 'Print',
+  x_PrivKey: 'Private Key (unencrypted)',
+  x_PrivKey2: 'Private Key',
+  x_PrivKeyDesc: 'This is the unencrypted text version of your private key, meaning no password is necessary. If someone were to find your unencrypted private key, they could access your wallet without a password. For this reason, encrypted versions are typically recommended.',
+  x_ReadMore: 'Read More',
+  x_ReplaceTx: 'Replace Transaction',
+  x_Save: 'Save',
+  x_TransHash: 'Transaction Hash',
+  x_Trezor: 'TREZOR',
+  x_TXFee: 'TX Fee',
+  x_TxHash: 'TX Hash',
+  x_TXT: 'TXT file (unencrypted)',
+  x_Wallet: 'Wallet',
+
+  HELP_0_Desc_1: 'MyWanWallet gives you the ability to generate new wallets so you can store your Wancoins yourself, not on an exchange. This process happens entirely on your computer, not our servers. Therefore, when you generate a new wallet, **you are responsible for safely backing it up**.',
+  HELP_0_Desc_2: 'Create a new wallet.',
+  HELP_0_Desc_3: 'Back the wallet up.',
+  HELP_0_Desc_4: 'Verify you have access to this new wallet and have correctly saved all necessary information.',
+  HELP_0_Desc_5: 'Transfer Wancoins to this new wallet.',
+  HELP_0_Title: '0) I\'m new. What do I do?',
+  HELP_10_Desc_1: 'Navigate to the "Offline Transaction" page via your online computer.',
+  HELP_10_Desc_10: 'The data field below this button will populate with your signed transaction. Copy this and move it back to your online computer.',
+  HELP_10_Desc_11: 'On your online computer, paste the signed transaction into the text field in step #3 and click send. This will broadcast your transaction.',
+  HELP_10_Desc_2: 'Enter the "From Address". Please note, this is the address you are sending FROM, not TO. This generates the nonce and gas price.',
+  HELP_10_Desc_3: 'Move to your offline computer. Enter the "TO ADDRESS" and the "AMOUNT" you wish to send.',
+  HELP_10_Desc_4: 'Enter the "GAS PRICE" as it was displayed to you on your online computer in step #1.',
+  HELP_10_Desc_5: 'Enter the "NONCE" as it was displayed to you on your online computer in step #1.',
+  HELP_10_Desc_6: 'The "GAS LIMIT" has a default value of 21000. This will cover a standard transaction. If you are sending to a contract or are including additional data with your transaction, you will need to increase the gas limit. Any excess gas will be returned to you.',
+  HELP_10_Desc_7: 'If you wish, enter some data. If you enter data, you will need to include more than the 21000 default gas limit. All data is in HEX format.',
+  HELP_10_Desc_8: 'Select your wallet file -or- your private key and unlock your wallet.',
+  HELP_10_Desc_9: 'Press the "GENERATE SIGNED TRANSACTION" button.',
+  HELP_10_Title: '10) How do I make an offline transaction?',
+  HELP_12_Desc_1: 'Using an gwan/Mist JSON file from MyWanWallet v2+....',
+  HELP_12_Desc_10: 'Your account should show up immediately under "Accounts."',
+  HELP_12_Desc_11: 'Using your unencrypted private key...',
+  HELP_12_Desc_12: 'If you do not already have your unencrypted private key, navigate to the "View Wallet Details" page.',
+  HELP_12_Desc_13: 'Select your wallet file -or- enter/paste your private key to unlock your wallet.',
+  HELP_12_Desc_14: 'Copy Your Private Key (unencrypted).',
+  HELP_12_Desc_15: 'If you are on a Mac',
+  HELP_12_Desc_15b: 'If you are on a PC',
+  HELP_12_Desc_16: 'Open Text Edit and paste this private key.',
+  HELP_12_Desc_17: 'Go to the menu bar and click "Format" -> "Make Plain Text".',
+  HELP_12_Desc_18: 'Save this file to your `desktop/` as `nothing_special_delete_me.txt`. Make sure it says "UTF-8" and "If no extension is provided use .txt" in the save dialog.',
+  HELP_12_Desc_19: 'Open terminal and run the following command: `gwan account import ~/Desktop/nothing_special_delete_me.txt`',
+  HELP_12_Desc_2: 'Go to the "View Wallet Info" page.',
+  HELP_12_Desc_20: 'This will prompt you to make a new password. This is the password you will use in gwan / Wanchain Wallet / Mist whenever you send a transaction, so don\'t forget it.',
+  HELP_12_Desc_21: 'After successful import, delete `nothing_special_delete_me.txt`',
+  HELP_12_Desc_22: 'The next time you open the Wanchain Wallet application, your account will be listed under "Accounts".',
+  HELP_12_Desc_23: 'Open Notepad & paste the private key',
+  HELP_12_Desc_24: 'Save the file as `nothing_special_delete_me.txt` at `C:`',
+  HELP_12_Desc_25: 'Run the command, `gwan account import C:\\nothing_special_delete_me.txt`',
+  HELP_12_Desc_26: 'This will prompt you to make a new password. This is the password you will use in gwan / Wanchain Wallet / Mist whenever you send a transaction, so don\'t forget it.',
+  HELP_12_Desc_27: 'After successful import, delete `nothing_special_delete_me.txt`',
+  HELP_12_Desc_28: 'The next time you open the Wanchain Wallet application, your account will be listed under "Accounts".',
+  HELP_12_Desc_3: 'Unlock your wallet using your **encrypted** private key or JSON file.',
+  HELP_12_Desc_4: 'Go to the "My Wallets" page.',
+  HELP_12_Desc_5: 'Select the wallet you want to import into Mist, click the "View" icon, enter your password, and access your wallet.',
+  HELP_12_Desc_6: 'Find the "Download JSON file - gwan/Mist Format (encrypted)" section. Press the "Download" button below that. You now have your keystore file.',
+  HELP_12_Desc_7: 'Open the Wanchain Wallet application.',
+  HELP_12_Desc_8: 'In the menu bar, go "Accounts" -> "Backup" -> "Accounts"',
+  HELP_12_Desc_9: 'This will open your keystore folder. Copy the file you just downloaded (`UTC--2016-04-14......../`) into that keystore folder.',
+  HELP_12_Title: '12) How do I import a wallet created with MyWanWallet into gwan / Wanchain Wallet / Mist?',
+  HELP_13_Desc_1: 'This means you do not have enough Wancoins in your account to cover the cost of gas. Each transaction (including token and contract transactions) require gas and that gas is paid in Wancoins. The number displayed is the amount required to cover the cost of the transaction in Wei. Take that number, divide by `1000000000000000000`, and subtract the amount of Wancoin you were trying to send (if you were attempting to send Wancoin). This will give you the amount of Wancoins you need to send to that account to make the transaction.',
+  HELP_13_Title: '13) What does "Insufficient funds. Account you try to send transaction from does not have enough funds. Required XXXXXXXXXXXXXXXXXXX and got: XXXXXXXXXXXXXXXX." Mean?',
+  HELP_14_Desc_1: 'While the mouse moving thing is clever and we understand why people like it, the reality is window.crypto ensures more entropy than your mouse movements. The mouse movements aren\'t unsafe, it\'s just that we (and tons of other crypto experiments) believe in window.crypto. In addition, MyWanWallet.nl can be used on touch devices. Here\'s a [conversation between an angry redditor and Vitalik Buterin regarding mouse movements v. window.crypto](https://www.reddit.com/r/ethereum/comments/2bilqg/note_there_is_a_paranoid_highsecurity_way_to/cj5sgrm) and here is the [the window.crypto w3 spec](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-GlobalCrypto).',
+  HELP_14_Title: '14) Some sites randomize (seed) the private key generation via mouse movements. MyWanWallet.nl doesn\'t do this. Is the random number generation for MyWanWallet safe?',
+  HELP_15_Desc_1: 'Accounts will only show up in a blockchain explorer once the account has activity on it&mdash;for example, once you have transferred some Wancoins to it.',
+  HELP_15_Title: '15) Why hasn\'t the account I just created show up in the blockchain explorer? (ie: wanscan.io)',
+  HELP_16_Desc_1: 'You can use a blockchain explorer like [wanscan.io](https://wanscan.io/). Paste your address into the search bar and it will pull up your address and transaction history. For example, here\'s what our [donation account](https://wanscan.io/addr/0x7cb57b5a97eabe94205c07890be4c1ad31e486a8) looks like on wanscan.io',
+  HELP_16_Title: '16) How do I check the balance of my account?',
+  HELP_17_Desc_1: 'This is most likely due to the fact that you are behind a firewall. The API that we use to get the balance and convert said balance is often blocked by firewalls for whatever reason. You will still be able to send transactions, you just need to use a different method to see said balance, like wanscan.io',
+  HELP_17_Title: '17) Why isn\'t my balance showing up when I unlock my wallet?',
+  HELP_18_Title: '18) Where is my gwan wallet file?',
+  HELP_19_Desc_1: 'Mist files are typically found in the file locations above, but it\'s much easier to open Mist, select "Accounts" in the top bar, select "Backup", and select "Accounts". This will open the folder where your files are stored.',
+  HELP_19_Title: '19) Where is my Mist wallet file?',
+  HELP_1_Desc_1: 'Go to the "Generate Wallet" page.',
+  HELP_1_Desc_2: 'Go to the "Add Wallet" page & select "Generate New Wallet"',
+  HELP_1_Desc_3: 'Enter a strong password. If you think you may forget it, save it somewhere safe. You will need this password to send transactions.',
+  HELP_1_Desc_4: 'Click "GENERATE".',
+  HELP_1_Desc_5: 'Your wallet has now been generated.',
+  HELP_1_Title: '1) How do I create a new wallet?',
+  HELP_20_Desc_1: 'Wherever you saved it. ;) It also was emailed to you, so check there. Look for the file called `"ethereum_wallet_backup.json"` and select that file. This wallet file will be encrypted with a password that you created during the purchase of the pre-sale.',
+  HELP_20_Title: '20) Where is my pre-sale wallet file?',
+  HELP_21_Desc_1: 'Short version: yes, but finding an account with a balance would take longer than the universe...so...no.',
+  HELP_21_Desc_2: 'Long ELI5 Version: So Wanchain is based on [Public Key Cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), specifically [Elliptic curve cryptography](https://eprint.iacr.org/2013/734.pdf) which is very widely used, not just in Wanchain. Most servers are protected via ECC. Bitcoin uses the same, as well as SSH and TLS and a lot of other stuff. The Wanchain keys specifically are 256-bit keys, which are stronger than 128-bit and 192-bit, which are also widely used and still considered secure by experts.',
+  HELP_21_Desc_3: 'In this you have a private key and a public key. The private key can derive the public key, but the public key cannot be turned back into the private key. The fact that the internet and the world’s secrets are using this cryptography means that if there is a way to go from public key to private key, your lost Wancoins is the least of everyone’s problems.',
+  HELP_21_Desc_4: 'Now, that said, YES if someone else has your private key then they can indeed send Wancoin from your account. Just like if someone has your password to your email, they can read and send your email, or the password to your bank account, they could make transfers. You could download the Keystore version of your private key which is the private key that is encrypted with a password. This is like having a password that is also protected by another password.',
+  HELP_21_Desc_5: 'And YES, in theory you could just type in a string of 64 hexadecimal characters until you got one that matched. In fact, smart people could write a program to very quickly check random private keys. This is known as "brute-forcing" or "mining" private keys. People have thought about this long and hard. With a few very high end servers, they may be able to check 1M+ keys / second. However, even checking that many per second would not yield access to make the cost of running those servers even close to worthwhile - it is more likely you, and your great-grandchildren, will die before getting a match.',
+  HELP_21_Desc_6: 'If you know anything about Bitcoin, [this will put it in perspective:](http://bitcoin.stackexchange.com/questions/32331/two-people-with-same-public-address-how-will-people-network-know-how-to-deliver) *To illustrate how unlikely this is: suppose every satoshi of every bitcoin ever to be generated was sent to its own unique private keys. The probability that among those keys there could be two that would correspond to the same address is roughly one in 100 quintillion.',
+  HELP_21_Desc_7: '[If you want something a bit more technical:](http://security.stackexchange.com/questions/25375/why-not-use-larger-cipher-keys/25392#25392) *These numbers have nothing to do with the technology of the devices; they are the maximums that thermodynamics will allow. And they strongly imply that brute-force attacks against 256-bit keys will be infeasible until computers are built from something other than matter and occupy something other than space.',
+  HELP_21_Desc_8: 'Of course, this all assumes that keys are generated in a truly random way & with sufficient entropy. The keys generated here meet that criteria, as do Jaxx and Mist/gwan. The Wanchain wallets are all pretty good. Keys generated by brainwallets do not, as a person\'s brain is not capable of creating a truly random seed. There have been a number of other issues regarding lack of entropy or seeds not being generated in a truly random way in Bitcoin-land, but that\'s a separate issue that can wait for another day.',
+  HELP_21_Title: '21) Couldn\'t everybody put in random private keys, look for a balance, and send to their own address?',
+  HELP_2a_Desc_1: 'You should always back up your wallet externally and in multiple physical locations - like on a USB drive and/or a piece of paper.',
+  HELP_2a_Desc_2: 'Save the address. You can keep it to yourself or share it with others. That way, others can transfer Wancoins to you.',
+  HELP_2a_Desc_3: 'Save versions of the private key. Do not share it with anyone else. Your private key is necessary when you want to access your Wancoins to send it! There are 3 types of private keys',
+  HELP_2a_Desc_4: 'Place your address, versions of the private key, and the PDF version of your paper wallet in a folder. Save this on your computer and a USB drive.',
+  HELP_2a_Desc_5: 'Print the wallet if you have a printer. Otherwise, write down your private key and address on a piece of paper. Store this as a secure location, separate from your computer and the USB drive.',
+  HELP_2a_Desc_6: 'Keep in mind, you must prevent loss of the keys and password due to loss or failure of you hard drive failure, or USB drive, or piece of paper. You also must keep in mind physical loss / damage of an entire area (think fire or flood).',
+  HELP_2a_Title: 'How do I save/backup my wallet?',
+  HELP_2b_Desc_1: 'Go to [https://github.com/tyrion70/mywanwallet/releases/latest](https://github.com/tyrion70/etherwallet/releases/latest).',
+  HELP_2b_Desc_2: 'Click on `etherwallet-vX.X.X.X.zip`.',
+  HELP_2b_Desc_3: 'Move zip to an airgapped computer.',
+  HELP_2b_Desc_4: 'Unzip it and double-click `index.html`.',
+  HELP_2b_Desc_5: 'Generate a wallet with a strong password.',
+  HELP_2b_Desc_6: 'Save the address. Save versions of the private key. Save the password if you might not remember it forever.',
+  HELP_2b_Desc_7: 'Store these papers / USBs in multiple physically separate locations.',
+  HELP_2b_Desc_8: 'Go to the "View Wallet Info" page and type in your private key / password to ensure they are correct and access your wallet. Check that the address you wrote down is the same.',
+  HELP_2b_Title: '2b) How do I safely / offline / cold storage with MyWanWallet?',
+  HELP_3_Desc_1: '**Before you send any Wancoins to your new wallet**, you should ensure you have access to it.',
+  HELP_3_Desc_2: 'Navigate to the "View Wallet Info" page.',
+  HELP_3_Desc_3: 'Navigate to the MyWanWallet.nl "View Wallet Info" page.',
+  HELP_3_Desc_4: 'Select your wallet file -or- your private key and unlock your wallet.',
+  HELP_3_Desc_5: 'If the wallet is encrypted, a text box will automatically appear. Enter the password.',
+  HELP_3_Desc_6: 'Click the "Unlock Wallet" button.',
+  HELP_3_Desc_7: 'Your wallet information should show up. Find your account address, next to a colorful, circular icon. This icon visually represents your address. Be certain that the address is the address you have saved to your text document and is on your paper wallet.',
+  HELP_3_Desc_8: 'If you are planning on holding a large amount of Wancoins, we recommend that send a small amount of Wancoins from new wallet before depositing a large amount. Send 0.001 Wancoins to your new wallet, access that wallet, send that 0.001 Wancoins to another address, and ensure everything works smoothly.',
+  HELP_3_Title: '3) How do I verify I have access to my new wallet?',
+  HELP_4_Desc_1: 'If you plan to move a large amount of Wancoins, you should test sending a small amount to your wallet first to ensure everything goes as planned.',
+  HELP_4_Desc_10: 'A couple more fields will appear. This is your browser generating the transaction.',
+  HELP_4_Desc_11: 'Click the blue "Send Transaction" button below that.',
+  HELP_4_Desc_12: 'A pop-up will appear. Verify that the amount and the address you are sending to are correct. Then click "Yes, I am sure! Make transaction." button.',
+  HELP_4_Desc_13: 'The transaction will be submitted. The TX Hash will display. You can click that TX Hash to see it on the blockchain.',
+  HELP_4_Desc_2: 'Navigate to the "Send Wancoin & Tokens" page.',
+  HELP_4_Desc_3: 'Select your wallet file -or- your private key and unlock your wallet.',
+  HELP_4_Desc_4: 'If the wallet is encrypted, a text box will automatically appear. Enter the password.',
+  HELP_4_Desc_5: 'Click the "Unlock Wallet" button.',
+  HELP_4_Desc_6: 'Enter the address you would like to send to in the "To Address:" field.',
+  HELP_4_Desc_7: 'Enter the amount you would like to send. You can also click the "Send Entire Balance" link if you would like the transfer the entire balance.',
+  HELP_4_Desc_9: 'Click "Generate Transaction".',
+  HELP_4_Title: '4) How do I send Wancoin from one wallet to another?',
+  HELP_4CX_Desc_1: 'First, you need to add a wallet. Once you have done that, you have 2 options: the "QuickSend" functionality from the Chrome Extension icon or the "Send Wancoins & Tokens" page.',
+  HELP_4CX_Desc_10: 'Enter the password for that wallet.',
+  HELP_4CX_Desc_11: 'Click "Send Transaction."',
+  HELP_4CX_Desc_12: 'Using "Send Wancoins & Tokens" Page',
+  HELP_4CX_Desc_2: 'QuickSend',
+  HELP_4CX_Desc_3: 'Click the Chrome Extension Icon.',
+  HELP_4CX_Desc_4: 'Click the "QuickSend" button.',
+  HELP_4CX_Desc_5: 'Select the wallet you wish to send from.',
+  HELP_4CX_Desc_6: 'Enter the address you would like to send to in the "To Address:" field.',
+  HELP_4CX_Desc_7: 'Enter the amount you would like to send. You can also click the "Send Entire Balance" link if you would like the transfer the entire balance.',
+  HELP_4CX_Desc_8: 'Click "Send Transaction".',
+  HELP_4CX_Desc_9: 'Verify the address and the amount you are sending is correct.',
+  HELP_4CX_Title: '4) How do I Send Wancoins using MyWanWallet CX?',
+  HELP_5_Desc_1: 'You can run MyWanWallet.nl on your computer instead of from the GitHub servers. You can generate a wallet completely offline and send transactions from the "Offline Transaction" page.',
+  HELP_5_Desc_7: 'MyWanWallet.nl is now running entirely on your computer.',
+  HELP_5_Desc_8: 'In case you are not familiar, you need to keep the entire folder in order to run the website, not just `index.html`. Don\'t touch or move anything around in the folder. If you are storing a backup of the MyWanWallet repo for the future, we recommend just storing the ZIP so you can be sure the folder contents stay intact.',
+  HELP_5_Desc_9: 'As we are constantly updating MyWanWallet.nl, we recommend you periodically update your saved version of the repo.',
+  HELP_5_Title: '5) How do I run MyWanWallet.nl offline/locally?',
+  HELP_5CX_Desc_2: 'Click on `chrome-extension-vX.X.X.X.zip` and unzip it.',
+  HELP_5CX_Desc_3: 'Go to Google Chrome and find you settings (in the menu in the upper right).',
+  HELP_5CX_Desc_4: 'Click "Extensions" on the left.',
+  HELP_5CX_Desc_5: 'Check the "Developer Mode" button at the top of that page.',
+  HELP_5CX_Desc_6: 'Click the "Load unpacked extension..." button.',
+  HELP_5CX_Desc_7: 'Navigate to the now-unzipped folder that you downloaded earlier. Click "select".',
+  HELP_5CX_Desc_8: 'The extension should now show up in your extensions and in your Chrome Extension bar.',
+  HELP_5CX_Title: '5) How can I install this extension from the repo instead of the Chrome Store?',
+  HELP_7_Desc_0: '[Ethplorer.io](https://ethplorer.io/) is a great way to explore tokens and find the decimals of a token.',
+  HELP_7_Desc_1: 'Navigate to the "Send Wancoins & Tokens" page.',
+  HELP_7_Desc_10: 'You can now send that token as well as see it\'s balance in the sidebar.',
+  HELP_7_Desc_11: 'Click "Generate Transaction".',
+  HELP_7_Desc_12: 'A couple more fields will appear. This is your browser generating the transaction.',
+  HELP_7_Desc_13: 'Click the blue "Send Transaction" button below that.',
+  HELP_7_Desc_14: 'A pop-up will appear. Verify that the amount and the address you are sending to are correct. Then click "Yes, I am sure! Make transaction." button.',
+  HELP_7_Desc_15: 'The transaction will be submitted. The TX Hash will display. You can click that TX Hash to see it on the blockchain.',
+  HELP_7_Desc_2: 'Unlock your wallet.',
+  HELP_7_Desc_3: 'Enter the address you would like to send to in the "To Address:" field.',
+  HELP_7_Desc_4: 'Enter the amount you would like to send.',
+  HELP_7_Desc_5: 'Select which token you would like to send.',
+  HELP_7_Desc_6: 'If you do not see the token listed',
+  HELP_7_Desc_7: 'Click "Custom".',
+  HELP_7_Desc_8: 'Enter the address, name, and decimals of the token. These are provided by the developers of the token and are also needed when you "Add a Watch Token" to Mist.',
+  HELP_7_Desc_9: 'Click "Save".',
+  HELP_7_Title: '7) How do I send tokens & add custom tokens?',
+  HELP_8_Desc_1: 'MyWanWallet is not a web wallet. You don\'t have a login and nothing ever gets saved to our servers. It is simply an interface that allows you interact with the blockchain.',
+  HELP_8_Desc_2: 'If MyWanWallet.nl goes down, you would have to find another way (like gwan or Wanchain Wallet / Mist) to do what we are doing. But you wouldn\'t have to "get" your Wancoins out of MyWanWallet because it\'s not in MyWanWallet. It\'s in whatever wallet your generated via our site.',
+  HELP_8_Desc_3: 'You can import your unencrypted private key and your gwan/Mist Format (encrypted) files directly into gwan / Wanchain Wallet / Mist very easily now. See question #12 below.',
+  HELP_8_Desc_4: 'In addition, the likelihood of us taking MyWanWallet down is slim to none. It costs us almost nothing to maintain as we aren\'t storing any information. If we do take the domain down, it still is, and always will be, publicly available at [https://github.com/tyrion70/mywanwallet](https://github.com/tyrion70/mywanwallet). You can download the ZIP there and run it locally.',
+  HELP_8_Title: '8) What happens if your site goes down?',
+  HELP_8CX_Desc_1: 'First, all data is saved on your computer, not our servers. I know it can be confusing, but when you look at the Chrome Extension, you are NOT looking at stuff saved on our servers somewhere - it\'s all saved on your own computer.',
+  HELP_8CX_Desc_2: 'That said, it is **very important** that you back up all your information for any new wallets generated with MyWanWallet CX. That way if anything happens to MyWanWallet CX or your computer, you still have all the information necessary to access your Wancoins. See the #2a for how to back up your wallets.',
+  HELP_8CX_Desc_3: 'If for some reason MyWanWallet CX disappears from the Chrome Store, you can find the source on Github and load it manually. See #5 above.',
+  HELP_8CX_Title: '8) What happens if MyWanWallet CX disappears?',
+  HELP_9_Desc_1: 'No. It needs the internet in order to get the current gas price, nonce of your account, and broadcast the transaction (aka "send"). However, it only sends the signed transaction. Your private key safely stays with you. We also now provide an "Offline Transaction" page so that you can ensure your private keys are on an offline/airgapped computer at all times.',
+  HELP_9_Title: '9) Is the "Send Wancoins & Tokens" page offline?',
+  HELP_Contact_Title: 'Ways to Get in Touch',
+  HELP_Desc: 'Do you see something missing? Have another question? [Get in touch with us](mailto:support@MyWanWallet.nl), and we will not only answer your question, we will update this page to be more useful to people in the future!',
+  HELP_FAQ_Title: 'More Helpful Answers to Frequent Questions',
+  HELP_Remind_Desc_1: '**Wanchain, MyWanWallet.com & MyWanWallet CX, and some of the underlying Javascript libraries we use are under active development.** While we have thoroughly tested & tens of thousands of wallets have been successfully created by people all over the globe, there is always the remote possibility that something unexpected happens that causes your WAN to be lost. Please do not invest more than you are willing to lose, and please be careful. If something were to happen, we are sorry, but **we are not responsible for the lost Wancoins**.',
+  HELP_Remind_Desc_2: 'MyWanWallet.nl & MyWanWallet CX are not "web wallets". You do not create an account or give us your Wancoins to hold onto. All data never leaves your computer/your browser. We make it easy for you to create, save, and access your information and interact with the blockchain.',
+  HELP_Remind_Desc_3: 'If you do not save your private key & password, there is no way to recover access to your wallet or the funds it holds.  Back them up in multiple physical locations &ndash; not just on your computer!',
+  HELP_Remind_Title: 'Some reminders',
+  HELP_Sec_Desc_1: 'If one of your first questions is "Why should I trust these people?", that is a good thing. Hopefully the following will help ease your fears.',
+  HELP_Sec_Desc_2: 'We\'ve been up and running since August 2015. If you search for ["MyWanWallet" on reddit](https://www.reddit.com/search?q=MyWanWallet), you can see numerous people who use us with great success.',
+  HELP_Sec_Desc_3: 'We aren\'t going to take your money or steal your private key(s). There is no malicious code on this site. In fact the "GENERATE WALLET" pages are completely client-side. That means that all the code is executed on ** your computer** and it is never saved and transmitted anywhere.',
+  HELP_Sec_Desc_4: 'Check the URL -- This site is being served through GitHub and you can see the source code here: [https://github.com/tyrion70/mywanwallet/releases/latest](https://github.com/tyrion70/etherwallet/releases/latest) to [https://www.MyWanWallet.nl](https://www.MyWanWallet.nl).',
+  HELP_Sec_Desc_5: 'For generating wallets, you can download the [source code and run it locally](https://github.com/tyrion70/mywanwallet/releases/latest). See #5 above.',
+  HELP_Sec_Desc_6: 'Generate a test wallet and check and see what network activity is happening. The easiest way for you to do this is to right click on the page and click "inspect element". Go to the "Network" tab. Generate a test wallet. You will see there is no network activity. You may see something happening that looks like data:image/gif and data:image/png. Those are the QR codes being generated...on your computer...by your computer. No bytes were transferred.',
+  HELP_Sec_Desc_8: 'If you do not feel comfortable using this tool, then by all means, do not use it. We created this tool as a helpful way for people to generate wallets and make transactions without needing to dive into command line or run a full node. Again, feel free to reach out if you have concerns and we will respond as quickly as possible. Thanks!',
+  HELP_Sec_Title: 'Security',
+  HELP_SecCX_Desc_1: 'Where is this extension saving my information?',
+  HELP_SecCX_Desc_2: 'The information you store in this Chrome Extension is saved via [chrome.storage](http://chrome.storage/). - this is the same place your passwords are saved when you save your password in Chrome.',
+  HELP_SecCX_Desc_3: 'What information is saved?',
+  HELP_SecCX_Desc_4: 'The address, nickname, private key is stored in chrome.storage. The private key is encrypted using the password you set when you added the wallet. The nickname and wallet address is not encrypted.',
+  HELP_SecCX_Desc_5: 'Why aren\'t the nickname and wallet address encrypted?',
+  HELP_SecCX_Desc_6: 'If we were to encrypt these items, you would need to enter a password each time you wanted to view your account balance or view the nicknames. If this concerns you, we recommend you use MyWanWallet.nl instead of this Chrome Extension.',
+  HELP_SecCX_Title: 'Security - MyWanWallet CX',
+  HELP_Warning: 'If you created a wallet -or- downloaded the repo before **Dec. 31st, 2015**, please check your wallets &amp; download a new version of the repo. Click for details.'
+
+};
 
 module.exports = en;
 
@@ -10926,8 +11618,8 @@ uiFuncs.getTxData = function ($scope) {
     };
 };
 uiFuncs.isTxDataValid = function (txData) {
-    if (txData.to != "0xCONTRACT" && !ethFuncs.validateEtherAddress(txData.to)) throw globalFuncs.errorMsgs[5];else if (!globalFuncs.isNumeric(txData.value) || parseFloat(txData.value) < 0) throw globalFuncs.errorMsgs[0];else if (!globalFuncs.isNumeric(txData.gasLimit) || parseFloat(txData.gasLimit) <= 0) throw globalFuncs.errorMsgs[8];else if (!ethFuncs.validateHexString(txData.data)) throw globalFuncs.errorMsgs[9];
-    if (txData.to == "0xCONTRACT") txData.to = '';
+    if (txData.to !== '0xCONTRACT' && !ethFuncs.validateEtherAddress(txData.to)) throw globalFuncs.errorMsgs[5];else if (!globalFuncs.isNumeric(txData.value) || parseFloat(txData.value) < 0) throw globalFuncs.errorMsgs[0];else if (!globalFuncs.isNumeric(txData.gasLimit) || parseFloat(txData.gasLimit) <= 0) throw globalFuncs.errorMsgs[8];else if (!ethFuncs.validateHexString(txData.data)) throw globalFuncs.errorMsgs[9];
+    if (txData.to === '0xCONTRACT') txData.to = '';
 };
 uiFuncs.signTxTrezor = function (rawTx, txData, callback) {
     // TrezorConnect.signEthereumTx(txData.path, ethFuncs.getNakedAddress(rawTx.Txtype), ethFuncs.getNakedAddress(rawTx.nonce), ethFuncs.getNakedAddress(rawTx.gasPrice), ethFuncs.getNakedAddress(rawTx.gas), ethFuncs.getNakedAddress(rawTx.to), ethFuncs.getNakedAddress(rawTx.value), ethFuncs.getNakedAddress(rawTx.data), rawTx.chainId, localCallback);
@@ -10970,17 +11662,19 @@ uiFuncs.signTxLedger = function (app, eTx, rawTx, txData, old, callback) {
     var toHash = old ? eTx.raw.slice(0, 6) : eTx.raw;
     var txToSign = ethUtil.rlp.encode(toHash);
     var localCallback = function localCallback(result, error) {
-        if (typeof error != "undefined") {
+        if (typeof error !== 'undefined') {
             error = error.errorCode ? u2f.getErrorByCode(error.errorCode) : error;
-            if (callback !== undefined) callback({
-                isError: true,
-                error: error
-            });
+            if (callback !== undefined) {
+                callback({
+                    isError: true,
+                    error: error
+                });
+            }
             return;
         }
-        rawTx.v = "0x" + result['v'];
-        rawTx.r = "0x" + result['r'];
-        rawTx.s = "0x" + result['s'];
+        rawTx.v = '0x' + result['v'];
+        rawTx.r = '0x' + result['r'];
+        rawTx.s = '0x' + result['s'];
         eTx = new wanUtil.wanchainTx(rawTx);
         rawTx.rawTx = JSON.stringify(rawTx);
         rawTx.signedTx = '0x' + eTx.serialize().toString('hex');
@@ -10991,12 +11685,14 @@ uiFuncs.signTxLedger = function (app, eTx, rawTx, txData, old, callback) {
 };
 uiFuncs.signTxDigitalBitbox = function (eTx, rawTx, txData, callback) {
     var localCallback = function localCallback(result, error) {
-        if (typeof error != "undefined") {
+        if (typeof error !== 'undefined') {
             error = error.errorCode ? u2f.getErrorByCode(error.errorCode) : error;
-            if (callback !== undefined) callback({
-                isError: true,
-                error: error
-            });
+            if (callback !== undefined) {
+                callback({
+                    isError: true,
+                    error: error
+                });
+            }
             return;
         }
         uiFuncs.notifier.info("The transaction was signed but not sent. Click the blue 'Send Transaction' button to continue.");
@@ -11009,7 +11705,7 @@ uiFuncs.signTxDigitalBitbox = function (eTx, rawTx, txData, callback) {
         rawTx.isError = false;
         if (callback !== undefined) callback(rawTx);
     };
-    uiFuncs.notifier.info("Touch the LED for 3 seconds to sign the transaction. Or tap the LED to cancel.");
+    uiFuncs.notifier.info('Touch the LED for 3 seconds to sign the transaction. Or tap the LED to cancel.');
     var app = new DigitalBitboxEth(txData.hwTransport, '');
     app.signTransaction(txData.path, eTx, localCallback);
 };
@@ -11031,7 +11727,7 @@ uiFuncs.trezorUnlockCallback = function (txData, callback) {
     uiFuncs.generateTx(txData, callback);
 };
 uiFuncs.generateTx = function (txData, callback) {
-    if (typeof txData.hwType != "undefined" && txData.hwType == "trezor" && !txData.trezorUnlocked) {
+    if (typeof txData.hwType !== 'undefined' && txData.hwType === 'trezor' && !txData.trezorUnlocked) {
         uiFuncs.trezorUnlockCallback(txData, callback);
         return;
     }
@@ -11049,15 +11745,17 @@ uiFuncs.generateTx = function (txData, callback) {
             };
             if (ajaxReq.eip155) rawTx.chainId = ajaxReq.chainId;
             var eTx = new wanUtil.wanchainTx(rawTx);
-            if (typeof txData.hwType != "undefined" && txData.hwType == "ledger") {
+            if (typeof txData.hwType !== 'undefined' && txData.hwType === 'ledger') {
                 var app = new ledgerEth(txData.hwTransport);
                 var EIP155Supported = false;
                 var localCallback = function localCallback(result, error) {
-                    if (typeof error != "undefined") {
-                        if (callback !== undefined) callback({
-                            isError: true,
-                            error: error
-                        });
+                    if (typeof error !== 'undefined') {
+                        if (callback !== undefined) {
+                            callback({
+                                isError: true,
+                                error: error
+                            });
+                        }
                         return;
                     }
                     var splitVersion = result['version'].split('.');
@@ -11071,9 +11769,9 @@ uiFuncs.generateTx = function (txData, callback) {
                     uiFuncs.signTxLedger(app, eTx, rawTx, txData, !EIP155Supported, callback);
                 };
                 app.getAppConfiguration(localCallback);
-            } else if (typeof txData.hwType != "undefined" && txData.hwType == "trezor") {
+            } else if (typeof txData.hwType !== 'undefined' && txData.hwType === 'trezor') {
                 uiFuncs.signTxTrezor(rawTx, txData, callback);
-            } else if (typeof txData.hwType != "undefined" && txData.hwType == "web3") {
+            } else if (typeof txData.hwType !== 'undefined' && txData.hwType === 'web3') {
                 // for web3, we dont actually sign it here
                 // instead we put the final params in the "signedTx" field and
                 // wait for the confirmation dialogue / sendTx method
@@ -11082,7 +11780,7 @@ uiFuncs.generateTx = function (txData, callback) {
                 rawTx.signedTx = JSON.stringify(txParams);
                 rawTx.isError = false;
                 callback(rawTx);
-            } else if (typeof txData.hwType != "undefined" && txData.hwType == "digitalBitbox") {
+            } else if (typeof txData.hwType !== 'undefined' && txData.hwType === 'digitalBitbox') {
                 uiFuncs.signTxDigitalBitbox(eTx, rawTx, txData, callback);
             } else {
                 eTx.sign(new Buffer(txData.privKey, 'hex'));
@@ -11114,10 +11812,12 @@ uiFuncs.generateTx = function (txData, callback) {
             });
         }
     } catch (e) {
-        if (callback !== undefined) callback({
-            isError: true,
-            error: e
-        });
+        if (callback !== undefined) {
+            callback({
+                isError: true,
+                error: e
+            });
+        }
     }
 };
 uiFuncs.sendTx = function (signedTx, callback) {
@@ -11160,17 +11860,21 @@ uiFuncs.transferAllBalance = function (fromAdd, gasLimit, callback) {
             var gasPrice = new BigNumber(ethFuncs.sanitizeHex(ethFuncs.addTinyMoreToGas(data.gasprice))).times(gasLimit);
             var maxVal = new BigNumber(data.balance).minus(gasPrice);
             maxVal = etherUnits.toEther(maxVal, 'wei') < 0 ? 0 : etherUnits.toEther(maxVal, 'wei');
-            if (callback !== undefined) callback({
-                isError: false,
-                unit: "ether",
-                value: maxVal
-            });
+            if (callback !== undefined) {
+                callback({
+                    isError: false,
+                    unit: 'ether',
+                    value: maxVal
+                });
+            }
         });
     } catch (e) {
-        if (callback !== undefined) callback({
-            isError: true,
-            error: e
-        });
+        if (callback !== undefined) {
+            callback({
+                isError: true,
+                error: e
+            });
+        }
     }
 };
 uiFuncs.notifier = {
@@ -11178,12 +11882,12 @@ uiFuncs.notifier = {
     warning: function warning(msg) {
         var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 5000;
 
-        this.addAlert("warning", msg, duration);
+        this.addAlert('warning', msg, duration);
     },
     info: function info(msg) {
         var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 5000;
 
-        this.addAlert("info", msg, duration);
+        this.addAlert('info', msg, duration);
     },
     danger: function danger(msg) {
         var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 7000;
@@ -11191,20 +11895,19 @@ uiFuncs.notifier = {
         msg = msg.message ? msg.message : msg;
         // Danger messages can be translated based on the type of node
         msg = globalFuncs.getEthNodeMsg(msg);
-        this.addAlert("danger", msg, duration);
+        this.addAlert('danger', msg, duration);
     },
     success: function success(msg) {
         var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 5000;
 
-        this.addAlert("success", msg, duration);
+        this.addAlert('success', msg, duration);
     },
     addAlert: function addAlert(type, msg, duration) {
-        if (duration == undefined) duration = 7000;
+        if (duration === undefined) duration = 7000;
         // Save all messages by unique id for removal
         var id = Date.now();
         alert = this.buildAlert(id, type, msg);
         this.alerts[id] = alert;
-        var that = this;
         if (duration > 0) {
             // Support permanent messages
             setTimeout(alert.close, duration);
@@ -11233,8 +11936,10 @@ module.exports = uiFuncs;
 var validator = function validator() {};
 
 validator.isValidAddress = function (address) {
-    if (address && address == "0x0000000000000000000000000000000000000000") return false;
-    if (address) return ethFuncs.validateEtherAddress(address);
+    if (address && address === '0x0000000000000000000000000000000000000000') return false;
+    if (address) {
+        return ethFuncs.validateEtherAddress(address);
+    }
     return false;
 };
 validator.isChecksumAddress = function (address) {
@@ -11245,17 +11950,17 @@ validator.isValidENSorEtherAddress = function (address) {
 };
 validator.isValidENSName = function (str) {
     try {
-        return str.length > 5 && ens.normalise(str) != '' && str.substring(0, 2) != '0x';
+        return str.length > 5 && ens.normalise(str) !== '' && str.substring(0, 2) !== '0x';
     } catch (e) {
         return false;
     }
 };
 validator.isValidTxHash = function (txHash) {
-    return txHash.substring(0, 2) == "0x" && txHash.length == 66 && this.isValidHex(txHash);
+    return txHash.substring(0, 2) === '0x' && txHash.length === 66 && this.isValidHex(txHash);
 };
 validator.isValidENSAddress = function (address) {
     address = ens.normalise(address);
-    return address.lastIndexOf(".") != -1;
+    return address.lastIndexOf('.') !== -1;
 };
 validator.isValidBTCAddress = function (address) {
     return ethUtil.WAValidator.validate(address, 'BTC');
@@ -11267,7 +11972,7 @@ validator.isValidHex = function (hex) {
     return ethFuncs.validateHexString(hex);
 };
 validator.isValidPrivKey = function (privkeyLen) {
-    return privkeyLen == 64 || privkeyLen == 66 || privkeyLen == 128 || privkeyLen == 132;
+    return privkeyLen === 64 || privkeyLen === 66 || privkeyLen === 128 || privkeyLen === 132;
 };
 validator.isValidMnemonic = function (mnemonic) {
     return hd.bip39.validateMnemonic(mnemonic);
@@ -11305,8 +12010,8 @@ var Wallet = require('./myetherwallet.js');
 var Web3Wallet = function Web3Wallet(addressBuffer) {
     Wallet.call(this);
     this.addressBuffer = addressBuffer;
-    this.type = "web3";
-    this.hwType = "web3";
+    this.type = 'web3';
+    this.hwType = 'web3';
 };
 // subclass Wallet
 Web3Wallet.super_ = Wallet;
@@ -111367,8 +112072,59 @@ var properties = function properties() {
 module.exports = Wan;
 
 },{"web3/lib/web3/formatters":352,"web3/lib/web3/method":354}],348:[function(require,module,exports){
-arguments[4][60][0].apply(exports,arguments)
-},{"bignumber.js":355,"dup":60}],349:[function(require,module,exports){
+'use strict';
+
+/*
+    This file is part of web3.js.
+
+    web3.js is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    web3.js is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
+*/
+/** @file config.js
+ * @authors:
+ *   Marek Kotewicz <marek@ethdev.com>
+ * @date 2015
+ */
+
+/**
+ * Utils
+ * 
+ * @module utils
+ */
+
+/**
+ * Utility functions
+ * 
+ * @class [utils] config
+ * @constructor
+ */
+
+/// required to define ETH_BIGNUMBER_ROUNDING_MODE
+var BigNumber = require('bignumber.js');
+
+var ETH_UNITS = ['wei', 'kwei', 'Mwei', 'Gwei', 'szabo', 'finney', 'femtoether', 'picoether', 'nanoether', 'microether', 'milliether', 'nano', 'micro', 'milli', 'ether', 'grand', 'Mether', 'Gether', 'Tether', 'Pether', 'Eether', 'Zether', 'Yether', 'Nether', 'Dether', 'Vether', 'Uether'];
+
+module.exports = {
+    ETH_PADDING: 32,
+    ETH_SIGNATURE_LENGTH: 4,
+    ETH_UNITS: ETH_UNITS,
+    ETH_BIGNUMBER_ROUNDING_MODE: { ROUNDING_MODE: BigNumber.ROUND_DOWN },
+    ETH_POLLING_TIMEOUT: 1000 / 2,
+    defaultBlock: 'latest',
+    defaultAccount: undefined
+};
+
+},{"bignumber.js":355}],349:[function(require,module,exports){
 'use strict';
 
 /*

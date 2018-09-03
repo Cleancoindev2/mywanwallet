@@ -1,4 +1,4 @@
-[![Build Status][travis-image]][travis-url] [![dependency status][dep-image]][dep-url]
+[![CircleCI](https://circleci.com/gh/tyrion70/mywanwallet.svg?style=svg)](https://circleci.com/gh/tyrion70/mywanwallet) [![dependency status][dep-image]][dep-url] [![Coverage Status](https://coveralls.io/repos/github/tyrion70/mywanwallet/badge.svg)](https://coveralls.io/github/tyrion70/mywanwallet)
 
 ### [https://www.mywanwallet.nl](https://www.mywanwallet.com)
 
