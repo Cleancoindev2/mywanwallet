@@ -39,7 +39,7 @@
 
   "rules": {
     "camelcase": [2, { "properties": "never" }],
-    "no-unused-vars": [2, { "vars": "all", "args": "none" }],
+    "no-unused-vars": [2, { "vars": "all", "args": "none", "varsIgnorePattern": "angular.*" }],
     "no-undef": 0,
     "no-restricted-globals": ["error", "event"],
     "accessor-pairs": 2,
