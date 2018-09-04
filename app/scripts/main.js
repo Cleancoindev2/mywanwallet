@@ -98,7 +98,12 @@ if (IS_CX) {
   var mainPopCtrl = require('./controllers/CX/mainPopCtrl')
   var quickSendCtrl = require('./controllers/CX/quickSendCtrl')
 }
-var app = angular.module('mewApp', ['pascalprecht.translate', 'ngSanitize', 'ngAnimate'])
+var Raven = require('raven-js')
+Raven
+  .config('https://061ff72d96d64c7bb85690ec2fb82688@sentry.io/1274640')
+  .addPlugin(require('raven-js/plugins/angular'), angular)
+  .install()
+var app = angular.module('mewApp', ['ngRaven', 'pascalprecht.translate', 'ngSanitize', 'ngAnimate'])
 app.config(['$compileProvider', function ($compileProvider) {
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|https|mailto):/)
 }])
