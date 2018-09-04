@@ -23,7 +23,12 @@ workflows:
             - prep-deps-npm
             - prep-build
             - all-tests-pass
-
+      - job-publish-release:
+          filters:
+            branches:
+              only: master
+          requires:
+            - job-publish-prerelease
 jobs:
   prep-deps-npm:
     docker:
@@ -96,6 +101,22 @@ jobs:
       - store_artifacts:
           path: releases
           destination: releases
+  job-publish-release:
+    docker:
+      - image: circleci/node:8.11.3-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Test
+          command: npm run zip
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            go get github.com/tcnksm/ghr
+            VERSION=$(node -p "require('./package.json').version")
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./releases/
   all-tests-pass:
     docker:
       - image: circleci/node:8.11.3-browsers
