@@ -1,16 +1,16 @@
-'use strict';
-var wanUtil = require('wanchain-util');
-var Wallet = function(priv, pub, path, hwType, hwTransport) {
-    if (typeof priv != "undefined") {
-        this.privKey = priv.length == 32 ? priv : Buffer(priv, 'hex')
+'use strict'
+var wanUtil = require('wanchain-util')
+var Wallet = function (priv, pub, path, hwType, hwTransport) {
+    if (typeof priv !== 'undefined') {
+        this.privKey = priv.length === 32 ? priv : Buffer(priv, 'hex')
     }
-    this.pubKey = pub;
-    this.path = path;
-    this.hwType = hwType;
-    this.hwTransport = hwTransport;
-    this.type = "default";
+    this.pubKey = pub
+    this.path = path
+    this.hwType = hwType
+    this.hwTransport = hwTransport
+    this.type = 'default'
 }
-Wallet.generate = function(icapDirect) {
+Wallet.generate = function (icapDirect) {
     if (icapDirect) {
         while (true) {
             var privKey = ethUtil.crypto.randomBytes(32)
@@ -24,9 +24,9 @@ Wallet.generate = function(icapDirect) {
 }
 
 Wallet.prototype.setTokens = function () {
-    this.tokenObjs = [];
-    var defaultTokensAndNetworkType = globalFuncs.getDefaultTokensAndNetworkType();
-    var tokens = Token.popTokens;
+    this.tokenObjs = []
+    var defaultTokensAndNetworkType = globalFuncs.getDefaultTokensAndNetworkType()
+    var tokens = Token.popTokens
 
     for (var i = 0; i < tokens.length; i++) {
       this.tokenObjs.push(
@@ -37,25 +37,25 @@ Wallet.prototype.setTokens = function () {
           tokens[i].decimal,
           tokens[i].type
         )
-      );
+      )
 
       var autoTokens = globalFuncs.localStorage.getItem('autoLoadTokens')
-      var autoLoadTokens = autoTokens ? autoTokens : [];
+      var autoLoadTokens = autoTokens || []
       var thisAddr = tokens[i].address
 
-      if ( autoLoadTokens.indexOf( thisAddr ) > -1 ) {
-        this.tokenObjs[this.tokenObjs.length - 1].setBalance();
+      if (autoLoadTokens.indexOf(thisAddr) > -1) {
+        this.tokenObjs[this.tokenObjs.length - 1].setBalance()
       }
     }
 
-    var storedTokens = globalFuncs.localStorage.getItem('localTokens', null) != null ? JSON.parse(globalFuncs.localStorage.getItem('localTokens')) : [];
+    var storedTokens = globalFuncs.localStorage.getItem('localTokens', null) != null ? JSON.parse(globalFuncs.localStorage.getItem('localTokens')) : []
 
-    var conflictWithDefaultTokens = [];
+    var conflictWithDefaultTokens = []
     for (var e = 0; e < storedTokens.length; e++) {
         if (globalFuncs.doesTokenExistInDefaultTokens(storedTokens[e], defaultTokensAndNetworkType)) {
-            conflictWithDefaultTokens.push(storedTokens[e]);
+            conflictWithDefaultTokens.push(storedTokens[e])
             // don't push to tokenObjs if token is default; continue to next element
-            continue;
+            continue
         }
 
         this.tokenObjs.push(
@@ -66,135 +66,135 @@ Wallet.prototype.setTokens = function () {
             storedTokens[e].decimal,
             storedTokens[e].type,
           )
-        );
-        this.tokenObjs[this.tokenObjs.length - 1].setBalance();
+        )
+        this.tokenObjs[this.tokenObjs.length - 1].setBalance()
     }
     removeAllTokenConflicts(conflictWithDefaultTokens, storedTokens)
-};
+}
 
-function saveToLocalStorage(key, value) {
+function saveToLocalStorage (key, value) {
   globalFuncs.localStorage.setItem(key, JSON.stringify(value))
 }
 
-function removeConflictingTokensFromLocalStorage(conflictLocalTokens, localTokens) {
+function removeConflictingTokensFromLocalStorage (conflictLocalTokens, localTokens) {
   for (var i = 0; i < conflictLocalTokens.length; i++) {
     for (var e = 0; e < localTokens.length; e++) {
       if (conflictLocalTokens[i] === localTokens[e]) {
-        localTokens.splice(e, 1);
+        localTokens.splice(e, 1)
       }
     }
   }
-  return localTokens;
+  return localTokens
 }
 
 // https://stackoverflow.com/questions/32238602/javascript-remove-duplicates-of-objects-sharing-same-property-value
-function removeDuplicates(originalArray, objKey) {
-  var trimmedArray = [];
-  var values = [];
-  var value;
+function removeDuplicates (originalArray, objKey) {
+  var trimmedArray = []
+  var values = []
+  var value
 
-  for(var i = 0; i < originalArray.length; i++) {
-    value = originalArray[i][objKey];
+  for (var i = 0; i < originalArray.length; i++) {
+    value = originalArray[i][objKey]
 
-    if(values.indexOf(value) === -1) {
-      trimmedArray.push(originalArray[i]);
-      values.push(value);
+    if (values.indexOf(value) === -1) {
+      trimmedArray.push(originalArray[i])
+      values.push(value)
     }
   }
-  return trimmedArray;
+  return trimmedArray
 }
 
-function removeAllTokenConflicts(conflictWithDefaultTokens, localTokens) {
-  var deConflictedTokens = removeConflictingTokensFromLocalStorage(conflictWithDefaultTokens, localTokens);
-  var deDuplicatedTokens = removeDuplicates(deConflictedTokens, 'symbol');
-  saveToLocalStorage("localTokens", deDuplicatedTokens)
+function removeAllTokenConflicts (conflictWithDefaultTokens, localTokens) {
+  var deConflictedTokens = removeConflictingTokensFromLocalStorage(conflictWithDefaultTokens, localTokens)
+  var deDuplicatedTokens = removeDuplicates(deConflictedTokens, 'symbol')
+  saveToLocalStorage('localTokens', deDuplicatedTokens)
 }
 
-Wallet.prototype.setBalance = function(callback) {
-    var parentObj = this;
-    this.balance = this.usdBalance = this.eurBalance = this.btcBalance = this.chfBalance = this.repBalance =  this.gbpBalance = 'loading';
-    ajaxReq.getBalance(parentObj.getAddressString(), function(data) {
-        if (data.error) parentObj.balance = data.msg;
+Wallet.prototype.setBalance = function (callback) {
+    var parentObj = this
+    this.balance = this.usdBalance = this.eurBalance = this.btcBalance = this.chfBalance = this.repBalance = this.gbpBalance = 'loading'
+    ajaxReq.getBalance(parentObj.getAddressString(), function (data) {
+        if (data.error) parentObj.balance = data.msg
         else {
-            parentObj.balance = etherUnits.toEther(data.data.balance, 'wei');
-            ajaxReq.getWANvalue(function(data) {
-                parentObj.usdPrice   = etherUnits.toFiat('1', 'ether', data.usd);
-                parentObj.gbpPrice   = etherUnits.toFiat('1', 'ether', data.gbp);
-                parentObj.eurPrice   = etherUnits.toFiat('1', 'ether', data.eur);
-                parentObj.btcPrice   = etherUnits.toFiat('1', 'ether', data.btc);
-                parentObj.chfPrice   = etherUnits.toFiat('1', 'ether', data.chf);
-                parentObj.repPrice   = etherUnits.toFiat('1', 'ether', data.rep);
+            parentObj.balance = etherUnits.toEther(data.data.balance, 'wei')
+            ajaxReq.getWANvalue(function (data) {
+                parentObj.usdPrice = etherUnits.toFiat('1', 'ether', data.usd)
+                parentObj.gbpPrice = etherUnits.toFiat('1', 'ether', data.gbp)
+                parentObj.eurPrice = etherUnits.toFiat('1', 'ether', data.eur)
+                parentObj.btcPrice = etherUnits.toFiat('1', 'ether', data.btc)
+                parentObj.chfPrice = etherUnits.toFiat('1', 'ether', data.chf)
+                parentObj.repPrice = etherUnits.toFiat('1', 'ether', data.rep)
 
-                parentObj.usdBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.usd);
-                parentObj.gbpBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.gbp);
-                parentObj.eurBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.eur);
-                parentObj.btcBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.btc);
-                parentObj.chfBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.chf);
-                parentObj.repBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.rep);
-                if(callback) callback();
-            });
+                parentObj.usdBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.usd)
+                parentObj.gbpBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.gbp)
+                parentObj.eurBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.eur)
+                parentObj.btcBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.btc)
+                parentObj.chfBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.chf)
+                parentObj.repBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.rep)
+                if (callback) callback()
+            })
         }
-    });
+    })
 }
-Wallet.prototype.getBalance = function() {
-    return this.balance;
+Wallet.prototype.getBalance = function () {
+    return this.balance
 }
-Wallet.prototype.getPath = function() {
-    return this.path;
+Wallet.prototype.getPath = function () {
+    return this.path
 }
-Wallet.prototype.getHWType = function() {
-    return this.hwType;
+Wallet.prototype.getHWType = function () {
+    return this.hwType
 }
-Wallet.prototype.getHWTransport = function() {
-    return this.hwTransport;
+Wallet.prototype.getHWTransport = function () {
+    return this.hwTransport
 }
-Wallet.prototype.getPrivateKey = function() {
+Wallet.prototype.getPrivateKey = function () {
     return this.privKey
 }
-Wallet.prototype.getPrivateKeyString = function() {
-    if (typeof this.privKey != "undefined") {
+Wallet.prototype.getPrivateKeyString = function () {
+    if (typeof this.privKey !== 'undefined') {
         return this.getPrivateKey().toString('hex')
     } else {
-        return "";
+        return ''
     }
 }
-Wallet.prototype.getPublicKey = function() {
-    if (typeof this.pubKey == "undefined") {
+Wallet.prototype.getPublicKey = function () {
+    if (typeof this.pubKey === 'undefined') {
         return ethUtil.privateToPublic(this.privKey)
     } else {
-        return this.pubKey;
+        return this.pubKey
     }
 }
-Wallet.prototype.getPublicKeyString = function() {
-    if (typeof this.pubKey == "undefined") {
+Wallet.prototype.getPublicKeyString = function () {
+    if (typeof this.pubKey === 'undefined') {
         return '0x' + this.getPublicKey().toString('hex')
     } else {
-        return "0x" + this.pubKey.toString('hex')
+        return '0x' + this.pubKey.toString('hex')
     }
 }
-Wallet.prototype.getAddress = function() {
-    if (typeof this.pubKey == "undefined") {
+Wallet.prototype.getAddress = function () {
+    if (typeof this.pubKey === 'undefined') {
         return ethUtil.privateToAddress(this.privKey)
     } else {
         return ethUtil.publicToAddress(this.pubKey, true)
     }
 }
-Wallet.prototype.getAddressString = function() {
+Wallet.prototype.getAddressString = function () {
     return '0x' + this.getAddress().toString('hex')
 }
-Wallet.prototype.getChecksumAddressString = function() {
+Wallet.prototype.getChecksumAddressString = function () {
     return wanUtil.toChecksumAddress(this.getAddressString())
 }
-Wallet.fromPrivateKey = function(priv) {
+Wallet.fromPrivateKey = function (priv) {
     return new Wallet(priv)
 }
-Wallet.fromParityPhrase = function(phrase) {
-    var hash = ethUtil.sha3(new Buffer(phrase));
-    for (var i = 0; i < 16384; i++) hash = ethUtil.sha3(hash);
-    while (ethUtil.privateToAddress(hash)[0] != 0) hash = ethUtil.sha3(hash);
-    return new Wallet(hash);
+Wallet.fromParityPhrase = function (phrase) {
+    var hash = ethUtil.sha3(new Buffer(phrase))
+    for (var i = 0; i < 16384; i++) hash = ethUtil.sha3(hash)
+    while (ethUtil.privateToAddress(hash)[0] !== 0) hash = ethUtil.sha3(hash)
+    return new Wallet(hash)
 }
-Wallet.prototype.toV3 = function(password, opts) {
+Wallet.prototype.toV3 = function (password, opts) {
     opts = opts || {}
     var salt = opts.salt || ethUtil.crypto.randomBytes(32)
     var iv = opts.iv || ethUtil.crypto.randomBytes(16)
@@ -202,7 +202,7 @@ Wallet.prototype.toV3 = function(password, opts) {
     var kdf = opts.kdf || 'scrypt'
     var kdfparams = {
         dklen: opts.dklen || 32,
-        salt: salt.toString('hex')
+        salt: salt.toString('hex'),
     }
     if (kdf === 'pbkdf2') {
         kdfparams.c = opts.c || 262144
@@ -226,33 +226,33 @@ Wallet.prototype.toV3 = function(password, opts) {
     return {
         version: 3,
         id: ethUtil.uuid.v4({
-            random: opts.uuid || ethUtil.crypto.randomBytes(16)
+            random: opts.uuid || ethUtil.crypto.randomBytes(16),
         }),
         address: this.getAddress().toString('hex'),
         Crypto: {
             ciphertext: ciphertext.toString('hex'),
             cipherparams: {
-                iv: iv.toString('hex')
+                iv: iv.toString('hex'),
             },
             cipher: opts.cipher || 'aes-128-ctr',
             kdf: kdf,
             kdfparams: kdfparams,
-            mac: mac.toString('hex')
-        }
+            mac: mac.toString('hex'),
+        },
     }
 }
-Wallet.prototype.toJSON = function() {
+Wallet.prototype.toJSON = function () {
     return {
         address: this.getAddressString(),
         checksumAddress: this.getChecksumAddressString(),
         privKey: this.getPrivateKeyString(),
         pubKey: this.getPublicKeyString(),
-        publisher: "MyEtherWallet",
+        publisher: 'MyEtherWallet',
         encrypted: false,
-        version: 2
+        version: 2,
     }
 }
-Wallet.fromMyEtherWallet = function(input, password) {
+Wallet.fromMyEtherWallet = function (input, password) {
     var json = (typeof input === 'object') ? input : JSON.parse(input)
     var privKey
     if (!json.locked) {
@@ -271,7 +271,7 @@ Wallet.fromMyEtherWallet = function(input, password) {
         cipher = Wallet.decodeCryptojsSalt(cipher)
         var evp = Wallet.evp_kdf(new Buffer(password), cipher.salt, {
             keysize: 32,
-            ivsize: 16
+            ivsize: 16,
         })
         var decipher = ethUtil.crypto.createDecipheriv('aes-256-cbc', evp.key, evp.iv)
         privKey = Wallet.decipherBuffer(decipher, new Buffer(cipher.ciphertext))
@@ -283,15 +283,15 @@ Wallet.fromMyEtherWallet = function(input, password) {
     }
     return wallet
 }
-Wallet.fromMyEtherWalletV2 = function(input) {
-    var json = (typeof input === 'object') ? input : JSON.parse(input);
+Wallet.fromMyEtherWalletV2 = function (input) {
+    var json = (typeof input === 'object') ? input : JSON.parse(input)
     if (json.privKey.length !== 64) {
-        throw new Error('Invalid private key length');
+        throw new Error('Invalid private key length')
     };
-    var privKey = new Buffer(json.privKey, 'hex');
-    return new Wallet(privKey);
+    var privKey = new Buffer(json.privKey, 'hex')
+    return new Wallet(privKey)
 }
-Wallet.fromEthSale = function(input, password) {
+Wallet.fromEthSale = function (input, password) {
     var json = (typeof input === 'object') ? input : JSON.parse(input)
     var encseed = new Buffer(json.encseed, 'hex')
     var derivedKey = ethUtil.crypto.pbkdf2Sync(Buffer(password), Buffer(password), 2000, 32, 'sha256').slice(0, 16)
@@ -303,19 +303,19 @@ Wallet.fromEthSale = function(input, password) {
     }
     return wallet
 }
-Wallet.fromMyEtherWalletKey = function(input, password) {
+Wallet.fromMyEtherWalletKey = function (input, password) {
     var cipher = input.slice(0, 128)
     cipher = Wallet.decodeCryptojsSalt(cipher)
     var evp = Wallet.evp_kdf(new Buffer(password), cipher.salt, {
         keysize: 32,
-        ivsize: 16
+        ivsize: 16,
     })
     var decipher = ethUtil.crypto.createDecipheriv('aes-256-cbc', evp.key, evp.iv)
     var privKey = Wallet.decipherBuffer(decipher, new Buffer(cipher.ciphertext))
     privKey = new Buffer((privKey.toString()), 'hex')
     return new Wallet(privKey)
 }
-Wallet.fromV3 = function(input, password, nonStrict) {
+Wallet.fromV3 = function (input, password, nonStrict) {
     var json = (typeof input === 'object') ? input : JSON.parse(nonStrict ? input.toLowerCase() : input)
     if (json.version !== 3) {
         throw new Error('Not a V3 wallet')
@@ -342,38 +342,38 @@ Wallet.fromV3 = function(input, password, nonStrict) {
     var decipher = ethUtil.crypto.createDecipheriv(json.crypto.cipher, derivedKey.slice(0, 16), new Buffer(json.crypto.cipherparams.iv, 'hex'))
     var seed = Wallet.decipherBuffer(decipher, ciphertext, 'hex')
     while (seed.length < 32) {
-        var nullBuff = new Buffer([0x00]);
-        seed = Buffer.concat([nullBuff, seed]);
+        var nullBuff = new Buffer([0x00])
+        seed = Buffer.concat([nullBuff, seed])
     }
     return new Wallet(seed)
 }
-Wallet.prototype.toV3String = function(password, opts) {
+Wallet.prototype.toV3String = function (password, opts) {
     return JSON.stringify(this.toV3(password, opts))
 }
-Wallet.prototype.getV3Filename = function(timestamp) {
+Wallet.prototype.getV3Filename = function (timestamp) {
     var ts = timestamp ? new Date(timestamp) : new Date()
     return ['UTC--', ts.toJSON().replace(/:/g, '-'), '--', this.getAddress().toString('hex')].join('')
 }
-Wallet.decipherBuffer = function(decipher, data) {
+Wallet.decipherBuffer = function (decipher, data) {
     return Buffer.concat([decipher.update(data), decipher.final()])
 }
-Wallet.decodeCryptojsSalt = function(input) {
+Wallet.decodeCryptojsSalt = function (input) {
     var ciphertext = new Buffer(input, 'base64')
     if (ciphertext.slice(0, 8).toString() === 'Salted__') {
         return {
             salt: ciphertext.slice(8, 16),
-            ciphertext: ciphertext.slice(16)
+            ciphertext: ciphertext.slice(16),
         }
     } else {
         return {
-            ciphertext: ciphertext
+            ciphertext: ciphertext,
         }
     }
 }
-Wallet.evp_kdf = function(data, salt, opts) {
+Wallet.evp_kdf = function (data, salt, opts) {
     // A single EVP iteration, returns `D_i`, where block equlas to `D_(i-1)`
 
-    function iter(block) {
+    function iter (block) {
         var hash = ethUtil.crypto.createHash(opts.digest || 'md5')
         hash.update(block)
         hash.update(data)
@@ -397,31 +397,29 @@ Wallet.evp_kdf = function(data, salt, opts) {
     var tmp = Buffer.concat(ret)
     return {
         key: tmp.slice(0, keysize),
-        iv: tmp.slice(keysize, keysize + ivsize)
+        iv: tmp.slice(keysize, keysize + ivsize),
     }
 }
-Wallet.walletRequirePass = function(ethjson) {
-    var jsonArr;
+Wallet.walletRequirePass = function (ethjson) {
+    var jsonArr
     try {
-        jsonArr = JSON.parse(ethjson);
+        jsonArr = JSON.parse(ethjson)
     } catch (err) {
-        throw globalFuncs.errorMsgs[3];
+        throw globalFuncs.errorMsgs[3]
     }
-    if (jsonArr.encseed != null) return true;
+    if (jsonArr.encseed != null) return true
     else if (jsonArr.Crypto != null || jsonArr.crypto != null) return true
-    else if (jsonArr.hash != null && jsonArr.locked) return true;
-    else if (jsonArr.hash != null && !jsonArr.locked) return false;
-    else if (jsonArr.publisher == "MyEtherWallet" && !jsonArr.encrypted) return false;
-    else
-        throw globalFuncs.errorMsgs[2];
+    else if (jsonArr.hash != null && jsonArr.locked) return true
+    else if (jsonArr.hash != null && !jsonArr.locked) return false
+    else if (jsonArr.publisher === 'MyEtherWallet' && !jsonArr.encrypted) return false
+    else { throw globalFuncs.errorMsgs[2] }
 }
-Wallet.getWalletFromPrivKeyFile = function(strjson, password) {
-    var jsonArr = JSON.parse(strjson);
-    if (jsonArr.encseed != null) return Wallet.fromEthSale(strjson, password);
-    else if (jsonArr.Crypto != null || jsonArr.crypto != null) return Wallet.fromV3(strjson, password, true);
-    else if (jsonArr.hash != null) return Wallet.fromMyEtherWallet(strjson, password);
-    else if (jsonArr.publisher == "MyEtherWallet") return Wallet.fromMyEtherWalletV2(strjson);
-    else
-        throw globalFuncs.errorMsgs[2];
+Wallet.getWalletFromPrivKeyFile = function (strjson, password) {
+    var jsonArr = JSON.parse(strjson)
+    if (jsonArr.encseed != null) return Wallet.fromEthSale(strjson, password)
+    else if (jsonArr.Crypto != null || jsonArr.crypto != null) return Wallet.fromV3(strjson, password, true)
+    else if (jsonArr.hash != null) return Wallet.fromMyEtherWallet(strjson, password)
+    else if (jsonArr.publisher === 'MyEtherWallet') return Wallet.fromMyEtherWalletV2(strjson)
+    else { throw globalFuncs.errorMsgs[2] }
 }
-module.exports = Wallet;
+module.exports = Wallet

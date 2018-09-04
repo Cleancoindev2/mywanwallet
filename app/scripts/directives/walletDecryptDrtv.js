@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-var walletDecryptDrtv = function() {
+var walletDecryptDrtv = function () {
 	return {
-        restrict : "E",
-        template : require('./walletDecryptDrtv.html')
-  };
-};
-module.exports = walletDecryptDrtv;
+        restrict: 'E',
+        template: require('./walletDecryptDrtv.html'),
+  }
+}
+module.exports = walletDecryptDrtv

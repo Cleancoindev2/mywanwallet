@@ -17,3 +17,4 @@ key.pem
 chrome-extension/
 dist/
 .idea
+.nyc_output

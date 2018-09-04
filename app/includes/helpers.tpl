@@ -125,10 +125,10 @@
 
 
   <h1>
-    ENS Debugger & Data Grabber
+    WNS Debugger & Data Grabber
   </h1>
   <h2 class="p">
-    Ethereum Name Service Data String Generator
+    Wanchain Name Service Data String Generator
   </h2>
   <p class="text-danger">
     This is meant to be a helpful tool for debugging and checking and generating manual reveals when necessary. Use at your own risk. There is no validation on these fields.
@@ -146,13 +146,13 @@
   <section class="row">
     <div class="form-group col-sm-6">
       <label>
-        ENS Name you Bid On (no '.eth' at the end!)
+        WAN Name you Bid On (no '.wan' at the end!)
       </label>
       <input class="form-control" type="text" ng-model="ensLabel" ng-change="toEnsLabelHash()" />
     </div>
     <div class="form-group col-sm-6">
       <label>
-        Hashed ENS Name (Label Hash)
+        Hashed WNS Name (Label Hash)
       </label>
       <input class="form-control" type="text" ng-model="ensLabelHash" />
     </div>
@@ -161,7 +161,7 @@
   <section class="row">
     <div class="form-group col-sm-6">
       <label>
-        Amount you Bid (ETH)
+        Amount you Bid (WAN)
       </label>
       <input class="form-control" type="text" ng-model="bidEth" ng-change="toBidWei()" />
     </div>
@@ -236,7 +236,7 @@
     <div class="form-group col-xs-12">
       <label>
         New Bid Data
-        <small>If your reveals aren't working, this is the string that needs to match your bid data on Etherscan)</small>
+        <small>If your reveals aren't working, this is the string that needs to match your bid data on WanScan)</small>
     </label>
       <input class="form-control" type="text" ng-model="shaBid" readonly />
       <p>
@@ -347,7 +347,7 @@
   <br /><br /><br />
 
 
-  <h1> Ether Unit Reference Guide
+  <h1> Wanchain Unit Reference Guide
   </h1>
   <table class="table table-striped mono">
     <tr>

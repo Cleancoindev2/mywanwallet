@@ -1,5 +1,35 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports=[]
+module.exports=[{
+  "name": "Select a contract...",
+  "address": "",
+  "abi": ""
+},
+{
+  "name": "WNS - Registry",
+  "address": "0xee8d418fd33e69782015ea4313dfd8eb7b1b91ce",
+  "abi": '[{"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "resolver", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "owner", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "label", "type": "bytes32"}, {"name": "owner", "type": "address"}], "name": "setSubnodeOwner", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "ttl", "type": "uint64"}], "name": "setTTL", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "ttl", "outputs": [{"name": "", "type": "uint64"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "resolver", "type": "address"}], "name": "setResolver", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "owner", "type": "address"}], "name": "setOwner", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": true, "name": "label", "type": "bytes32"}, {"indexed": false, "name": "owner", "type": "address"}], "name": "NewOwner", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "owner", "type": "address"}], "name": "Transfer", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "resolver", "type": "address"}], "name": "NewResolver", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "ttl", "type": "uint64"}], "name": "NewTTL", "type": "event"}]'
+},
+{
+  "name": "WNS - Public Resolver",
+  "address": "0x330b6f07f6ace581fc4321ce7f401aa8edb5bfad",
+  "abi": '[{"constant": true, "inputs": [{"name": "interfaceID", "type": "bytes4"}], "name": "supportsInterface", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "pure", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "key", "type": "string"}, {"name": "value", "type": "string"}], "name": "setText", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "contentTypes", "type": "uint256"}], "name": "ABI", "outputs": [{"name": "contentType", "type": "uint256"}, {"name": "data", "type": "bytes"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "x", "type": "bytes32"}, {"name": "y", "type": "bytes32"}], "name": "setPubkey", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "content", "outputs": [{"name": "", "type": "bytes32"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "addr", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "key", "type": "string"}], "name": "text", "outputs": [{"name": "", "type": "string"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "contentType", "type": "uint256"}, {"name": "data", "type": "bytes"}], "name": "setABI", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "name", "outputs": [{"name": "", "type": "string"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "name", "type": "string"}], "name": "setName", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "hash", "type": "bytes32"}], "name": "setContent", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "pubkey", "outputs": [{"name": "x", "type": "bytes32"}, {"name": "y", "type": "bytes32"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "addr", "type": "address"}], "name": "setAddr", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"inputs": [{"name": "wnsAddr", "type": "address"}], "payable": false, "stateMutability": "nonpayable", "type": "constructor"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "a", "type": "address"}], "name": "AddrChanged", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "hash", "type": "bytes32"}], "name": "ContentChanged", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "name", "type": "string"}], "name": "NameChanged", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": true, "name": "contentType", "type": "uint256"}], "name": "ABIChanged", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "x", "type": "bytes32"}, {"indexed": false, "name": "y", "type": "bytes32"}], "name": "PubkeyChanged", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "indexedKey", "type": "string"}, {"indexed": false, "name": "key", "type": "string"}], "name": "TextChanged", "type": "event"}]'
+},
+{
+  "name": "WNS - Registrar Auction",
+  "address": "0x48859467c329854af6ecc363c8ddb393b911586b",
+  "abi": '[{"constant": false, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "releaseDeed", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "getAllowedTime", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "unhashedName", "type": "string"}], "name": "invalidateName", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "hash", "type": "bytes32"}, {"name": "owner", "type": "address"}, {"name": "value", "type": "uint256"}, {"name": "salt", "type": "bytes32"}], "name": "shaBid", "outputs": [{"name": "", "type": "bytes32"}], "payable": false, "stateMutability": "pure", "type": "function"}, {"constant": false, "inputs": [{"name": "bidder", "type": "address"}, {"name": "seal", "type": "bytes32"}], "name": "cancelBid", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "entries", "outputs": [{"name": "", "type": "uint8"}, {"name": "", "type": "address"}, {"name": "", "type": "uint256"}, {"name": "", "type": "uint256"}, {"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "_hash", "type": "bytes32"}, {"name": "_value", "type": "uint256"}, {"name": "_salt", "type": "bytes32"}], "name": "unsealBid", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "transferRegistrars", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "", "type": "address"}, {"name": "", "type": "bytes32"}], "name": "sealedBids", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "state", "outputs": [{"name": "", "type": "uint8"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "_hash", "type": "bytes32"}, {"name": "newOwner", "type": "address"}], "name": "transfer", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [], "name": "wns", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_hash", "type": "bytes32"}, {"name": "_timestamp", "type": "uint256"}], "name": "isAllowed", "outputs": [{"name": "allowed", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "finalizeAuction", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [], "name": "registryStarted", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "launchLength", "outputs": [{"name": "", "type": "uint32"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "sealedBid", "type": "bytes32"}], "name": "newBid", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function"}, {"constant": false, "inputs": [{"name": "labels", "type": "bytes32[]"}], "name": "eraseNode", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "_hashes", "type": "bytes32[]"}], "name": "startAuctions", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "hash", "type": "bytes32"}, {"name": "deed", "type": "address"}, {"name": "registrationDate", "type": "uint256"}], "name": "acceptRegistrarTransfer", "outputs": [], "payable": false, "stateMutability": "pure", "type": "function"}, {"constant": false, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "startAuction", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [], "name": "rootNode", "outputs": [{"name": "", "type": "bytes32"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "hashes", "type": "bytes32[]"}, {"name": "sealedBid", "type": "bytes32"}], "name": "startAuctionsAndBid", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function"}, {"inputs": [{"name": "_wns", "type": "address"}, {"name": "_rootNode", "type": "bytes32"}, {"name": "_startDate", "type": "uint256"}], "payable": false, "stateMutability": "nonpayable", "type": "constructor"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "hash", "type": "bytes32"}, {"indexed": false, "name": "registrationDate", "type": "uint256"}], "name": "AuctionStarted", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "hash", "type": "bytes32"}, {"indexed": true, "name": "bidder", "type": "address"}, {"indexed": false, "name": "deposit", "type": "uint256"}], "name": "NewBid", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "hash", "type": "bytes32"}, {"indexed": true, "name": "owner", "type": "address"}, {"indexed": false, "name": "value", "type": "uint256"}, {"indexed": false, "name": "status", "type": "uint8"}], "name": "BidRevealed", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "hash", "type": "bytes32"}, {"indexed": true, "name": "owner", "type": "address"}, {"indexed": false, "name": "value", "type": "uint256"}, {"indexed": false, "name": "registrationDate", "type": "uint256"}], "name": "HashRegistered", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "hash", "type": "bytes32"}, {"indexed": false, "name": "value", "type": "uint256"}], "name": "HashReleased", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "hash", "type": "bytes32"}, {"indexed": false, "name": "name", "type": "string"}, {"indexed": false, "name": "value", "type": "uint256"}, {"indexed": false, "name": "registrationDate", "type": "uint256"}], "name": "HashInvalidated", "type": "event"}]'
+},
+{
+  "name": "WNS - Reverse Registrar",
+  "address": "0x5d33e8cb2cc9851b63be38f35d1ef2c22de8984f",
+  "abi": '[{"constant":false,"inputs":[{"name":"owner","type":"address"},{"name":"resolver","type":"address"}],"name":"claimWithResolver","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"owner","type":"address"}],"name":"claim","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"defaultResolver","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"wns","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"addr","type":"address"}],"name":"node","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"name","type":"string"}],"name":"setName","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"wnsAddr","type":"address"},{"name":"resolverAddr","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]'
+},
+{
+  "name": "WNS - Reverse Public Resolver",
+  "address": "0x76425ed5f5a9f474be167f432841ca50dde40088",
+  "abi": '[{"constant":true,"inputs":[{"name":"interfaceID","type":"bytes4"}],"name":"supportsInterface","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"key","type":"string"},{"name":"value","type":"string"}],"name":"setText","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"},{"name":"contentTypes","type":"uint256"}],"name":"ABI","outputs":[{"name":"contentType","type":"uint256"},{"name":"data","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"x","type":"bytes32"},{"name":"y","type":"bytes32"}],"name":"setPubkey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"content","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"addr","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"},{"name":"key","type":"string"}],"name":"text","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"contentType","type":"uint256"},{"name":"data","type":"bytes"}],"name":"setABI","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"name","type":"string"}],"name":"setName","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"hash","type":"bytes32"}],"name":"setContent","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"pubkey","outputs":[{"name":"x","type":"bytes32"},{"name":"y","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"addr","type":"address"}],"name":"setAddr","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"wnsAddr","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"a","type":"address"}],"name":"AddrChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"hash","type":"bytes32"}],"name":"ContentChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"name","type":"string"}],"name":"NameChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":true,"name":"contentType","type":"uint256"}],"name":"ABIChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"x","type":"bytes32"},{"indexed":false,"name":"y","type":"bytes32"}],"name":"PubkeyChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"indexedKey","type":"string"},{"indexed":false,"name":"key","type":"string"}],"name":"TextChanged","type":"event"}]'
+}
+]
 
 },{}],2:[function(require,module,exports){
 'use strict';
@@ -16,13 +46,13 @@ module.exports = ajaxReq;
 var addWalletCtrl = function addWalletCtrl($scope, $sce) {
     $scope.showBtnGen = $scope.showBtnUnlock = $scope.showBtnAdd = $scope.showBtnAddWallet = $scope.showAddWallet = $scope.requireFPass = $scope.requirePPass = $scope.showPassTxt = false;
     $scope.nickNames = [];
-    $scope.filePassword = $scope.fileContent = "";
+    $scope.filePassword = $scope.fileContent = '';
     $scope.wallet = null;
     $scope.addAccount = {
-        address: "",
-        nickName: "",
-        encStr: "",
-        password: ""
+        address: '',
+        nickName: '',
+        encStr: '',
+        password: ''
     };
     $scope.ajaxReq = ajaxReq;
     $scope.nodeType = $scope.ajaxReq.type;
@@ -48,7 +78,7 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
         $scope.nodeType = $scope.ajaxReq.type;
     });
     $scope.$watch('walletType', function () {
-        if ($scope.walletType == "ledger") {
+        if ($scope.walletType === 'ledger') {
             switch ($scope.nodeType) {
                 case nodes.nodeTypes.ETH:
                     $scope.HDWallet.dPath = $scope.HDWallet.ledgerPath;
@@ -62,7 +92,7 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
                 default:
                     $scope.HDWallet.dPath = $scope.HDWallet.ledgerPath;
             }
-        } else if ($scope.walletType == "trezor") {
+        } else if ($scope.walletType === 'trezor') {
             switch ($scope.nodeType) {
                 case nodes.nodeTypes.ETH:
                     $scope.HDWallet.dPath = $scope.HDWallet.trezorPath;
@@ -87,12 +117,12 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
         var password = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : $scope.mnemonicPassword;
 
         $scope.HDWallet.numWallets = 0;
-        if ($scope.walletType == 'pastemnemonic') {
+        if ($scope.walletType === 'pastemnemonic') {
             $scope.HDWallet.hdk = hd.HDKey.fromMasterSeed(hd.bip39.mnemonicToSeed($scope.manualmnemonic.trim(), password));
             $scope.setHDAddresses($scope.HDWallet.numWallets, $scope.HDWallet.walletsPerDialog);
-        } else if ($scope.walletType == 'ledger') {
+        } else if ($scope.walletType === 'ledger') {
             $scope.scanLedger();
-        } else if ($scope.walletType == 'trezor') {
+        } else if ($scope.walletType === 'trezor') {
             $scope.scanTrezor();
         }
     };
@@ -101,15 +131,15 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
         $scope.onHDDPathChange();
     };
     $scope.onPrivKeyChange = function () {
-        $scope.addWalletStats = "";
-        $scope.requirePPass = $scope.manualprivkey.length == 128 || $scope.manualprivkey.length == 132;
-        $scope.showBtnUnlock = $scope.manualprivkey.length == 64;
+        $scope.addWalletStats = '';
+        $scope.requirePPass = $scope.manualprivkey.length === 128 || $scope.manualprivkey.length === 132;
+        $scope.showBtnUnlock = $scope.manualprivkey.length === 64;
     };
     $scope.onPrivKeyPassChange = function () {
         $scope.showBtnUnlock = $scope.privPassword.length > 6;
     };
     $scope.onMnemonicChange = function () {
-        $scope.addWalletStats = "";
+        $scope.addWalletStats = '';
         $scope.showBtnUnlock = $scope.showDPaths = hd.bip39.validateMnemonic($scope.manualmnemonic);
     };
     $scope.showContent = function ($fileContent) {
@@ -123,7 +153,7 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
         }
     };
     $scope.openFileDialog = function ($fileContent) {
-        $scope.addWalletStats = "";
+        $scope.addWalletStats = '';
         document.getElementById('fselector').click();
     };
     $scope.onFilePassChange = function () {
@@ -132,7 +162,7 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
     $scope.setHDAddresses = function (start, limit) {
         $scope.HDWallet.wallets = [];
         for (var i = start; i < start + limit; i++) {
-            $scope.HDWallet.wallets.push(new Wallet($scope.HDWallet.hdk.derive($scope.HDWallet.dPath + "/" + i)._privateKey));
+            $scope.HDWallet.wallets.push(new Wallet($scope.HDWallet.hdk.derive($scope.HDWallet.dPath + '/' + i)._privateKey));
             $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].setBalance(false);
         }
         $scope.HDWallet.id = 0;
@@ -147,23 +177,23 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
         $scope.addAccount.address = $scope.wallet.getAddressString();
         $scope.notifier.info(globalFuncs.successMsgs[1]);
         $scope.showAddWallet = true;
-        $scope.showPassTxt = $scope.addAccount.password == '';
+        $scope.showPassTxt = $scope.addAccount.password === '';
         $scope.setBalance();
     };
     $scope.decryptWallet = function () {
         $scope.wallet = null;
-        $scope.addWalletStats = "";
+        $scope.addWalletStats = '';
         try {
-            if ($scope.walletType == "pasteprivkey" && $scope.requirePPass) {
+            if ($scope.walletType === 'pasteprivkey' && $scope.requirePPass) {
                 $scope.wallet = Wallet.fromMyEtherWalletKey($scope.manualprivkey, $scope.privPassword);
                 $scope.addAccount.password = $scope.privPassword;
-            } else if ($scope.walletType == "pasteprivkey" && !$scope.requirePPass) {
+            } else if ($scope.walletType === 'pasteprivkey' && !$scope.requirePPass) {
                 $scope.wallet = new Wallet($scope.manualprivkey);
                 $scope.addAccount.password = '';
-            } else if ($scope.walletType == "fileupload") {
+            } else if ($scope.walletType === 'fileupload') {
                 $scope.wallet = Wallet.getWalletFromPrivKeyFile($scope.fileContent, $scope.filePassword);
                 $scope.addAccount.password = $scope.filePassword;
-            } else if ($scope.walletType == "pastemnemonic") {
+            } else if ($scope.walletType === 'pastemnemonic') {
                 $scope.mnemonicModel.open();
                 $scope.HDWallet.hdk = hd.HDKey.fromMasterSeed(hd.bip39.mnemonicToSeed($scope.manualmnemonic.trim()));
                 $scope.HDWallet.numWallets = 0;
@@ -176,7 +206,7 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
             $scope.addAccount.address = $scope.wallet.getAddressString();
             $scope.notifier.info(globalFuncs.successMsgs[1]);
             $scope.showAddWallet = true;
-            $scope.showPassTxt = $scope.addAccount.password == '';
+            $scope.showPassTxt = $scope.addAccount.password === '';
             $scope.setBalance();
         }
     };
@@ -187,12 +217,12 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
     };
     $scope.setNickNames();
     $scope.newWalletChange = function (varStatus, shwbtn) {
-        if ($scope.addAccount.nickName != "" && $scope.nickNames.indexOf($scope.addAccount.nickName) == -1 && $scope.addAccount.password.length > 8) $scope[shwbtn] = true;else $scope[shwbtn] = false;
+        if ($scope.addAccount.nickName !== '' && $scope.nickNames.indexOf($scope.addAccount.nickName) === -1 && $scope.addAccount.password.length > 8) $scope[shwbtn] = true;else $scope[shwbtn] = false;
         if ($scope.nickNames.indexOf($scope.addAccount.nickName) !== -1) $scope.notifier.danger(globalFuncs.errorMsgs[13]);
     };
     $scope.watchOnlyChange = function () {
-        if ($scope.addAccount.address != "" && $scope.addAccount.nickName != "" && $scope.nickNames.indexOf($scope.addAccount.nickName) == -1 && ethFuncs.validateEtherAddress($scope.addAccount.address)) $scope.showBtnAdd = true;else $scope.showBtnAdd = false;
-        if ($scope.addAccount.address != "" && !ethFuncs.validateEtherAddress($scope.addAccount.address)) $scope.notifier.danger(globalFuncs.errorMsgs[5]);else if ($scope.nickNames.indexOf($scope.addAccount.nickName) !== -1) $scope.notifier.danger(globalFuncs.errorMsgs[13]);
+        if ($scope.addAccount.address !== '' && $scope.addAccount.nickName !== '' && $scope.nickNames.indexOf($scope.addAccount.nickName) === -1 && ethFuncs.validateEtherAddress($scope.addAccount.address)) $scope.showBtnAdd = true;else $scope.showBtnAdd = false;
+        if ($scope.addAccount.address !== '' && !ethFuncs.validateEtherAddress($scope.addAccount.address)) $scope.notifier.danger(globalFuncs.errorMsgs[5]);else if ($scope.nickNames.indexOf($scope.addAccount.nickName) !== -1) $scope.notifier.danger(globalFuncs.errorMsgs[13]);
     };
     $scope.addWatchOnly = function () {
         if ($scope.nickNames.indexOf($scope.addAccount.nickName) !== -1) {
@@ -217,13 +247,13 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
     };
     $scope.$watch('walletType', function () {
         $scope.showBtnGen = $scope.showBtnUnlock = $scope.showBtnAdd = $scope.showAddWallet = false;
-        $scope.addNewNick = $scope.addNewPass = "";
-        $scope.addWalletStats = "";
+        $scope.addNewNick = $scope.addNewPass = '';
+        $scope.addWalletStats = '';
         $scope.addAccount = {
-            address: "",
-            nickName: "",
-            encStr: "",
-            password: ""
+            address: '',
+            nickName: '',
+            encStr: '',
+            password: ''
         };
         $scope.requireFPass = false;
         $scope.fileContent = null;
@@ -292,50 +322,56 @@ module.exports = addWalletCtrl;
 'use strict';
 
 var cxDecryptWalletCtrl = function cxDecryptWalletCtrl($scope, $sce, walletService) {
-	$scope.allWallets = [];
-	$scope.selectedWallet = $scope.password = "";
-	$scope.setAllWallets = function () {
-		cxFuncs.getWalletsArr(function (wlts) {
-			$scope.allWallets = wlts;
-			$scope.updateBalance();
-			$scope.$apply();
-		});
-	};
-	$scope.updateBalance = function () {
-		for (var i = 0; i < $scope.allWallets.length; i++) {
-			$scope.setBalance($scope.allWallets[i].addr, i);
-		}
-	};
-	$scope.setBalance = function (address, id) {
-		ajaxReq.getBalance(address, function (data) {
-			if (data.error) {
-				$scope.allWallets[id].balance = data.msg;
-			} else {
-				$scope.allWallets[id].balance = etherUnits.toEther(data.data.balance, 'wei');
-			}
-		});
-	};
-	$scope.setAllWallets();
-	$scope.getPrivFromAdd = function () {
-		if ($scope.selectedWallet == "") throw globalFuncs.errorMsgs[5];
-		for (var i = 0; i < $scope.allWallets.length; i++) {
-			if ($scope.allWallets[i].addr == $scope.selectedWallet) return $scope.allWallets[i].priv;
-		}
-		throw globalFuncs.errorMsgs[14];
-	};
-	$scope.decryptWallet = function () {
-		$scope.wallet = null;
+    $scope.allWallets = [];
+    $scope.selectedWallet = $scope.password = '';
+    $scope.setAllWallets = function () {
+        cxFuncs.getWalletsArr(function (wlts) {
+            $scope.allWallets = wlts;
+            $scope.updateBalance();
+            $scope.$apply();
+        });
+    };
+    $scope.updateBalance = function () {
+        for (var i = 0; i < $scope.allWallets.length; i++) {
+            $scope.setBalance($scope.allWallets[i].addr, i);
+        }
+    };
+    $scope.setBalance = function (address, id) {
+        ajaxReq.getBalance(address, function (data) {
+            if (data.error) {
+                $scope.allWallets[id].balance = data.msg;
+            } else {
+                $scope.allWallets[id].balance = etherUnits.toEther(data.data.balance, 'wei');
+            }
+        });
+    };
+    $scope.setAllWallets();
+    $scope.getPrivFromAdd = function () {
+        if ($scope.selectedWallet === '') throw globalFuncs.errorMsgs[5];
+        for (var i = 0; i < $scope.allWallets.length; i++) {
+            if ($scope.allWallets[i].addr === $scope.selectedWallet) {
+                return $scope.allWallets[i].priv;
+            }
+        }
+        throw globalFuncs.errorMsgs[14];
+    };
+    $scope.decryptWallet = function () {
+        $scope.wallet = null;
 
-		try {
-			var priv = $scope.getPrivFromAdd();
-			if (priv.length == 132) $scope.wallet = Wallet.fromMyEtherWalletKey(priv, $scope.password);else $scope.wallet = Wallet.getWalletFromPrivKeyFile(priv, $scope.password);
-			walletService.password = $scope.password;
-			walletService.wallet = $scope.wallet;
-		} catch (e) {
-			$scope.notifier.danger(globalFuncs.errorMsgs[6] + ":" + e);
-		}
-		if ($scope.wallet != null) $scope.notifier.info(globalFuncs.successMsgs[1]);
-	};
+        try {
+            var priv = $scope.getPrivFromAdd();
+            if (priv.length === 132) {
+                $scope.wallet = Wallet.fromMyEtherWalletKey(priv, $scope.password);
+            } else {
+                $scope.wallet = Wallet.getWalletFromPrivKeyFile(priv, $scope.password);
+            }
+            walletService.password = $scope.password;
+            walletService.wallet = $scope.wallet;
+        } catch (e) {
+            $scope.notifier.danger(globalFuncs.errorMsgs[6] + ':' + e);
+        }
+        if ($scope.wallet != null) $scope.notifier.info(globalFuncs.successMsgs[1]);
+    };
 };
 module.exports = cxDecryptWalletCtrl;
 
@@ -427,8 +463,8 @@ var myWalletsCtrl = function myWalletsCtrl($scope, $sce, walletService) {
                 $scope[varWal][j].tokens.push(new Token($scope.tokens[i].address, $scope[varWal][j].addr, $scope.tokens[i].symbol, $scope.tokens[i].decimal));
                 $scope[varWal][j].tokens[$scope[varWal][j].tokens.length - 1].setBalance();
             }
-            var storedTokens = globalFuncs.localStorage.getItem("localTokens", null) != null ? JSON.parse(globalFuncs.localStorage.getItem("localTokens")) : [];
-            for (var i = 0; i < storedTokens.length; i++) {
+            var storedTokens = globalFuncs.localStorage.getItem('localTokens', null) != null ? JSON.parse(globalFuncs.localStorage.getItem('localTokens')) : [];
+            for (i = 0; i < storedTokens.length; i++) {
                 $scope[varWal][j].tokens.push(new Token(storedTokens[i].contractAddress, $scope[varWal][j].addr, globalFuncs.stripTags(storedTokens[i].symbol), storedTokens[i].decimal));
                 $scope[varWal][j].tokens[$scope[varWal][j].tokens.length - 1].setBalance();
             }
@@ -457,7 +493,7 @@ var myWalletsCtrl = function myWalletsCtrl($scope, $sce, walletService) {
     };
     $scope.setViewWalletObj = function (val, type) {
         var vtype = 'allWallets';
-        if (type == 'watchOnly') vtype = 'allWatchOnly';
+        if (type === 'watchOnly') vtype = 'allWatchOnly';
         $scope.viewWallet = {
             nick: $scope[vtype][val].nick,
             addr: $scope[vtype][val].addr,
@@ -491,12 +527,16 @@ var myWalletsCtrl = function myWalletsCtrl($scope, $sce, walletService) {
 
         try {
             var priv = $scope.allWallets[$scope.viewWallet.id].priv;
-            if (priv.length == 132) $scope.wallet = Wallet.fromMyEtherWalletKey(priv, $scope.password);else $scope.wallet = Wallet.getWalletFromPrivKeyFile(priv, $scope.password);
+            if (priv.length === 132) {
+                $scope.wallet = Wallet.fromMyEtherWalletKey(priv, $scope.password);
+            } else {
+                $scope.wallet = Wallet.getWalletFromPrivKeyFile(priv, $scope.password);
+            }
             $scope.viewModal.close();
             $scope.setWalletInfo();
-            $scope.password = "";
+            $scope.password = '';
         } catch (e) {
-            $scope.notifier.danger(globalFuncs.errorMsgs[6] + ":" + e);
+            $scope.notifier.danger(globalFuncs.errorMsgs[6] + ':' + e);
         }
     };
     $scope.printQRCode = function () {
@@ -509,7 +549,7 @@ var myWalletsCtrl = function myWalletsCtrl($scope, $sce, walletService) {
         $scope.wallet = null;
         walletService.wallet = null;
         walletService.password = '';
-        $scope.blob = $scope.blobEnc = $scope.password = "";
+        $scope.blob = $scope.blobEnc = $scope.password = '';
     };
     $scope.setWalletInfo = function () {
         walletService.wallet = $scope.wallet;
@@ -541,14 +581,14 @@ module.exports = myWalletsCtrl;
 
 var quickSendCtrl = function quickSendCtrl($scope, $sce) {
 	$scope.allWallets = [];
-	$scope.selectedWallet = "";
+	$scope.selectedWallet = '';
 	$scope.showConfirm = false;
 	$scope.tx = {
 		gasLimit: globalFuncs.defaultTxGasLimit,
-		data: "",
-		to: "",
-		unit: "ether",
-		value: "",
+		data: '',
+		to: '',
+		unit: 'ether',
+		value: '',
 		nonce: null,
 		gasPrice: null,
 		donate: false
@@ -611,7 +651,7 @@ var quickSendCtrl = function quickSendCtrl($scope, $sce) {
 				if (!rawTx.isError) {
 					uiFuncs.sendTx(rawTx.signedTx, function (resp) {
 						if (!resp.isError) {
-							$scope.sendTxStatus = $sce.trustAsHtml(globalFuncs.getSuccessText(globalFuncs.successMsgs[2] + "<br />" + resp.data + "<br /><a href='http://wanscan.io/tx/" + resp.data + "' target='_blank' rel='noopener'> WAN TX via Wanscan.io </a>"));
+							$scope.sendTxStatus = $sce.trustAsHtml(globalFuncs.getSuccessText(globalFuncs.successMsgs[2] + '<br />' + resp.data + "<br /><a href='http://wanscan.io/tx/" + resp.data + "' target='_blank' rel='noopener'> WAN TX via Wanscan.io </a>"));
 							$scope.setBalance();
 						} else {
 							$scope.sendTxStatus = $sce.trustAsHtml(globalFuncs.getDangerText(resp.error));
@@ -628,14 +668,14 @@ var quickSendCtrl = function quickSendCtrl($scope, $sce) {
 	};
 	$scope.decryptWallet = function () {
 		$scope.wallet = null;
-		$scope.validateTxStatus = "";
+		$scope.validateTxStatus = '';
 		$scope.wallet = Wallet.getWalletFromPrivKeyFile($scope.allWallets[$scope.selectedWallet].priv, $scope.password);
 	};
-	$scope.selectedWallet = "";
-	$scope.password = "";
-	$scope.$parent.selectedWallet = "";
-	$scope.tx.to = "";
-	$scope.tx.value = "";
+	$scope.selectedWallet = '';
+	$scope.password = '';
+	$scope.$parent.selectedWallet = '';
+	$scope.tx.to = '';
+	$scope.tx.value = '';
 
 	$scope.setAllWallets();
 };
@@ -647,7 +687,7 @@ module.exports = quickSendCtrl;
 var bulkGenCtrl = function bulkGenCtrl($scope) {
     $scope.showWallets = false;
     $scope.genWallets = function () {
-        if ($scope.amount == '' || $scope.amount != parseInt($scope.amount, 10)) alert(globalFuncs.errorMsgs[0]);else {
+        if ($scope.amount === '' || $scope.amount !== parseInt($scope.amount, 10)) alert(globalFuncs.errorMsgs[0]);else {
             $scope.wallets = [];
             var csv = '';var txt = '';
             $scope.jsonWallets = [];
@@ -662,9 +702,9 @@ var bulkGenCtrl = function bulkGenCtrl($scope) {
                 $scope.wallets.push(tWallet);
             }
             $scope.showWallets = true;
-            $scope.bJSON = globalFuncs.getBlob("text/json;charset=UTF-8", JSON.stringify($scope.jsonWallets));
-            $scope.bTXT = globalFuncs.getBlob("text/plain;charset=UTF-8", txt);
-            $scope.bCSV = globalFuncs.getBlob("text/csv;charset=UTF-8", csv);
+            $scope.bJSON = globalFuncs.getBlob('text/json;charset=UTF-8', JSON.stringify($scope.jsonWallets));
+            $scope.bTXT = globalFuncs.getBlob('text/plain;charset=UTF-8', txt);
+            $scope.bCSV = globalFuncs.getBlob('text/csv;charset=UTF-8', csv);
         }
     };
     $scope.printQRCode = function () {
@@ -679,17 +719,17 @@ module.exports = bulkGenCtrl;
 var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
     $scope.ajaxReq = ajaxReq;
     walletService.wallet = null;
-    $scope.visibility = "interactView";
+    $scope.visibility = 'interactView';
     $scope.sendContractModal = new Modal(document.getElementById('sendContract'));
     $scope.showReadWrite = false;
     $scope.sendTxModal = new Modal(document.getElementById('deployContract'));
     $scope.Validator = Validator;
     $scope.tx = {
-        Txtype: "0x01",
+        Txtype: '0x01',
         gasLimit: '',
         data: '',
         to: '',
-        unit: "ether",
+        unit: 'ether',
         value: 0,
         nonce: null,
         gasPrice: null
@@ -713,11 +753,11 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
     });
     $scope.$watch('visibility', function (newValue, oldValue) {
         $scope.tx = {
-            Txtype: "0x01",
+            Txtype: '0x01',
             gasLimit: '',
             data: '',
             to: '',
-            unit: "ether",
+            unit: 'ether',
             value: 0,
             nonce: null,
             gasPrice: null
@@ -725,7 +765,7 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
     });
     $scope.$watch('tx', function (newValue, oldValue) {
         $scope.showRaw = false;
-        if (newValue.gasLimit == oldValue.gasLimit && $scope.Validator.isValidHex($scope.tx.data) && $scope.tx.data != '' && $scope.Validator.isPositiveNumber($scope.tx.value)) {
+        if (newValue.gasLimit === oldValue.gasLimit && $scope.Validator.isValidHex($scope.tx.data) && $scope.tx.data !== '' && $scope.Validator.isPositiveNumber($scope.tx.value)) {
             if ($scope.estimateTimer) clearTimeout($scope.estimateTimer);
             $scope.estimateTimer = setTimeout(function () {
                 $scope.estimateGasLimit();
@@ -735,7 +775,7 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
     $scope.$watch('contract.address', function (newValue, oldValue) {
         if ($scope.Validator.isValidAddress($scope.contract.address)) {
             for (var i in ajaxReq.abiList) {
-                if (ajaxReq.abiList[i].address.toLowerCase() == $scope.contract.address.toLowerCase()) {
+                if (ajaxReq.abiList[i].address.toLowerCase() === $scope.contract.address.toLowerCase()) {
                     $scope.contract.abi = ajaxReq.abiList[i].abi;
                     break;
                 }
@@ -762,7 +802,7 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
             value: ethFuncs.sanitizeHex(ethFuncs.decimalToHex(etherUnits.toWei($scope.tx.value, $scope.tx.unit))),
             data: ethFuncs.sanitizeHex($scope.tx.data)
         };
-        if ($scope.tx.to != '') estObj.to = $scope.tx.to;
+        if ($scope.tx.to !== '') estObj.to = $scope.tx.to;
         ethFuncs.estimateGas(estObj, function (data) {
             if (!data.error) $scope.tx.gasLimit = data.data;
         });
@@ -774,8 +814,8 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
             ajaxReq.getTransactionData($scope.wallet.getAddressString(), function (data) {
                 if (data.error) $scope.notifier.danger(data.msg);
                 data = data.data;
-                $scope.tx.to = $scope.tx.to == '' ? '0xCONTRACT' : $scope.tx.to;
-                $scope.tx.contractAddr = $scope.tx.to == '0xCONTRACT' ? ethFuncs.getDeteministicContractAddress($scope.wallet.getAddressString(), data.nonce) : '';
+                $scope.tx.to = $scope.tx.to === '' ? '0xCONTRACT' : $scope.tx.to;
+                $scope.tx.contractAddr = $scope.tx.to === '0xCONTRACT' ? ethFuncs.getDeteministicContractAddress($scope.wallet.getAddressString(), data.nonce) : '';
                 var txData = uiFuncs.getTxData($scope);
                 uiFuncs.generateTx(txData, function (rawTx) {
                     if (!rawTx.isError) {
@@ -799,9 +839,9 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
         $scope.sendContractModal.close();
         uiFuncs.sendTx($scope.signedTx, function (resp) {
             if (!resp.isError) {
-                var bExStr = $scope.ajaxReq.type != nodes.nodeTypes.Custom ? "<a href='" + $scope.ajaxReq.blockExplorerTX.replace("[[txHash]]", resp.data) + "' target='_blank' rel='noopener'> View your transaction </a>" : '';
-                var contractAddr = $scope.tx.contractAddr != '' ? " & Contract Address <a href='" + ajaxReq.blockExplorerAddr.replace('[[address]]', $scope.tx.contractAddr) + "' target='_blank' rel='noopener'>" + $scope.tx.contractAddr + "</a>" : '';
-                $scope.notifier.success(globalFuncs.successMsgs[2] + "<br />" + resp.data + "<br />" + bExStr + contractAddr);
+                var bExStr = $scope.ajaxReq.type !== nodes.nodeTypes.Custom ? "<a href='" + $scope.ajaxReq.blockExplorerTX.replace('[[txHash]]', resp.data) + "' target='_blank' rel='noopener'> View your transaction </a>" : '';
+                var contractAddr = $scope.tx.contractAddr !== '' ? " & Contract Address <a href='" + ajaxReq.blockExplorerAddr.replace('[[address]]', $scope.tx.contractAddr) + "' target='_blank' rel='noopener'>" + $scope.tx.contractAddr + '</a>' : '';
+                $scope.notifier.success(globalFuncs.successMsgs[2] + '<br />' + resp.data + '<br />' + bExStr + contractAddr);
             } else {
                 $scope.notifier.danger(resp.error);
             }
@@ -824,7 +864,7 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
         var funcSig = ethFuncs.getFunctionSignature(fullFuncName);
         var typeName = ethUtil.solidityUtils.extractTypeName(fullFuncName);
         var types = typeName.split(',');
-        types = types[0] == "" ? [] : types;
+        types = types[0] === '' ? [] : types;
         var values = [];
         for (var i in curFunc.inputs) {
             if (curFunc.inputs[i].value) {
@@ -853,13 +893,14 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
             $scope.contract.functions = [];
             var tAbi = JSON.parse($scope.contract.abi);
             for (var i in tAbi) {
-                if (tAbi[i].type == "function") {
+                if (tAbi[i].type === 'function') {
                     tAbi[i].inputs.map(function (i) {
                         i.value = '';
                     });
                     $scope.contract.functions.push(tAbi[i]);
                 }
-            }$scope.showReadWrite = true;
+            }
+            $scope.showReadWrite = true;
         } catch (e) {
             $scope.notifier.danger(e);
         }
@@ -881,12 +922,12 @@ module.exports = contractsCtrl;
 'use strict';
 
 var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) {
-    $scope.walletType = "";
+    $scope.walletType = '';
     $scope.requireFPass = $scope.requirePPass = $scope.showFDecrypt = $scope.showPDecrypt = $scope.showAOnly = $scope.showParityDecrypt = false;
-    $scope.filePassword = "";
-    $scope.fileContent = "";
+    $scope.filePassword = '';
+    $scope.fileContent = '';
     $scope.Validator = Validator;
-    $scope.isSSL = window.location.protocol == 'https:';
+    $scope.isSSL = window.location.protocol === 'https:';
     $scope.ajaxReq = ajaxReq;
     $scope.nodeType = $scope.ajaxReq.type;
     $scope.HDWallet = {
@@ -912,9 +953,9 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
         $scope.setdPath();
     });
     $scope.setdPath = function () {
-        if ($scope.walletType == "ledger") {
+        if ($scope.walletType === 'ledger') {
             $scope.HDWallet.dPath = $scope.HDWallet.ledgerWanPath;
-        } else if ($scope.walletType == "trezor") {
+        } else if ($scope.walletType === 'trezor') {
             $scope.HDWallet.dPath = $scope.HDWallet.trezorWanPath;
         } else {
             $scope.HDWallet.dPath = $scope.HDWallet.ledgerWanPath;
@@ -924,14 +965,14 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
         var password = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : $scope.mnemonicPassword;
 
         $scope.HDWallet.numWallets = 0;
-        if ($scope.walletType == 'pastemnemonic') {
+        if ($scope.walletType === 'pastemnemonic') {
             $scope.HDWallet.hdk = hd.HDKey.fromMasterSeed(hd.bip39.mnemonicToSeed($scope.manualmnemonic.trim(), password));
             $scope.setHDAddresses($scope.HDWallet.numWallets, $scope.HDWallet.walletsPerDialog);
-        } else if ($scope.walletType == 'ledger') {
+        } else if ($scope.walletType === 'ledger') {
             $scope.scanLedger();
-        } else if ($scope.walletType == 'trezor') {
+        } else if ($scope.walletType === 'trezor') {
             $scope.scanTrezor();
-        } else if ($scope.walletType == 'digitalBitbox') {
+        } else if ($scope.walletType === 'digitalBitbox') {
             $scope.scanDigitalBitbox();
         }
     };
@@ -961,8 +1002,8 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
         $scope.showAOnly = false;
         var manualprivkey = fixPkey($scope.manualprivkey);
 
-        $scope.requirePPass = manualprivkey.length == 128 || manualprivkey.length == 132;
-        $scope.showPDecrypt = manualprivkey.length == 64;
+        $scope.requirePPass = manualprivkey.length === 128 || manualprivkey.length === 132;
+        $scope.showPDecrypt = manualprivkey.length === 64;
     };
     $scope.onPrivKeyPassChange = function () {
         $scope.showAOnly = false;
@@ -982,7 +1023,7 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
     $scope.setHDAddresses = function (start, limit) {
         $scope.HDWallet.wallets = [];
         for (var i = start; i < start + limit; i++) {
-            $scope.HDWallet.wallets.push(new Wallet($scope.HDWallet.hdk.derive($scope.HDWallet.dPath + "/" + i)._privateKey));
+            $scope.HDWallet.wallets.push(new Wallet($scope.HDWallet.hdk.derive($scope.HDWallet.dPath + '/' + i)._privateKey));
             $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].setBalance(false);
         }
         $scope.HDWallet.id = 0;
@@ -991,22 +1032,22 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
     $scope.setHDAddressesHWWallet = function (start, limit, ledger) {
         $scope.HDWallet.wallets = [];
         for (var i = start; i < start + limit; i++) {
-            var derivedKey = $scope.HDWallet.hdk.derive("m/" + i);
-            if ($scope.walletType == "ledger") {
-                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + "/" + i, $scope.walletType, $scope.ledger));
-            } else if ($scope.walletType == "digitalBitbox") {
-                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + "/" + i, $scope.walletType, $scope.digitalBitbox));
+            var derivedKey = $scope.HDWallet.hdk.derive('m/' + i);
+            if ($scope.walletType === 'ledger') {
+                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType, $scope.ledger));
+            } else if ($scope.walletType === 'digitalBitbox') {
+                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType, $scope.digitalBitbox));
             } else {
-                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + "/" + i, $scope.walletType));
+                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType));
             }
-            $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].type = "addressOnly";
+            $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].type = 'addressOnly';
             $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].setBalance(false);
         }
         $scope.HDWallet.id = 0;
         $scope.HDWallet.numWallets = start + limit;
     };
     $scope.AddRemoveHDAddresses = function (isAdd) {
-        if ($scope.walletType == "ledger" || $scope.walletType == "trezor" || $scope.walletType == "digitalBitbox") {
+        if ($scope.walletType === 'ledger' || $scope.walletType === 'trezor' || $scope.walletType === 'digitalBitbox') {
             if (isAdd) $scope.setHDAddressesHWWallet($scope.HDWallet.numWallets, $scope.HDWallet.walletsPerDialog);else $scope.setHDAddressesHWWallet($scope.HDWallet.numWallets - 2 * $scope.HDWallet.walletsPerDialog, $scope.HDWallet.walletsPerDialog);
         } else {
             if (isAdd) $scope.setHDAddresses($scope.HDWallet.numWallets, $scope.HDWallet.walletsPerDialog);else $scope.setHDAddresses($scope.HDWallet.numWallets - 2 * $scope.HDWallet.walletsPerDialog, $scope.HDWallet.walletsPerDialog);
@@ -1016,7 +1057,7 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
         walletService.wallet = $scope.wallet = $scope.HDWallet.wallets[$scope.HDWallet.id];
         $scope.mnemonicModel.close();
         $scope.notifier.info(globalFuncs.successMsgs[1]);
-        $scope.wallet.type = "default";
+        $scope.wallet.type = 'default';
     };
     $scope.decryptWallet = function () {
         $scope.wallet = null;
@@ -1046,13 +1087,13 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
             $scope.notifier.danger(globalFuncs.errorMsgs[6] + e);
         }
         if ($scope.wallet != null) $scope.notifier.info(globalFuncs.successMsgs[1]);
-        $scope.wallet.type = "default";
+        $scope.wallet.type = 'default';
     };
     $scope.decryptAddressOnly = function () {
         if ($scope.Validator.isValidAddress($scope.addressOnly)) {
             var tempWallet = new Wallet();
             $scope.wallet = {
-                type: "addressOnly",
+                type: 'addressOnly',
                 address: $scope.addressOnly,
                 getAddressString: function getAddressString() {
                     return this.address;
@@ -1079,8 +1120,8 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
         walletService.wallet = null;
     };
     $scope.ledgerCallback = function (result, error) {
-        if (typeof result != "undefined") {
-            $scope.HWWalletCreate(result['publicKey'], result['chainCode'], "ledger", $scope.getLedgerPath());
+        if (typeof result !== 'undefined') {
+            $scope.HWWalletCreate(result['publicKey'], result['chainCode'], 'ledger', $scope.getLedgerPath());
         } else {
             $scope.ledgerError = true;
             $scope.ledgerErrorString = error;
@@ -1089,7 +1130,7 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
     };
     $scope.trezorCallback = function (response) {
         if (response.success) {
-            $scope.HWWalletCreate(response.payload.publicKey, response.payload.chainCode, "trezor", $scope.getTrezorPath());
+            $scope.HWWalletCreate(response.payload.publicKey, response.payload.chainCode, 'trezor', $scope.getTrezorPath());
         } else {
             $scope.trezorError = true;
             $scope.trezorErrorString = response.error;
@@ -1098,13 +1139,15 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
     };
     $scope.digitalBitboxCallback = function (result, error) {
         $scope.HDWallet.digitalBitboxSecret = '';
-        if (typeof result != "undefined") {
-            $scope.HWWalletCreate(result['publicKey'], result['chainCode'], "digitalBitbox", $scope.HDWallet.dPath);
-        } else $scope.notifier.danger(error);
+        if (typeof result !== 'undefined') {
+            $scope.HWWalletCreate(result['publicKey'], result['chainCode'], 'digitalBitbox', $scope.HDWallet.dPath);
+        } else {
+            $scope.notifier.danger(error);
+        }
     };
     $scope.scanLedger = function () {
         $scope.ledgerError = false;
-        $scope.ledger = new Ledger3("w0w");
+        $scope.ledger = new Ledger3('w0w');
         var app = new ledgerEth($scope.ledger);
         var path = $scope.getLedgerPath();
         app.getAddress(path, $scope.ledgerCallback, false, true);
@@ -1119,7 +1162,7 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
         // trezor is using the path without change level id
         var path = $scope.getTrezorPath();
 
-        console.warn("SCANTR", path, $scope.HDWallet);
+        console.warn('SCANTR', path, $scope.HDWallet);
         /*
         TrezorConnect.getXPubKey(path, $scope.trezorCallback, '1.5.2');
          */
@@ -1146,7 +1189,7 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
             $scope.wallet = wallet;
             walletService.wallet = wallet;
             $scope.notifier.info(globalFuncs.successMsgs[6]);
-            $scope.wallet.type = "default";
+            $scope.wallet.type = 'default';
         });
     };
 
@@ -1161,15 +1204,707 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
 module.exports = decryptWalletCtrl;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141}],11:[function(require,module,exports){
+},{"buffer":151}],11:[function(require,module,exports){
+'use strict';
+
+var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
+    $scope.referrer = '0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8';
+    $scope.ajaxReq = ajaxReq;
+    $scope.hideDomainSaleInfoPanel = false;
+    walletService.wallet = null;
+    $scope.domainsaleConfirmModalModal = new Modal(document.getElementById('domainsaleConfirmModal'));
+    $scope.Validator = Validator;
+    $scope.wd = false;
+    $scope.haveNotAlreadyCheckedLength = true;
+    var ENS = new ens();
+    var DomainSale = new domainsale();
+    $scope.ensModes = ens.modes;
+    $scope.domainsaleModes = domainsale.modes;
+    $scope.domainsaleTransactions = domainsale.transactions;
+    $scope.minNameLength = 7;
+    $scope.objDomainSale = {
+        status: -1,
+        name: '',
+        address: '',
+        balance: -1,
+        balanceEth: -1,
+        price: 0,
+        priceEth: 0,
+        reserve: 0,
+        reserveEth: 0,
+        bid: 0,
+        bidEth: 0,
+        seller: '',
+        nameReadOnly: false,
+        timeRemaining: null
+    };
+    $scope.gasLimitDefaults = {
+        // TODO set sensible values
+        transfer: '200000',
+        offer: '200000',
+        bid: '200000',
+        buy: '200000',
+        cancel: '200000',
+        finish: '200000',
+        withdraw: '200000'
+    };
+    $scope.tx = {
+        data: '',
+        to: '',
+        unit: 'ether',
+        value: 0,
+        gasPrice: null
+    };
+    $scope.showDomainSale = function () {
+        return nodes.domainsaleNodeTypes.indexOf(ajaxReq.type) > -1;
+    };
+    $scope.$watch(function () {
+        if (walletService.wallet === null) return null;
+        return walletService.wallet.getAddressString();
+    }, function () {
+        if (walletService.wallet === null) return;
+        $scope.wallet = walletService.wallet;
+        $scope.wd = true;
+        $scope.objDomainSale.nameReadOnly = true;
+        $scope.wallet.setBalance();
+        $scope.wallet.setTokens();
+    });
+    $scope.getCurrentTime = function () {
+        return new Date().toString();
+    };
+    var updateScope = function updateScope() {
+        if (!$scope.$$phase) $scope.$apply();
+    };
+    var timeRem = function timeRem(timeUntil) {
+        var rem = timeUntil - new Date();
+        if (rem < 0) {
+            clearInterval($scope.objDomainSale.timer);
+            $scope.objDomainSale.timeRemaining = 'FINISHED';
+            return;
+        }
+        var _second = 1000;
+        var _minute = _second * 60;
+        var _hour = _minute * 60;
+        var _day = _hour * 24;
+        var hours = Math.floor(rem % _day / _hour);
+        var minutes = Math.floor(rem % _hour / _minute);
+        var seconds = Math.floor(rem % _minute / _second);
+        hours = hours < 10 ? '0' + hours : hours;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        $scope.objDomainSale.timeRemaining = hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds ';
+        updateScope();
+    };
+    $scope.addressOnChange = function () {
+        // Resets information
+        $scope.objDomainSale.balance = -1;
+    };
+    $scope.nameOnChange = function () {
+        // Resets information
+        $scope.objDomainSale.status = -1;
+        $scope.objDomainSale.bid = 0;
+        $scope.objDomainSale.bidEth = 0;
+        $scope.objDomainSale.buy = 0;
+        $scope.objDomainSale.buyEth = 0;
+        $scope.objDomainSale.reserve = 0;
+        $scope.objDomainSale.reserveEth = 0;
+        $scope.objDomainSale.timeRemaining = null;
+        $scope.tx = {
+            data: '',
+            to: '',
+            unit: 'ether',
+            value: 0
+        };
+        clearInterval($scope.objDomainSale.timer);
+    };
+    $scope.checkBalance = function () {
+        if ($scope.Validator.isValidAddress($scope.objDomainSale.address)) {
+            DomainSale.getBalance($scope.objDomainSale.address, function (data) {
+                var entries = data.data;
+                for (var key in entries) {
+                    $scope.objDomainSale[key] = entries[key];
+                }$scope.hideDomainSaleInfoPanel = true;
+            });
+        }
+    };
+    $scope.checkName = function () {
+        // checks if it's the same length as a PK and if so, warns them.
+        // If they confirm they can set haveNotAlreadyCheckedLength to true and carry on
+        if ($scope.haveNotAlreadyCheckedLength && ($scope.objDomainSale.name.length === 128 || $scope.objDomainSale.name.length === 132 || $scope.objDomainSale.name.length === 64 || $scope.objDomainSale.name.length === 66)) {
+            $scope.notifier.danger('That looks an awful lot like a private key. Are you sure you would like to check if this name is available on the ENS network? If so, click `Check`. If it is your private key, click refresh & try again.');
+            $scope.haveNotAlreadyCheckedLength = false;
+        } else if ($scope.Validator.isValidENSName($scope.objDomainSale.name) && $scope.objDomainSale.name.indexOf('.') === -1) {
+            $scope.objDomainSale.name = ens.normalise($scope.objDomainSale.name);
+            $scope.objDomainSale.namehash = ens.getNameHash($scope.objDomainSale.name + '.wan');
+            $scope.objDomainSale.nameSHA3 = ENS.getSHA3($scope.objDomainSale.name);
+            $scope.hideDomainSaleInfoPanel = true;
+            ENS.getAuctionEntries($scope.objDomainSale.name, function (data) {
+                if (data.error) $scope.notifier.danger(data.msg);else {
+                    var entries = data.data;
+                    for (var key in entries) {
+                        if (key !== 'status') $scope.objDomainSale[key] = entries[key];
+                    }if (data.data.status !== $scope.ensModes.owned) {
+                        // Not owned so ineligible for domainsale
+                        $scope.objDomainSale.status = $scope.domainsaleModes.ineligible;
+                        updateScope();
+                    } else {
+                        $scope.objDomainSale.valueEth = Number(etherUnits.toEther($scope.objDomainSale.value.toString(), 'wei'));
+                        ENS.getDeedOwner($scope.objDomainSale.deed, function (data) {
+                            $scope.objDomainSale.deedOwner = data.data;
+                            if (data.data.toLowerCase() !== DomainSale.getContractAddress().toLowerCase()) {
+                                // Not owned by DomainSale contract
+                                $scope.objDomainSale.status = $scope.domainsaleModes.nottransferred;
+                                updateScope();
+                            } else {
+                                ENS.getDeedPreviousOwner($scope.objDomainSale.deed, function (data) {
+                                    $scope.objDomainSale.seller = data.data;
+                                    DomainSale.getSale($scope.objDomainSale.name, function (data) {
+                                        var entries = data.data;
+                                        for (var key in entries) {
+                                            $scope.objDomainSale[key] = entries[key];
+                                        }if ($scope.objDomainSale.price === 0 && $scope.objDomainSale.reserve === 0) {
+                                            // Not yet offered for sale
+                                            $scope.objDomainSale.status = $scope.domainsaleModes.notoffered;
+                                        } else if ($scope.objDomainSale.auctionStarted.getTime() === 0) {
+                                            // Available for sale
+                                            $scope.objDomainSale.status = $scope.domainsaleModes.available;
+                                            $scope.objDomainSale.minimumBid = $scope.objDomainSale.reserve;
+                                            $scope.objDomainSale.minimumBidEth = $scope.objDomainSale.reserveEth;
+                                            $scope.objDomainSale.bid = $scope.objDomainSale.minimumBid;
+                                            $scope.objDomainSale.bidEth = $scope.objDomainSale.minimumBidEth;
+                                        } else if ($scope.objDomainSale.auctionEnds.getTime() >= new Date().getTime()) {
+                                            // Being auctioned
+                                            $scope.objDomainSale.status = $scope.domainsaleModes.auctioning;
+                                            $scope.objDomainSale.timer = setInterval(function () {
+                                                return timeRem($scope.objDomainSale.auctionEnds);
+                                            }, 1000);
+                                            DomainSale.getMinimumBid($scope.objDomainSale.name, function (data) {
+                                                var entries = data.data;
+                                                for (var key in entries) {
+                                                    $scope.objDomainSale[key] = entries[key];
+                                                }$scope.objDomainSale.bid = $scope.objDomainSale.minimumBid;
+                                                $scope.objDomainSale.bidEth = $scope.objDomainSale.minimumBidEth;
+                                                updateScope();
+                                            });
+                                        } else {
+                                            // Auction closed
+                                            $scope.objDomainSale.status = $scope.domainsaleModes.closed;
+                                        }
+                                        updateScope();
+                                    });
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+        } else $scope.notifier.danger(globalFuncs.errorMsgs[30]);
+    };
+
+    // Sync internal values with inputs
+    $scope.syncPrice = function () {
+        if ($scope.objDomainSale.priceEth === null) {
+            $scope.objDomainSale.price = 0;
+        } else {
+            $scope.objDomainSale.price = Number(etherUnits.toWei($scope.objDomainSale.priceEth, 'ether'));
+        }
+    };
+    $scope.syncReserve = function () {
+        if ($scope.objDomainSale.reserveEth === null) {
+            $scope.objDomainSale.reserve = 0;
+        } else {
+            $scope.objDomainSale.reserve = Number(etherUnits.toWei($scope.objDomainSale.reserveEth, 'ether'));
+        }
+    };
+    $scope.syncBid = function () {
+        if ($scope.objDomainSale.bidEth === null) {
+            $scope.objDomainSale.bid = 0;
+        } else {
+            $scope.objDomainSale.bid = Number(etherUnits.toWei($scope.objDomainSale.bidEth, 'ether'));
+        }
+    };
+
+    $scope.sendTxStatus = '';
+    $scope.sendTx = function () {
+        $scope.domainsaleConfirmModalModal.close();
+        $scope.objDomainSale.status = -1;
+        var signedTx = $scope.generatedTxs.shift();
+        uiFuncs.sendTx(signedTx, function (resp) {
+            if (!resp.isError) {
+                var emailLink = '<a class="strong" href="mailto:support@myetherwallet.com?subject=Issue%20regarding%20my%20DomainSale%20&body=Hi%20Taylor%2C%20%0A%0AI%20have%20a%20question%20concerning%20my%20DomainSale%20transaction.%20%0A%0AI%20was%20attempting%20to%3A%0A-%20Start%20an%20ENS%20auction%0A-%20Bid%20on%20an%20ENS%20name%0A-%20Reveal%20my%20ENS%20bid%0A-%20Finalize%20my%20ENS%20name%0A%0AUnfortunately%20it%3A%0A-%20Never%20showed%20on%20the%20blockchain%0A-%20Failed%20due%20to%20out%20of%20gas%0A-%20Failed%20for%20another%20reason%0A-%20Never%20showed%20up%20in%20the%20account%20I%20was%20sending%20to%0A%0APlease%20see%20the%20below%20details%20for%20additional%20information.%0A%0AThank%20you.%20%0A%0A_%0A%0A%20name%3A%20' + $scope.objDomainSale.name + '%0A%20txSent%3A%20' + $scope.objDomainSale.txSent + '%0A%20to%3A%20' + $scope.tx.to + '%0A%20from%20address%3A%20' + $scope.wallet.getAddressString() + '%0A%20data%3A%20' + $scope.tx.data + '%0A%20value%3A%20' + $scope.tx.value + '" rel="noopener noreferrer">Confused? Email Us.</a>';
+                var bExStr = $scope.ajaxReq.type !== nodes.nodeTypes.Custom ? "<a class='strong' href='" + $scope.ajaxReq.blockExplorerTX.replace('[[txHash]]', resp.data) + "' target='_blank' rel='noopener'> View your transaction </a>" : '';
+                $scope.sendTxStatus += globalFuncs.successMsgs[2] + '<p>' + resp.data + '</p><p>' + bExStr + '</p><p>' + emailLink + '</p>';
+                $scope.notifier.success($scope.sendTxStatus);
+                if ($scope.generatedTxs.length) $scope.sendTx();else $scope.sendTxStatus = '';
+            } else {
+                $scope.notifier.danger(resp.error);
+            }
+        });
+        $scope.objDomainSale.txSent = true;
+        $scope.hideDomainSaleInfoPanel = false;
+    };
+    // Transactions
+    $scope.generateTransferTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.transfer;
+            if (!$scope.Validator.isValidENSName($scope.objDomainSale.name)) throw globalFuncs.errorMsgs[30];
+            $scope.tx.to = ENS.getAuctionAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.transfer;
+            $scope.tx.data = ENS.getTransferData($scope.objDomainSale.name, DomainSale.getContractAddress());
+            $scope.tx.value = 0;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.generateOfferTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.offer;
+            if (!$scope.Validator.isValidENSName($scope.objDomainSale.name)) throw globalFuncs.errorMsgs[30];
+            if ($scope.objDomainSale.price === 0 && $scope.objDomainSale.reserve === 0) throw globalFuncs.errorMsgs[38];
+            $scope.tx.to = DomainSale.getContractAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.offer;
+            $scope.tx.data = DomainSale.getOfferData($scope.objDomainSale.name, $scope.objDomainSale.price, $scope.objDomainSale.reserve, $scope.referrer);
+            $scope.tx.value = 0;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.generateBuyTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.buy;
+            if (!$scope.Validator.isValidENSName($scope.objDomainSale.name)) throw globalFuncs.errorMsgs[30];
+            $scope.tx.to = DomainSale.getContractAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.buy;
+            $scope.tx.data = DomainSale.getBuyData($scope.objDomainSale.name, $scope.referrer);
+            $scope.tx.value = $scope.objDomainSale.priceEth;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.generateBidTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.bid;
+            if (!$scope.Validator.isValidENSName($scope.objDomainSale.name)) throw globalFuncs.errorMsgs[30];
+            if ($scope.objDomainSale.bidEth < $scope.objDomainSale.minimumBidEth) throw globalFuncs.errorMsgs[39];
+            $scope.tx.to = DomainSale.getContractAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.bid;
+            $scope.tx.data = DomainSale.getBidData($scope.objDomainSale.name, $scope.referrer);
+            $scope.tx.value = $scope.objDomainSale.bidEth;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.generateCancelTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.cancel;
+            if (!$scope.Validator.isValidENSName($scope.objDomainSale.name)) throw globalFuncs.errorMsgs[30];
+            $scope.tx.to = DomainSale.getContractAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.cancel;
+            $scope.tx.data = DomainSale.getCancelData($scope.objDomainSale.name);
+            $scope.tx.value = 0;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.generateFinishTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.finish;
+            if (!$scope.Validator.isValidENSName($scope.objDomainSale.name)) throw globalFuncs.errorMsgs[30];
+            $scope.tx.to = DomainSale.getContractAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.finish;
+            $scope.tx.data = DomainSale.getFinishData($scope.objDomainSale.name);
+            $scope.tx.value = 0;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.generateWithdrawTx = function () {
+        try {
+            $scope.objDomainSale.tx = domainsale.transactions.withdraw;
+            $scope.tx.to = DomainSale.getContractAddress();
+            $scope.tx.gasLimit = $scope.gasLimitDefaults.withdraw;
+            $scope.tx.data = DomainSale.getWithdrawData();
+            $scope.tx.value = 0;
+            $scope.doTx();
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+    $scope.doTx = function (nonce, gasPrice) {
+        $scope.sentTxs = [];
+        $scope.generatedTxs = [];
+        var txData = uiFuncs.getTxData($scope);
+        if (nonce && gasPrice) {
+            txData.nonce = nonce;
+            txData.gasPrice = gasPrice;
+        } else {
+            txData.nonce = txData.gasPrice = null;
+        }
+        uiFuncs.generateTx(txData, function (rawTx) {
+            if (!rawTx.isError) {
+                $scope.generatedTxs.push(rawTx.signedTx);
+                $scope.domainsaleConfirmModalModal.open();
+            } else {
+                $scope.notifier.danger(rawTx.error);
+            }
+            if (!$scope.$$phase) $scope.$apply();
+        });
+    };
+};
+module.exports = domainsaleCtrl;
+
+},{}],12:[function(require,module,exports){
+'use strict';
+
+var ensCtrl = function ensCtrl($scope, $sce, walletService) {
+    $scope.ajaxReq = ajaxReq;
+    $scope.hideEnsInfoPanel = false;
+    walletService.wallet = null;
+    $scope.ensConfirmModalModal = new Modal(document.getElementById('ensConfirmModal'));
+    $scope.ensFinalizeModal = new Modal(document.getElementById('ensFinalizeConfirm'));
+    $scope.Validator = Validator;
+    $scope.wd = false;
+    $scope.haveNotAlreadyCheckedLength = true;
+    var ENS = new ens();
+    var DomainSale = new domainsale();
+    $scope.ensModes = ens.modes;
+    $scope.minNameLength = 6;
+    $scope.objDomainSale = {};
+    $scope.objENS = {
+        bidValue: 0.1,
+        dValue: 0.1,
+        name: '',
+        namehash: '',
+        nameSHA3: '',
+        nameReadOnly: false,
+        resolvedAddress: null,
+        revealObject: null,
+        secret: hd.bip39.generateMnemonic().split(' ').splice(0, 3).join(' '),
+        status: -1,
+        timer: null,
+        timeRemaining: null,
+        timeRemainingReveal: null,
+        txSent: false
+    };
+    $scope.gasLimitDefaults = {
+        startAuction: '500000',
+        newBid: '900000',
+        reveal: '500000',
+        finalize: '500000'
+    };
+    $scope.tx = {
+        gasLimit: '500000',
+        data: '',
+        to: '',
+        unit: 'ether',
+        value: 0,
+        gasPrice: null
+    };
+    $scope.showENS = function () {
+        return nodes.ensNodeTypes.indexOf(ajaxReq.type) > -1;
+    };
+    $scope.$watch(function () {
+        if (walletService.wallet === null) return null;
+        return walletService.wallet.getAddressString();
+    }, function () {
+        if (walletService.wallet === null) return;
+        $scope.wallet = walletService.wallet;
+        $scope.wd = true;
+        $scope.objENS.nameReadOnly = true;
+        $scope.wallet.setBalance();
+        $scope.wallet.setTokens();
+    });
+    $scope.getCurrentTime = function () {
+        return new Date().toString();
+    };
+    var updateScope = function updateScope() {
+        if (!$scope.$$phase) $scope.$apply();
+    };
+    var timeRem = function timeRem(timeUntil) {
+        var rem = timeUntil - new Date();
+        if (rem < 0) {
+            clearInterval($scope.objENS.timer);
+            $scope.objENS.timeRemaining = 'EXPIRED';
+            return;
+        }
+        var _second = 1000;
+        var _minute = _second * 60;
+        var _hour = _minute * 60;
+        var _day = _hour * 24;
+        var days = Math.floor(rem / _day);
+        var hours = Math.floor(rem % _day / _hour);
+        var minutes = Math.floor(rem % _hour / _minute);
+        var seconds = Math.floor(rem % _minute / _second);
+        days = days < 10 ? '0' + days : days;
+        hours = hours < 10 ? '0' + hours : hours;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        $scope.objENS.timeRemaining = days + ' days ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds ';
+        $scope.objENS.timeRemainingReveal = days - 2 + ' days ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds ';
+        updateScope();
+    };
+    $scope.nameOnChange = function () {
+        $scope.objENS.status = -1;
+        $scope.objENS.timeRemaining = null;
+        clearInterval($scope.objENS.timer);
+    };
+    $scope.checkName = function () {
+        // checks if it's the same length as a PK and if so, warns them.
+        // If they confirm they can set haveNotAlreadyCheckedLength to true and carry on
+        if ($scope.haveNotAlreadyCheckedLength && ($scope.objENS.name.length === 128 || $scope.objENS.name.length === 132 || $scope.objENS.name.length === 64 || $scope.objENS.name.length === 66)) {
+            $scope.notifier.danger('That looks an awful lot like a private key. Are you sure you would like to check if this name is available on the ENS network? If so, click `Check`. If it is your private key, click refresh & try again.');
+            $scope.haveNotAlreadyCheckedLength = false;
+        } else if ($scope.Validator.isValidENSName($scope.objENS.name) && $scope.objENS.name.indexOf('.') === -1) {
+            $scope.objENS.name = ens.normalise($scope.objENS.name);
+            $scope.objENS.namehash = ens.getNameHash($scope.objENS.name + '.wan');
+            $scope.objENS.nameSHA3 = ENS.getSHA3($scope.objENS.name);
+            $scope.hideEnsInfoPanel = true;
+            ENS.getAuctionEntries($scope.objENS.name, function (data) {
+                if (data.error) $scope.notifier.danger(data.msg);else {
+                    var entries = data.data;
+                    for (var key in entries) {
+                        $scope.objENS[key] = entries[key];
+                    }switch ($scope.objENS.status) {
+                        case $scope.ensModes.owned:
+                            ENS.getOwner($scope.objENS.name + '.wan', function (data) {
+                                $scope.objENS.owner = data.data;
+                            });
+                            ENS.getDeedOwner($scope.objENS.deed, function (data) {
+                                $scope.objENS.deedOwner = data.data;
+                            });
+                            ENS.getAddress($scope.objENS.name + '.wan', function (data) {
+                                $scope.objENS.resolvedAddress = data.data;
+                            });
+                            DomainSale.getSale($scope.objENS.name, function (data) {
+                                $scope.objDomainSale.sale = data.data;
+                            });
+                            break;
+                        case $scope.ensModes.notAvailable:
+                            ENS.getAllowedTime($scope.objENS.name, function (data) {
+                                $scope.objENS.allowedTime = data.data;
+                                clearInterval($scope.objENS.timer);
+                                $scope.objENS.timer = setInterval(function () {
+                                    return timeRem($scope.objENS.allowedTime);
+                                }, 1000);
+                            });
+                            break;
+                        case $scope.ensModes.auction:
+                            clearInterval($scope.objENS.timer);
+                            $scope.objENS.timer = setInterval(function () {
+                                return timeRem($scope.objENS.registrationDate);
+                            }, 1000);
+                            break;
+                        case $scope.ensModes.reveal:
+                            $scope.objENS.bidValue = 0;
+                            $scope.objENS.secret = '';
+                            $scope.objENS.highestBid = etherUnits.toEther($scope.objENS.highestBid.toString(), 'wei');
+                            clearInterval($scope.objENS.timer);
+                            $scope.objENS.timer = setInterval(function () {
+                                return timeRem($scope.objENS.registrationDate);
+                            }, 1000);
+                            break;
+                    }
+                    updateScope();
+                }
+            });
+        } else $scope.notifier.danger(globalFuncs.errorMsgs[30]);
+    };
+
+    $scope.onLongStringChanged = function () {
+        try {
+            $scope.objENS.revealObject = null;
+            var tObj = JSON.parse($scope.longJsonString.replace(/\\/g, ''));
+            $scope.objENS.revealObject = tObj;
+            if (tObj.value) $scope.objENS.bidValue = Number(etherUnits.toEther(tObj.value, 'wei'));
+            if (tObj.secret) $scope.objENS.secret = tObj.secret;
+            if (tObj.name && ens.normalise(tObj.name) !== $scope.objENS.name) {
+                // check if correct name
+                $scope.notifier.danger(globalFuncs.errorMsgs[34]);
+            } else if (tObj.owner && tObj.owner !== $scope.wallet.getAddressString()) {
+                // check owner = bidder
+                $scope.notifier.danger(globalFuncs.errorMsgs[33]);
+            } else {// estimate gas to see if it would not work
+                // $scope.estimateGasLimit();
+            }
+            updateScope();
+        } catch (e) {
+            $scope.notifier.danger(e.message);
+        }
+    };
+    var getShaBid = function getShaBid(_bidObject, callback) {
+        ENS.shaBid(_bidObject.nameSHA3, _bidObject.owner, _bidObject.value, _bidObject.secretSHA3, function (data) {
+            if (data.error) callback(true, data.msg);else callback(false, data.data);
+        });
+    };
+    var getBidObject = function getBidObject() {
+        var _objENS = $scope.objENS;
+        var bidObject = {
+            name: _objENS.name,
+            nameSHA3: ENS.getSHA3(_objENS.name),
+            owner: $scope.wallet.getAddressString(),
+            value: etherUnits.toWei(_objENS.bidValue, 'ether'),
+            secret: _objENS.secret.trim(),
+            secretSHA3: ENS.getSHA3(_objENS.secret.trim())
+        };
+        return bidObject;
+    };
+    $scope.openAndBidAuction = function () {
+        $scope.tx.gasLimit = $scope.gasLimitDefaults.newBid;
+        var _objENS = $scope.objENS;
+        $scope.bidObject = getBidObject();
+        _objENS.registrationDate = new Date();
+        _objENS.registrationDate.setDate(_objENS.registrationDate.getDate() + 5);
+        getShaBid($scope.bidObject, function (isError, data) {
+            if (isError) $scope.notifier.danger(data);else {
+                var bidHash = data;
+                $scope.tx.data = ENS.getStartAndBidAuctionData($scope.objENS.name, bidHash);
+                $scope.tx.to = ENS.getAuctionAddress();
+                $scope.tx.value = _objENS.dValue;
+                var txData = uiFuncs.getTxData($scope);
+                txData.nonce = txData.gasPrice = null;
+                uiFuncs.generateTx(txData, function (rawTx) {
+                    if (!rawTx.isError) {
+                        $scope.generatedTxs.push(rawTx.signedTx);
+                        $scope.bidObject = JSON.stringify($scope.bidObject);
+                        $scope.ensConfirmModalModal.open();
+                    } else {
+                        $scope.notifier.danger(rawTx.error);
+                    }
+                    if (!$scope.$$phase) $scope.$apply();
+                });
+            }
+        });
+    };
+    $scope.revealBid = function () {
+        $scope.tx.gasLimit = $scope.gasLimitDefaults.reveal;
+        var _objENS = $scope.objENS;
+        ajaxReq.getTransactionData($scope.wallet.getAddressString(), function (data) {
+            if (data.error) $scope.notifier.danger(data.msg);
+            data = data.data;
+            $scope.tx.to = ENS.getAuctionAddress();
+            $scope.tx.data = ENS.getRevealBidData(_objENS.name, etherUnits.toWei(_objENS.bidValue, 'ether'), _objENS.secret);
+            $scope.tx.value = 0;
+            var txData = uiFuncs.getTxData($scope);
+            txData.gasPrice = data.gasprice;
+            txData.nonce = data.nonce;
+            uiFuncs.generateTx(txData, function (rawTx) {
+                if (!rawTx.isError) {
+                    $scope.generatedTxs.push(rawTx.signedTx);
+                    $scope.ensConfirmModalModal.open();
+                } else {
+                    $scope.notifier.danger(rawTx.error);
+                }
+            });
+        });
+    };
+    $scope.finalizeDomain = function () {
+        $scope.tx.gasLimit = $scope.gasLimitDefaults.finalize;
+        if ($scope.wallet.getAddressString() !== $scope.objENS.deedOwner) {
+            $scope.notifier.danger(globalFuncs.errorMsgs[33]);
+            return;
+        }
+        var _objENS = $scope.objENS;
+        ajaxReq.getTransactionData($scope.wallet.getAddressString(), function (data) {
+            if (data.error) $scope.notifier.danger(data.msg);
+            data = data.data;
+            $scope.tx.to = ENS.getAuctionAddress();
+            $scope.tx.data = ENS.getFinalizeAuctionData(_objENS.name);
+            $scope.tx.value = 0;
+            var txData = uiFuncs.getTxData($scope);
+            txData.gasPrice = data.gasprice;
+            txData.nonce = data.nonce;
+            uiFuncs.generateTx(txData, function (rawTx) {
+                if (!rawTx.isError) {
+                    $scope.generatedTxs = [];
+                    $scope.generatedTxs.push(rawTx.signedTx);
+                    $scope.ensFinalizeModal.open();
+                } else {
+                    $scope.notifier.danger(rawTx.error);
+                }
+            });
+        });
+    };
+    $scope.getRevealTime = function () {
+        if ($scope.objENS && $scope.objENS.registrationDate) return new Date($scope.objENS.registrationDate - 48 * 60 * 60 * 1000);
+        return new Date().toString();
+    };
+    $scope.bidAuction = function (nonce, gasPrice) {
+        $scope.tx.gasLimit = $scope.gasLimitDefaults.newBid;
+        var _objENS = $scope.objENS;
+        $scope.bidObject = getBidObject();
+        getShaBid($scope.bidObject, function (isError, data) {
+            if (isError) $scope.notifier.danger(data);else {
+                var bidHash = data;
+                $scope.tx.data = ENS.getNewBidData(bidHash);
+                $scope.tx.to = ENS.getAuctionAddress();
+                $scope.tx.value = _objENS.dValue;
+                var txData = uiFuncs.getTxData($scope);
+                if (nonce && gasPrice) {
+                    txData.nonce = nonce;
+                    txData.gasPrice = gasPrice;
+                } else txData.nonce = txData.gasPrice = null;
+                uiFuncs.generateTx(txData, function (rawTx) {
+                    if (!rawTx.isError) {
+                        $scope.generatedTxs.push(rawTx.signedTx);
+                        $scope.bidObject = JSON.stringify($scope.bidObject);
+                        $scope.ensConfirmModalModal.open();
+                    } else {
+                        $scope.notifier.danger(rawTx.error);
+                    }
+                    if (!$scope.$$phase) $scope.$apply();
+                });
+            }
+        });
+    };
+    $scope.sendTxStatus = '';
+    $scope.sendTx = function () {
+        $scope.ensConfirmModalModal.close();
+        $scope.ensFinalizeModal.close();
+        var signedTx = $scope.generatedTxs.shift();
+        uiFuncs.sendTx(signedTx, function (resp) {
+            if (!resp.isError) {
+                var emailLink = '<a class="strong" href="mailto:support@mywanwallet.nl?Subject=Issue%20regarding%20my%20ENS%20&Body=Hi%20Peter%2C%20%0A%0AI%20have%20a%20question%20concerning%20my%20ENS%20transaction.%20%0A%0AI%20was%20attempting%20to%3A%0A-%20Start%20an%20ENS%20auction%0A-%20Bid%20on%20an%20ENS%20name%0A-%20Reveal%20my%20ENS%20bid%0A-%20Finalize%20my%20ENS%20name%0A%0AUnfortunately%20it%3A%0A-%20Never%20showed%20on%20the%20blockchain%0A-%20Failed%20due%20to%20out%20of%20gas%0A-%20Failed%20for%20another%20reason%0A-%20Never%20showed%20up%20in%20the%20account%20I%20was%20sending%20to%0A%0APlease%20see%20the%20below%20details%20for%20additional%20information.%0A%0AThank%20you.%20%0A%0A_%0A%0A%20name%3A%20' + $scope.objENS.name + '%0A%20timeRemaining%3A%20' + $scope.getRevealTime().toString() + '%0A%20revealDate%3A%20' + $scope.objENS.registrationDate.toString() + '%0A%20timer%3A%20' + $scope.objENS.timer + '%0A%20txSent%3A%20' + $scope.objENS.txSent + '%0A%20to%3A%20' + $scope.tx.to + '%0A%20from%20address%3A%20' + $scope.wallet.getAddressString() + '%0A%20data%3A%20' + $scope.tx.data + '%0A%20value%3A%20' + $scope.tx.value + '" target="_blank" rel="noopener noreferrer">Confused? Email Us.</a>';
+                var bExStr = $scope.ajaxReq.type !== nodes.nodeTypes.Custom ? "<a class='strong' href='" + $scope.ajaxReq.blockExplorerTX.replace('[[txHash]]', resp.data) + "' target='_blank' rel='noopener'> View your transaction </a>" : '';
+                $scope.sendTxStatus += globalFuncs.successMsgs[2] + '<p>' + resp.data + '</p><p>' + bExStr + '</p><p>' + emailLink + '</p>';
+                $scope.notifier.success($scope.sendTxStatus);
+                if ($scope.generatedTxs.length) $scope.sendTx();else $scope.sendTxStatus = '';
+            } else {
+                $scope.notifier.danger(resp.error);
+            }
+        });
+        $scope.objENS.txSent = true;
+        $scope.objENS.hideEnsInfoPanel = false;
+    };
+    $scope.generateTx = function () {
+        try {
+            var _objENS = $scope.objENS;
+            $scope.sentTxs = [];
+            $scope.generatedTxs = [];
+            if (!$scope.Validator.isValidENSName(_objENS.name)) throw globalFuncs.errorMsgs[30];else if (!$scope.Validator.isPositiveNumber(_objENS.bidValue) || _objENS.bidValue < 0.01) throw globalFuncs.errorMsgs[0];else if (_objENS.status !== $scope.ensModes.reveal && (!$scope.Validator.isPositiveNumber(_objENS.dValue) || _objENS.dValue < _objENS.bidValue || $scope.wallet.balance <= _objENS.dValue)) throw globalFuncs.errorMsgs[0];else if (!$scope.Validator.isPasswordLenValid(_objENS.secret, 0)) throw globalFuncs.errorMsgs[31];else if (_objENS.revealObject && _objENS.revealObject.name && ens.normalise(_objENS.revealObject.name) !== _objENS.name) throw globalFuncs.errorMsgs[34];else {
+                if ($scope.objENS.status === $scope.ensModes.open) $scope.openAndBidAuction();else if ($scope.objENS.status === $scope.ensModes.auction) $scope.bidAuction();else if ($scope.objENS.status === $scope.ensModes.reveal) $scope.revealBid();
+            }
+        } catch (e) {
+            $scope.notifier.danger(e);
+        }
+    };
+};
+module.exports = ensCtrl;
+
+},{}],13:[function(require,module,exports){
 'use strict';
 
 var footerCtrl = function footerCtrl($scope, globalService) {
-    var gasPriceKey = "gasPrice";
+    var gasPriceKey = 'gasPrice';
     $scope.footerModal = new Modal(document.getElementById('disclaimerModal'));
-    $scope.ethBlockNumber = "loading";
-    $scope.etcBlockNumber = "loading";
-    $scope.showBlocks = window.location.protocol == "https:";
+    $scope.ethBlockNumber = 'loading';
+    $scope.etcBlockNumber = 'loading';
+    $scope.showBlocks = window.location.protocol === 'https:';
     $scope.setBlockNumbers = function () {
         if (!$scope.showBlocks) return;
         ajaxReq.getCurrentBlock(function (data) {
@@ -1199,7 +1934,7 @@ var footerCtrl = function footerCtrl($scope, globalService) {
 };
 module.exports = footerCtrl;
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 var helpersCtrl = function helpersCtrl($scope) {
@@ -1317,7 +2052,7 @@ var helpersCtrl = function helpersCtrl($scope) {
         };
         var basePrivateKey = $scope.mistypedPK;
         var targetPublicAddress = $scope.mistypedAddr;
-        basePrivateKey = basePrivateKey.substring(0, 2) == '0x' ? basePrivateKey.substring(2) : basePrivateKey;
+        basePrivateKey = basePrivateKey.substring(0, 2) === '0x' ? basePrivateKey.substring(2) : basePrivateKey;
         var characters = ['a', 'b', 'c', 'd', 'e', 'f', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
         var isFound = false;
         for (var keyPosition = 0; keyPosition < basePrivateKey.length; keyPosition++) {
@@ -1325,13 +2060,15 @@ var helpersCtrl = function helpersCtrl($scope) {
                 var privateKeyGuess = setCharAt(basePrivateKey, keyPosition, characters[character]);
                 var wallet = Wallet.fromPrivateKey(privateKeyGuess);
                 var publicAddress = wallet.getAddressString();
-                if (publicAddress.toLowerCase() == targetPublicAddress.toLowerCase()) {
+                if (publicAddress.toLowerCase() === targetPublicAddress.toLowerCase()) {
                     $scope.actualPK = privateKeyGuess;
                     isFound = true;
                 }
             }
         }
-        if (!isFound) $scope.actualPK = "Sorry not found :(";
+        if (!isFound) {
+            $scope.actualPK = 'Sorry not found :(';
+        }
     };
 
     $scope.convertUnit('ether');
@@ -1362,7 +2099,7 @@ FINALIZE
 
 */
 
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 var wanUtil = require('wanchain-util');
@@ -1371,7 +2108,7 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
     walletService.wallet = null;
     walletService.password = '';
     $scope.unitReadable = ajaxReq.type;
-    $scope.valueReadable = "";
+    $scope.valueReadable = '';
     $scope.showAdvance = false;
     $scope.dropdownEnabled = true;
     $scope.showRaw = false;
@@ -1381,12 +2118,12 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
     $scope.tokens = Token.popTokens;
     $scope.Validator = Validator;
     $scope.tx = {
-        Txtype: "0x01",
+        Txtype: '0x01',
         gasLimit: globalFuncs.defaultTxGasLimit,
-        from: "",
-        data: "",
-        to: "",
-        unit: "ether",
+        from: '',
+        data: '',
+        to: '',
+        unit: 'ether',
         value: '',
         nonce: null,
         gasPrice: null,
@@ -1399,10 +2136,10 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
         gasLimit: 150000
     };
     $scope.localToken = {
-        contractAdd: "",
-        symbol: "",
-        decimals: "",
-        type: "custom"
+        contractAdd: '',
+        symbol: '',
+        decimals: '',
+        type: 'custom'
     };
     $scope.$watch(function () {
         if (walletService.wallet == null) return null;
@@ -1416,8 +2153,8 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
         for (var i = 0; i < $scope.tokens.length; i++) {
             $scope.tokenObjs.push(new Token($scope.tokens[i].address, '', $scope.tokens[i].symbol, $scope.tokens[i].decimal, $scope.tokens[i].type));
         }
-        var storedTokens = globalFuncs.localStorage.getItem("localTokens", null) != null ? JSON.parse(globalFuncs.localStorage.getItem("localTokens")) : [];
-        for (var i = 0; i < storedTokens.length; i++) {
+        var storedTokens = globalFuncs.localStorage.getItem('localTokens', null) != null ? JSON.parse(globalFuncs.localStorage.getItem('localTokens')) : [];
+        for (i = 0; i < storedTokens.length; i++) {
             $scope.tokenObjs.push(new Token(storedTokens[i].contractAddress, '', globalFuncs.stripTags(storedTokens[i].symbol), storedTokens[i].decimal, storedTokens[i].type));
         }
     };
@@ -1437,7 +2174,7 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
         $scope.showRaw = false;
     }, true);
     $scope.$watch('tokenTx.id', function () {
-        if ($scope.tokenTx.id != 'ether') {
+        if ($scope.tokenTx.id !== 'ether') {
             $scope.tx.gasLimit = 150000;
         } else {
             $scope.tx.gasLimit = globalFuncs.defaultTxGasLimit;
@@ -1445,7 +2182,7 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
     });
     $scope.$watch('[tx.to]', function () {
         // if golem crowdfund address
-        if ($scope.tx.to == "0xa74476443119A942dE498590Fe1f2454d7D4aC0d") {
+        if ($scope.tx.to === '0xa74476443119A942dE498590Fe1f2454d7D4aC0d') {
             $scope.setSendMode('ether');
             $scope.dropdownEnabled = false;
             $scope.tx.data = '0xefc81a8c';
@@ -1458,7 +2195,7 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
         var tokensymbol = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
         $scope.tokenTx.id = index;
-        if (index == 'ether') {
+        if (index === 'ether') {
             $scope.unitReadable = ajaxReq.type;
         } else {
             $scope.unitReadable = tokensymbol;
@@ -1469,8 +2206,8 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
         $scope.customGasMsg = '';
         if (ethFuncs.validateEtherAddress(address)) {
             for (var i in CustomGasMessages) {
-                if ($scope.tx.to.toLowerCase() == CustomGasMessages[i].to.toLowerCase()) {
-                    $scope.customGasMsg = CustomGasMessages[i].msg != '' ? CustomGasMessages[i].msg : '';
+                if ($scope.tx.to.toLowerCase() === CustomGasMessages[i].to.toLowerCase()) {
+                    $scope.customGasMsg = CustomGasMessages[i].msg !== '' ? CustomGasMessages[i].msg : '';
                 }
             }
             return true;
@@ -1487,7 +2224,7 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
         txData.isOffline = true;
         txData.nonce = ethFuncs.sanitizeHex(ethFuncs.decimalToHex($scope.nonceDec));
         txData.gasPrice = ethFuncs.sanitizeHex(ethFuncs.decimalToHex($scope.gasPriceDec));
-        if ($scope.tokenTx.id != 'ether') {
+        if ($scope.tokenTx.id !== 'ether') {
             txData.data = $scope.tokenObjs[$scope.tokenTx.id].getData($scope.tx.to, $scope.tx.value).data;
             txData.to = $scope.tokenObjs[$scope.tokenTx.id].getContractAddress();
             txData.value = '0x00';
@@ -1506,11 +2243,11 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
     };
     $scope.confirmSendTx = function () {
         try {
-            if ($scope.signedTx == "" || !ethFuncs.validateHexString($scope.signedTx)) throw globalFuncs.errorMsgs[12];
+            if ($scope.signedTx === '' || !ethFuncs.validateHexString($scope.signedTx)) throw globalFuncs.errorMsgs[12];
             var eTx = new wanUtil.wanchainTx($scope.signedTx);
-            if (eTx.data.length && Token.transferHex == ethFuncs.sanitizeHex(eTx.data.toString('hex').substr(0, 8))) {
+            if (eTx.data.length && Token.transferHex === ethFuncs.sanitizeHex(eTx.data.toString('hex').substr(0, 8))) {
                 var token = Token.getTokenByAddress(ethFuncs.sanitizeHex(eTx.to.toString('hex')));
-                var decoded = ethUtil.solidityCoder.decodeParams(["address", "uint256"], ethFuncs.sanitizeHex(eTx.data.toString('hex').substr(10)));
+                var decoded = ethUtil.solidityCoder.decodeParams(['address', 'uint256'], ethFuncs.sanitizeHex(eTx.data.toString('hex').substr(10)));
                 $scope.tx.sendMode = 'token';
                 $scope.tokenTx.value = decoded[1].div(new BigNumber(10).pow(token.decimal)).toString();
                 $scope.tokenTx.to = decoded[0];
@@ -1520,7 +2257,13 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
                 $scope.tx.sendMode = 'ether';
                 $scope.tx.value = eTx.value.length ? etherUnits.toEther(ethFuncs.sanitizeHex(eTx.value.toString('hex')), 'wei') : 0;
                 $scope.unitReadable = ajaxReq.type;
-                $scope.tx.from = ethFuncs.sanitizeHex(eTx.getSenderAddress().toString('hex'));
+                if (!$scope.tx.from) {
+                    try {
+                        $scope.tx.from = ethFuncs.sanitizeHex(eTx.getSenderAddress().toString('hex'));
+                    } catch (err) {
+                        $scope.tx.from = '0x';
+                    }
+                }
                 $scope.tx.to = ethFuncs.sanitizeHex(eTx.to.toString('hex'));
             }
             new Modal(document.getElementById('sendTransactionOffline')).open();
@@ -1534,14 +2277,14 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
             if (data.error) {
                 $scope.notifier.danger(data.msg);
             } else {
-                $scope.notifier.success(globalFuncs.successMsgs[2] + "<a href='https://wanscan.io/tx/" + data.data + "' target='_blank' rel='noopener'>" + data.data + "</a>");
+                $scope.notifier.success(globalFuncs.successMsgs[2] + "<a href='https://wanscan.io/tx/" + data.data + "' target='_blank' rel='noopener'>" + data.data + '</a>');
             }
         });
     };
 };
 module.exports = offlineTxCtrl;
 
-},{"wanchain-util":327}],14:[function(require,module,exports){
+},{"wanchain-util":340}],16:[function(require,module,exports){
 'use strict';
 
 var onboardingCtrl = function onboardingCtrl($scope, globalService, $translate, $sce) {
@@ -1553,17 +2296,17 @@ var onboardingCtrl = function onboardingCtrl($scope, globalService, $translate, 
   $scope.showOnboardSlide = 1; // show slide 1
 
   // if there is onboardStatus in localStorage....
-  if (globalFuncs.localStorage.getItem("onboardStatus", null) != null) {
+  if (globalFuncs.localStorage.getItem('onboardStatus', null) != null) {
 
     // get the slide number from localStorage
-    $scope.onboardStatus = parseInt(globalFuncs.localStorage.getItem("onboardStatus"));
+    $scope.onboardStatus = parseInt(globalFuncs.localStorage.getItem('onboardStatus'));
 
     // if they've seen a few slides...
     if ($scope.onboardStatus > 0 && $scope.onboardStatus < 10) {
       $scope.showOnboardSlide = $scope.onboardStatus; // set the slide to the last slide they viewed
       $scope.onboardMsg = true; // show a msg explaining they need to finish it
       $scope.onboardModal.open(); // show the modal
-      //console.log( $scope.onboardStatus )
+      // console.log( $scope.onboardStatus )
     }
 
     // otherwise, show the modal (starts at slide 1 by default, above)
@@ -1574,15 +2317,15 @@ var onboardingCtrl = function onboardingCtrl($scope, globalService, $translate, 
   // whenever a user clicks a button on the modal...
   $scope.setOnboardStatus = function (slideNum) {
     $scope.showOnboardSlide = slideNum; // show the slide indicated
-    globalFuncs.localStorage.setItem("onboardStatus", JSON.stringify(slideNum)); // save number to localStorage for later
-    //console.log( "setOnboardStatus " + slideNum )
+    globalFuncs.localStorage.setItem('onboardStatus', JSON.stringify(slideNum)); // save number to localStorage for later
+    // console.log( "setOnboardStatus " + slideNum )
   };
 
   $scope.setOnboardStatus($scope.onboardStatus);
 };
 module.exports = onboardingCtrl;
 
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 var wanUtil = require('wanchain-util');
@@ -1598,9 +2341,9 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
     $scope.dropdownEnabled = true;
     $scope.Validator = Validator;
     $scope.gasLimitChanged = false;
-    $scope.tx.readOnly = globalFuncs.urlGet('readOnly') == null ? false : true;
-    var currentTab = $scope.globalService.currentTab;
-    var tabs = $scope.globalService.tabs;
+    $scope.tx.readOnly = globalFuncs.urlGet('readOnly') != null;
+    // var currentTab = $scope.globalService.currentTab
+    // var tabs = $scope.globalService.tabs
     $scope.tokenTx = {
         to: '',
         value: 0,
@@ -1612,13 +2355,13 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
 
     $scope.tx = {
         // if there is no gasLimit or gas key in the URI, use the default value. Otherwise use value of gas or gasLimit. gasLimit wins over gas if both present
-        Txtype: "0x01",
+        Txtype: '0x01',
         gasLimit: globalFuncs.urlGet('gaslimit') != null || globalFuncs.urlGet('gas') != null ? globalFuncs.urlGet('gaslimit') != null ? globalFuncs.urlGet('gaslimit') : globalFuncs.urlGet('gas') : globalFuncs.defaultTxGasLimit,
-        from: globalFuncs.urlGet('from') == null ? "" : globalFuncs.urlGet('from'),
-        data: globalFuncs.urlGet('data') == null ? "" : globalFuncs.urlGet('data'),
-        to: globalFuncs.urlGet('to') == null ? "" : globalFuncs.urlGet('to'),
-        unit: "ether",
-        value: globalFuncs.urlGet('value') == null ? "" : globalFuncs.urlGet('value'),
+        from: globalFuncs.urlGet('from') == null ? '' : globalFuncs.urlGet('from'),
+        data: globalFuncs.urlGet('data') == null ? '' : globalFuncs.urlGet('data'),
+        to: globalFuncs.urlGet('to') == null ? '' : globalFuncs.urlGet('to'),
+        unit: 'ether',
+        value: globalFuncs.urlGet('value') == null ? '' : globalFuncs.urlGet('value'),
         nonce: null,
         gasPrice: globalFuncs.urlGet('gasprice') == null ? null : globalFuncs.urlGet('gasprice'),
         donate: false,
@@ -1634,7 +2377,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         if (globalFuncs.urlGet('tokensymbol') != null) {
             $scope.unitReadable = $scope.tx.tokensymbol;
             $scope.tx.sendMode = 'token';
-        } else if (sendMode == 'ether') {
+        } else if (sendMode === 'ether') {
             $scope.unitReadable = ajaxReq.type;
         } else {
             $scope.unitReadable = tokensymbol;
@@ -1644,20 +2387,20 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
     };
 
     $scope.setTokenSendMode = function () {
-        if ($scope.tx.sendMode == 'token' && !$scope.tx.tokensymbol) {
+        if ($scope.tx.sendMode === 'token' && !$scope.tx.tokensymbol) {
             $scope.tx.tokensymbol = $scope.wallet.tokenObjs[0].symbol;
-            $scope.wallet.tokenObjs[0].type = "custom";
+            $scope.wallet.tokenObjs[0].type = 'custom';
             $scope.setSendMode($scope.tx.sendMode, 0, $scope.tx.tokensymbol);
         } else if ($scope.tx.tokensymbol) {
             for (var i = 0; i < $scope.wallet.tokenObjs.length; i++) {
                 if ($scope.wallet.tokenObjs[i].symbol.toLowerCase().indexOf($scope.tx.tokensymbol.toLowerCase()) !== -1) {
-                    $scope.wallet.tokenObjs[i].type = "custom";
+                    $scope.wallet.tokenObjs[i].type = 'custom';
                     $scope.setSendMode('token', i, $scope.wallet.tokenObjs[i].symbol);
                     break;
                 } else $scope.tokenTx.id = -1;
             }
         }
-        if ($scope.tx.sendMode != 'token') $scope.tokenTx.id = -1;
+        if ($scope.tx.sendMode !== 'token') $scope.tokenTx.id = -1;
     };
 
     var applyScope = function applyScope() {
@@ -1666,12 +2409,12 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
 
     var defaultInit = function defaultInit() {
         globalFuncs.urlGet('sendMode') == null ? $scope.setSendMode('ether') : $scope.setSendMode(globalFuncs.urlGet('sendMode'));
-        $scope.gasLimitChanged = globalFuncs.urlGet('gaslimit') != null ? true : false;
+        $scope.gasLimitChanged = globalFuncs.urlGet('gaslimit') != null;
         $scope.showAdvance = globalFuncs.urlGet('gaslimit') != null || globalFuncs.urlGet('gas') != null || globalFuncs.urlGet('data') != null;
         if (globalFuncs.urlGet('data') || globalFuncs.urlGet('value') || globalFuncs.urlGet('to') || globalFuncs.urlGet('gaslimit') || globalFuncs.urlGet('sendMode') || globalFuncs.urlGet('gas') || globalFuncs.urlGet('tokensymbol')) $scope.hasQueryString = true; // if there is a query string, show an warning at top of page
     };
     $scope.$watch(function () {
-        if (walletService.wallet == null) return null;
+        if (walletService.wallet === null) return null;
         return walletService.wallet.getAddressString();
     }, function () {
         if (walletService.wallet == null) return;
@@ -1721,24 +2464,24 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
 
     $scope.$watch('tx', function (newValue, oldValue) {
         $rootScope.rootScopeShowRawTx = false;
-        if (oldValue.sendMode && oldValue.sendMode != newValue.sendMode && newValue.sendMode == 'ether') {
-            $scope.tx.data = globalFuncs.urlGet('data') == null ? "" : globalFuncs.urlGet('data');
+        if (oldValue.sendMode && oldValue.sendMode !== newValue.sendMode && newValue.sendMode === 'ether') {
+            $scope.tx.data = globalFuncs.urlGet('data') == null ? '' : globalFuncs.urlGet('data');
             $scope.tx.gasLimit = globalFuncs.defaultTxGasLimit;
         }
-        if (newValue.gasLimit == oldValue.gasLimit && $scope.wallet && $scope.Validator.isValidAddress($scope.tx.to) && $scope.Validator.isPositiveNumber($scope.tx.value) && $scope.Validator.isValidHex($scope.tx.data) && $scope.tx.sendMode != 'token') {
+        if (newValue.gasLimit === oldValue.gasLimit && $scope.wallet && $scope.Validator.isValidAddress($scope.tx.to) && $scope.Validator.isPositiveNumber($scope.tx.value) && $scope.Validator.isValidHex($scope.tx.data) && $scope.tx.sendMode !== 'token') {
             if ($scope.estimateTimer) clearTimeout($scope.estimateTimer);
             $scope.estimateTimer = setTimeout(function () {
                 $scope.estimateGasLimit();
             }, 500);
         }
-        if ($scope.tx.sendMode == 'token') {
+        if ($scope.tx.sendMode === 'token') {
             $scope.tokenTx.to = $scope.tx.to;
             $scope.tokenTx.value = $scope.tx.value;
         }
         if (newValue.to !== oldValue.to) {
             for (var i in $scope.customGas) {
-                if ($scope.tx.to.toLowerCase() == $scope.customGas[i].to.toLowerCase()) {
-                    $scope.customGasMsg = $scope.customGas[i].msg != '' ? $scope.customGas[i].msg : '';
+                if ($scope.tx.to.toLowerCase() === $scope.customGas[i].to.toLowerCase()) {
+                    $scope.customGasMsg = $scope.customGas[i].msg !== '' ? $scope.customGas[i].msg : '';
                     return;
                 }
             }
@@ -1750,11 +2493,11 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         $scope.customGasMsg = '';
         if ($scope.gasLimitChanged) return;
         for (var i in $scope.customGas) {
-            if ($scope.tx.to.toLowerCase() == $scope.customGas[i].to.toLowerCase()) {
-                $scope.showAdvance = $scope.tx.data != '' || $scope.customGas[i].data != '' ? true : false;
+            if ($scope.tx.to.toLowerCase() === $scope.customGas[i].to.toLowerCase()) {
+                $scope.showAdvance = !!($scope.tx.data !== '' || $scope.customGas[i].data !== '');
                 $scope.tx.gasLimit = $scope.customGas[i].gasLimit;
-                if ($scope.customGas[i].data != '') $scope.tx.data = $scope.customGas[i].data;
-                $scope.customGasMsg = $scope.customGas[i].msg != '' ? $scope.customGas[i].msg : '';
+                if ($scope.customGas[i].data !== '') $scope.tx.data = $scope.customGas[i].data;
+                $scope.customGasMsg = $scope.customGas[i].msg !== '' ? $scope.customGas[i].msg : '';
                 return;
             }
         }
@@ -1767,8 +2510,8 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
             from: $scope.wallet.getAddressString(),
             value: ethFuncs.sanitizeHex(ethFuncs.decimalToHex(etherUnits.toWei($scope.tx.value, $scope.tx.unit)))
         };
-        if ($scope.tx.data != "") estObj.data = ethFuncs.sanitizeHex($scope.tx.data);
-        if ($scope.tx.sendMode == 'token') {
+        if ($scope.tx.data !== '') estObj.data = ethFuncs.sanitizeHex($scope.tx.data);
+        if ($scope.tx.sendMode === 'token') {
             estObj.to = $scope.wallet.tokenObjs[$scope.tokenTx.id].getContractAddress();
             estObj.data = $scope.wallet.tokenObjs[$scope.tokenTx.id].getData($scope.tokenTx.to, $scope.tokenTx.value).data;
             estObj.value = '0x00';
@@ -1776,7 +2519,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         ethFuncs.estimateGas(estObj, function (data) {
 
             if (!data.error) {
-                if (data.data == '-1') $scope.notifier.danger(globalFuncs.errorMsgs[21]);
+                if (data.data === '-1') $scope.notifier.danger(globalFuncs.errorMsgs[21]);
                 $scope.tx.gasLimit = data.data;
             } else $scope.notifier.danger(data.msg);
         });
@@ -1787,7 +2530,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
     };
 
     $scope.hasEnoughBalance = function () {
-        if ($scope.wallet.balance == 'loading') return false;
+        if ($scope.wallet.balance === 'loading') return false;
         return isEnough($scope.tx.value, $scope.wallet.balance);
     };
 
@@ -1806,7 +2549,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         // if false, replace gas price and nonce. gas price from slider. nonce from server.
         if (txData.gasPrice && txData.nonce) txData.isOffline = true;
 
-        if ($scope.tx.sendMode == 'token') {
+        if ($scope.tx.sendMode === 'token') {
             // if the amount of tokens you are trying to send > tokens you have, throw error
             if (!isEnough($scope.tx.value, $scope.wallet.tokenObjs[$scope.tokenTx.id].balance)) {
                 $scope.notifier.danger(globalFuncs.errorMsgs[0]);
@@ -1833,16 +2576,16 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         $scope.sendTxModal.close();
         uiFuncs.sendTx($scope.signedTx, function (resp) {
             if (!resp.isError) {
-                var checkTxLink = "https://mywanwallet.nl?txHash=" + resp.data + "#check-tx-status";
-                var txHashLink = $scope.ajaxReq.blockExplorerTX.replace("[[txHash]]", resp.data);
-                var emailBody = 'I%20was%20trying%20to..............%0A%0A%0A%0ABut%20I%27m%20confused%20because...............%0A%0A%0A%0A%0A%0ATo%20Address%3A%20https%3A%2F%2Fwanscan.io%2Faddr%2F' + $scope.tx.to + '%0AFrom%20Address%3A%20https%3A%2F%2Fwanscan.io%2Faddr%2F' + $scope.wallet.getAddressString() + '%0ATX%20Hash%3A%20https%3A%2F%2Fwanscan.io%2Ftx%2F' + resp.data + '%0AAmount%3A%20' + $scope.tx.value + '%20' + $scope.unitReadable + '%0ANode%3A%20' + $scope.ajaxReq.type + '%0AToken%20To%20Addr%3A%20' + $scope.tokenTx.to + '%0AToken%20Amount%3A%20' + $scope.tokenTx.value + '%20' + $scope.unitReadable + '%0AData%3A%20' + $scope.tx.data + '%0AGas%20Limit%3A%20' + $scope.tx.gasLimit + '%0AGas%20Price%3A%20' + $scope.tx.gasPrice;
-                var verifyTxBtn = $scope.ajaxReq.type != nodes.nodeTypes.Custom ? '<a class="btn btn-xs btn-info" href="' + txHashLink + '" class="strong" target="_blank" rel="noopener noreferrer">Verify Transaction</a>' : '';
+                var checkTxLink = 'https://mywanwallet.nl?txHash=' + resp.data + '#check-tx-status';
+                var txHashLink = $scope.ajaxReq.blockExplorerTX.replace('[[txHash]]', resp.data);
+                // var emailBody = 'I%20was%20trying%20to..............%0A%0A%0A%0ABut%20I%27m%20confused%20because...............%0A%0A%0A%0A%0A%0ATo%20Address%3A%20https%3A%2F%2Fwanscan.io%2Faddr%2F' + $scope.tx.to + '%0AFrom%20Address%3A%20https%3A%2F%2Fwanscan.io%2Faddr%2F' + $scope.wallet.getAddressString() + '%0ATX%20Hash%3A%20https%3A%2F%2Fwanscan.io%2Ftx%2F' + resp.data + '%0AAmount%3A%20' + $scope.tx.value + '%20' + $scope.unitReadable + '%0ANode%3A%20' + $scope.ajaxReq.type + '%0AToken%20To%20Addr%3A%20' + $scope.tokenTx.to + '%0AToken%20Amount%3A%20' + $scope.tokenTx.value + '%20' + $scope.unitReadable + '%0AData%3A%20' + $scope.tx.data + '%0AGas%20Limit%3A%20' + $scope.tx.gasLimit + '%0AGas%20Price%3A%20' + $scope.tx.gasPrice
+                var verifyTxBtn = $scope.ajaxReq.type !== nodes.nodeTypes.Custom ? '<a class="btn btn-xs btn-info" href="' + txHashLink + '" class="strong" target="_blank" rel="noopener noreferrer">Verify Transaction</a>' : '';
                 var checkTxBtn = '<a class="btn btn-xs btn-info" href="' + checkTxLink + '" target="_blank" rel="noopener noreferrer"> Check TX Status </a>';
-                var emailBtn = '<a class="btn btn-xs btn-info " href="mailto:support@mywanwallet.nl?Subject=Issue%20regarding%20my%20TX%20&Body=' + emailBody + '" target="_blank" rel="noopener noreferrer">Confused? Email Us.</a>';
+                // var emailBtn = '<a class="btn btn-xs btn-info " href="mailto:support@mywanwallet.nl?Subject=Issue%20regarding%20my%20TX%20&Body=' + emailBody + '" target="_blank" rel="noopener noreferrer">Confused? Email Us.</a>'
                 var completeMsg = '<p>' + globalFuncs.successMsgs[2] + '<strong>' + resp.data + '</strong></p><p>' + verifyTxBtn + ' ' + checkTxBtn + '</p>';
                 $scope.notifier.success(completeMsg, 0);
                 $scope.wallet.setBalance(applyScope);
-                if ($scope.tx.sendMode == 'token') $scope.wallet.tokenObjs[$scope.tokenTx.id].setBalance();
+                if ($scope.tx.sendMode === 'token') $scope.wallet.tokenObjs[$scope.tokenTx.id].setBalance();
             } else {
                 $scope.notifier.danger(resp.error);
             }
@@ -1850,7 +2593,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
     };
 
     $scope.transferAllBalance = function () {
-        if ($scope.tx.sendMode != 'token') {
+        if ($scope.tx.sendMode !== 'token') {
             uiFuncs.transferAllBalance($scope.wallet.getAddressString(), $scope.tx.gasLimit, function (resp) {
                 if (!resp.isError) {
                     $scope.tx.unit = resp.unit;
@@ -1866,7 +2609,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
     };
 
     $scope.parseSignedTx = function (signedTx) {
-        if (signedTx.slice(0, 2) == "0x") signedTx = signedTx.slice(2, signedTx.length);
+        if (signedTx.slice(0, 2) === '0x') signedTx = signedTx.slice(2, signedTx.length);
         $scope.parsedSignedTx = {};
         var txData = new wanUtil.wanchainTx(signedTx);
         $scope.parsedSignedTx.gasPrice = {};
@@ -1875,7 +2618,7 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         $scope.parsedSignedTx.txtype = txData.Txtype.toString('hex');
         $scope.parsedSignedTx.from = ethFuncs.sanitizeHex(wanUtil.toChecksumAddress(txData.from.toString('hex')));
         $scope.parsedSignedTx.to = ethFuncs.sanitizeHex(wanUtil.toChecksumAddress(txData.to.toString('hex')));
-        $scope.parsedSignedTx.value = txData.value == '0x' || txData.value == '' || txData.value == null ? '0' : etherUnits.toEther(new BigNumber(ethFuncs.sanitizeHex(txData.value.toString('hex'))).toString(), 'wei');
+        $scope.parsedSignedTx.value = txData.value === '0x' || txData.value === '' || txData.value == null ? '0' : etherUnits.toEther(new BigNumber(ethFuncs.sanitizeHex(txData.value.toString('hex'))).toString(), 'wei');
         $scope.parsedSignedTx.gasLimit = new BigNumber(ethFuncs.sanitizeHex(txData.gasLimit.toString('hex'))).toString();
         $scope.parsedSignedTx.gasPrice.wei = new BigNumber(ethFuncs.sanitizeHex(txData.gasPrice.toString('hex'))).toString();
         $scope.parsedSignedTx.gasPrice.gwei = new BigNumber(ethFuncs.sanitizeHex(txData.gasPrice.toString('hex'))).div(etherUnits.getValueOfUnit('gwei')).toString();
@@ -1883,19 +2626,19 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         $scope.parsedSignedTx.txFee.wei = new BigNumber(parseInt($scope.parsedSignedTx.gasLimit)).times(new BigNumber(parseInt($scope.parsedSignedTx.gasPrice.wei)));
         $scope.parsedSignedTx.txFee.gwei = new BigNumber($scope.parsedSignedTx.txFee.wei).div(etherUnits.getValueOfUnit('gwei')).toString();
         $scope.parsedSignedTx.txFee.eth = etherUnits.toEther(parseInt($scope.parsedSignedTx.txFee.wei), 'wei').toString();
-        $scope.parsedSignedTx.nonce = txData.nonce == '0x' || txData.nonce == '' || txData.nonce == null ? '0' : new BigNumber(ethFuncs.sanitizeHex(txData.nonce.toString('hex'))).toString();
-        $scope.parsedSignedTx.data = txData.data == '0x' || txData.data == '' || txData.data == null ? '(none)' : ethFuncs.sanitizeHex(txData.data.toString('hex'));
+        $scope.parsedSignedTx.nonce = txData.nonce === '0x' || txData.nonce === '' || txData.nonce == null ? '0' : new BigNumber(ethFuncs.sanitizeHex(txData.nonce.toString('hex'))).toString();
+        $scope.parsedSignedTx.data = txData.data === '0x' || txData.data === '' || txData.data == null ? '(none)' : ethFuncs.sanitizeHex(txData.data.toString('hex'));
     };
 };
 module.exports = sendTxCtrl;
 
-},{"wanchain-util":327}],16:[function(require,module,exports){
+},{"wanchain-util":340}],18:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
 var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
     walletService.wallet = null;
-    $scope.visibility = "signView";
+    $scope.visibility = 'signView';
     $scope.$watch(function () {
         if (walletService.wallet == null) return null;
         return walletService.wallet.getAddressString();
@@ -1914,18 +2657,20 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
     };
 
     $scope.generateSignedMsg = function () {
+        var msg, localCallback, app, signingAddr;
+
         try {
             var thisMessage = $scope.signMsg.message;
             var hwType = $scope.wallet.getHWType();
 
             // Sign via MetaMask
-            if (typeof hwType != "undefined" && hwType == "web3") {
+            if (typeof hwType !== 'undefined' && hwType === 'web3') {
 
-                var msg = ethUtil.bufferToHex(new Buffer(thisMessage, 'utf8'));
-                var signingAddr = web3.eth.accounts[0];
+                msg = ethUtil.bufferToHex(new Buffer(thisMessage, 'utf8'));
+                signingAddr = web3.eth.accounts[0];
                 var params = [msg, signingAddr];
                 var method = 'personal_sign';
-                $scope.notifier.info("Sent message for signing via MetaMask / Mist.");
+                $scope.notifier.info('Sent message for signing via MetaMask / Mist.');
 
                 web3.currentProvider.sendAsync({
                     method: method,
@@ -1944,16 +2689,18 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
                 });
 
                 // Sign via Ledger
-            } else if (typeof hwType != "undefined" && hwType == "ledger") {
-                var msg = Buffer.from(thisMessage).toString("hex");
-                var app = new ledgerEth($scope.wallet.getHWTransport());
-                var localCallback = function localCallback(signed, error) {
-                    if (typeof error != "undefined") {
+            } else if (typeof hwType !== 'undefined' && hwType === 'ledger') {
+                msg = Buffer.from(thisMessage).toString('hex');
+                app = new ledgerEth($scope.wallet.getHWTransport());
+                localCallback = function localCallback(signed, error) {
+                    if (typeof error !== 'undefined') {
                         error = error.errorCode ? u2f.getErrorByCode(error.errorCode) : error;
-                        if (callback !== undefined) callback({
-                            isError: true,
-                            error: error
-                        });
+                        if (callback !== undefined) {
+                            callback({
+                                isError: true,
+                                error: error
+                            });
+                        }
                         return;
                     }
                     var combined = signed['r'] + signed['s'] + signed['v'];
@@ -1970,17 +2717,17 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
                 app.signPersonalMessage_async($scope.wallet.getPath(), msg, localCallback);
 
                 // Sign via Digital Bitbox
-            } else if (typeof hwType != "undefined" && hwType == "digitalBitbox") {
-                var msg = ethUtil.hashPersonalMessage(ethUtil.toBuffer(thisMessage));
-                var localCallback = function localCallback(signed, error) {
-                    if (typeof error != "undefined") {
+            } else if (typeof hwType !== 'undefined' && hwType === 'digitalBitbox') {
+                msg = ethUtil.hashPersonalMessage(ethUtil.toBuffer(thisMessage));
+                localCallback = function localCallback(signed, error) {
+                    if (typeof error !== 'undefined') {
                         error = error.errorCode ? u2f.getErrorByCode(error.errorCode) : error;
                         $scope.notifier.danger(error);
                         return;
                     }
                     var combined = signed['r'] + signed['s'] + signed['v'];
                     var combinedHex = combined.toString('hex');
-                    var signingAddr = $scope.wallet.getAddressString();
+                    signingAddr = $scope.wallet.getAddressString();
                     $scope.signMsg.signedMsg = JSON.stringify({
                         address: $scope.wallet.getAddressString(),
                         msg: thisMessage,
@@ -1989,12 +2736,12 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
                     }, null, 2);
                     $scope.notifier.success('Successfully Signed Message with ' + signingAddr);
                 };
-                $scope.notifier.info("Touch the LED for 3 seconds to sign the message. Or tap the LED to cancel.");
-                var app = new DigitalBitboxEth($scope.wallet.getHWTransport(), '');
+                $scope.notifier.info('Touch the LED for 3 seconds to sign the message. Or tap the LED to cancel.');
+                app = new DigitalBitboxEth($scope.wallet.getHWTransport(), '');
                 app.signMessage($scope.wallet.getPath(), msg, localCallback);
 
                 // Sign via trezor
-            } else if (typeof hwType != "undefined" && hwType == "trezor") {
+            } else if (typeof hwType !== 'undefined' && hwType === 'trezor') {
                 TrezorConnect.ethereumSignMessage($scope.wallet.getPath(), thisMessage, function (response) {
                     if (response.success) {
                         $scope.signMsg.signedMsg = JSON.stringify({
@@ -2011,14 +2758,14 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
 
                 // Sign via PK
             } else {
-                var msg = ethUtil.hashPersonalMessage(ethUtil.toBuffer(thisMessage));
+                msg = ethUtil.hashPersonalMessage(ethUtil.toBuffer(thisMessage));
                 var signed = ethUtil.ecsign(msg, $scope.wallet.getPrivateKey());
-                //console.log(signed.r)
-                //console.log(signed.s)
-                //console.log([signed.v])
+                // console.log(signed.r)
+                // console.log(signed.s)
+                // console.log([signed.v])
                 var combined = Buffer.concat([Buffer.from(signed.r), Buffer.from(signed.s), Buffer.from([signed.v])]);
                 var combinedHex = combined.toString('hex');
-                var signingAddr = $scope.wallet.getAddressString();
+                signingAddr = $scope.wallet.getAddressString();
                 $scope.signMsg.signedMsg = JSON.stringify({
                     address: $scope.wallet.getAddressString(),
                     msg: thisMessage,
@@ -2033,12 +2780,13 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
     };
 
     $scope.verifySignedMessage = function () {
+        var json, sig;
         var hwType = $scope.wallet.getHWType();
         // Verify via trezor
-        if (typeof hwType != "undefined" && hwType == "trezor") {
-            var json = JSON.parse($scope.verifyMsg.signedMsg);
+        if (typeof hwType !== 'undefined' && hwType === 'trezor') {
+            json = JSON.parse($scope.verifyMsg.signedMsg);
             var address = ethFuncs.getNakedAddress(json.address);
-            var sig = ethFuncs.getNakedAddress(json.sig);
+            sig = ethFuncs.getNakedAddress(json.sig);
             var message = json.msg;
             TrezorConnect.ethereumVerifyMessage(address, sig, message, function (response) {
                 if (response.success) {
@@ -2058,13 +2806,13 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
 
         try {
 
-            var json = JSON.parse($scope.verifyMsg.signedMsg);
-            var sig = new Buffer(ethFuncs.getNakedAddress(json.sig), 'hex');
-            if (sig.length != 65) throw globalFuncs.errorMsgs[12];
-            sig[64] = sig[64] == 0 || sig[64] == 1 ? sig[64] + 27 : sig[64];
-            var hash = json.version == '2' ? ethUtil.hashPersonalMessage(ethUtil.toBuffer(json.msg)) : ethUtil.sha3(json.msg);
+            json = JSON.parse($scope.verifyMsg.signedMsg);
+            sig = new Buffer(ethFuncs.getNakedAddress(json.sig), 'hex');
+            if (sig.length !== 65) throw globalFuncs.errorMsgs[12];
+            sig[64] = sig[64] === 0 || sig[64] === 1 ? sig[64] + 27 : sig[64];
+            var hash = json.version === '2' ? ethUtil.hashPersonalMessage(ethUtil.toBuffer(json.msg)) : ethUtil.sha3(json.msg);
             var pubKey = ethUtil.ecrecover(hash, sig[64], sig.slice(0, 32), sig.slice(32, 64));
-            if (ethFuncs.getNakedAddress(json.address) != ethUtil.pubToAddress(pubKey).toString('hex')) throw globalFuncs.errorMsgs[12];else {
+            if (ethFuncs.getNakedAddress(json.address) !== ethUtil.pubToAddress(pubKey).toString('hex')) throw globalFuncs.errorMsgs[12];else {
                 $scope.notifier.success(globalFuncs.successMsgs[6]);
                 $scope.verifiedMsg = {
                     address: json.address,
@@ -2085,7 +2833,7 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
 module.exports = signMsgCtrl;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141}],17:[function(require,module,exports){
+},{"buffer":151}],19:[function(require,module,exports){
 'use strict';
 
 var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
@@ -2125,11 +2873,11 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     };
     $scope.setArrowVisibility();
 
-    var gasPriceKey = "gasPrice";
+    var gasPriceKey = 'gasPrice';
     $scope.gasChanged = function () {
         globalFuncs.localStorage.setItem(gasPriceKey, $scope.gas.value);
         ethFuncs.gasAdjustment = $scope.gas.value;
-        $scope.gasPriceMsg = ethFuncs.gasAdjustment < 41 ? true : false;
+        $scope.gasPriceMsg = ethFuncs.gasAdjustment < 41;
     };
     var setGasValues = function setGasValues() {
         $scope.gas = {
@@ -2138,12 +2886,11 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
             max: 300,
             min: 182,
             step: 1
-        };
 
-        var curNode = globalFuncs.localStorage.getItem('curNode', null);
+            // var curNode = globalFuncs.localStorage.getItem('curNode', null)
 
-        ethFuncs.gasAdjustment = $scope.gas.value;
-        $scope.gasPriceMsg = ethFuncs.gasAdjustment < 41 ? true : false;
+        };ethFuncs.gasAdjustment = $scope.gas.value;
+        $scope.gasPriceMsg = ethFuncs.gasAdjustment < 41;
     };
     setGasValues();
     $scope.gasChanged();
@@ -2178,9 +2925,12 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
         ajaxReq['key'] = key;
         for (var attrname in $scope.curNode.lib) {
             ajaxReq[attrname] = $scope.curNode.lib[attrname];
-        }for (var attrname in $scope.curNode) {
-            if (attrname != 'name' && attrname != 'tokenList' && attrname != 'lib') ajaxReq[attrname] = $scope.curNode[attrname];
-        }globalFuncs.localStorage.setItem('curNode', JSON.stringify({
+        }for (attrname in $scope.curNode) {
+            if (attrname !== 'name' && attrname !== 'tokenList' && attrname !== 'lib') {
+                ajaxReq[attrname] = $scope.curNode[attrname];
+            }
+        }
+        globalFuncs.localStorage.setItem('curNode', JSON.stringify({
             key: key
         }));
         ajaxReq.getCurrentBlock(function (data) {
@@ -2205,13 +2955,13 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     };
     $scope.setCurNodeFromStorage = function () {
         var node = globalFuncs.localStorage.getItem('curNode', null);
-        if (node === JSON.stringify({ "key": "eth_metamask" })) {
-            node = JSON.stringify({ "key": "eth_infura" });
+        if (node === JSON.stringify({ 'key': 'eth_metamask' })) {
+            node = JSON.stringify({ 'key': 'eth_infura' });
         }
 
         var requestedNetwork = globalFuncs.urlGet('network');
         if (requestedNetwork && nodes.nodeList.hasOwnProperty(requestedNetwork)) {
-            node = JSON.stringify({ "key": requestedNetwork });
+            node = JSON.stringify({ 'key': requestedNetwork });
         }
 
         if (node == null) {
@@ -2224,7 +2974,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     };
     $scope.addCustomNodeToList = function (nodeInfo) {
         var tempObj = null;
-        if (nodeInfo.options == 'wan') tempObj = JSON.parse(JSON.stringify(nodes.nodeList.wan_mew));else if (nodeInfo.options == 'cus') {
+        if (nodeInfo.options === 'wan') tempObj = JSON.parse(JSON.stringify(nodes.nodeList.wan_mew));else if (nodeInfo.options === 'cus') {
             tempObj = JSON.parse(JSON.stringify(nodes.customNodeObj));
             tempObj.eip155 = nodeInfo.eip155;
             tempObj.chainId = parseInt(nodeInfo.chainId);
@@ -2239,7 +2989,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     };
     $scope.getCustomNodesFromStorage = function () {
         for (var key in $scope.nodeList) {
-            if (key.indexOf("cus_") != -1) delete $scope.nodeList[key];
+            if (key.indexOf('cus_') !== -1) delete $scope.nodeList[key];
         }
         var localNodes = globalFuncs.localStorage.getItem('localNodes', null);
         if (localNodes) {
@@ -2254,7 +3004,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
 
     $scope.saveCustomNode = function () {
         try {
-            if (!$scope.Validator.isAlphaNumericSpace($scope.customNode.name)) throw globalFuncs.errorMsgs[22];else if (!$scope.checkNodeUrl($scope.customNode.url)) throw globalFuncs.errorMsgs[23];else if (!$scope.Validator.isPositiveNumber($scope.customNode.port) && $scope.customNode.port != '') throw globalFuncs.errorMsgs[24];else if ($scope.customNode.eip155 && !$scope.Validator.isPositiveNumber($scope.customNode.chainId)) throw globalFuncs.errorMsgs[25];else if ($scope.customNode.httpBasicAuth && ($scope.customNode.httpBasicAuth.user == '' || $scope.customNode.httpBasicAuth.password == '')) throw globalFuncs.errorMsgs[29];
+            if (!$scope.Validator.isAlphaNumericSpace($scope.customNode.name)) throw globalFuncs.errorMsgs[22];else if (!$scope.checkNodeUrl($scope.customNode.url)) throw globalFuncs.errorMsgs[23];else if (!$scope.Validator.isPositiveNumber($scope.customNode.port) && $scope.customNode.port !== '') throw globalFuncs.errorMsgs[24];else if ($scope.customNode.eip155 && !$scope.Validator.isPositiveNumber($scope.customNode.chainId)) throw globalFuncs.errorMsgs[25];else if ($scope.customNode.httpBasicAuth && ($scope.customNode.httpBasicAuth.user === '' || $scope.customNode.httpBasicAuth.password === '')) throw globalFuncs.errorMsgs[29];
         } catch (e) {
             $scope.notifier.danger(e);
             return;
@@ -2265,7 +3015,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
         localNodes.push(customNode);
         $scope.addCustomNodeToList(customNode);
         $scope.changeNode('cus_' + customNode.options + '_' + ($scope.customNodeCount - 1));
-        globalFuncs.localStorage.setItem("localNodes", JSON.stringify(localNodes));
+        globalFuncs.localStorage.setItem('localNodes', JSON.stringify(localNodes));
         $scope.customNodeModal.close();
         $scope.customNode = { options: 'eth', name: '', url: '', port: '', httpBasicAuth: null, eip155: false, chainId: '' };
     };
@@ -2274,7 +3024,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
         var localNodes = globalFuncs.localStorage.getItem('localNodes', null);
         localNodes = !localNodes ? [] : JSON.parse(localNodes);
         for (var i = 0; i < localNodes.length; i++) {
-            if (localNodes[i].name + ':' + localNodes[i].options == localNodeName) localNodes.splice(i, 1);
+            if (localNodes[i].name + ':' + localNodes[i].options === localNodeName) localNodes.splice(i, 1);
         }
         globalFuncs.localStorage.setItem('localNodes', JSON.stringify(localNodes));
         $scope.getCustomNodesFromStorage();
@@ -2282,10 +3032,10 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     };
 
     $scope.setTab = function (hval) {
-        if (hval != '') {
+        if (hval !== '') {
             hval = hval.replace('#', '');
             for (var key in $scope.tabNames) {
-                if ($scope.tabNames[key].url == hval) {
+                if ($scope.tabNames[key].url === hval) {
                     $scope.activeTab = globalService.currentTab = $scope.tabNames[key].id;
                     break;
                 }
@@ -2301,7 +3051,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
         globalService.tokensLoaded = false;
         $scope.activeTab = globalService.currentTab = id;
         for (var key in $scope.tabNames) {
-            if ($scope.tabNames[key].id == id) location.hash = $scope.tabNames[key].url;
+            if ($scope.tabNames[key].id === id) location.hash = $scope.tabNames[key].url;
         }
     };
 
@@ -2316,7 +3066,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     $scope.setErrorMsgLanguage = function () {
         for (var i = 0; i < globalFuncs.errorMsgs.length; i++) {
             $scope.setLanguageVal('ERROR_' + i, 'errorMsgs', i);
-        }for (var i = 0; i < globalFuncs.successMsgs.length; i++) {
+        }for (i = 0; i < globalFuncs.successMsgs.length; i++) {
             $scope.setLanguageVal('SUCCESS_' + (i + 1), 'successMsgs', i);
         }
     };
@@ -2344,7 +3094,11 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     $scope.changeLanguage = function (key, value) {
         $translate.use(key);
         $scope.setErrorMsgLanguage();
-        if (globalFuncs.getEthNodeName() == 'geth') $scope.setGethErrMsgLanguage();else $scope.setParityErrMsgLanguage();
+        if (globalFuncs.getEthNodeName() === 'geth') {
+            $scope.setGethErrMsgLanguage();
+        } else {
+            $scope.setParityErrMsgLanguage();
+        }
         $scope.curLang = value;
         $scope.setArrowVisibility();
         $scope.dropdown = false;
@@ -2356,7 +3110,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     };
     $scope.setLanguageFromStorage = function () {
         var lang = globalFuncs.localStorage.getItem('language', null);
-        if (lang == null) lang = "{\"key\":\"en\",\"value\":\"English\"}";
+        if (lang == null) lang = '{"key":"en","value":"English"}';
         lang = JSON.parse(lang);
         var key = globalFuncs.stripTags(lang.key);
         var value = globalFuncs.stripTags(lang.value);
@@ -2403,7 +3157,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
 };
 module.exports = tabsCtrl;
 
-},{}],18:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 var wanUtil = require('wanchain-util');
@@ -2419,7 +3173,7 @@ var txStatusCtrl = function txStatusCtrl($scope) {
     var MIN_GAS = 182;
     $scope.txInfo = {
         status: null, // notFound foundInPending foundOnChain
-        hash: globalFuncs.urlGet('txHash') == null ? "" : globalFuncs.urlGet('txHash'),
+        hash: globalFuncs.urlGet('txHash') == null ? '' : globalFuncs.urlGet('txHash'),
         from: '',
         to: '',
         value: '',
@@ -2451,17 +3205,17 @@ var txStatusCtrl = function txStatusCtrl($scope) {
                 from: wanUtil.toChecksumAddress(tx.from),
                 to: tx.to ? wanUtil.toChecksumAddress(tx.to) : '',
                 value: new BigNumber(tx.value).toString(),
-                valueStr: etherUnits.toEther(tx.value, 'wei') + " WAN",
+                valueStr: etherUnits.toEther(tx.value, 'wei') + ' WAN',
                 gasLimit: new BigNumber(tx.gas).toString(),
                 gasPrice: {
                     wei: new BigNumber(tx.gasPrice).toString(),
                     gwei: new BigNumber(tx.gasPrice).div(etherUnits.getValueOfUnit('gwei')).toString(),
                     eth: etherUnits.toEther(tx.gasPrice, 'wei')
                 },
-                data: tx.input == '0x' ? '' : tx.input,
+                data: tx.input === '0x' ? '' : tx.input,
                 nonce: new BigNumber(tx.nonce).toString()
             };
-            if ($scope.txInfo.status == txStatus.found) {
+            if ($scope.txInfo.status === txStatus.found) {
                 var _gasPrice = new BigNumber($scope.txInfo.gasPrice.wei).mul(1.1).floor();
                 if (_gasPrice.lt(etherUnits.getValueOfUnit('gwei') * MIN_GAS)) _gasPrice = new BigNumber(etherUnits.getValueOfUnit('gwei') * MIN_GAS);
                 $scope.parentTxConfig = {
@@ -2500,7 +3254,7 @@ var txStatusCtrl = function txStatusCtrl($scope) {
 };
 module.exports = txStatusCtrl;
 
-},{"wanchain-util":327}],19:[function(require,module,exports){
+},{"wanchain-util":340}],21:[function(require,module,exports){
 'use strict';
 
 var viewCtrl = function viewCtrl($scope, globalService, $sce) {
@@ -2511,16 +3265,16 @@ var viewCtrl = function viewCtrl($scope, globalService, $sce) {
 };
 module.exports = viewCtrl;
 
-},{}],20:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 var viewWalletCtrl = function viewWalletCtrl($scope, walletService) {
-    $scope.usdBalance = "loading";
-    $scope.gbpBalance = "loading";
-    $scope.eurBalance = "loading";
-    $scope.btcBalance = "loading";
-    $scope.etherBalance = "loading";
-    $scope.tokenVisibility = "hidden";
+    $scope.usdBalance = 'loading';
+    $scope.gbpBalance = 'loading';
+    $scope.eurBalance = 'loading';
+    $scope.btcBalance = 'loading';
+    $scope.etherBalance = 'loading';
+    $scope.tokenVisibility = 'hidden';
     $scope.pkeyVisible = false;
 
     walletService.wallet = null;
@@ -2533,10 +3287,10 @@ var viewWalletCtrl = function viewWalletCtrl($scope, walletService) {
         if (walletService.wallet == null) return;
         $scope.wallet = walletService.wallet;
         $scope.wd = true;
-        $scope.showEnc = walletService.password != '';
-        if (walletService.wallet.type == "default") $scope.blob = globalFuncs.getBlob("text/json;charset=UTF-8", $scope.wallet.toJSON());
-        if (walletService.password != '') {
-            $scope.blobEnc = globalFuncs.getBlob("text/json;charset=UTF-8", $scope.wallet.toV3(walletService.password, {
+        $scope.showEnc = walletService.password !== '';
+        if (walletService.wallet.type === 'default') $scope.blob = globalFuncs.getBlob('text/json;charset=UTF-8', $scope.wallet.toJSON());
+        if (walletService.password !== '') {
+            $scope.blobEnc = globalFuncs.getBlob('text/json;charset=UTF-8', $scope.wallet.toV3(walletService.password, {
                 kdf: globalFuncs.kdf,
                 n: globalFuncs.scrypt.n
             }));
@@ -2566,12 +3320,12 @@ var viewWalletCtrl = function viewWalletCtrl($scope, walletService) {
         $scope.wallet = null;
         walletService.wallet = null;
         walletService.password = '';
-        $scope.blob = $scope.blobEnc = $scope.password = "";
+        $scope.blob = $scope.blobEnc = $scope.password = '';
     };
 };
 module.exports = viewWalletCtrl;
 
-},{}],21:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 var walletBalanceCtrl = function walletBalanceCtrl($scope, $sce, $rootScope) {
@@ -2579,10 +3333,10 @@ var walletBalanceCtrl = function walletBalanceCtrl($scope, $sce, $rootScope) {
     $scope.tokensLoaded = false;
     $scope.showAllTokens = false;
     $scope.localToken = {
-        contractAdd: "",
-        symbol: "",
-        decimals: "",
-        type: "custom"
+        contractAdd: '',
+        symbol: '',
+        decimals: '',
+        type: 'custom'
     };
 
     $scope.slide = 1;
@@ -2592,12 +3346,12 @@ var walletBalanceCtrl = function walletBalanceCtrl($scope, $sce, $rootScope) {
     $scope.saveTokenToLocal = function () {
         globalFuncs.saveTokenToLocal($scope.localToken, function (data) {
             if (!data.error) {
-                $scope.addressDrtv.ensAddressField = "";
+                $scope.addressDrtv.ensAddressField = '';
                 $scope.localToken = {
-                    contractAdd: "",
-                    symbol: "",
-                    decimals: "",
-                    type: "custom"
+                    contractAdd: '',
+                    symbol: '',
+                    decimals: '',
+                    type: 'custom'
                 };
                 $scope.wallet.setTokens();
                 $scope.validateLocalToken = $sce.trustAsHtml('');
@@ -2609,7 +3363,7 @@ var walletBalanceCtrl = function walletBalanceCtrl($scope, $sce, $rootScope) {
     };
 
     $scope.setAndVerifyBalance = function (token) {
-        if (token.balance == 'Click to Load') {
+        if (token.balance === 'Click to Load') {
             token.balance = 'loading';
 
             token.setBalance(function () {
@@ -2671,14 +3425,14 @@ var walletBalanceCtrl = function walletBalanceCtrl($scope, $sce, $rootScope) {
 
 module.exports = walletBalanceCtrl;
 
-},{}],22:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 var walletGenCtrl = function walletGenCtrl($scope) {
-    $scope.password = "";
+    $scope.password = '';
     $scope.wallet = null;
     $scope.showWallet = false;
-    $scope.blob = $scope.blobEnc = "";
+    $scope.blob = $scope.blobEnc = '';
     $scope.isDone = true;
     $scope.showPass = true;
     $scope.fileDownloaded = false;
@@ -2693,13 +3447,15 @@ var walletGenCtrl = function walletGenCtrl($scope) {
             $scope.isDone = false;
             $scope.wallet = Wallet.generate(false);
             $scope.showWallet = true;
-            $scope.blob = globalFuncs.getBlob("text/json;charset=UTF-8", $scope.wallet.toJSON());
-            $scope.blobEnc = globalFuncs.getBlob("text/json;charset=UTF-8", $scope.wallet.toV3($scope.password, {
+            $scope.blob = globalFuncs.getBlob('text/json;charset=UTF-8', $scope.wallet.toJSON());
+            $scope.blobEnc = globalFuncs.getBlob('text/json;charset=UTF-8', $scope.wallet.toV3($scope.password, {
                 kdf: globalFuncs.kdf,
                 n: globalFuncs.scrypt.n
             }));
             $scope.encFileName = $scope.wallet.getV3Filename();
-            if (parent != null) parent.postMessage(JSON.stringify({ address: $scope.wallet.getAddressString(), checksumAddress: $scope.wallet.getChecksumAddressString() }), "*");
+            if (parent != null) {
+                parent.postMessage(JSON.stringify({ address: $scope.wallet.getAddressString(), checksumAddress: $scope.wallet.getChecksumAddressString() }), '*');
+            }
             $scope.isDone = true;
             if (!$scope.$$phase) $scope.$apply();
         }
@@ -2727,7 +3483,7 @@ var walletGenCtrl = function walletGenCtrl($scope) {
 };
 module.exports = walletGenCtrl;
 
-},{}],23:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
 // For token sale holders:
@@ -2992,95 +3748,95 @@ module.exports = [{
   msg: 'COPYTRACK (CPY) Token Sale. Official sale website: https://copytrack.io'
 }];
 
-},{}],24:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 
 var cxFuncs = function cxFuncs() {};
 cxFuncs.storage = chrome.storage.sync;
 cxFuncs.getAllNickNames = function (callback) {
-	var nickNames = [];
-	this.storage.get(null, function (items) {
-		for (var key in items) {
-			if (items.hasOwnProperty(key)) {
-				var tobj = JSON.parse(items[key]);
-				if (tobj.type == 'wallet' || tobj.type == 'watchOnly') {
-					nickNames.push(tobj.nick);
-					nickNames.push(key);
-				}
-			}
-		}
-		callback(nickNames);
-	});
+    var nickNames = [];
+    this.storage.get(null, function (items) {
+        for (var key in items) {
+            if (items.hasOwnProperty(key)) {
+                var tobj = JSON.parse(items[key]);
+                if (tobj.type === 'wallet' || tobj.type === 'watchOnly') {
+                    nickNames.push(tobj.nick);
+                    nickNames.push(key);
+                }
+            }
+        }
+        callback(nickNames);
+    });
 };
 cxFuncs.addWalletToStorage = function (address, encStr, nickname, callback) {
-	nickname = nickname.replace(/(<([^>]+)>)/ig, "");
-	var value = {
-		nick: nickname,
-		priv: encStr,
-		type: 'wallet'
-	};
-	var keyname = wanUtil.toChecksumAddress(address);
-	var obj = {};
-	obj[keyname] = JSON.stringify(value);
-	this.storage.set(obj, callback);
+    nickname = nickname.replace(/(<([^>]+)>)/ig, '');
+    var value = {
+        nick: nickname,
+        priv: encStr,
+        type: 'wallet'
+    };
+    var keyname = wanUtil.toChecksumAddress(address);
+    var obj = {};
+    obj[keyname] = JSON.stringify(value);
+    this.storage.set(obj, callback);
 };
 cxFuncs.addWatchOnlyAddress = function (address, nickname, callback) {
-	nickname = nickname.replace(/(<([^>]+)>)/ig, "");
-	var value = {
-		nick: nickname,
-		type: 'watchOnly'
-	};
-	var keyname = wanUtil.toChecksumAddress(address);
-	var obj = {};
-	obj[keyname] = JSON.stringify(value);
-	this.storage.set(obj, callback);
+    nickname = nickname.replace(/(<([^>]+)>)/ig, '');
+    var value = {
+        nick: nickname,
+        type: 'watchOnly'
+    };
+    var keyname = wanUtil.toChecksumAddress(address);
+    var obj = {};
+    obj[keyname] = JSON.stringify(value);
+    this.storage.set(obj, callback);
 };
 cxFuncs.getStorageArr = function (filter, callback) {
-	var wallets = [];
-	this.storage.get(null, function (items) {
-		for (var key in items) {
-			if (items.hasOwnProperty(key)) {
-				var tobj = JSON.parse(items[key]);
-				if (tobj.type == filter) {
-					tobj['addr'] = key;
-					wallets.push(tobj);
-				}
-			}
-		}
-		wallets.sort(function (a, b) {
-			if (a.nick < b.nick) return -1;
-			if (a.nick > b.nick) return 1;
-			return 0;
-		});
-		callback(wallets);
-	});
+    var wallets = [];
+    this.storage.get(null, function (items) {
+        for (var key in items) {
+            if (items.hasOwnProperty(key)) {
+                var tobj = JSON.parse(items[key]);
+                if (tobj.type === filter) {
+                    tobj['addr'] = key;
+                    wallets.push(tobj);
+                }
+            }
+        }
+        wallets.sort(function (a, b) {
+            if (a.nick < b.nick) return -1;
+            if (a.nick > b.nick) return 1;
+            return 0;
+        });
+        callback(wallets);
+    });
 };
 cxFuncs.getWalletsArr = function (callback) {
-	this.getStorageArr('wallet', callback);
+    this.getStorageArr('wallet', callback);
 };
 cxFuncs.getWatchOnlyArr = function (callback) {
-	this.getStorageArr('watchOnly', callback);
+    this.getStorageArr('watchOnly', callback);
 };
 cxFuncs.deleteAccount = function (address, callback) {
-	this.storage.remove(address, function () {
-		callback(address);
-	});
+    this.storage.remove(address, function () {
+        callback(address);
+    });
 };
 cxFuncs.editNickName = function (address, newNick, callback) {
-	newNick = newNick.replace(/(<([^>]+)>)/ig, "");
-	this.storage.get(address, function (account) {
-		var accountInfo = account[address];
-		accountInfo = JSON.parse(accountInfo);
-		accountInfo['nick'] = newNick;
-		account[address] = JSON.stringify(accountInfo);
-		cxFuncs.storage.set(account, function () {
-			callback(newNick);
-		});
-	});
+    newNick = newNick.replace(/(<([^>]+)>)/ig, '');
+    this.storage.get(address, function (account) {
+        var accountInfo = account[address];
+        accountInfo = JSON.parse(accountInfo);
+        accountInfo['nick'] = newNick;
+        account[address] = JSON.stringify(accountInfo);
+        cxFuncs.storage.set(account, function () {
+            callback(newNick);
+        });
+    });
 };
 module.exports = cxFuncs;
 
-},{}],25:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 var QRCodeDrtv = function QRCodeDrtv() {
@@ -3090,14 +3846,14 @@ var QRCodeDrtv = function QRCodeDrtv() {
 			var value = attrs.qrCode;
 			element.empty();
 			var delay = 0;
-			if (element[0].clientWidth == 0) delay = 200;
+			if (element[0].clientWidth === 0) delay = 200;
 			setTimeout(function () {
 				new QRCode(element[0], {
 					text: value,
 					width: element[0].clientWidth,
 					height: element[0].clientWidth,
-					colorDark: "#000000",
-					colorLight: "#ffffff",
+					colorDark: '#000000',
+					colorLight: '#ffffff',
 					correctLevel: QRCode.CorrectLevel.M
 				});
 			}, delay);
@@ -3106,45 +3862,59 @@ var QRCodeDrtv = function QRCodeDrtv() {
 };
 module.exports = QRCodeDrtv;
 
-},{}],26:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
 
+var wanUtil = require('wanchain-util');
 var addressFieldDrtv = function addressFieldDrtv($compile) {
     return {
-        restrict: "E",
+        restrict: 'E',
         link: function link(scope, element, attrs) {
             var varName = attrs.varName;
             var varArr = varName.split('.');
-            var placeholder = attrs.placeholder == undefined ? 'mewtopia.eth or 0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8' : attrs.placeholder;
-            var labelTranslated = attrs.labeltranslated == undefined ? 'SEND_addr' : attrs.labeltranslated;
+            var placeholder = attrs.placeholder === undefined ? 'mewtopia.eth or 0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8' : attrs.placeholder;
+            var labelTranslated = attrs.labeltranslated === undefined ? 'SEND_addr' : attrs.labeltranslated;
             var setValue = function setValue(value) {
                 var temp = scope;
                 for (var i in varArr) {
-                    if (i == varArr.length - 1) temp[varArr[i]] = value;else {
+                    if (i === varArr.length - 1) temp[varArr[i]] = value;else {
                         temp = temp[varArr[i]];
                     }
                 }
             };
             scope.addressDrtv = {
                 showDerivedAddress: false,
-                ensAddressField: globalFuncs.urlGet('to') == null ? "" : globalFuncs.urlGet('to'),
+                ensAddressField: globalFuncs.urlGet('to') == null ? '' : globalFuncs.urlGet('to'),
                 derivedAddress: '',
                 readOnly: false
             };
-            element.html('<div class=\"col-xs-11\">\n \
-                    <label translate=\"' + labelTranslated + '\"></label>\n \
-                    <input class=\"form-control\" type=\"text\" placeholder=\"' + placeholder + '\" ng-model=\"addressDrtv.ensAddressField\" ng-disabled=\"addressDrtv.readOnly\" ng-class=\"Validator.isValidENSorEtherAddress(' + varName + ') ? \'is-valid\' : \'is-invalid\'\"/>\n \
+            element.html('<div class="col-xs-11">\n \
+                    <label translate="' + labelTranslated + '"></label>\n \
+                    <input class="form-control" type="text" placeholder="' + placeholder + '" ng-model="addressDrtv.ensAddressField" ng-disabled="addressDrtv.readOnly" ng-class="Validator.isValidENSorEtherAddress(' + varName + ') ? \'is-valid\' : \'is-invalid\'"/>\n \
                     <p class="ens-response" ng-show="addressDrtv.showDerivedAddress"> ↳ <span class="mono ng-binding"> {{addressDrtv.derivedAddress}} </span> </p>\n \
                 </div>\n \
-                <div class=\"col-xs-1 address-identicon-container\">\n \
-                   <div class=\"addressIdenticon\" title=\"Address Indenticon\" blockie-address=\"{{' + varName + '}}\" watch-var=\"' + varName + '\"></div>\n \
+                <div class="col-xs-1 address-identicon-container">\n \
+                   <div class="addressIdenticon" title="Address Indenticon" blockie-address="{{' + varName + '}}" watch-var="' + varName + '"></div>\n \
                 </div>');
             scope.$watch('addressDrtv.ensAddressField', function () {
+                var _ens = new ens();
                 if (Validator.isValidAddress(scope.addressDrtv.ensAddressField)) {
                     setValue(scope.addressDrtv.ensAddressField);
                     if (!Validator.isChecksumAddress(scope.addressDrtv.ensAddressField)) {
                         scope.notifier.info(globalFuncs.errorMsgs[35]);
                     }
+                } else if (Validator.isValidENSAddress(scope.addressDrtv.ensAddressField)) {
+                    _ens.getAddress(scope.addressDrtv.ensAddressField, function (data) {
+                        if (data.error) uiFuncs.notifier.danger(data.msg);else if (data.data === '0x0000000000000000000000000000000000000000' || data.data === '0x') {
+                            setValue('0x0000000000000000000000000000000000000000');
+                            scope.addressDrtv.derivedAddress = '0x0000000000000000000000000000000000000000';
+                            scope.addressDrtv.showDerivedAddress = true;
+                        } else {
+                            setValue(data.data);
+                            scope.addressDrtv.derivedAddress = wanUtil.toChecksumAddress(data.data);
+                            scope.addressDrtv.showDerivedAddress = true;
+                        }
+                    });
                 } else {
                     setValue('');
                     scope.addressDrtv.showDerivedAddress = false;
@@ -3156,20 +3926,20 @@ var addressFieldDrtv = function addressFieldDrtv($compile) {
 };
 module.exports = addressFieldDrtv;
 
-},{}],27:[function(require,module,exports){
+},{"wanchain-util":340}],29:[function(require,module,exports){
 module.exports = "<aside ng-controller=\"walletBalanceCtrl\">\n\n\n\n\n\n  <!-- Account Address -->\n  <div class=\"block\">\n    <h5 translate=\"sidebar_AccountAddr\">Account Address</h5>\n    <ul class=\"account-info\">\n      <div class=\"addressIdenticon med float\" blockie-address=\"{{wallet.getAddressString()}}\" watch-var=\"wallet\"></div>\n      <span class=\"mono wrap\">{{wallet.getChecksumAddressString()}}</span>\n      <label class=\"ens-response\" ng-show=\"showEns()\">\n        ↳ <span class=\"mono ng-binding\"> {{ensAddress}} </span>\n      </label>\n    </ul>\n    <div ng-show=\"showDisplayOnTrezor()\">\n      <h5 translate=\"sidebar_DisplayOnTrezor\">Display address on TREZOR</h5>\n      <ul class=\"account-info\">\n        <li><a href=\"\" ng-click=\"displayOnTrezor()\" translate=\"sidebar_DisplayOnTrezor\">Display address on TREZOR</a></li>\n      </ul>\n    </div>\n    <div ng-show=\"showDisplayOnLedger()\">\n      <h5 translate=\"sidebar_DisplayOnLedger\">Display address on Ledger</h5>\n      <ul class=\"account-info\">\n        <li><a href=\"\" ng-click=\"displayOnLedger()\" translate=\"sidebar_DisplayOnLedger\">Display address on Ledger</a></li>\n      </ul>\n    </div>\n    <h5 translate=\"sidebar_AccountBal\">Account Balance</h5>\n    <ul class=\"account-info point\">\n      <li>\n        <span class=\"mono wrap\">{{wallet.balance}}</span> {{ajaxReq.type}}\n      </li>\n    </ul>\n    <h5 translate=\"sidebar_TransHistory\"> Transaction History</h5>\n    <ul class=\"account-info\">\n      <li ng-show=\"ajaxReq.type != 'CUS'\">\n        <a href=\"{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          {{ajaxReq.type}} ({{ajaxReq.blockExplorerTX.replace('/tx/[[txHash]]', '')}})\n        </a>\n      </li>\n      <li ng-show=\"ajaxReq.type == 'ETH'\">\n        <a href=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Tokens (Ethplorer.io)\n        </a>\n      </li>\n    </ul>\n  </div>\n\n\n\n\n\n\n  <!-- Slider Thingy -->\n  <!-- Hardware Wallets -->\n  <a href=\"https://myetherwallet.github.io/knowledge-base/getting-started/protecting-yourself-and-your-funds.html\"\n     ng-show=\"slide==1 || ajaxReq.type!=='ETH'\"\n     class=\"block swap--hw\"\n     target=\"_blank\" rel=\"noopener noreferrer\">\n    <div class=\"col-sm-7\">\n\n      <h5 class=\"swap__cta\" ng-show=\"wallet.balance<=1\">Learn more about protecting your funds.</h5>\n\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance<50 && wallet.balance>1\">Welcome back</h5>\n      <h5 class=\"swap__cta\" ng-show=\"wallet.balance<50 && wallet.balance>1\">Are you as secure as you can be?</h5>\n\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>=50\">Holy cow, look at you go!</p>\n      <h5 class=\"swap__cta\" ng-show=\"wallet.balance>=50\">Time to beef up your security?</h5>\n    </div>\n    <div class=\"col-sm-5\">\n      <img src=\"images/logo-ledger.svg\" width=\"80\" height=\"auto\" class=\"swap__logo\">\n      <br />\n      <img src=\"images/logo-trezor.svg\" width=\"80\" height=\"auto\" class=\"swap__logo\">\n    </div>\n  </a>\n\n  <!-- Bity -->\n  <a ng-click=\"globalService.currentTab=globalService.tabs.swap.id\"\n     ng-show=\"ajaxReq.type=='ETH' && slide==2\"\n     class=\"block swap--btc\"\n     target=\"_blank\" rel=\"noopener noreferrer\">\n    <div class=\"col-sm-7\">\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance<=0\">Aw...you don't have any ETH.</p>\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>0&&wallet.balance<50\">It's now easier to get more ETH</p>\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>50\">It's now easier to move between ETH &amp; BTC</p>\n      <h5 class=\"swap__cta\">Swap BTC <-> ETH</h5>\n    </div>\n    <div class=\"col-sm-5\">\n      <img src=\"images/logo-bity-white.svg\" width=\"60\" height=\"auto\" class=\"swap__logo\">\n      <p class=\"swap-flag--price\">1 ETH ≈ <br /> {{wallet.btcPrice}} BTC</p>\n    </div>\n  </a>\n\n  <!-- Coinbase\n  <a href=\"#\"\n     ng-show=\"ajaxReq.type=='ETH' && slide==2\"\n     class=\"block swap--usd\"\n     target=\"_blank\" rel=\"noopener noreferrer\">\n    <div class=\"col-sm-7\">\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance<=0\">Aw...you don't have any ETH</p>\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>0\">It's now easier to get more ETH</p>\n      <h5 class=\"swap__cta\">Buy ETH with USD</h5>\n    </div>\n    <div class=\"col-sm-5\">\n      <img src=\"images/logo-coinbase.svg\" width=\"64\" height=\"auto\" class=\"swap__logo\">\n      <p class=\"swap-flag--price\">1 ETH ≈ <br /> {{wallet.usdPrice}} USD</p>\n    </div>\n  </a>\n  -->\n\n  <div class=\"swap__nav\" ng-show=\"ajaxReq.type=='ETH'\">\n    <a ng-click=\"slide=1\"> &bull; </a>\n    <a ng-click=\"slide=2\"> &bull; </a>\n  </div>\n\n\n\n\n  <!-- Token Balances -->\n  <div class=\"block token-balances\">\n    <h5 translate=\"sidebar_TokenBal\">Token Balances</h5>\n\n    <!-- Load Token Balances\n    <a class=\"btn btn-warning btn-xs\"\n       ng-click=\"wallet.setTokens(); globalService.tokensLoaded=true\"\n       ng-hide=\"globalService.tokensLoaded\">\n      <img src=\"images/icon-load-tokens.svg\" style=\"height: 1em; width: auto; margin-right: 5px;\" />\n      Load Tokens\n    </a>\n     -->\n\n    <!-- you can your Balance on Blockchain Explorer -->\n\n\n    <h5 class=\"u__protip\">\n      <a href=\"https://myetherwallet.github.io/knowledge-base/send/adding-new-token-and-sending-custom-tokens.html\"\n         rel=\"noopener noreferrer\"\n         target=\"_blank\">\n         How to See Your Tokens\n      </a>\n    </h5>\n\n    <p>\n      You can also view your Balances on\n      <a ng-show=\"ajaxReq.type != 'CUS'\"\n         href=\"{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n          {{ajaxReq.blockExplorerTX.replace('/tx/[[txHash]]', '')}}\n      </a>\n      <span ng-show=\"ajaxReq.type == 'ETH'\"> or\n        <a href=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\"\n           target=\"_blank\"\n           rel=\"noopener noreferrer\">\n             ethplorer.io\n        </a>\n      </span>\n    </p>\n\n    <!-- Buttons -->\n    <a class=\"btn btn-warning btn-xs\" ng-click=\"showAllTokens=true\" ng-show=\"showAllTokens==false\">\n      Show All Tokens\n    </a>\n    <a class=\"btn btn-warning btn-xs\" ng-click=\"showAllTokens=false\" ng-show=\"showAllTokens==true\">\n      Only Show Balances\n    </a>\n    <a class=\"btn btn-default btn-xs\" ng-click=\"customTokenField=!customTokenField\">\n      <span translate=\"SEND_custom\">Add Custom Token</span>\n    </a>\n\n    <br ng-show=\"customTokenField\" />\n\n    <!-- Add Custom Token -->\n    <div class=\"custom-token-fields\" ng-show=\"customTokenField\">\n      <div class=\"row\">\n        <address-field\n          placeholder=\"{{ ajaxReq.type=='ETH' ? 'mewsupport.eth' : '0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8' }}\"\n          var-name=\"localToken.contractAdd\"\n          labelTranslated=\"TOKEN_Addr\">\n        </address-field>\n      </div>\n\n      <label translate=\"TOKEN_Symbol\"> Token Symbol: </label>\n      <input class=\"form-control input-sm\"\n             type=\"text\"\n             ng-model=\"localToken.symbol\"\n             ng-class=\"localToken.symbol!='' ? 'is-valid' : 'is-invalid'\" />\n\n      <label translate=\"TOKEN_Dec\"> Decimals: </label>\n      <input class=\"form-control input-sm\"\n             type=\"text\"\n             ng-model=\"localToken.decimals\"\n             ng-class=\"Validator.isPositiveNumber(localToken.decimals) ? 'is-valid' : 'is-invalid'\" />\n\n      <button class=\"btn btn-primary btn-xs\" ng-click=\"saveTokenToLocal()\" translate=\"x_Save\">Save</button>\n    </div>\n\n    <br />\n    <br />\n\n    <!-- Balances -->\n    <table class=\"account-info\">\n      <tr ng-class=\"token.type!=='default' ? 'custom-token' : ''\"\n          ng-repeat=\"token in wallet.tokenObjs track by $index\"\n          ng-hide=\"(token.balance==0 || token.balance=='Click to Load') && showAllTokens==false\">\n        <td class=\"mono wrap point\">\n          <img src=\"images/icon-remove.svg\"\n               class=\"token-remove\"\n               title=\"Remove Token\"\n               ng-click=\"removeTokenFromLocal(token.symbol)\"\n               ng-show=\"token.type!=='default'\" />\n          <span ng-click=\"setAndVerifyBalance(token)\">\n            {{ token.getBalance() }}\n          </span>\n        </td>\n        <td>\n          {{ token.getSymbol() }}\n        </td>\n      </tr>\n    </table>\n\n  </div>\n\n\n\n  <!-- Equivalent Balances -->\n  <div class=\"block\" ng-show=\"ajaxReq.type=='ETH'\">\n    <h5 translate=\"sidebar_Equiv\">Equivalent Values:</h5>\n    <div class=\"row\">\n      <ul class=\"account-info col-xs-6\">\n        <li>BTC: <span class=\"mono wrap\">{{wallet.btcBalance | number}}</span></li>\n        <li>USD: <span class=\"mono wrap\">{{wallet.usdBalance | currency:\"$\"}}</span></li>\n        <li>CHF: <span class=\"mono wrap\">{{wallet.chfBalance | currency:\" \"}}</span></li>\n      </ul>\n      <ul class=\"account-info col-xs-6\">\n        <li>REP: <span class=\"mono wrap\">{{wallet.repBalance | number}}</span></li>\n        <li>EUR: <span class=\"mono wrap\">{{wallet.eurBalance | currency:\"€\"}}</span></li>\n        <li>GBP: <span class=\"mono wrap\">{{wallet.gbpBalance | currency:\"£\"}}</span></li>\n      </ul>\n    </div>\n    <p><small> These are only the equivalent values for ETH, not tokens. Sorry! </small></p>\n  </div>\n\n</aside>\n";
-},{}],28:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 var balanceDrtv = function balanceDrtv() {
        return {
-              restrict: "E",
+              restrict: 'E',
               template: require('./balanceDrtv.html')
        };
 };
 module.exports = balanceDrtv;
 
-},{"./balanceDrtv.html":27}],29:[function(require,module,exports){
+},{"./balanceDrtv.html":29}],31:[function(require,module,exports){
 'use strict';
 
 var blockiesDrtv = function blockiesDrtv() {
@@ -3186,12 +3956,12 @@ var blockiesDrtv = function blockiesDrtv() {
 };
 module.exports = blockiesDrtv;
 
-},{}],30:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 var cxWalletDecryptDrtv = function cxWalletDecryptDrtv() {
   return {
-    restrict: "E",
+    restrict: 'E',
     template: '<div class="row" ng-controller=\'cxDecryptWalletCtrl\'>\n \
       <div class="col-md-4 col-sm-6">\n \
         <h4 translate="decrypt_Select"> Select a Wallet: </h4>\n \
@@ -3212,7 +3982,7 @@ var cxWalletDecryptDrtv = function cxWalletDecryptDrtv() {
 };
 module.exports = cxWalletDecryptDrtv;
 
-},{}],31:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 'use strict';
 
 var fileReaderDrtv = function fileReaderDrtv($parse) {
@@ -3237,50 +4007,2255 @@ var fileReaderDrtv = function fileReaderDrtv($parse) {
 };
 module.exports = fileReaderDrtv;
 
-},{}],32:[function(require,module,exports){
-module.exports = "<article class=\"block decrypt-drtv clearfix\" ng-controller='decryptWalletCtrl as $crtl'>\n\n  <!-- Column 1 - Select Type of Key -->\n  <section class=\"col-md-4 col-sm-6\">\n\n    <h4 translate=\"decrypt_Access\">\n      How would you like to access your wallet?\n    </h4>\n\n    <!-- View Balance Only -->\n    <label aria-flowto=\"aria1\"\n           class=\"radio\"\n           ng-show=\"globalService.currentTab==globalService.tabs.sendTransaction.id || globalService.currentTab==globalService.tabs.viewWalletInfo.id\">\n      <input aria-flowto=\"aria1\"\n             aria-label=\"address\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"addressOnly\" />\n        View w/ Address Only\n    </label>\n\n    <!-- MetaMask -->\n    <label aria-flowto=\"aria2\"\n           class=\"radio\">\n      <input aria-flowto=\"aria2\"\n             type=\"radio\"\n             aria-label=\"MetaMask / Mist\"\n             ng-model=\"walletType\"\n             value=\"metamask\"/>\n      <span translate=\"x_MetaMask\">\n        WanMask\n      </span>\n    </label>\n\n    <!-- Ledger -->\n    <label aria-flowto=\"aria3\"\n           class=\"radio\"\n           ng-show=\"ajaxReq.type=='WAN'\">\n      <input aria-flowto=\"aria3\"\n             type=\"radio\"\n             aria-label=\"Ledger Hardware Wallet\"\n             ng-model=\"walletType\"\n             value=\"ledger\"/>\n      Ledger Wallet\n    </label>\n\n    <!-- TREZOR -->\n    <label class=\"radio\"\n           aria-flowto=\"aria4\"\n           ng-show=\"ajaxReq.type=='WAN'\">\n      <input aria-flowto=\"aria4\"\n             type=\"radio\"\n             aria-label=\"Trezor Hardware Wallet\"\n             ng-model=\"walletType\"\n             value=\"trezor\"/>\n      TREZOR\n    </label>\n\n\n    <!-- Keystore / JSON File -->\n    <label aria-flowto=\"aria6\"\n           class=\"radio\">\n      <input aria-flowto=\"aria6\"\n             aria-label=\"Keystore JSON file\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"fileupload\" />\n      Keystore / JSON File\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n    <!-- Mnemonic Phrase -->\n    <label aria-flowto=\"aria7\"\n           class=\"radio\">\n      <input aria-flowto=\"aria7\"\n             aria-label=\"mnemonic phrase\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"pastemnemonic\" />\n      <span translate=\"x_Mnemonic\">\n        Mnemonic Phrase\n      </span>\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n    <!-- Private -->\n    <label aria-flowto=\"aria8\"\n           class=\"radio\">\n      <input aria-flowto=\"aria8\"\n             aria-label=\"private key\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"pasteprivkey\" />\n      <span translate=\"x_PrivKey2\">\n        Private Key\n      </span>\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n  </section>\n  <!-- / Column 1 - Select Type of Key -->\n\n\n  <!-- Column 2 - Unlock That Key -->\n  <section class=\"col-md-8 col-sm-6\">\n\n    <!-- View Only -->\n    <div id=\"selectedTypeKey\" ng-if=\"walletType=='addressOnly'\">\n      <h4 translate=\"x_Address\">\n        Your Address\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to view your balance.\n      </h5>\n      <p>\n          You can only view your balance via this option.\n          Please use another option in order to send.\n      </p>\n      <div class=\"form-group\">\n        <textarea rows=\"4\"\n                  id=\"aria8\"\n                  class=\"form-control\"\n                  ng-change=\"onAddressChange()\"\n                  ng-class=\"Validator.isValidAddress($parent.$parent.addressOnly) ? 'is-valid' : 'is-invalid'\"\n                  ng-model=\"$parent.$parent.addressOnly\"\n                  placeholder=\"{{ 'x_Address' | translate }}\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\">\n        <a class=\"btn btn-primary\"\n           ng-click=\"decryptAddressOnly()\"\n           ng-show=\"showAOnly\"\n           role=\"button\"\n           tabindex=\"0\">\n             View Balance\n        </a>\n      </div>\n    </div>\n    <!-- /View Only -->\n\n\n    <!--  MetaMask -->\n    <div id=\"selectedTypeMetamask\"\n         ng-if=\"walletType=='metamask'\">\n      <h4 translate=\"x_MetaMask\">\n        WanMask\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"45\" fill=\"red\"/><g fill=\"white\"><path d=\"M 42,20 58,20 55,55 45,55 z\" stroke-linejoin=\"round\" stroke=\"white\" stroke-width=\"5\"/><circle cx=\"50\" cy=\"75\" r=\"8\"/></g></svg>\n        Only use if you have WanMask installed! To make WanMask run smoothly you need to temporarily disable MetaMask (and other apps that insert a web3 object) while using it.\n        <img width=\"300px\" src=\"images/disable-metamask.png\" title=\"Disable MetaMask\"  />\n      </div>\n      <div class=\"form-group\">\n        WanMask is a browser extension that allows you to access your wallet quickly, safely &amp; easily. It is more secure because you <u>never enter your private key on a website</u>. It protects you from phishing &amp; malicious websites.\n      </div>\n      <ul>\n        <li class=\"u__download\">\n          <a tabindex=\"0\"\n             href=\"https://chrome.google.com/webstore/detail/omnkcjdohbnjfjmlaiboojplahajnenj\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Download WanMask for Chrome\n          </a>\n        </li>\n        <li class=\"u__download\">\n          <a tabindex=\"0\"\n             href=\"https://wanmask.io/\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Download WanMask for Other Browsers\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\"\n           ng-hide=\"isSSL\">\n        <span class=\"text-danger\"\n              translate=\"ADD_Ledger_0a\" >\n            Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.\n        </span>\n      </div>\n      <div class=\"form-group\">\n        <a id=\"aria3\"\n           class=\"btn btn-primary\"\n           ng-click=\"scanMetamask()\"\n           ng-show=\"walletType=='metamask'\"\n           tabindex=\"0\" role=\"button\"\n           translate=\"ADD_MetaMask\">\n             Connect to WanMask\n        </a>\n      </div>\n    </div>\n    <!-- / MetaMask -->\n\n\n    <!--  Ledger-->\n    <div id=\"selectedTypeLedger\" ng-if=\"walletType=='ledger'\">\n      <h4>\n        Ledger Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://ledger.zendesk.com/hc/en-us/articles/115005200009-How-to-use-MyEtherWallet-with-Ledger\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n          How to use MyEtherWallet with your Ledger Hardware Wallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://www.ledger.com/products/ledger-nano-s?r=651b52292b63\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a Ledger? Get one today.\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        <a class=\"btn btn-primary\"\n           ng-click=\"scanLedger()\"\n           ng-show=\"walletType=='ledger'\"\n           role=\"button\"\n           tabindex=\"0\"\n           translate=\"ADD_Ledger_scan\">\n            SCAN\n        </a>\n      </div>\n      <div role=\"alert\" ng-show=\"ledgerError\">\n        <p class=\"strong text-danger\">\n          {{ledgerErrorString}}\n        </p>\n        <ul>\n          <li ng-hide=\"isSSL\"\n              translate=\"ADD_Ledger_0a\" >\n                Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.\n          </li>\n          <li>\n            <span translate=\"ADD_Ledger_2\" ng-if=\"ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'\">\n              Open the Ethereum application (or a contract application)\n            </span>\n            <span translate=\"ADD_Ledger_2_Exp\" ng-if=\"ajaxReq.type=='EXP'\">\n              Open the Expanse application (or a contract application)\n            </span>\n            <span translate=\"ADD_Ledger_2_Ubq\" ng-if=\"ajaxReq.type=='UBQ'\">\n              Open the Ubiq application (or a contract application)\n            </span>\n          </li>\n          <li>\n            <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/ledger-hardware-wallet-unable-to-connect-on-myetherwallet.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Still not working? More Troubleshooting Tips\n            </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <!-- / Ledger-->\n\n\n    <!--  TREZOR-->\n    <div id=\"selectedTypeTrezor\" ng-if=\"walletType=='trezor'\">\n      <h4>\n        TREZOR Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://blog.trezor.io/trezor-integration-with-myetherwallet-3e217a652e08#.n5fddxmdg\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n               How to use TREZOR with MyEtherWallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://trezor.io/?a=myetherwallet.com\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a TREZOR? Get one now.\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        <a id=\"aria7\"\n           class=\"btn btn-primary\"\n           ng-click=\"scanTrezor()\"\n           ng-show=\"walletType=='trezor'\"\n           tabindex=\"0\" role=\"button\"\n           translate=\"ADD_Trezor_scan\">\n            Connect to TREZOR\n        </a>\n      </div>\n      <div role=\"alert\" ng-show=\"trezorError\">\n        <p class=\"strong text-danger\">\n          {{trezorErrorString}}\n        </p>\n        <ul>\n          <li ng-hide=\"isSSL\"\n              translate=\"ADD_Ledger_0a\" >\n                Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.\n          </li>\n          <li>\n                Ensure you are not blocking pop-ups on this site.\n          </li>\n          <li>\n            <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Still not working? More Troubleshooting Tips\n            </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <!-- / TREZOR-->\n\n\n    <!--  Digital Bitbox-->\n    <div id=\"selectedTypeDigitalBitbox\" ng-if=\"walletType=='digitalBitbox'\">\n      <h4>\n        Digital Bitbox Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://digitalbitbox.com/ethereum\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n               How to use Digital Bitbox with MyEtherWallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://digitalbitbox.com/?ref=mew\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a Digital Bitbox? Get one now.\n          </a>\n        </li>\n      </ul>\n      <input class=\"form-control\"\n             aria-label=\"Enter the Digital Bitbox password\"\n             aria-describedby=\"selectedTypeDigitalBitbox\"\n             type=\"password\"\n             placeholder=\"Digital Bitbox password\"\n             spellcheck=\"false\"\n             value=\"\"\n             ng-model=\"HDWallet.digitalBitboxSecret\" />\n      <div class=\"form-group\">\n        <a tabindex=\"0\" role=\"button\" class=\"btn btn-primary\" ng-click=\"scanDigitalBitbox()\" translate=\"ADD_DigitalBitbox_scan\">\n          Connect your Digital Bitbox\n        </a>\n      </div>\n    </div>\n    <!-- / Digital Bitbox-->\n\n\n    <!-- Keystore -->\n    <div ng-if=\"walletType=='fileupload'\">\n      <h4 translate=\"ADD_Radio_2_alt\">Select your wallet file</h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <input style=\"display:none;\" type=\"file\" on-read-file=\"showContent($fileContent)\" id=\"fselector\" />\n        <a class=\"btn-file marg-v-sm\"\n           ng-click=\"openFileDialog()\"\n           translate=\"ADD_Radio_2_short\"\n           id=\"aria1\"\n           tabindex=\"0\"\n           role=\"button\">SELECT WALLET FILE... </a>\n      </div>\n      <div class=\"form-group\" ng-if=\"requireFPass\">\n        <p translate=\"ADD_Label_3\">\n          Your file is encrypted. Please enter the password:\n        </p>\n        <input class=\"form-control\"\n               ng-change=\"onFilePassChange()\"\n               ng-class=\"Validator.isPasswordLenValid($parent.$parent.filePassword,0) ? 'is-valid' : 'is-invalid'\"\n               ng-model=\"$parent.$parent.filePassword\"\n               placeholder=\"{{ 'x_Password' | translate }}\"\n               type=\"password\" />\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Keystore -->\n\n\n    <!--  Mnemonic -->\n    <div id=\"selectedTypeMnemonic\" ng-if=\"walletType=='pastemnemonic'\">\n      <h4 translate=\"ADD_Radio_5\"> Paste your mnemonic: </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <textarea id=\"aria4\"\n                  class=\"form-control\"\n                  ng-change=\"onMnemonicChange()\"\n                  ng-class=\"Validator.isValidMnemonic($parent.$parent.manualmnemonic) ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.manualmnemonic\"\n                  placeholder=\"{{ 'x_Mnemonic' | translate}}\"\n                  rows=\"4\"></textarea>\n      </div>\n      <div class=\"form-group\">\n        <p translate=\"ADD_Label_8\">\n          Password (optional):\n        </p>\n        <div>\n          <input class=\"form-control\"\n                 id=\"aria5\"\n                 ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                 ng-model=\"$parent.$parent.mnemonicPassword\"\n                 placeholder=\"{{ 'x_Password' | translate }}\"\n                 type=\"password\" />\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Mnemonic -->\n\n\n    <!--  Private Key -->\n    <div id=\"selectedTypeKey\" ng-if=\"walletType=='pasteprivkey'\">\n      <h4 translate=\"ADD_Radio_3\">\n        Paste your private key:\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <textarea id=\"aria6\"\n                  class=\"form-control\"\n                  ng-change=\"onPrivKeyChange()\"\n                  ng-class=\"Validator.isValidPrivKey($parent.$parent.manualprivkey.length) ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.manualprivkey\"\n                  placeholder=\"{{ 'x_PrivKey2' | translate }}\"\n                  rows=\"4\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\" ng-if=\"requirePPass\">\n        <p translate=\"ADD_Label_3\">\n          Your file is encrypted. Please enter the password:\n        </p>\n        <input class=\"form-control\"\n               ng-change=\"onPrivKeyPassChange()\"\n               ng-class=\"Validator.isPasswordLenValid($parent.$parent.privPassword,0) ? 'is-valid' : 'is-invalid'\"\n               ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n               ng-model=\"$parent.$parent.privPassword\"\n               placeholder=\"{{ 'x_Password' | translate }}\"\n               type=\"password\" />\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Private Key -->\n\n\n    <!-- Parity Phrase -->\n    <div id=\"selectedTypeMnemonic\" ng-if=\"walletType=='parityBWallet'\">\n      <h4 translate=\"ADD_Radio_5\"> Paste your mnemonic: </h4>\n      <div class=\"form-group\">\n        <textarea rows=\"4\"\n                  id=\"aria9\"\n                  class=\"form-control\"\n                  ng-change=\"onParityPhraseChange()\"\n                  ng-class=\"$parent.$parent.parityPhrase != '' ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.parityPhrase\"\n                  placeholder=\"{{ 'x_ParityPhrase' | translate}}\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Parity Phrase -->\n\n  </section>\n  <!-- / Column 2 - Unlock That Key -->\n\n\n  <!-- MODAL -->\n  <article class=\"modal fade\" id=\"mnemonicModel\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"Mnemonic Phrase Modal\">\n\n    <section class=\"modal-dialog\">\n\n      <section class=\"modal-content\">\n\n        <div class=\"modal-body\" role=\"document\">\n\n          <button aria-label=\"Close\" type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n\n          <!-- Select HD Path -->\n          <h4 id=\"modalTitle\" class=\"modal-title\" translate=\"ADD_Radio_5_Path\" style=\"margin-bottom: .25rem\">\n            Select HD derivation path:\n          </h4>\n\n          <p class=\"alert alert-danger\"\n             ng-hide=\"ajaxReq.type=='WAN'\">\n                We do not know the correct path for this network.\n                <a href=\"https://github.com/tyrion70/mywanwallet/issues\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\">\n                      Please open a github issue\n                </a>\n                so we can discuss / be enlightened.\n          </p>\n\n          <section class=\"row\">\n\n            <div class=\"col-sm-4\">\n              <label class=\"radio small\">\n                <input aria-describedby=\"Path: Trezor WAN - {{HDWallet.trezorWanPath}}\"\n                       ng-change=\"onHDDPathChange()\"\n                       ng-model=\"HDWallet.dPath\"\n                       type=\"radio\"\n                      value=\"{{HDWallet.trezorWanPath}}\"/>\n                <span ng-bind=\"HDWallet.trezorWanPath\"></span>\n                <p class=\"small\">\n                  TREZOR (WAN)\n                </p>\n              </label>\n            </div>\n\n            <div class=\"col-sm-4\">\n              <label class=\"radio small\">\n                <input aria-describedby=\"Path: Ledger WAN {{HDWallet.ledgerWanPath}}\"\n                       ng-change=\"onHDDPathChange()\"\n                       ng-model=\"HDWallet.dPath\"\n                       type=\"radio\"\n                      value=\"{{HDWallet.ledgerWanPath}}\"/>\n                <span ng-bind=\"HDWallet.ledgerWanPath\"></span>\n                <p class=\"small\">\n                  Ledger (WAN)\n                </p>\n              </label>\n\n          </section>\n\n          <section class=\"row\">\n\n              <div class=\"col-sm-4\">\n                <label class=\"radio small\">\n                  <input aria-describedby=\"Path: Trezor ETH - {{HDWallet.trezorEthPath}}\"\n                         ng-change=\"onHDDPathChange()\"\n                         ng-model=\"HDWallet.dPath\"\n                         type=\"radio\"\n                         value=\"{{HDWallet.trezorEthPath}}\"/>\n                  <span ng-bind=\"HDWallet.trezorEthPath\"></span>\n                  <p class=\"small\">\n                    TREZOR (ETH)\n                  </p>\n                </label>\n              </div>\n\n              <div class=\"col-sm-4\">\n                <label class=\"radio small\">\n                  <input aria-describedby=\"Path: Ledger ETH {{HDWallet.ledgerEthPath}}\"\n                         ng-change=\"onHDDPathChange()\"\n                         ng-model=\"HDWallet.dPath\"\n                         type=\"radio\"\n                         value=\"{{HDWallet.ledgerEthPath}}\"/>\n                  <span ng-bind=\"HDWallet.ledgerEthPath\"></span>\n                  <p class=\"small\">\n                    Ledger (ETH)\n                  </p>\n                </label>\n\n          </section>\n\n\n          <h4 id=\"modalTitle2\" class=\"modal-title\" translate=\"MNEM_1\" style=\"margin: .5rem 0\">\n            Please select the address you would like to interact with.\n          </h4>\n\n          <table class=\"small table table-striped table-mnemonic\">\n            <tr>\n              <th translate=\"x_Address\">\n                Address\n              </th>\n              <th translate=\"MYWAL_Bal\">\n                Balance\n              </th>\n              <th translate=\"sidebar_TokenBal\" class=\"text-center\">\n                Token<br>Balances\n              </th>\n            </tr>\n            <tr ng-repeat=\"wallet in HDWallet.wallets track by $index\">\n              <td>\n                <label>\n                  <input aria-describedby=\"modalTitle2\"\n                         aria-label=\"Unlock wallet with {{wallet.getBalance()}} {{ajaxReq.type}}. Address: {{wallet.getChecksumAddressString()}}\"\n                         name=\"addressSelect\"\n                         ng-model=\"HDWallet.id\"\n                         type=\"radio\"\n                         value=\"{{$index}}\" />\n                    <span class=\"small\">\n                      {{wallet.getChecksumAddressString()}}\n                    </span>\n                </label>\n              </td>\n\n              <td>\n                <a href=\"{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\">\n                  {{wallet.getBalance()}} {{ajaxReq.type}}\n                </a>\n              </td>\n\n              <td class=\"text-center\">\n                <a href=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\" title=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\">\n                  <img src=\"images/icon-external-link.svg\" title=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\" ng-click=\"removeTokenFromLocal(token.symbol)\" ng-show=\"token.type!=='default'\" />\n                </a>\n              </td>\n\n            </tr>\n\n            <tr class=\"m-addresses\">\n\n              <td>\n                <a ng-click=\"AddRemoveHDAddresses(false)\"\n                   ng-show=\"HDWallet.numWallets > 5\"\n                   role=\"link\"\n                   tabindex=\"0\"\n                   translate=\"MNEM_prev\">\n                Previous Addresses\n                </a>\n              </td>\n\n              <td></td>\n\n              <td>\n                <a ng-click=\"AddRemoveHDAddresses(true)\"\n                   role=\"link\"\n                   tabindex=\"0\"\n                   translate=\"MNEM_more\">\n                More Addresses\n                </a>\n              </td>\n\n            </tr>\n          </table>\n\n          <div class=\"clearfix button-group\">\n            <button aria-label=\"Unlock this Wallet\"\n                    class=\"btn btn-primary pull-right\"\n                    style=\"margin: 0 .1rem\"\n                    ng-click=\"setHDWallet()\"\n                    role=\"button\"\n                    tabindex=\"0\"\n                    translate=\"ADD_Label_6\">\n              Access Wallet\n            </button>\n\n            <button aria-label=\"Cancel - Will close dialog\"\n                    class=\"btn btn-default pull-right\"\n                    style=\"margin: 0 .1rem\"\n                    data-dismiss=\"modal\"\n                    role=\"button\"\n                    tabindex=\"0\"\n                    translate=\"x_Cancel\">\n              Cancel\n            </button>\n          </div>\n\n        </div>\n\n      </section>\n\n    </section>\n\n  </article>\n\n</article>\n";
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
+module.exports = "<article class=\"block decrypt-drtv clearfix\" ng-controller='decryptWalletCtrl as $crtl'>\n\n  <!-- Column 1 - Select Type of Key -->\n  <section class=\"col-md-4 col-sm-6\">\n\n    <h4 translate=\"decrypt_Access\">\n      How would you like to access your wallet?\n    </h4>\n\n    <!-- View Balance Only -->\n    <label aria-flowto=\"aria1\"\n           class=\"radio\"\n           ng-show=\"globalService.currentTab==globalService.tabs.sendTransaction.id || globalService.currentTab==globalService.tabs.viewWalletInfo.id\">\n      <input aria-flowto=\"aria1\"\n             aria-label=\"address\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"addressOnly\" />\n        View w/ Address Only\n    </label>\n\n    <!-- MetaMask -->\n    <label aria-flowto=\"aria2\"\n           class=\"radio\">\n      <input aria-flowto=\"aria2\"\n             type=\"radio\"\n             aria-label=\"MetaMask / Mist\"\n             ng-model=\"walletType\"\n             value=\"metamask\"/>\n      <span translate=\"x_MetaMask\">\n        WanMask\n      </span>\n    </label>\n\n    <!-- Ledger -->\n    <label aria-flowto=\"aria3\"\n           class=\"radio\"\n           ng-show=\"ajaxReq.type=='WAN'\">\n      <input aria-flowto=\"aria3\"\n             type=\"radio\"\n             aria-label=\"Ledger Hardware Wallet\"\n             ng-model=\"walletType\"\n             value=\"ledger\"/>\n      Ledger Wallet\n    </label>\n\n    <!-- TREZOR -->\n    <label class=\"radio\"\n           aria-flowto=\"aria4\"\n           ng-show=\"ajaxReq.type=='WAN'\">\n      <input aria-flowto=\"aria4\"\n             type=\"radio\"\n             aria-label=\"Trezor Hardware Wallet\"\n             ng-model=\"walletType\"\n             value=\"trezor\"/>\n      TREZOR\n    </label>\n\n\n    <!-- Keystore / JSON File -->\n    <label aria-flowto=\"aria6\"\n           class=\"radio\">\n      <input aria-flowto=\"aria6\"\n             aria-label=\"Keystore JSON file\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"fileupload\" />\n      Keystore / JSON File\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n    <!-- Mnemonic Phrase -->\n    <label aria-flowto=\"aria7\"\n           class=\"radio\">\n      <input aria-flowto=\"aria7\"\n             aria-label=\"mnemonic phrase\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"pastemnemonic\" />\n      <span translate=\"x_Mnemonic\">\n        Mnemonic Phrase\n      </span>\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n    <!-- Private -->\n    <label aria-flowto=\"aria8\"\n           class=\"radio\">\n      <input aria-flowto=\"aria8\"\n             aria-label=\"private key\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"pasteprivkey\" />\n      <span translate=\"x_PrivKey2\">\n        Private Key\n      </span>\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n  </section>\n  <!-- / Column 1 - Select Type of Key -->\n\n\n  <!-- Column 2 - Unlock That Key -->\n  <section class=\"col-md-8 col-sm-6\">\n\n    <!-- View Only -->\n    <div id=\"selectedTypeKey\" ng-if=\"walletType=='addressOnly'\">\n      <h4 translate=\"x_Address\">\n        Your Address\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to view your balance.\n      </h5>\n      <p>\n          You can only view your balance via this option.\n          Please use another option in order to send.\n      </p>\n      <div class=\"form-group\">\n        <textarea rows=\"4\"\n                  id=\"aria8\"\n                  class=\"form-control\"\n                  ng-change=\"onAddressChange()\"\n                  ng-class=\"Validator.isValidAddress($parent.$parent.addressOnly) ? 'is-valid' : 'is-invalid'\"\n                  ng-model=\"$parent.$parent.addressOnly\"\n                  placeholder=\"{{ 'x_Address' | translate }}\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\">\n        <a class=\"btn btn-primary\"\n           ng-click=\"decryptAddressOnly()\"\n           ng-show=\"showAOnly\"\n           role=\"button\"\n           tabindex=\"0\">\n             View Balance\n        </a>\n      </div>\n    </div>\n    <!-- /View Only -->\n\n\n    <!--  MetaMask -->\n    <div id=\"selectedTypeMetamask\"\n         ng-if=\"walletType=='metamask'\">\n      <h4 translate=\"x_MetaMask\">\n        WanMask\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"45\" fill=\"red\"/><g fill=\"white\"><path d=\"M 42,20 58,20 55,55 45,55 z\" stroke-linejoin=\"round\" stroke=\"white\" stroke-width=\"5\"/><circle cx=\"50\" cy=\"75\" r=\"8\"/></g></svg>\n        Only use if you have WanMask installed! To make WanMask run smoothly you need to temporarily disable MetaMask (and other apps that insert a web3 object) while using it.\n        <img width=\"300px\" src=\"images/disable-metamask.png\" title=\"Disable MetaMask\"  />\n      </div>\n      <div class=\"form-group\">\n        WanMask is a browser extension that allows you to access your wallet quickly, safely &amp; easily. It is more secure because you <u>never enter your private key on a website</u>. It protects you from phishing &amp; malicious websites.\n      </div>\n      <ul>\n        <li class=\"u__download\">\n          <a tabindex=\"0\"\n             href=\"https://chrome.google.com/webstore/detail/omnkcjdohbnjfjmlaiboojplahajnenj\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Download WanMask for Chrome\n          </a>\n        </li>\n        <li class=\"u__download\">\n          <a tabindex=\"0\"\n             href=\"https://wanmask.io/\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Download WanMask for Other Browsers\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\"\n           ng-hide=\"isSSL\">\n        <span class=\"text-danger\"\n              translate=\"ADD_Ledger_0a\" >\n            Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.\n        </span>\n      </div>\n      <div class=\"form-group\">\n        <a id=\"aria3\"\n           class=\"btn btn-primary\"\n           ng-click=\"scanMetamask()\"\n           ng-show=\"walletType=='metamask'\"\n           tabindex=\"0\" role=\"button\"\n           translate=\"ADD_MetaMask\">\n             Connect to WanMask\n        </a>\n      </div>\n    </div>\n    <!-- / MetaMask -->\n\n\n    <!--  Ledger-->\n    <div id=\"selectedTypeLedger\" ng-if=\"walletType=='ledger'\">\n      <h4>\n        Ledger Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://ledger.zendesk.com/hc/en-us/articles/115005200009-How-to-use-MyEtherWallet-with-Ledger\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n          How to use MyEtherWallet with your Ledger Hardware Wallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://www.ledger.com/products/ledger-nano-s?r=651b52292b63\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a Ledger? Get one today.\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        <a class=\"btn btn-primary\"\n           ng-click=\"scanLedger()\"\n           ng-show=\"walletType=='ledger'\"\n           role=\"button\"\n           tabindex=\"0\"\n           translate=\"ADD_Ledger_scan\">\n            SCAN\n        </a>\n      </div>\n      <div role=\"alert\" ng-show=\"ledgerError\">\n        <p class=\"strong text-danger\">\n          {{ledgerErrorString}}\n        </p>\n        <ul>\n          <li ng-hide=\"isSSL\"\n              translate=\"ADD_Ledger_0a\" >\n                Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.\n          </li>\n          <li>\n            <span translate=\"ADD_Ledger_2\" ng-if=\"ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'\">\n              Open the Ethereum application (or a contract application)\n            </span>\n            <span translate=\"ADD_Ledger_2_Exp\" ng-if=\"ajaxReq.type=='EXP'\">\n              Open the Expanse application (or a contract application)\n            </span>\n            <span translate=\"ADD_Ledger_2_Ubq\" ng-if=\"ajaxReq.type=='UBQ'\">\n              Open the Ubiq application (or a contract application)\n            </span>\n          </li>\n          <li>\n            <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/ledger-hardware-wallet-unable-to-connect-on-myetherwallet.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Still not working? More Troubleshooting Tips\n            </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <!-- / Ledger-->\n\n\n    <!--  TREZOR-->\n    <div id=\"selectedTypeTrezor\" ng-if=\"walletType=='trezor'\">\n      <h4>\n        TREZOR Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://blog.trezor.io/trezor-integration-with-myetherwallet-3e217a652e08#.n5fddxmdg\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n               How to use TREZOR with MyEtherWallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://shop.trezor.io?a=mywanwallet.nl\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a TREZOR? Get one now.\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        <a id=\"aria7\"\n           class=\"btn btn-primary\"\n           ng-click=\"scanTrezor()\"\n           ng-show=\"walletType=='trezor'\"\n           tabindex=\"0\" role=\"button\"\n           translate=\"ADD_Trezor_scan\">\n            Connect to TREZOR\n        </a>\n      </div>\n      <div role=\"alert\" ng-show=\"trezorError\">\n        <p class=\"strong text-danger\">\n          {{trezorErrorString}}\n        </p>\n        <ul>\n          <li ng-hide=\"isSSL\"\n              translate=\"ADD_Ledger_0a\" >\n                Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.\n          </li>\n          <li>\n                Ensure you are not blocking pop-ups on this site.\n          </li>\n          <li>\n            <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Still not working? More Troubleshooting Tips\n            </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <!-- / TREZOR-->\n\n\n    <!--  Digital Bitbox-->\n    <div id=\"selectedTypeDigitalBitbox\" ng-if=\"walletType=='digitalBitbox'\">\n      <h4>\n        Digital Bitbox Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://digitalbitbox.com/ethereum\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n               How to use Digital Bitbox with MyEtherWallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://digitalbitbox.com/?ref=mew\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a Digital Bitbox? Get one now.\n          </a>\n        </li>\n      </ul>\n      <input class=\"form-control\"\n             aria-label=\"Enter the Digital Bitbox password\"\n             aria-describedby=\"selectedTypeDigitalBitbox\"\n             type=\"password\"\n             placeholder=\"Digital Bitbox password\"\n             spellcheck=\"false\"\n             value=\"\"\n             ng-model=\"HDWallet.digitalBitboxSecret\" />\n      <div class=\"form-group\">\n        <a tabindex=\"0\" role=\"button\" class=\"btn btn-primary\" ng-click=\"scanDigitalBitbox()\" translate=\"ADD_DigitalBitbox_scan\">\n          Connect your Digital Bitbox\n        </a>\n      </div>\n    </div>\n    <!-- / Digital Bitbox-->\n\n\n    <!-- Keystore -->\n    <div ng-if=\"walletType=='fileupload'\">\n      <h4 translate=\"ADD_Radio_2_alt\">Select your wallet file</h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <input style=\"display:none;\" type=\"file\" on-read-file=\"showContent($fileContent)\" id=\"fselector\" />\n        <a class=\"btn-file marg-v-sm\"\n           ng-click=\"openFileDialog()\"\n           translate=\"ADD_Radio_2_short\"\n           id=\"aria1\"\n           tabindex=\"0\"\n           role=\"button\">SELECT WALLET FILE... </a>\n      </div>\n      <div class=\"form-group\" ng-if=\"requireFPass\">\n        <p translate=\"ADD_Label_3\">\n          Your file is encrypted. Please enter the password:\n        </p>\n        <input class=\"form-control\"\n               ng-change=\"onFilePassChange()\"\n               ng-class=\"Validator.isPasswordLenValid($parent.$parent.filePassword,0) ? 'is-valid' : 'is-invalid'\"\n               ng-model=\"$parent.$parent.filePassword\"\n               placeholder=\"{{ 'x_Password' | translate }}\"\n               type=\"password\" />\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Keystore -->\n\n\n    <!--  Mnemonic -->\n    <div id=\"selectedTypeMnemonic\" ng-if=\"walletType=='pastemnemonic'\">\n      <h4 translate=\"ADD_Radio_5\"> Paste your mnemonic: </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <textarea id=\"aria4\"\n                  class=\"form-control\"\n                  ng-change=\"onMnemonicChange()\"\n                  ng-class=\"Validator.isValidMnemonic($parent.$parent.manualmnemonic) ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.manualmnemonic\"\n                  placeholder=\"{{ 'x_Mnemonic' | translate}}\"\n                  rows=\"4\"></textarea>\n      </div>\n      <div class=\"form-group\">\n        <p translate=\"ADD_Label_8\">\n          Password (optional):\n        </p>\n        <div>\n          <input class=\"form-control\"\n                 id=\"aria5\"\n                 ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                 ng-model=\"$parent.$parent.mnemonicPassword\"\n                 placeholder=\"{{ 'x_Password' | translate }}\"\n                 type=\"password\" />\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Mnemonic -->\n\n\n    <!--  Private Key -->\n    <div id=\"selectedTypeKey\" ng-if=\"walletType=='pasteprivkey'\">\n      <h4 translate=\"ADD_Radio_3\">\n        Paste your private key:\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <textarea id=\"aria6\"\n                  class=\"form-control\"\n                  ng-change=\"onPrivKeyChange()\"\n                  ng-class=\"Validator.isValidPrivKey($parent.$parent.manualprivkey.length) ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.manualprivkey\"\n                  placeholder=\"{{ 'x_PrivKey2' | translate }}\"\n                  rows=\"4\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\" ng-if=\"requirePPass\">\n        <p translate=\"ADD_Label_3\">\n          Your file is encrypted. Please enter the password:\n        </p>\n        <input class=\"form-control\"\n               ng-change=\"onPrivKeyPassChange()\"\n               ng-class=\"Validator.isPasswordLenValid($parent.$parent.privPassword,0) ? 'is-valid' : 'is-invalid'\"\n               ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n               ng-model=\"$parent.$parent.privPassword\"\n               placeholder=\"{{ 'x_Password' | translate }}\"\n               type=\"password\" />\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Private Key -->\n\n\n    <!-- Parity Phrase -->\n    <div id=\"selectedTypeMnemonic\" ng-if=\"walletType=='parityBWallet'\">\n      <h4 translate=\"ADD_Radio_5\"> Paste your mnemonic: </h4>\n      <div class=\"form-group\">\n        <textarea rows=\"4\"\n                  id=\"aria9\"\n                  class=\"form-control\"\n                  ng-change=\"onParityPhraseChange()\"\n                  ng-class=\"$parent.$parent.parityPhrase != '' ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.parityPhrase\"\n                  placeholder=\"{{ 'x_ParityPhrase' | translate}}\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Parity Phrase -->\n\n  </section>\n  <!-- / Column 2 - Unlock That Key -->\n\n\n  <!-- MODAL -->\n  <article class=\"modal fade\" id=\"mnemonicModel\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"Mnemonic Phrase Modal\">\n\n    <section class=\"modal-dialog\">\n\n      <section class=\"modal-content\">\n\n        <div class=\"modal-body\" role=\"document\">\n\n          <button aria-label=\"Close\" type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n\n          <!-- Select HD Path -->\n          <h4 id=\"modalTitle\" class=\"modal-title\" translate=\"ADD_Radio_5_Path\" style=\"margin-bottom: .25rem\">\n            Select HD derivation path:\n          </h4>\n\n          <p class=\"alert alert-danger\"\n             ng-hide=\"ajaxReq.type=='WAN'\">\n                We do not know the correct path for this network.\n                <a href=\"https://github.com/tyrion70/mywanwallet/issues\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\">\n                      Please open a github issue\n                </a>\n                so we can discuss / be enlightened.\n          </p>\n\n          <section class=\"row\">\n\n            <div class=\"col-sm-4\">\n              <label class=\"radio small\">\n                <input aria-describedby=\"Path: Trezor WAN - {{HDWallet.trezorWanPath}}\"\n                       ng-change=\"onHDDPathChange()\"\n                       ng-model=\"HDWallet.dPath\"\n                       type=\"radio\"\n                      value=\"{{HDWallet.trezorWanPath}}\"/>\n                <span ng-bind=\"HDWallet.trezorWanPath\"></span>\n                <p class=\"small\">\n                  TREZOR (WAN)\n                </p>\n              </label>\n            </div>\n\n            <div class=\"col-sm-4\">\n              <label class=\"radio small\">\n                <input aria-describedby=\"Path: Ledger WAN {{HDWallet.ledgerWanPath}}\"\n                       ng-change=\"onHDDPathChange()\"\n                       ng-model=\"HDWallet.dPath\"\n                       type=\"radio\"\n                      value=\"{{HDWallet.ledgerWanPath}}\"/>\n                <span ng-bind=\"HDWallet.ledgerWanPath\"></span>\n                <p class=\"small\">\n                  Ledger (WAN)\n                </p>\n              </label>\n\n          </section>\n\n          <section class=\"row\">\n\n              <div class=\"col-sm-4\">\n                <label class=\"radio small\">\n                  <input aria-describedby=\"Path: Trezor ETH - {{HDWallet.trezorEthPath}}\"\n                         ng-change=\"onHDDPathChange()\"\n                         ng-model=\"HDWallet.dPath\"\n                         type=\"radio\"\n                         value=\"{{HDWallet.trezorEthPath}}\"/>\n                  <span ng-bind=\"HDWallet.trezorEthPath\"></span>\n                  <p class=\"small\">\n                    TREZOR (ETH)\n                  </p>\n                </label>\n              </div>\n\n              <div class=\"col-sm-4\">\n                <label class=\"radio small\">\n                  <input aria-describedby=\"Path: Ledger ETH {{HDWallet.ledgerEthPath}}\"\n                         ng-change=\"onHDDPathChange()\"\n                         ng-model=\"HDWallet.dPath\"\n                         type=\"radio\"\n                         value=\"{{HDWallet.ledgerEthPath}}\"/>\n                  <span ng-bind=\"HDWallet.ledgerEthPath\"></span>\n                  <p class=\"small\">\n                    Ledger (ETH)\n                  </p>\n                </label>\n\n          </section>\n\n\n          <h4 id=\"modalTitle2\" class=\"modal-title\" translate=\"MNEM_1\" style=\"margin: .5rem 0\">\n            Please select the address you would like to interact with.\n          </h4>\n\n          <table class=\"small table table-striped table-mnemonic\">\n            <tr>\n              <th translate=\"x_Address\">\n                Address\n              </th>\n              <th translate=\"MYWAL_Bal\">\n                Balance\n              </th>\n              <th translate=\"sidebar_TokenBal\" class=\"text-center\">\n                Token<br>Balances\n              </th>\n            </tr>\n            <tr ng-repeat=\"wallet in HDWallet.wallets track by $index\">\n              <td>\n                <label>\n                  <input aria-describedby=\"modalTitle2\"\n                         aria-label=\"Unlock wallet with {{wallet.getBalance()}} {{ajaxReq.type}}. Address: {{wallet.getChecksumAddressString()}}\"\n                         name=\"addressSelect\"\n                         ng-model=\"HDWallet.id\"\n                         type=\"radio\"\n                         value=\"{{$index}}\" />\n                    <span class=\"small\">\n                      {{wallet.getChecksumAddressString()}}\n                    </span>\n                </label>\n              </td>\n\n              <td>\n                <a href=\"{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\">\n                  {{wallet.getBalance()}} {{ajaxReq.type}}\n                </a>\n              </td>\n\n              <td class=\"text-center\">\n                <a href=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\" title=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\">\n                  <img src=\"images/icon-external-link.svg\" title=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\" ng-click=\"removeTokenFromLocal(token.symbol)\" ng-show=\"token.type!=='default'\" />\n                </a>\n              </td>\n\n            </tr>\n\n            <tr class=\"m-addresses\">\n\n              <td>\n                <a ng-click=\"AddRemoveHDAddresses(false)\"\n                   ng-show=\"HDWallet.numWallets > 5\"\n                   role=\"link\"\n                   tabindex=\"0\"\n                   translate=\"MNEM_prev\">\n                Previous Addresses\n                </a>\n              </td>\n\n              <td></td>\n\n              <td>\n                <a ng-click=\"AddRemoveHDAddresses(true)\"\n                   role=\"link\"\n                   tabindex=\"0\"\n                   translate=\"MNEM_more\">\n                More Addresses\n                </a>\n              </td>\n\n            </tr>\n          </table>\n\n          <div class=\"clearfix button-group\">\n            <button aria-label=\"Unlock this Wallet\"\n                    class=\"btn btn-primary pull-right\"\n                    style=\"margin: 0 .1rem\"\n                    ng-click=\"setHDWallet()\"\n                    role=\"button\"\n                    tabindex=\"0\"\n                    translate=\"ADD_Label_6\">\n              Access Wallet\n            </button>\n\n            <button aria-label=\"Cancel - Will close dialog\"\n                    class=\"btn btn-default pull-right\"\n                    style=\"margin: 0 .1rem\"\n                    data-dismiss=\"modal\"\n                    role=\"button\"\n                    tabindex=\"0\"\n                    translate=\"x_Cancel\">\n              Cancel\n            </button>\n          </div>\n\n        </div>\n\n      </section>\n\n    </section>\n\n  </article>\n\n</article>\n";
+},{}],35:[function(require,module,exports){
 'use strict';
 
 var walletDecryptDrtv = function walletDecryptDrtv() {
        return {
-              restrict: "E",
+              restrict: 'E',
               template: require('./walletDecryptDrtv.html')
        };
 };
 module.exports = walletDecryptDrtv;
 
-},{"./walletDecryptDrtv.html":32}],34:[function(require,module,exports){
+},{"./walletDecryptDrtv.html":34}],36:[function(require,module,exports){
+'use strict';
+
+var ens = require('./ens');
+var domainsaleInterface = require('./domainsaleConfigs/domainsaleABI.json');
+
+var domainsale = function domainsale() {
+    var _this = this;
+    this.domainsaleABI = {};
+    for (var i in domainsaleInterface) {
+        this.domainsaleABI[domainsaleInterface[i].name] = domainsaleInterface[i];
+    }switch (ajaxReq.type) {
+        case nodes.nodeTypes.ETH:
+            _this.setContractAddress('0xc67247454E720328714C4e17bEC7640572657bEE');
+            break;
+        case nodes.nodeTypes.Rinkeby:
+            _this.setContractAddress('0x00');
+            break;
+        case nodes.nodeTypes.Ropsten:
+            _this.setContractAddress('0xe8E98228Ca36591952Efdf6F645C5B229E6Cf688');
+            break;
+        default:
+            _this.setContractAddress('0x00');
+    }
+};
+
+domainsale.prototype.setContractAddress = function (_address) {
+    this.contractAddress = _address;
+};
+domainsale.prototype.getContractAddress = function () {
+    return this.contractAddress;
+};
+domainsale.prototype.getSale = function (name, callback) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.sale;
+    ajaxReq.getEthCall({ to: _this.getContractAddress(), data: _this.getDataString(funcABI, [name]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            var res = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''));
+
+            data.data = {
+                price: res[0],
+                priceEth: Number(etherUnits.toEther(res[0].toString(), 'wei')),
+                reserve: res[1],
+                reserveEth: Number(etherUnits.toEther(res[1].toString(), 'wei')),
+                lastBid: res[2],
+                lastBidEth: Number(etherUnits.toEther(res[2].toString(), 'wei')),
+                lastBidder: res[3],
+                auctionStarted: new Date(res[4].toNumber() * 1000),
+                auctionEnds: new Date(res[5].toNumber() * 1000)
+            };
+            callback(data);
+        }
+    });
+};
+domainsale.prototype.getMinimumBid = function (name, callback) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.minimumBid;
+    ajaxReq.getEthCall({ to: _this.getContractAddress(), data: _this.getDataString(funcABI, [name]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            var res = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''));
+
+            data.data = {
+                minimumBid: res[0],
+                minimumBidEth: Number(etherUnits.toEther(res[0].toString(), 'wei'))
+            };
+            callback(data);
+        }
+    });
+};
+domainsale.prototype.getBalance = function (address, callback) {
+    var _this = this;
+    var funcABI = _this.domainsaleABI.balance;
+    ajaxReq.getEthCall({ to: _this.getContractAddress(), data: _this.getDataString(funcABI, [address]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            var res = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''));
+
+            data.data = {
+                balance: res[0],
+                balanceEth: Number(etherUnits.toEther(res[0].toString(), 'wei'))
+            };
+            callback(data);
+        }
+    });
+};
+
+domainsale.prototype.getOfferData = function (name, price, reserve, referrer) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.offer;
+    return _this.getDataString(funcABI, [name, price, reserve, referrer]);
+};
+
+domainsale.prototype.getBuyData = function (name, referrer) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.buy;
+    return _this.getDataString(funcABI, [name, referrer]);
+};
+
+domainsale.prototype.getCancelData = function (name) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.cancel;
+    return _this.getDataString(funcABI, [name]);
+};
+
+domainsale.prototype.getBidData = function (name, referrer) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.bid;
+    return _this.getDataString(funcABI, [name, referrer]);
+};
+
+domainsale.prototype.getFinishData = function (name) {
+    var _this = this;
+    name = ens.normalise(name);
+    var funcABI = _this.domainsaleABI.finish;
+    return _this.getDataString(funcABI, [name]);
+};
+
+domainsale.prototype.getWithdrawData = function () {
+    var _this = this;
+    var funcABI = _this.domainsaleABI.withdraw;
+    return _this.getDataString(funcABI, []);
+};
+
+domainsale.prototype.getDataString = function (func, inputs) {
+    var fullFuncName = ethUtil.solidityUtils.transformToFullName(func);
+    var funcSig = ethFuncs.getFunctionSignature(fullFuncName);
+    var typeName = ethUtil.solidityUtils.extractTypeName(fullFuncName);
+    var types = typeName.split(',');
+    types = types[0] === '' ? [] : types;
+    return '0x' + funcSig + ethUtil.solidityCoder.encodeParams(types, inputs);
+};
+domainsale.modes = {
+    ineligible: 0,
+    nottransferred: 1,
+    notoffered: 2,
+    available: 3,
+    auctioning: 4,
+    closed: 5
+};
+domainsale.transactions = {
+    transfer: 1,
+    offer: 2,
+    buy: 3,
+    bid: 4,
+    cancel: 5,
+    withdraw: 6
+};
+module.exports = domainsale;
+
+},{"./domainsaleConfigs/domainsaleABI.json":37,"./ens":38}],37:[function(require,module,exports){
+module.exports=[
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "sale",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "address"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "invalidate",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "cancel",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "registrar",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "auctionStarted",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "finish",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "withdraw",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "minimumBid",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "name": "bidReferrer",
+        "type": "address"
+      }
+    ],
+    "name": "bid",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "auctionEnds",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "isBuyable",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "isAuction",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "name": "_price",
+        "type": "uint256"
+      },
+      {
+        "name": "reserve",
+        "type": "uint256"
+      },
+      {
+        "name": "referrer",
+        "type": "address"
+      }
+    ],
+    "name": "offer",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "name": "bidReferrer",
+        "type": "address"
+      }
+    ],
+    "name": "buy",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "balance",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "price",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "_registry",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "reserve",
+        "type": "uint256"
+      }
+    ],
+    "name": "Offer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "bidder",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "bid",
+        "type": "uint256"
+      }
+    ],
+    "name": "Bid",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "Cancel",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "Withdraw",
+    "type": "event"
+  }
+]
+
+},{}],38:[function(require,module,exports){
+(function (Buffer){
+'use strict';
+
+var uts46 = require('idna-uts46');
+var registryInterface = require('./ensConfigs/registryABI.json');
+var resolverInterface = require('./ensConfigs/resolverABI.json');
+var auctionInterface = require('./ensConfigs/auctionABI.json');
+var deedInterface = require('./ensConfigs/deedABI.json');
+var ens = function ens() {
+    var _this = this;
+    this.registryABI = {};
+    for (var i in registryInterface) {
+        this.registryABI[registryInterface[i].name] = registryInterface[i];
+    }this.resolverABI = {};
+    for (i in resolverInterface) {
+        this.resolverABI[resolverInterface[i].name] = resolverInterface[i];
+    }this.auctionABI = {};
+    for (i in auctionInterface) {
+        this.auctionABI[auctionInterface[i].name] = auctionInterface[i];
+    }this.deedABI = {};
+    for (i in deedInterface) {
+        this.deedABI[deedInterface[i].name] = deedInterface[i];
+    }switch (ajaxReq.type) {
+        case nodes.nodeTypes.WAN:
+            _this.setCurrentRegistry(ens.registry.WAN);
+            break;
+        default:
+            _this.setCurrentRegistry(ens.registry.NULL);
+    }
+};
+ens.registry = {
+    WAN: require('./ensConfigs/WANConfig.json'),
+    NULL: {}
+};
+ens.normalise = function (name) {
+    try {
+        return uts46.toUnicode(name, { useStd3ASCII: true, transitional: false });
+    } catch (e) {
+        throw e;
+    }
+};
+ens.modes = {
+    open: 0,
+    auction: 1,
+    owned: 2,
+    forbidden: 3,
+    reveal: 4,
+    notAvailable: 5
+};
+ens.prototype.setCurrentRegistry = function (_registry) {
+    this.curRegistry = _registry;
+};
+ens.prototype.getRegistryAddress = function () {
+    return this.curRegistry.registry;
+};
+
+function namehash(name) {
+    name = ens.normalise(name);
+    var node = Buffer.alloc(32);
+    if (name && name !== '') {
+        var labels = name.split('.');
+        for (var i = labels.length - 1; i >= 0; i--) {
+            node = ethUtil.sha3(Buffer.concat([node, ethUtil.sha3(labels[i])]));
+        }
+    }
+    return '0x' + node.toString('hex');
+}
+
+function subnodehash(name) {
+    name = ens.normalise(name);
+    return '0x' + ethUtil.sha3(name).toString('hex');
+}
+ens.getNameHash = function (name) {
+    return namehash(name);
+};
+ens.getSubNodeHash = function (name) {
+    return subnodehash(name);
+};
+ens.prototype.getOwnerResolverAddress = function (funcABI, to, name, callback) {
+    var _this = this;
+    ajaxReq.getEthCall({ to: to, data: _this.getDataString(funcABI, [namehash(name)]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            data.data = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''))[0];
+            callback(data);
+        }
+    });
+};
+ens.prototype.getDeedOwner = function (to, callback) {
+    this.getOwnerResolverAddress(this.deedABI.owner, to, '', callback);
+};
+ens.prototype.getDeedPreviousOwner = function (to, callback) {
+    this.getOwnerResolverAddress(this.deedABI.previousOwner, to, '', callback);
+};
+ens.prototype.getOwner = function (name, callback) {
+    this.getOwnerResolverAddress(this.registryABI.owner, this.getRegistryAddress(), name, callback);
+};
+ens.prototype.getResolver = function (name, callback) {
+    this.getOwnerResolverAddress(this.registryABI.resolver, this.getRegistryAddress(), name, callback);
+};
+ens.prototype.getAddress = function (name, callback) {
+    var _this = this;
+    _this.getResolver(name, function (data) {
+        if (data.error) callback(data);else {
+            _this.getOwnerResolverAddress(_this.resolverABI.addr, data.data, name, callback);
+        }
+    });
+};
+ens.prototype.getName = function (name, callback) {
+    var _this = this;
+    name = ens.normalise(name);
+    _this.getResolver(name, function (data) {
+        if (data.error || data.data === '0x') callback(data);else {
+            ajaxReq.getEthCall({ to: data.data, data: _this.getDataString(_this.resolverABI.name, [namehash(name)]) }, function (data) {
+                if (data.error || data.data === '0x') callback(data);else {
+                    var outTypes = _this.resolverABI.name.outputs.map(function (i) {
+                        return i.type;
+                    });
+                    data.data = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''))[0];
+                    callback(data);
+                }
+            });
+        }
+    });
+};
+ens.prototype.resolveAddressByName = function (name, callback) {
+    var _this = this;
+    name = ens.normalise(name);
+    _this.getOwner(name, function (data) {
+        if (data.error || data.data === '0x') callback(data);else {
+            var owner = data.data;
+            _this.getName(name, function (data) {
+                if (data.error || data.data === '0x') {
+                    callback({ data: owner, error: false });
+                } else {
+                    callback({ data: data.data, error: false });
+                }
+            });
+        }
+    });
+};
+ens.prototype.getAuctionAddress = function () {
+    return this.curRegistry.public.ethAuction;
+};
+ens.prototype.getStartAuctionData = function (name) {
+    var _this = this;
+    name = _this.getSHA3(ens.normalise(name));
+    var funcABI = _this.auctionABI.startAuction;
+    return _this.getDataString(funcABI, [name]);
+};
+ens.prototype.getStartAndBidAuctionData = function (name, sealedHash) {
+    var _this = this;
+    name = _this.getSHA3(ens.normalise(name));
+    var funcABI = _this.auctionABI.startAuctionsAndBid;
+    return _this.getDataString(funcABI, [[name], sealedHash]);
+};
+ens.prototype.getFinalizeAuctionData = function (name) {
+    var _this = this;
+    name = _this.getSHA3(ens.normalise(name));
+    var funcABI = _this.auctionABI.finalizeAuction;
+    return _this.getDataString(funcABI, [name]);
+};
+var isSecretHashed = function isSecretHashed(secret) {
+    return secret.substring(0, 2) === '0x' && secret.length === 66 && Validator.isValidHex(secret);
+};
+ens.prototype.getRevealBidData = function (name, value, secret) {
+    var _this = this;
+    name = _this.getSHA3(ens.normalise(name));
+    secret = isSecretHashed(secret) ? secret : _this.getSHA3(secret);
+    var funcABI = _this.auctionABI.unsealBid;
+    return _this.getDataString(funcABI, [name, value, secret]);
+};
+ens.prototype.getSHA3 = function (str) {
+    return '0x' + ethUtil.sha3(str).toString('hex');
+};
+ens.prototype.getNewBidData = function (sealedHash) {
+    var _this = this;
+    var funcABI = _this.auctionABI.newBid;
+    return _this.getDataString(funcABI, [sealedHash]);
+};
+ens.prototype.getAuctionEntries = function (name, callback) {
+    var _this = this;
+    name = _this.getSHA3(ens.normalise(name));
+    var funcABI = _this.auctionABI.entries;
+    ajaxReq.getEthCall({ to: _this.curRegistry.public.ethAuction, data: _this.getDataString(funcABI, [name]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            var res = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''));
+            data.data = {
+                status: res[0].toNumber(),
+                deed: res[1],
+                registrationDate: new Date(res[2].toNumber() * 1000),
+                value: res[3],
+                highestBid: res[4]
+            };
+            callback(data);
+        }
+    });
+};
+ens.prototype.shaBid = function (hash, owner, value, saltHash, callback) {
+    var _this = this;
+    var funcABI = _this.auctionABI.shaBid;
+    ajaxReq.getEthCall({ to: _this.curRegistry.public.ethAuction, data: _this.getDataString(funcABI, [hash, owner, value, saltHash]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            data.data = ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''))[0];
+            callback(data);
+        }
+    });
+};
+ens.prototype.getAllowedTime = function (name, callback) {
+    var _this = this;
+    var funcABI = _this.auctionABI.getAllowedTime;
+    name = _this.getSHA3(ens.normalise(name));
+    ajaxReq.getEthCall({ to: _this.curRegistry.public.ethAuction, data: _this.getDataString(funcABI, [name]) }, function (data) {
+        if (data.error) callback(data);else {
+            var outTypes = funcABI.outputs.map(function (i) {
+                return i.type;
+            });
+            data.data = new Date(ethUtil.solidityCoder.decodeParams(outTypes, data.data.replace('0x', ''))[0] * 1000);
+            callback(data);
+        }
+    });
+};
+ens.prototype.getTransferData = function (name, owner) {
+    var _this = this;
+    //    name = namehash(ens.normalise(name));
+    name = _this.getSHA3(ens.normalise(name));
+    var funcABI = _this.auctionABI.transfer;
+    return _this.getDataString(funcABI, [name, owner]);
+};
+ens.prototype.getSetOwnerData = function (name, owner) {
+    var _this = this;
+    name = namehash(ens.normalise(name));
+    var funcABI = _this.registryABI.setOwner;
+    return _this.getDataString(funcABI, [name, owner]);
+};
+ens.prototype.getDataString = function (func, inputs) {
+    var fullFuncName = ethUtil.solidityUtils.transformToFullName(func);
+    var funcSig = ethFuncs.getFunctionSignature(fullFuncName);
+    var typeName = ethUtil.solidityUtils.extractTypeName(fullFuncName);
+    var types = typeName.split(',');
+    types = types[0] === '' ? [] : types;
+    return '0x' + funcSig + ethUtil.solidityCoder.encodeParams(types, inputs);
+};
+module.exports = ens;
+
+}).call(this,require("buffer").Buffer)
+},{"./ensConfigs/WANConfig.json":39,"./ensConfigs/auctionABI.json":40,"./ensConfigs/deedABI.json":41,"./ensConfigs/registryABI.json":42,"./ensConfigs/resolverABI.json":43,"buffer":151,"idna-uts46":247}],39:[function(require,module,exports){
+module.exports={
+    "public": {
+        "resolver": "0x330b6f07f6ace581fc4321ce7f401aa8edb5bfad",
+        "reverse": "0x5d33e8cb2cc9851b63be38f35d1ef2c22de8984f",
+        "ethAuction": "0x48859467c329854af6ecc363c8ddb393b911586b",
+    },
+    "registry": "0xee8d418fd33e69782015ea4313dfd8eb7b1b91ce"
+}
+
+},{}],40:[function(require,module,exports){
+module.exports=[
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "releaseDeed",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getAllowedTime",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "unhashedName",
+        "type": "string"
+      }
+    ],
+    "name": "invalidateName",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "name": "salt",
+        "type": "bytes32"
+      }
+    ],
+    "name": "shaBid",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "bidder",
+        "type": "address"
+      },
+      {
+        "name": "seal",
+        "type": "bytes32"
+      }
+    ],
+    "name": "cancelBid",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "entries",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint8"
+      },
+      {
+        "name": "",
+        "type": "address"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      },
+      {
+        "name": "_value",
+        "type": "uint256"
+      },
+      {
+        "name": "_salt",
+        "type": "bytes32"
+      }
+    ],
+    "name": "unsealBid",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "transferRegistrars",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      },
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "sealedBids",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "state",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      },
+      {
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transfer",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "wns",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      },
+      {
+        "name": "_timestamp",
+        "type": "uint256"
+      }
+    ],
+    "name": "isAllowed",
+    "outputs": [
+      {
+        "name": "allowed",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "finalizeAuction",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "registryStarted",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "launchLength",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "sealedBid",
+        "type": "bytes32"
+      }
+    ],
+    "name": "newBid",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "labels",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "eraseNode",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hashes",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "startAuctions",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "name": "deed",
+        "type": "address"
+      },
+      {
+        "name": "registrationDate",
+        "type": "uint256"
+      }
+    ],
+    "name": "acceptRegistrarTransfer",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "startAuction",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "rootNode",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "hashes",
+        "type": "bytes32[]"
+      },
+      {
+        "name": "sealedBid",
+        "type": "bytes32"
+      }
+    ],
+    "name": "startAuctionsAndBid",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "_wns",
+        "type": "address"
+      },
+      {
+        "name": "_rootNode",
+        "type": "bytes32"
+      },
+      {
+        "name": "_startDate",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "registrationDate",
+        "type": "uint256"
+      }
+    ],
+    "name": "AuctionStarted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "name": "bidder",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "deposit",
+        "type": "uint256"
+      }
+    ],
+    "name": "NewBid",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "status",
+        "type": "uint8"
+      }
+    ],
+    "name": "BidRevealed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "registrationDate",
+        "type": "uint256"
+      }
+    ],
+    "name": "HashRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "HashReleased",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "registrationDate",
+        "type": "uint256"
+      }
+    ],
+    "name": "HashInvalidated",
+    "type": "event"
+  }
+]
+},{}],41:[function(require,module,exports){
+module.exports=[
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "creationDate",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "destroyDeed",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "setOwner",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "registrar",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "value",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "previousOwner",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newValue",
+        "type": "uint256"
+      },
+      {
+        "name": "throwOnFailure",
+        "type": "bool"
+      }
+    ],
+    "name": "setBalance",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "refundRatio",
+        "type": "uint256"
+      }
+    ],
+    "name": "closeDeed",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newRegistrar",
+        "type": "address"
+      }
+    ],
+    "name": "setRegistrar",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "_owner",
+        "type": "address"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnerChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [],
+    "name": "DeedClosed",
+    "type": "event"
+  }
+]
+},{}],42:[function(require,module,exports){
+module.exports=[
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "resolver",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "owner",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "label",
+        "type": "bytes32"
+      },
+      {
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "setSubnodeOwner",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "ttl",
+        "type": "uint64"
+      }
+    ],
+    "name": "setTTL",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "ttl",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "resolver",
+        "type": "address"
+      }
+    ],
+    "name": "setResolver",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "setOwner",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "name": "label",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "NewOwner",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "resolver",
+        "type": "address"
+      }
+    ],
+    "name": "NewResolver",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "ttl",
+        "type": "uint64"
+      }
+    ],
+    "name": "NewTTL",
+    "type": "event"
+  }
+]
+},{}],43:[function(require,module,exports){
+module.exports=[
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "interfaceID",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "key",
+        "type": "string"
+      },
+      {
+        "name": "value",
+        "type": "string"
+      }
+    ],
+    "name": "setText",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "contentTypes",
+        "type": "uint256"
+      }
+    ],
+    "name": "ABI",
+    "outputs": [
+      {
+        "name": "contentType",
+        "type": "uint256"
+      },
+      {
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "x",
+        "type": "bytes32"
+      },
+      {
+        "name": "y",
+        "type": "bytes32"
+      }
+    ],
+    "name": "setPubkey",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "content",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "addr",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "key",
+        "type": "string"
+      }
+    ],
+    "name": "text",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "contentType",
+        "type": "uint256"
+      },
+      {
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "setABI",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "name",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "setName",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "setContent",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      }
+    ],
+    "name": "pubkey",
+    "outputs": [
+      {
+        "name": "x",
+        "type": "bytes32"
+      },
+      {
+        "name": "y",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "setAddr",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "wnsAddr",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "a",
+        "type": "address"
+      }
+    ],
+    "name": "AddrChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "ContentChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "NameChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "name": "contentType",
+        "type": "uint256"
+      }
+    ],
+    "name": "ABIChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "x",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "y",
+        "type": "bytes32"
+      }
+    ],
+    "name": "PubkeyChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "name": "indexedKey",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "key",
+        "type": "string"
+      }
+    ],
+    "name": "TextChanged",
+    "type": "event"
+  }
+]
+},{}],44:[function(require,module,exports){
 'use strict';
 
 var ethFuncs = function ethFuncs() {};
 var wanUtil = require('wanchain-util');
 ethFuncs.gasAdjustment = 40;
 ethFuncs.validateEtherAddress = function (address) {
-    if (address.substring(0, 2) != "0x") return false;else if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) return false;else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) return true;else return this.isChecksumAddress(address);
+    if (address.substring(0, 2) !== '0x') return false;else if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) return false;else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) return true;else {
+        return this.isChecksumAddress(address);
+    }
 };
 ethFuncs.isChecksumAddress = function (address) {
-    return address == wanUtil.toChecksumAddress(address);
+    return address === wanUtil.toChecksumAddress(address);
 };
 ethFuncs.validateHexString = function (str) {
-    if (str == "") return true;
-    str = str.substring(0, 2) == '0x' ? str.substring(2).toUpperCase() : str.toUpperCase();
+    if (str === '') return true;
+    str = str.substring(0, 2) === '0x' ? str.substring(2).toUpperCase() : str.toUpperCase();
     var re = /^[0-9A-F]+$/g;
     return re.test(str);
 };
 ethFuncs.sanitizeHex = function (hex) {
-    hex = hex.substring(0, 2) == '0x' ? hex.substring(2) : hex;
-    if (hex == "") return "";
+    hex = hex.substring(0, 2) === '0x' ? hex.substring(2) : hex;
+    if (hex === '') return '';
     return '0x' + this.padLeftEven(hex);
 };
 ethFuncs.trimHexZero = function (hex) {
-    if (hex == "0x00" || hex == "0x0") return "0x0";
+    if (hex === '0x00' || hex === '0x0') return '0x0';
     hex = this.sanitizeHex(hex);
     hex = hex.substring(2).replace(/^0+/, '');
     return '0x' + hex;
 };
 ethFuncs.padLeftEven = function (hex) {
-    hex = hex.length % 2 != 0 ? '0' + hex : hex;
+    hex = hex.length % 2 !== 0 ? '0' + hex : hex;
     return hex;
 };
 ethFuncs.addTinyMoreToGas = function (hex) {
@@ -3297,7 +6272,7 @@ ethFuncs.contractOutToArray = function (hex) {
     hex = hex.replace('0x', '').match(/.{64}/g);
     for (var i = 0; i < hex.length; i++) {
         hex[i] = hex[i].replace(/^0+/, '');
-        hex[i] = hex[i] == "" ? "0" : hex[i];
+        hex[i] = hex[i] === '' ? '0' : hex[i];
     }
     return hex;
 };
@@ -3306,7 +6281,7 @@ ethFuncs.getNakedAddress = function (address) {
 };
 ethFuncs.getDeteministicContractAddress = function (address, nonce) {
     nonce = new BigNumber(nonce).toString();
-    address = address.substring(0, 2) == '0x' ? address : '0x' + address;
+    address = address.substring(0, 2) === '0x' ? address : '0x' + address;
     return '0x' + ethUtil.generateAddress(address, nonce).toString('hex');
 };
 ethFuncs.padLeft = function (n, width, z) {
@@ -3315,7 +6290,7 @@ ethFuncs.padLeft = function (n, width, z) {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 };
 ethFuncs.getDataObj = function (to, func, arrVals) {
-    var val = "";
+    var val = '';
     for (var i = 0; i < arrVals.length; i++) {
         val += this.padLeft(arrVals[i], 64);
     }return {
@@ -3328,8 +6303,8 @@ ethFuncs.getFunctionSignature = function (name) {
 };
 ethFuncs.estimateGas = function (dataObj, callback) {
     var adjustGas = function adjustGas(gasLimit) {
-        if (gasLimit == "0x5209") return "21000";
-        if (new BigNumber(gasLimit).gt(4000000)) return "-1";
+        if (gasLimit === '0x5209') return '21000';
+        if (new BigNumber(gasLimit).gt(4000000)) return '-1';
         return new BigNumber(gasLimit).toString();
     };
     ajaxReq.getEstimatedGas(dataObj, function (data) {
@@ -3338,16 +6313,16 @@ ethFuncs.estimateGas = function (dataObj, callback) {
             return;
         } else {
             callback({
-                "error": false,
-                "msg": "",
-                "data": adjustGas(data.data)
+                'error': false,
+                'msg': '',
+                'data': adjustGas(data.data)
             });
         }
     });
 };
 module.exports = ethFuncs;
 
-},{"wanchain-util":327}],35:[function(require,module,exports){
+},{"wanchain-util":340}],45:[function(require,module,exports){
 'use strict';
 
 var etherUnits = function etherUnits() {};
@@ -3412,7 +6387,7 @@ etherUnits.unitToUnit = function (number, from, to) {
 
 module.exports = etherUnits;
 
-},{}],36:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -3427,14 +6402,14 @@ globalFuncs.getBlockie = function (address) {
     }).toDataURL();
 };
 globalFuncs.printPaperWallets = function (strJson) {
-    var win = window.open("about:blank", "_blank");
-    var data = "<html>\r\n\r\n<head>\r\n <link rel=\"stylesheet\" href=\"css\/etherwallet-master.min.css\" \/>\r\n <script type=\"text\/javascript\" src=\"js\/jquery-1.12.3.min.js\"><\/script>\r\n <script type=\"text\/javascript\" src=\"js\/etherwallet-static.min.js\"><\/script>\r\n <script type=\"text\/javascript\">\r\n function getBlockie(address) {\r\n return blockies.create({\r\n seed: address.toLowerCase(),\r\n size: 8,\r\n scale: 16\r\n }).toDataURL();\r\n    }\r\n    function generateWallets() {\r\n var json = JSON.parse($(\"#printwalletjson\").html());\r\n for (var i = 0; i < json.length; i++) {\r\n var walletTemplate = $(\'<div\/>\').append($(\"#print-container\").clone());\r\n new QRCode($(walletTemplate).find(\"#paperwalletaddqr\")[0], {\r\n text: json[i][\'address\'],\r\n colorDark: \"#000000\",\r\n colorLight: \"#ffffff\",\r\n correctLevel: QRCode.CorrectLevel.H\r\n });\r\n new QRCode($(walletTemplate).find(\"#paperwalletprivqr\")[0], {\r\n text: json[i][\'private\'],\r\n colorDark: \"#000000\",\r\n colorLight: \"#ffffff\",\r\n correctLevel: QRCode.CorrectLevel.H\r\n });\r\n $(walletTemplate).find(\"#paperwalletadd\").html(json[i][\'address\']);\r\n $(walletTemplate).find(\"#paperwalletpriv\").html(json[i][\'private\']);\r\n $(walletTemplate).find(\"#identicon\").css(\'background-image\',\'url(\' + getBlockie(json[i][\'address\']) +\')\');\r\n walletTemplate = $(walletTemplate).find(\"#print-container\").show();\r\n $(\"body\").append(walletTemplate);\r\n }\r\n setTimeout(function() {\r\n window.print();\r\n }, 2000);\r\n    }\r\n    <\/script>\r\n<\/head>\r\n\r\n<body><span id=\"printwalletjson\" style=\"display: none;\">{{WALLETJSON}}<\/span>\r\n    <div class=\"print-container\" style=\"display: none; margin-bottom: 50px;\" id=\"print-container\"><img src=\"images\/logo-ethereum-1.png\" class=\"ether-logo-1\" height=\"100%\" width=\"auto\" \/> <div id=\"identicon\" class=\"addressIdenticon med float\"><\/div>\r\n <img src=\"images\/print-sidebar.png\" height=\"100%\" width=\"auto\" class=\"print-title\" \/>\r\n <div class=\"print-qr-code-1\">\r\n <div id=\"paperwalletaddqr\"><\/div>\r\n <p class=\"print-text\" style=\"padding-top: 25px;\">YOUR ADDRESS<\/p>\r\n <\/div>\r\n <div class=\"print-notes\"><img src=\"images\/notes-bg.png\" width=\"90%;\" height=\"auto\" class=\"pull-left\" \/>\r\n <p class=\"print-text\">AMOUNT \/ NOTES<\/p>\r\n <\/div>\r\n <div class=\"print-qr-code-2\">\r\n <div id=\"paperwalletprivqr\"><\/div>\r\n <p class=\"print-text\" style=\"padding-top: 30px;\">YOUR PRIVATE KEY<\/p>\r\n <\/div>\r\n <div class=\"print-address-container\">\r\n <p><strong>Your Address:<\/strong>\r\n <br \/><span id=\"paperwalletadd\"><\/span><\/p>\r\n <p><strong>Your Private Key:<\/strong>\r\n <br \/><span id=\"paperwalletpriv\"><\/span><\/p>\r\n <\/div>\r\n    <\/div>\r\n<\/body>\r\n\r\n<\/html>\r\n";
-    data = data.replace("{{WALLETJSON}}", strJson);
+    var win = window.open('about:blank', '_blank');
+    var data = "<html>\r\n\r\n<head>\r\n <link rel=\"stylesheet\" href=\"css/etherwallet-master.min.css\" />\r\n <script type=\"text/javascript\" src=\"js/jquery-1.12.3.min.js\"></script>\r\n <script type=\"text/javascript\" src=\"js/etherwallet-static.min.js\"></script>\r\n <script type=\"text/javascript\">\r\n function getBlockie(address) {\r\n return blockies.create({\r\n seed: address.toLowerCase(),\r\n size: 8,\r\n scale: 16\r\n }).toDataURL();\r\n    }\r\n    function generateWallets() {\r\n var json = JSON.parse($(\"#printwalletjson\").html());\r\n for (var i = 0; i < json.length; i++) {\r\n var walletTemplate = $('<div/>').append($(\"#print-container\").clone());\r\n new QRCode($(walletTemplate).find(\"#paperwalletaddqr\")[0], {\r\n text: json[i]['address'],\r\n colorDark: \"#000000\",\r\n colorLight: \"#ffffff\",\r\n correctLevel: QRCode.CorrectLevel.H\r\n });\r\n new QRCode($(walletTemplate).find(\"#paperwalletprivqr\")[0], {\r\n text: json[i]['private'],\r\n colorDark: \"#000000\",\r\n colorLight: \"#ffffff\",\r\n correctLevel: QRCode.CorrectLevel.H\r\n });\r\n $(walletTemplate).find(\"#paperwalletadd\").html(json[i]['address']);\r\n $(walletTemplate).find(\"#paperwalletpriv\").html(json[i]['private']);\r\n $(walletTemplate).find(\"#identicon\").css('background-image','url(' + getBlockie(json[i]['address']) +')');\r\n walletTemplate = $(walletTemplate).find(\"#print-container\").show();\r\n $(\"body\").append(walletTemplate);\r\n }\r\n setTimeout(function() {\r\n window.print();\r\n }, 2000);\r\n    }\r\n    </script>\r\n</head>\r\n\r\n<body><span id=\"printwalletjson\" style=\"display: none;\">{{WALLETJSON}}</span>\r\n    <div class=\"print-container\" style=\"display: none; margin-bottom: 50px;\" id=\"print-container\"><img src=\"images/logo-ethereum-1.png\" class=\"ether-logo-1\" height=\"100%\" width=\"auto\" /> <div id=\"identicon\" class=\"addressIdenticon med float\"></div>\r\n <img src=\"images/print-sidebar.png\" height=\"100%\" width=\"auto\" class=\"print-title\" />\r\n <div class=\"print-qr-code-1\">\r\n <div id=\"paperwalletaddqr\"></div>\r\n <p class=\"print-text\" style=\"padding-top: 25px;\">YOUR ADDRESS</p>\r\n </div>\r\n <div class=\"print-notes\"><img src=\"images/notes-bg.png\" width=\"90%;\" height=\"auto\" class=\"pull-left\" />\r\n <p class=\"print-text\">AMOUNT / NOTES</p>\r\n </div>\r\n <div class=\"print-qr-code-2\">\r\n <div id=\"paperwalletprivqr\"></div>\r\n <p class=\"print-text\" style=\"padding-top: 30px;\">YOUR PRIVATE KEY</p>\r\n </div>\r\n <div class=\"print-address-container\">\r\n <p><strong>Your Address:</strong>\r\n <br /><span id=\"paperwalletadd\"></span></p>\r\n <p><strong>Your Private Key:</strong>\r\n <br /><span id=\"paperwalletpriv\"></span></p>\r\n </div>\r\n    </div>\r\n</body>\r\n\r\n</html>\r\n";
+    data = data.replace('{{WALLETJSON}}', strJson);
     win.document.write(data);
-    win.document.write("<script>generateWallets();</script>");
+    win.document.write('<script>generateWallets();</script>');
 };
 globalFuncs.getBlob = function (mime, str) {
-    var str = (typeof str === "undefined" ? "undefined" : _typeof(str)) === 'object' ? JSON.stringify(str) : str;
+    str = (typeof str === 'undefined' ? 'undefined' : _typeof(str)) === 'object' ? JSON.stringify(str) : str;
     if (str == null) return '';
     var blob = new Blob([str], {
         type: mime
@@ -3488,8 +6463,7 @@ globalFuncs.errorMsgs = ['Please enter a valid amount.', // 0
 'Please enter valid TX hash', // 36
 'Please enter valid hex string. Hex only contains: 0x, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, a, b, c, d, e, f', // 37
 'Offer must have either price or reserve set to more than 0', // 38
-'Bid must be more than the specified minimum' // 39
-];
+'Bid must be more than the specified minimum'];
 
 // These are translated in the translation files
 globalFuncs.successMsgs = ['Valid address', 'Wallet successfully decrypted', 'Transaction submitted. TX Hash: ', 'Your wallet was successfully added: ', 'File Selected: ', 'You are connected to the node ', 'Message Signature Verified'];
@@ -3497,7 +6471,7 @@ globalFuncs.successMsgs = ['Valid address', 'Wallet successfully decrypted', 'Tr
 // These are translated in the translation files
 globalFuncs.gethErrors = {
     '(geth-06) Invalid sender\\.': 'GETH_InvalidSender',
-    "(geth-08) This TX's [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html) is too low\\. Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)\\.": "GETH_Nonce",
+    "(geth-08) This TX's [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html) is too low\\. Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)\\.": 'GETH_Nonce',
     '(geth-02) Gas price too low for acceptance\\. Try raising the gas price to 21 GWEI via the dropdown in top-right\\.': 'GETH_Cheap',
     '(geth-01) Insufficient balance\\. Your gas limit * gas price + amount to send exceeds your current balance\\. Send more ETH to your account or use the "Send Entire Balance" button\\. If you believe this is in error, try pressing generate again\\. Required (d+) WEI and got: (d+) WEI\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)': 'GETH_Balance',
     '(geth-09) Account does not exist or account balance too low\\.': 'GETH_NonExistentAccount',
@@ -3520,20 +6494,20 @@ globalFuncs.getGethMsg = function (str) {
 
 // These are translated in the translation files
 globalFuncs.parityErrors = {
-    "A (parity-01) A transaction with the same hash was already imported. It was probably already broadcast. To avoid duplicate transactions, check your address on [wanscan.io](https://wanscan.io) & wait 10 minutes before attempting to send again. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\. This means it was already broadcast. Please check your address on wanscan.io & wait 10 minutes before attempting to send again to avoid duplicate transactions. <a target='_blank' rel='noopener noreferrer' href='https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html'>Learn more</a>": "PARITY_AlreadyImported",
-    "(parity-07) There is already a transaction with this [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html)\\. Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)\\.": "PARITY_Old",
-    "(parity-04) There is another transaction with same nonce in the queue, or the transaction fee is too low\\. Try incrementing the nonce by clicking the Generate button again\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": "PARITY_TooCheapToReplace",
-    "(parity-06) There are too many transactions in the queue\\. Your transaction was dropped due to limit\\. Try increasing the gas price\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": "PARITY_LimitReached",
-    "(parity-08) TX Fee is too low\\. It does not satisfy your node's minimal fee (minimal: (d+) WEI, got: (d+) WEI)\\. Try increasing the gas price and/or gas limit\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": "PARITY_InsufficientGasPrice",
-    "(parity-03) Insufficient balance\\. The account you tried to send transaction from does not have enough funds\\. If you believe this is in error, try using the 'Send Entire Balance' button, or pressing generate again. Required (d+) WEI and got: (d+) WEI\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": "ERROR_17",
-    "(parity-02) Transaction cost exceeds current gas limit\\. Limit: (d+) WEI, got: (d+) WEI\\. Please lower the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again\\. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)\\.": "PARITY_GasLimitExceeded",
-    "(parity-05) Supplied gas limit is beyond limit\\. Try lowering the gas limit to 21000\\. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)\\.": "PARITY_InvalidGasLimit"
+    "A (parity-01) A transaction with the same hash was already imported. It was probably already broadcast. To avoid duplicate transactions, check your address on [wanscan.io](https://wanscan.io) & wait 10 minutes before attempting to send again. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\. This means it was already broadcast. Please check your address on wanscan.io & wait 10 minutes before attempting to send again to avoid duplicate transactions. <a target='_blank' rel='noopener noreferrer' href='https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html'>Learn more</a>": 'PARITY_AlreadyImported',
+    '(parity-07) There is already a transaction with this [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html)\\. Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)\\.': 'PARITY_Old',
+    '(parity-04) There is another transaction with same nonce in the queue, or the transaction fee is too low\\. Try incrementing the nonce by clicking the Generate button again\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.': 'PARITY_TooCheapToReplace',
+    '(parity-06) There are too many transactions in the queue\\. Your transaction was dropped due to limit\\. Try increasing the gas price\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.': 'PARITY_LimitReached',
+    "(parity-08) TX Fee is too low\\. It does not satisfy your node's minimal fee (minimal: (d+) WEI, got: (d+) WEI)\\. Try increasing the gas price and/or gas limit\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": 'PARITY_InsufficientGasPrice',
+    "(parity-03) Insufficient balance\\. The account you tried to send transaction from does not have enough funds\\. If you believe this is in error, try using the 'Send Entire Balance' button, or pressing generate again. Required (d+) WEI and got: (d+) WEI\\. [Learn More](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)\\.": 'ERROR_17',
+    '(parity-02) Transaction cost exceeds current gas limit\\. Limit: (d+) WEI, got: (d+) WEI\\. Please lower the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again\\. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)\\.': 'PARITY_GasLimitExceeded',
+    '(parity-05) Supplied gas limit is beyond limit\\. Try lowering the gas limit to 21000\\. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)\\.': 'PARITY_InvalidGasLimit'
 };
 globalFuncs.parityErrorMsgs = {};
 globalFuncs.getParityMsg = function (str) {
     for (var reg in this.parityErrors) {
         if (this.parityErrors.hasOwnProperty(reg)) {
-            var args = str.match("^" + reg + "$");
+            var args = str.match('^' + reg + '$');
             if (args) {
                 var key = this.parityErrors[reg];
                 if (key in this.parityErrorMsgs) {
@@ -3547,39 +6521,43 @@ globalFuncs.getParityMsg = function (str) {
 };
 globalFuncs.getEthNodeName = function () {
     //  return "geth";
-    return "parity";
+    return 'parity';
 };
 globalFuncs.getEthNodeMsg = function (str) {
     var ethNode = this.getEthNodeName();
-    if (ethNode == "geth") return this.getGethMsg(str);else return this.getParityMsg(str);
+    if (ethNode === 'geth') return this.getGethMsg(str);else {
+        return this.getParityMsg(str);
+    }
 };
 globalFuncs.scrypt = {
     n: 8192
 };
 globalFuncs.postDelay = 300;
-globalFuncs.kdf = "scrypt";
+globalFuncs.kdf = 'scrypt';
 globalFuncs.defaultTxGasLimit = 21000;
 globalFuncs.defaultTokenGasLimit = 200000;
-globalFuncs.donateAddress = "0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8";
+globalFuncs.donateAddress = '0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8';
 globalFuncs.isNumeric = function (n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
 globalFuncs.urlGet = function (name) {
     name = name.toLowerCase();
-    if (name = new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)').exec(location.search.toLowerCase())) return this.stripTags(decodeURIComponent(name[1]));
+    // if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search.toLowerCase())) return this.stripTags(decodeURIComponent(name[1]))
+    name = new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)').exec(location.search.toLowerCase());
+    if (name !== null) return stripTags(decodeURIComponent(name[1]));
 };
 globalFuncs.stripTags = function (str) {
     var SCRIPT_REGEX = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
     while (SCRIPT_REGEX.test(str)) {
-        str = str.replace(SCRIPT_REGEX, "");
+        str = str.replace(SCRIPT_REGEX, '');
     }
     return str;
 };
 globalFuncs.checkAndRedirectHTTPS = function () {
-    var host = "www.mywanwallet.nl";
-    var hostw = "https://mywanwallet.nl";
+    var host = 'www.mywanwallet.nl';
+    var hostw = 'https://mywanwallet.nl';
     var path = window.location.pathname;
-    if (host == window.location.host) window.location = hostw + path;
+    if (host === window.location.host) window.location = hostw + path;
 };
 globalFuncs.isStrongPass = function (password) {
     return password.length > 8;
@@ -3617,9 +6595,9 @@ globalFuncs.getDefaultTokensAndNetworkType = function getDefaultTokensAndNetwork
 
     var nodeErrMsg = 'Node does not exist, contact support@mywanwallet.nl CODE:localstorageNodeMissing';
     // localStorage selected node
-    var currentNodeKey = getFromLS("curNode", nodeErrMsg).key;
+    var currentNodeKey = getFromLS('curNode', nodeErrMsg).key;
     // custom nodes in local storage
-    var customLocalNodes = getFromLS("localNodes") || [];
+    var customLocalNodes = getFromLS('localNodes') || [];
 
     var customNodeNetworkType = currentNodeKey.split('_')[1];
 
@@ -3640,12 +6618,12 @@ globalFuncs.getDefaultTokensAndNetworkType = function getDefaultTokensAndNetwork
 
         // if the reference the custom local node is invalid, throw
         if (!firstCustomNodeWithMatchingNetwork) {
-            throw Error("Custom Local Node does not exist. Please clear local storage, and re-input your custom node.");
+            throw Error('Custom Local Node does not exist. Please clear local storage, and re-input your custom node.');
         }
     } else {
         defaultNode = defaultNodes[currentNodeKey];
         if (!defaultNode) {
-            throw Error("Default Node does not exist. Please clear local storage and try again.");
+            throw Error('Default Node does not exist. Please clear local storage and try again.');
         }
     }
 
@@ -3703,10 +6681,10 @@ globalFuncs.saveTokenToLocal = function (localToken, callback) {
             throw globalFuncs.errorMsgs[5];
         } else if (!globalFuncs.isNumeric(localToken.decimals) || parseFloat(localToken.decimals) < 0) {
             throw globalFuncs.errorMsgs[7];
-        } else if (!globalFuncs.isAlphaNumeric(localToken.symbol) || localToken.symbol == "") {
+        } else if (!globalFuncs.isAlphaNumeric(localToken.symbol) || localToken.symbol === '') {
             throw globalFuncs.errorMsgs[19];
         }
-        var storedTokens = globalFuncs.localStorage.getItem("localTokens", null) != null ? JSON.parse(globalFuncs.localStorage.getItem("localTokens")) : [];
+        var storedTokens = globalFuncs.localStorage.getItem('localTokens', null) != null ? JSON.parse(globalFuncs.localStorage.getItem('localTokens')) : [];
 
         // catch if TOKEN SYMBOL is already in storedTokens
         for (var i = 0; i < storedTokens.length; i++) {
@@ -3716,7 +6694,7 @@ globalFuncs.saveTokenToLocal = function (localToken, callback) {
         }
 
         // catch if CONTRACT ADDRESS is already in storedTokens
-        for (var i = 0; i < storedTokens.length; i++) {
+        for (i = 0; i < storedTokens.length; i++) {
             if (storedTokens[i].contractAddress.toLowerCase().replace(/ /g, '') === localToken.contractAdd.toLowerCase().replace(/ /g, '')) {
                 throw Error('Unable to add custom token. It has the same address as custom token ' + storedTokens[i].symbol + '. Try clicking the "Load Tokens" button to see it. :)');
             }
@@ -3733,11 +6711,11 @@ globalFuncs.saveTokenToLocal = function (localToken, callback) {
             contractAddress: localToken.contractAdd,
             symbol: localToken.symbol,
             decimal: parseInt(localToken.decimals),
-            type: "custom",
+            type: 'custom',
             network: globalFuncs.getDefaultTokensAndNetworkType().networkType
         });
 
-        globalFuncs.localStorage.setItem("localTokens", JSON.stringify(storedTokens));
+        globalFuncs.localStorage.setItem('localTokens', JSON.stringify(storedTokens));
 
         callback({
             error: false
@@ -3750,17 +6728,18 @@ globalFuncs.saveTokenToLocal = function (localToken, callback) {
     }
 };
 globalFuncs.removeTokenFromLocal = function (symbol, tokenObj) {
-    var storedTokens = globalFuncs.localStorage.getItem("localTokens", null) != null ? JSON.parse(globalFuncs.localStorage.getItem("localTokens", null)) : [];
+    var storedTokens = globalFuncs.localStorage.getItem('localTokens', null) != null ? JSON.parse(globalFuncs.localStorage.getItem('localTokens', null)) : [];
     // remove from localstorage so it doesn't show up on refresh
     for (var i = 0; i < storedTokens.length; i++) {
         if (storedTokens[i].symbol === symbol) {
             storedTokens.splice(i, 1);
             break;
         }
-    }globalFuncs.localStorage.setItem("localTokens", JSON.stringify(storedTokens));
+    }
+    globalFuncs.localStorage.setItem('localTokens', JSON.stringify(storedTokens));
     if (!tokenObj) return;
     // remove from tokenObj so it removes from display
-    for (var i = 0; i < tokenObj.length; i++) {
+    for (i = 0; i < tokenObj.length; i++) {
         if (tokenObj[i].symbol === symbol) {
             tokenObj.splice(i, 1);
             break;
@@ -3784,7 +6763,7 @@ globalFuncs.localStorage = {
         }
     },
     getItem: function getItem(key) {
-        var dValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+        var dValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
         if (this.isAvailable()) {
             return localStorage.getItem(key);
@@ -3796,13 +6775,14 @@ globalFuncs.localStorage = {
 
 module.exports = globalFuncs;
 
-},{"./nodes":43,"./tokens/ethTokens.json":66,"./tokens/wanTokens.json":67}],37:[function(require,module,exports){
+},{"./nodes":53,"./tokens/ethTokens.json":76,"./tokens/wanTokens.json":77}],47:[function(require,module,exports){
 'use strict';
 
 function storageAvailable(type) {
   try {
-    var storage = window[type],
-        x = '__storage_test__';
+    var storage = window[type];
+
+    var x = '__storage_test__';
     storage.setItem(x, x);
     storage.removeItem(x);
     return true;
@@ -3823,10 +6803,9 @@ function storageAvailable(type) {
 }
 
 if (!storageAvailable('localStorage')) {
-  Object.defineProperty(window, "localStorage", new function () {
-    var aKeys = [],
-        oStorage = {};
-    Object.defineProperty(oStorage, "getItem", {
+  Object.defineProperty(window, 'localStorage', new function () {
+    var aKeys = [];var oStorage = {};
+    Object.defineProperty(oStorage, 'getItem', {
       value: function value(sKey) {
         return sKey ? this[sKey] : null;
       },
@@ -3834,7 +6813,7 @@ if (!storageAvailable('localStorage')) {
       configurable: false,
       enumerable: false
     });
-    Object.defineProperty(oStorage, "key", {
+    Object.defineProperty(oStorage, 'key', {
       value: function value(nKeyId) {
         return aKeys[nKeyId];
       },
@@ -3842,30 +6821,30 @@ if (!storageAvailable('localStorage')) {
       configurable: false,
       enumerable: false
     });
-    Object.defineProperty(oStorage, "setItem", {
+    Object.defineProperty(oStorage, 'setItem', {
       value: function value(sKey, sValue) {
         if (!sKey) {
           return;
         }
-        document.cookie = escape(sKey) + "=" + escape(sValue) + "; expires=Tue, 19 Jan 2038 03:14:07 GMT; path=/";
+        document.cookie = escape(sKey) + '=' + escape(sValue) + '; expires=Tue, 19 Jan 2038 03:14:07 GMT; path=/';
       },
       writable: false,
       configurable: false,
       enumerable: false
     });
-    Object.defineProperty(oStorage, "length", {
+    Object.defineProperty(oStorage, 'length', {
       get: function get() {
         return aKeys.length;
       },
       configurable: false,
       enumerable: false
     });
-    Object.defineProperty(oStorage, "removeItem", {
+    Object.defineProperty(oStorage, 'removeItem', {
       value: function value(sKey) {
         if (!sKey) {
           return;
         }
-        document.cookie = escape(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+        document.cookie = escape(sKey) + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
       },
       writable: false,
       configurable: false,
@@ -3901,12 +6880,12 @@ if (!storageAvailable('localStorage')) {
 
 module.exports = null;
 
-},{}],38:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 'use strict';
 
 require('./localStoragePolyfill');
 var IS_CX = false;
-if (typeof chrome != 'undefined') IS_CX = chrome.windows === undefined ? false : true;
+if (typeof chrome !== 'undefined') IS_CX = chrome.windows !== undefined;
 var angular = require('angular');
 var angularTranslate = require('angular-translate');
 var angularTranslateErrorLog = require('angular-translate-handler-log');
@@ -3952,6 +6931,10 @@ var ethFuncs = require('./ethFuncs');
 window.ethFuncs = ethFuncs;
 var Validator = require('./validator');
 window.Validator = Validator;
+var ens = require('./ens');
+window.ens = ens;
+var domainsale = require('./domainsale');
+window.domainsale = domainsale;
 var translate = require('./translations/translate.js');
 if (IS_CX) {
   var cxFuncs = require('./cxFuncs');
@@ -3977,6 +6960,8 @@ var txStatusCtrl = require('./controllers/txStatusCtrl');
 var sendTxCtrl = require('./controllers/sendTxCtrl');
 var signMsgCtrl = require('./controllers/signMsgCtrl');
 var contractsCtrl = require('./controllers/contractsCtrl');
+var ensCtrl = require('./controllers/ensCtrl');
+var domainsaleCtrl = require('./controllers/domainsaleCtrl');
 var footerCtrl = require('./controllers/footerCtrl');
 var offlineTxCtrl = require('./controllers/offlineTxCtrl');
 var walletBalanceCtrl = require('./controllers/walletBalanceCtrl');
@@ -4028,6 +7013,8 @@ app.controller('txStatusCtrl', ['$scope', txStatusCtrl]);
 app.controller('sendTxCtrl', ['$scope', '$sce', 'walletService', '$rootScope', sendTxCtrl]);
 app.controller('signMsgCtrl', ['$scope', '$sce', 'walletService', signMsgCtrl]);
 app.controller('contractsCtrl', ['$scope', '$sce', 'walletService', contractsCtrl]);
+app.controller('ensCtrl', ['$scope', '$sce', 'walletService', ensCtrl]);
+app.controller('domainsaleCtrl', ['$scope', '$sce', 'walletService', domainsaleCtrl]);
 app.controller('footerCtrl', ['$scope', 'globalService', footerCtrl]);
 app.controller('offlineTxCtrl', ['$scope', '$sce', 'walletService', offlineTxCtrl]);
 app.controller('walletBalanceCtrl', ['$scope', '$sce', '$rootScope', walletBalanceCtrl]);
@@ -4040,7 +7027,7 @@ if (IS_CX) {
   app.controller('cxDecryptWalletCtrl', ['$scope', '$sce', 'walletService', cxDecryptWalletCtrl]);
 }
 
-},{"./ajaxReq":2,"./controllers/CX/addWalletCtrl":3,"./controllers/CX/cxDecryptWalletCtrl":4,"./controllers/CX/mainPopCtrl":5,"./controllers/CX/myWalletsCtrl":6,"./controllers/CX/quickSendCtrl":7,"./controllers/bulkGenCtrl":8,"./controllers/contractsCtrl":9,"./controllers/decryptWalletCtrl":10,"./controllers/footerCtrl":11,"./controllers/helpersCtrl":12,"./controllers/offlineTxCtrl":13,"./controllers/onboardingCtrl":14,"./controllers/sendTxCtrl":15,"./controllers/signMsgCtrl":16,"./controllers/tabsCtrl":17,"./controllers/txStatusCtrl":18,"./controllers/viewCtrl":19,"./controllers/viewWalletCtrl":20,"./controllers/walletBalanceCtrl":21,"./controllers/walletGenCtrl":22,"./customGas.js":23,"./cxFuncs":24,"./directives/QRCodeDrtv":25,"./directives/addressFieldDrtv":26,"./directives/balanceDrtv":28,"./directives/blockiesDrtv":29,"./directives/cxWalletDecryptDrtv":30,"./directives/fileReaderDrtv":31,"./directives/walletDecryptDrtv":33,"./ethFuncs":34,"./etherUnits":35,"./globalFuncs":36,"./localStoragePolyfill":37,"./myetherwallet":39,"./nodes":43,"./services/globalService":44,"./services/walletService":45,"./solidity/coder":49,"./solidity/utils":60,"./staticJS/customMarked":61,"./staticJS/ledger-eth":62,"./staticJS/ledger3":63,"./staticJS/u2f-api":64,"./tokenlib":65,"./translations/translate.js":69,"./uiFuncs":70,"./validator":71,"./web3Wallet":72,"angular":80,"angular-animate":74,"angular-sanitize":76,"angular-translate":78,"angular-translate-handler-log":77,"bignumber.js":97,"bip39":98,"crypto":151,"detect-browser":192,"ethereumjs-tx":216,"ethereumjs-util":217,"hdkey":234,"scryptsy":292,"string-format":308,"uuid":317,"wallet-address-validator":326}],39:[function(require,module,exports){
+},{"./ajaxReq":2,"./controllers/CX/addWalletCtrl":3,"./controllers/CX/cxDecryptWalletCtrl":4,"./controllers/CX/mainPopCtrl":5,"./controllers/CX/myWalletsCtrl":6,"./controllers/CX/quickSendCtrl":7,"./controllers/bulkGenCtrl":8,"./controllers/contractsCtrl":9,"./controllers/decryptWalletCtrl":10,"./controllers/domainsaleCtrl":11,"./controllers/ensCtrl":12,"./controllers/footerCtrl":13,"./controllers/helpersCtrl":14,"./controllers/offlineTxCtrl":15,"./controllers/onboardingCtrl":16,"./controllers/sendTxCtrl":17,"./controllers/signMsgCtrl":18,"./controllers/tabsCtrl":19,"./controllers/txStatusCtrl":20,"./controllers/viewCtrl":21,"./controllers/viewWalletCtrl":22,"./controllers/walletBalanceCtrl":23,"./controllers/walletGenCtrl":24,"./customGas.js":25,"./cxFuncs":26,"./directives/QRCodeDrtv":27,"./directives/addressFieldDrtv":28,"./directives/balanceDrtv":30,"./directives/blockiesDrtv":31,"./directives/cxWalletDecryptDrtv":32,"./directives/fileReaderDrtv":33,"./directives/walletDecryptDrtv":35,"./domainsale":36,"./ens":38,"./ethFuncs":44,"./etherUnits":45,"./globalFuncs":46,"./localStoragePolyfill":47,"./myetherwallet":49,"./nodes":53,"./services/globalService":54,"./services/walletService":55,"./solidity/coder":59,"./solidity/utils":70,"./staticJS/customMarked":71,"./staticJS/ledger-eth":72,"./staticJS/ledger3":73,"./staticJS/u2f-api":74,"./tokenlib":75,"./translations/translate.js":79,"./uiFuncs":80,"./validator":81,"./web3Wallet":82,"angular":90,"angular-animate":84,"angular-sanitize":86,"angular-translate":88,"angular-translate-handler-log":87,"bignumber.js":107,"bip39":108,"crypto":161,"detect-browser":202,"ethereumjs-tx":226,"ethereumjs-util":227,"hdkey":244,"scryptsy":305,"string-format":321,"uuid":330,"wallet-address-validator":339}],49:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -4048,14 +7035,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var wanUtil = require('wanchain-util');
 var Wallet = function Wallet(priv, pub, path, hwType, hwTransport) {
-    if (typeof priv != "undefined") {
-        this.privKey = priv.length == 32 ? priv : Buffer(priv, 'hex');
+    if (typeof priv !== 'undefined') {
+        this.privKey = priv.length === 32 ? priv : Buffer(priv, 'hex');
     }
     this.pubKey = pub;
     this.path = path;
     this.hwType = hwType;
     this.hwTransport = hwTransport;
-    this.type = "default";
+    this.type = 'default';
 };
 Wallet.generate = function (icapDirect) {
     if (icapDirect) {
@@ -4079,7 +7066,7 @@ Wallet.prototype.setTokens = function () {
         this.tokenObjs.push(new Token(tokens[i].address, this.getAddressString(), tokens[i].symbol, tokens[i].decimal, tokens[i].type));
 
         var autoTokens = globalFuncs.localStorage.getItem('autoLoadTokens');
-        var autoLoadTokens = autoTokens ? autoTokens : [];
+        var autoLoadTokens = autoTokens || [];
         var thisAddr = tokens[i].address;
 
         if (autoLoadTokens.indexOf(thisAddr) > -1) {
@@ -4138,7 +7125,7 @@ function removeDuplicates(originalArray, objKey) {
 function removeAllTokenConflicts(conflictWithDefaultTokens, localTokens) {
     var deConflictedTokens = removeConflictingTokensFromLocalStorage(conflictWithDefaultTokens, localTokens);
     var deDuplicatedTokens = removeDuplicates(deConflictedTokens, 'symbol');
-    saveToLocalStorage("localTokens", deDuplicatedTokens);
+    saveToLocalStorage('localTokens', deDuplicatedTokens);
 }
 
 Wallet.prototype.setBalance = function (callback) {
@@ -4182,28 +7169,28 @@ Wallet.prototype.getPrivateKey = function () {
     return this.privKey;
 };
 Wallet.prototype.getPrivateKeyString = function () {
-    if (typeof this.privKey != "undefined") {
+    if (typeof this.privKey !== 'undefined') {
         return this.getPrivateKey().toString('hex');
     } else {
-        return "";
+        return '';
     }
 };
 Wallet.prototype.getPublicKey = function () {
-    if (typeof this.pubKey == "undefined") {
+    if (typeof this.pubKey === 'undefined') {
         return ethUtil.privateToPublic(this.privKey);
     } else {
         return this.pubKey;
     }
 };
 Wallet.prototype.getPublicKeyString = function () {
-    if (typeof this.pubKey == "undefined") {
+    if (typeof this.pubKey === 'undefined') {
         return '0x' + this.getPublicKey().toString('hex');
     } else {
-        return "0x" + this.pubKey.toString('hex');
+        return '0x' + this.pubKey.toString('hex');
     }
 };
 Wallet.prototype.getAddress = function () {
-    if (typeof this.pubKey == "undefined") {
+    if (typeof this.pubKey === 'undefined') {
         return ethUtil.privateToAddress(this.privKey);
     } else {
         return ethUtil.publicToAddress(this.pubKey, true);
@@ -4222,7 +7209,7 @@ Wallet.fromParityPhrase = function (phrase) {
     var hash = ethUtil.sha3(new Buffer(phrase));
     for (var i = 0; i < 16384; i++) {
         hash = ethUtil.sha3(hash);
-    }while (ethUtil.privateToAddress(hash)[0] != 0) {
+    }while (ethUtil.privateToAddress(hash)[0] !== 0) {
         hash = ethUtil.sha3(hash);
     }return new Wallet(hash);
 };
@@ -4279,7 +7266,7 @@ Wallet.prototype.toJSON = function () {
         checksumAddress: this.getChecksumAddressString(),
         privKey: this.getPrivateKeyString(),
         pubKey: this.getPublicKeyString(),
-        publisher: "MyEtherWallet",
+        publisher: 'MyEtherWallet',
         encrypted: false,
         version: 2
     };
@@ -4439,22 +7426,26 @@ Wallet.walletRequirePass = function (ethjson) {
     } catch (err) {
         throw globalFuncs.errorMsgs[3];
     }
-    if (jsonArr.encseed != null) return true;else if (jsonArr.Crypto != null || jsonArr.crypto != null) return true;else if (jsonArr.hash != null && jsonArr.locked) return true;else if (jsonArr.hash != null && !jsonArr.locked) return false;else if (jsonArr.publisher == "MyEtherWallet" && !jsonArr.encrypted) return false;else throw globalFuncs.errorMsgs[2];
+    if (jsonArr.encseed != null) return true;else if (jsonArr.Crypto != null || jsonArr.crypto != null) return true;else if (jsonArr.hash != null && jsonArr.locked) return true;else if (jsonArr.hash != null && !jsonArr.locked) return false;else if (jsonArr.publisher === 'MyEtherWallet' && !jsonArr.encrypted) return false;else {
+        throw globalFuncs.errorMsgs[2];
+    }
 };
 Wallet.getWalletFromPrivKeyFile = function (strjson, password) {
     var jsonArr = JSON.parse(strjson);
-    if (jsonArr.encseed != null) return Wallet.fromEthSale(strjson, password);else if (jsonArr.Crypto != null || jsonArr.crypto != null) return Wallet.fromV3(strjson, password, true);else if (jsonArr.hash != null) return Wallet.fromMyEtherWallet(strjson, password);else if (jsonArr.publisher == "MyEtherWallet") return Wallet.fromMyEtherWalletV2(strjson);else throw globalFuncs.errorMsgs[2];
+    if (jsonArr.encseed != null) return Wallet.fromEthSale(strjson, password);else if (jsonArr.Crypto != null || jsonArr.crypto != null) return Wallet.fromV3(strjson, password, true);else if (jsonArr.hash != null) return Wallet.fromMyEtherWallet(strjson, password);else if (jsonArr.publisher === 'MyEtherWallet') return Wallet.fromMyEtherWalletV2(strjson);else {
+        throw globalFuncs.errorMsgs[2];
+    }
 };
 module.exports = Wallet;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"wanchain-util":327}],40:[function(require,module,exports){
+},{"buffer":151,"wanchain-util":340}],50:[function(require,module,exports){
 'use strict';
 
 var customNode = function customNode(srvrUrl, port, httpBasicAuthentication) {
     this.SERVERURL = port ? srvrUrl + ':' + port : srvrUrl;
     if (httpBasicAuthentication) {
-        var authorization = 'Basic ' + btoa(httpBasicAuthentication.user + ":" + httpBasicAuthentication.password);
+        var authorization = 'Basic ' + btoa(httpBasicAuthentication.user + ':' + httpBasicAuthentication.password);
         this.config.headers['Authorization'] = authorization;
     }
 };
@@ -4497,7 +7488,7 @@ customNode.prototype.getTransaction = function (txHash, callback) {
 customNode.prototype.getTransactionData = function (addr, callback) {
     var response = { error: false, msg: '', data: { address: addr, balance: '', gasprice: '', nonce: '' } };
     var parentObj = this;
-    var reqObj = [{ "id": parentObj.getRandomID(), "jsonrpc": "2.0", "method": "eth_getBalance", "params": [addr, 'pending'] }, { "id": parentObj.getRandomID(), "jsonrpc": "2.0", "method": "eth_gasPrice", "params": [] }, { "id": parentObj.getRandomID(), "jsonrpc": "2.0", "method": "eth_getTransactionCount", "params": [addr, 'pending'] }];
+    var reqObj = [{ 'id': parentObj.getRandomID(), 'jsonrpc': '2.0', 'method': 'eth_getBalance', 'params': [addr, 'pending'] }, { 'id': parentObj.getRandomID(), 'jsonrpc': '2.0', 'method': 'eth_gasPrice', 'params': [] }, { 'id': parentObj.getRandomID(), 'jsonrpc': '2.0', 'method': 'eth_getTransactionCount', 'params': [addr, 'pending'] }];
     this.rawPost(reqObj, function (data) {
         for (var i in data) {
             if (data[i].error) {
@@ -4547,13 +7538,13 @@ customNode.prototype.getEthCall = function (txobj, callback) {
             });
         }, 500);
     }
-    ethCallArr.calls.push({ "id": parentObj.getRandomID(), "jsonrpc": "2.0", "method": "eth_call", "params": [{ to: txobj.to, data: txobj.data }, 'pending'] });
+    ethCallArr.calls.push({ 'id': parentObj.getRandomID(), 'jsonrpc': '2.0', 'method': 'eth_call', 'params': [{ to: txobj.to, data: txobj.data }, 'pending'] });
     ethCallArr.callbacks.push(callback);
 };
 customNode.prototype.getTraceCall = function (txobj, callback) {
     this.post({
         method: 'trace_call',
-        params: [txobj, ["stateDiff", "trace", "vmTrace"]]
+        params: [txobj, ['stateDiff', 'trace', 'vmTrace']]
     }, function (data) {
         if (data.error) callback({ error: true, msg: data.error.message, data: '' });else callback({ error: false, msg: '', data: data.result });
     });
@@ -4562,7 +7553,7 @@ customNode.prototype.rawPost = function (data, callback) {
     ajaxReq.http.post(this.SERVERURL, JSON.stringify(data), this.config).then(function (data) {
         callback(data.data);
     }, function (data) {
-        callback({ error: true, msg: "connection error", data: "" });
+        callback({ error: true, msg: 'connection error', data: '' });
     });
 };
 customNode.prototype.getRandomID = function () {
@@ -4570,12 +7561,12 @@ customNode.prototype.getRandomID = function () {
 };
 customNode.prototype.post = function (data, callback) {
     data.id = this.getRandomID();
-    data.jsonrpc = "2.0";
+    data.jsonrpc = '2.0';
     this.rawPost(data, callback);
 };
 module.exports = customNode;
 
-},{}],41:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 'use strict';
 
 var customNode = require('./customNode');
@@ -4618,11 +7609,11 @@ function forEachPayload(maybeArray, fn) {
   array.forEach(fn);
 }
 
-},{"./customNode":40}],42:[function(require,module,exports){
+},{"./customNode":50}],52:[function(require,module,exports){
 'use strict';
 
 var wanPrice = function wanPrice() {};
-var CCRATEAPI = "https://min-api.cryptocompare.com/data/price?fsym=WAN&tsyms=USD,EUR,GBP,BTC,CHF,REP";
+var CCRATEAPI = 'https://min-api.cryptocompare.com/data/price?fsym=WAN&tsyms=USD,EUR,GBP,BTC,CHF,REP';
 wanPrice.getWANvalue = function (callback) {
     ajaxReq.http.get(CCRATEAPI).then(function (data) {
         data = data['data'];
@@ -4639,15 +7630,15 @@ wanPrice.getWANvalue = function (callback) {
 };
 module.exports = wanPrice;
 
-},{}],43:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 'use strict';
 
 var nodes = function nodes() {};
 nodes.customNode = require('./nodeHelpers/customNode');
 nodes.metamaskNode = require('./nodeHelpers/metamask');
 nodes.nodeTypes = {
-    WAN: "WAN",
-    Custom: "CUSTOM ETH"
+    WAN: 'WAN',
+    Custom: 'CUSTOM ETH'
 };
 nodes.ensNodeTypes = [nodes.nodeTypes.WAN];
 nodes.domainsaleNodeTypes = [nodes.nodeTypes.WAN];
@@ -4681,7 +7672,7 @@ nodes.nodeList = {
 nodes.wanPrice = require('./nodeHelpers/wanPrice');
 module.exports = nodes;
 
-},{"./abiDefinitions/wanAbi.json":1,"./nodeHelpers/customNode":40,"./nodeHelpers/metamask":41,"./nodeHelpers/wanPrice":42,"./tokens/wanTokens.json":67}],44:[function(require,module,exports){
+},{"./abiDefinitions/wanAbi.json":1,"./nodeHelpers/customNode":50,"./nodeHelpers/metamask":51,"./nodeHelpers/wanPrice":52,"./tokens/wanTokens.json":77}],54:[function(require,module,exports){
 'use strict';
 
 var globalService = function globalService($http, $httpParamSerializerJQLike) {
@@ -4694,82 +7685,96 @@ var globalService = function globalService($http, $httpParamSerializerJQLike) {
   var tabs = {
     generateWallet: {
       id: 0,
-      name: "NAV_GenerateWallet_alt",
-      url: "generate-wallet",
+      name: 'NAV_GenerateWallet_alt',
+      url: 'generate-wallet',
       mew: false, // TODO: No wallet creation until that part is working
       cx: false
     },
     myWallet: {
       id: 1,
-      name: "NAV_MyWallets",
-      url: "my-wallet",
+      name: 'NAV_MyWallets',
+      url: 'my-wallet',
       mew: false,
       cx: true
     },
     addWallet: {
       id: 2,
-      name: "NAV_AddWallet",
-      url: "add-wallet",
+      name: 'NAV_AddWallet',
+      url: 'add-wallet',
       mew: false,
       cx: true
     },
     sendTransaction: {
       id: 3,
-      name: "NAV_SendEther",
-      url: "send-transaction",
+      name: 'NAV_SendEther',
+      url: 'send-transaction',
       mew: true,
       cx: true
     },
     swap: {
       id: 4,
-      name: "NAV_Swap",
-      url: "swap",
+      name: 'NAV_Swap',
+      url: 'swap',
       mew: false,
       cx: false
     },
     offlineTransaction: {
       id: 5,
-      name: "NAV_Offline",
-      url: "offline-transaction",
+      name: 'NAV_Offline',
+      url: 'offline-transaction',
       mew: true,
       cx: false
     },
     contracts: {
       id: 6,
-      name: "NAV_Contracts",
-      url: "contracts",
+      name: 'NAV_Contracts',
+      url: 'contracts',
       mew: true,
       cx: true
     },
-    txStatus: {
+    ens: {
       id: 7,
-      name: "NAV_CheckTxStatus",
-      url: "check-tx-status",
+      name: 'NAV_ENS',
+      url: 'wns',
+      mew: true,
+      cx: false
+    },
+    domainsale: {
+      id: 8,
+      name: 'NAV_DomainSale',
+      url: 'domainsale',
+      mew: false,
+      cx: false
+    },
+    txStatus: {
+      id: 9,
+      name: 'NAV_CheckTxStatus',
+      url: 'check-tx-status',
       mew: true,
       cx: true
     },
     viewWalletInfo: {
-      id: 8,
-      name: "NAV_ViewWallet",
-      url: "view-wallet-info",
+      id: 10,
+      name: 'NAV_ViewWallet',
+      url: 'view-wallet-info',
       mew: true,
       cx: false
     }
   };
 
   var currentTab = 3;
-  if (typeof chrome != 'undefined') currentTab = chrome.windows === undefined ? 3 : 3;
+  if (typeof chrome !== 'undefined') {
+    currentTab = chrome.windows === undefined ? 3 : 3;
+  }
   return {
     tabs: tabs,
     currentTab: currentTab
   };
-
-  var tokensLoaded = false;
 };
 
 module.exports = globalService;
 
-},{}],45:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 'use strict';
 
 var walletService = function walletService() {
@@ -4780,7 +7785,7 @@ var walletService = function walletService() {
 };
 module.exports = walletService;
 
-},{}],46:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -4810,7 +7815,7 @@ SolidityTypeAddress.prototype.isType = function (name) {
 
 module.exports = SolidityTypeAddress;
 
-},{"./formatters":52,"./type":57}],47:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],57:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -4840,7 +7845,7 @@ SolidityTypeBool.prototype.isType = function (name) {
 
 module.exports = SolidityTypeBool;
 
-},{"./formatters":52,"./type":57}],48:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],58:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -4873,7 +7878,7 @@ SolidityTypeBytes.prototype.isType = function (name) {
 
 module.exports = SolidityTypeBytes;
 
-},{"./formatters":52,"./type":57}],49:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],59:[function(require,module,exports){
 'use strict';
 
 /*
@@ -4909,7 +7914,6 @@ var SolidityTypeString = require('./string');
 var SolidityTypeReal = require('./real');
 var SolidityTypeUReal = require('./ureal');
 var SolidityTypeBytes = require('./bytes');
-var utils = require('./utils');
 
 var isDynamic = function isDynamic(solidityType, type) {
     return solidityType.isDynamicType(type) || solidityType.isDynamicArray(type);
@@ -4982,7 +7986,7 @@ SolidityCoder.prototype.encodeParams = function (types, params) {
 };
 
 SolidityCoder.prototype.encodeMultiWithOffset = function (types, solidityTypes, encodeds, dynamicOffset) {
-    var result = "";
+    var result = '';
     var self = this;
 
     types.forEach(function (type, i) {
@@ -5042,7 +8046,7 @@ SolidityCoder.prototype.encodeWithOffset = function (type, solidityType, encoded
         return function () {
             var nestedName = solidityType.nestedName(type);
             var nestedStaticPartLength = solidityType.staticPartLength(nestedName);
-            var result = "";
+            var result = '';
 
             if (solidityType.isDynamicArray(nestedName)) {
                 (function () {
@@ -5126,7 +8130,7 @@ var coder = new SolidityCoder([new SolidityTypeAddress(), new SolidityTypeBool()
 
 module.exports = coder;
 
-},{"./address":46,"./bool":47,"./bytes":48,"./dynamicbytes":51,"./formatters":52,"./int":53,"./real":55,"./string":56,"./uint":58,"./ureal":59,"./utils":60}],50:[function(require,module,exports){
+},{"./address":56,"./bool":57,"./bytes":58,"./dynamicbytes":61,"./formatters":62,"./int":63,"./real":65,"./string":66,"./uint":68,"./ureal":69}],60:[function(require,module,exports){
 'use strict';
 
 /*
@@ -5153,18 +8157,18 @@ module.exports = coder;
 
 /**
  * Utils
- * 
+ *
  * @module utils
  */
 
 /**
  * Utility functions
- * 
+ *
  * @class [utils] config
  * @constructor
  */
 
-/// required to define ETH_BIGNUMBER_ROUNDING_MODE
+// / required to define ETH_BIGNUMBER_ROUNDING_MODE
 var BigNumber = require('bignumber.js');
 
 var ETH_UNITS = ['wei', 'kwei', 'Mwei', 'Gwei', 'szabo', 'finney', 'femtoether', 'picoether', 'nanoether', 'microether', 'milliether', 'nano', 'micro', 'milli', 'ether', 'grand', 'Mether', 'Gether', 'Tether', 'Pether', 'Eether', 'Zether', 'Yether', 'Nether', 'Dether', 'Vether', 'Uether'];
@@ -5179,7 +8183,7 @@ module.exports = {
     defaultAccount: undefined
 };
 
-},{"bignumber.js":97}],51:[function(require,module,exports){
+},{"bignumber.js":107}],61:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -5203,7 +8207,7 @@ SolidityTypeDynamicBytes.prototype.isDynamicType = function () {
 
 module.exports = SolidityTypeDynamicBytes;
 
-},{"./formatters":52,"./type":57}],52:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],62:[function(require,module,exports){
 'use strict';
 
 /*
@@ -5335,7 +8339,7 @@ var signedIsNegative = function signedIsNegative(value) {
  * @returns {BigNumber} right-aligned output bytes formatted to big number
  */
 var formatOutputInt = function formatOutputInt(param) {
-    var value = param.staticPart() || "0";
+    var value = param.staticPart() || '0';
 
     // check if it's negative number
     // it it is, return two's complement
@@ -5353,7 +8357,7 @@ var formatOutputInt = function formatOutputInt(param) {
  * @returns {BigNumeber} right-aligned output bytes formatted to uint
  */
 var formatOutputUInt = function formatOutputUInt(param) {
-    var value = param.staticPart() || "0";
+    var value = param.staticPart() || '0';
     return new BigNumber(value, 16);
 };
 
@@ -5387,7 +8391,7 @@ var formatOutputUReal = function formatOutputUReal(param) {
  * @returns {Boolean} right-aligned input bytes formatted to bool
  */
 var formatOutputBool = function formatOutputBool(param) {
-    return param.staticPart() === '0000000000000000000000000000000000000000000000000000000000000001' ? true : false;
+    return param.staticPart() === '0000000000000000000000000000000000000000000000000000000000000001';
 };
 
 /**
@@ -5437,7 +8441,7 @@ var formatOutputString = function formatOutputString(param) {
  */
 var formatOutputAddress = function formatOutputAddress(param) {
     var value = param.staticPart();
-    return "0x" + value.slice(value.length - 40, value.length);
+    return '0x' + value.slice(value.length - 40, value.length);
 };
 
 module.exports = {
@@ -5458,7 +8462,7 @@ module.exports = {
     formatOutputAddress: formatOutputAddress
 };
 
-},{"./config":50,"./param":54,"./utils":60,"bignumber.js":97}],53:[function(require,module,exports){
+},{"./config":60,"./param":64,"./utils":70,"bignumber.js":107}],63:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -5494,7 +8498,7 @@ SolidityTypeInt.prototype.isType = function (name) {
 
 module.exports = SolidityTypeInt;
 
-},{"./formatters":52,"./type":57}],54:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],64:[function(require,module,exports){
 'use strict';
 
 /*
@@ -5513,7 +8517,7 @@ module.exports = SolidityTypeInt;
     You should have received a copy of the GNU Lesser General Public License
     along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
 */
-/** 
+/**
  * @file param.js
  * @author Marek Kotewicz <marek@ethdev.com>
  * @date 2015
@@ -5532,7 +8536,7 @@ var SolidityParam = function SolidityParam(value, offset) {
 
 /**
  * This method should be used to get length of params's dynamic part
- * 
+ *
  * @method dynamicPartLength
  * @returns {Number} length of dynamic part (in bytes)
  */
@@ -5647,7 +8651,7 @@ SolidityParam.encodeList = function (params) {
 
 module.exports = SolidityParam;
 
-},{"./utils":60}],55:[function(require,module,exports){
+},{"./utils":70}],65:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -5683,7 +8687,7 @@ SolidityTypeReal.prototype.isType = function (name) {
 
 module.exports = SolidityTypeReal;
 
-},{"./formatters":52,"./type":57}],56:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],66:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -5707,7 +8711,7 @@ SolidityTypeString.prototype.isDynamicType = function () {
 
 module.exports = SolidityTypeString;
 
-},{"./formatters":52,"./type":57}],57:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],67:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -5729,7 +8733,7 @@ var SolidityType = function SolidityType(config) {
  * @return {Bool} true if type match this SolidityType, otherwise false
  */
 SolidityType.prototype.isType = function (name) {
-    throw "this method should be overrwritten for type " + name;
+    throw new Error('this method should be overrwritten for type ' + name);
 };
 
 /**
@@ -5961,7 +8965,7 @@ SolidityType.prototype.decode = function (bytes, offset, name) {
 
 module.exports = SolidityType;
 
-},{"./formatters":52,"./param":54}],58:[function(require,module,exports){
+},{"./formatters":62,"./param":64}],68:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -5997,7 +9001,7 @@ SolidityTypeUInt.prototype.isType = function (name) {
 
 module.exports = SolidityTypeUInt;
 
-},{"./formatters":52,"./type":57}],59:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],69:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -6033,7 +9037,7 @@ SolidityTypeUReal.prototype.isType = function (name) {
 
 module.exports = SolidityTypeUReal;
 
-},{"./formatters":52,"./type":57}],60:[function(require,module,exports){
+},{"./formatters":62,"./type":67}],70:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -6105,19 +9109,18 @@ var unitMap = {
     'mether': '1000000000000000000000000',
     'gether': '1000000000000000000000000000',
     'tether': '1000000000000000000000000000000'
-};
 
-/**
- * Should be called to pad string to expected length
- *
- * @method padLeft
- * @param {String} string to be padded
- * @param {Number} characters that result string should have
- * @param {String} sign, by default 0
- * @returns {String} right aligned string
- */
-var padLeft = function padLeft(string, chars, sign) {
-    return new Array(chars - string.length + 1).join(sign ? sign : "0") + string;
+    /**
+     * Should be called to pad string to expected length
+     *
+     * @method padLeft
+     * @param {String} string to be padded
+     * @param {Number} characters that result string should have
+     * @param {String} sign, by default 0
+     * @returns {String} right aligned string
+     */
+};var padLeft = function padLeft(string, chars, sign) {
+    return new Array(chars - string.length + 1).join(sign || '0') + string;
 };
 
 /**
@@ -6130,7 +9133,7 @@ var padLeft = function padLeft(string, chars, sign) {
  * @returns {String} right aligned string
  */
 var padRight = function padRight(string, chars, sign) {
-    return string + new Array(chars - string.length + 1).join(sign ? sign : "0");
+    return string + new Array(chars - string.length + 1).join(sign || '0');
 };
 
 /**
@@ -6142,15 +9145,16 @@ var padRight = function padRight(string, chars, sign) {
  */
 var toUtf8 = function toUtf8(hex) {
     // Find termination
-    var str = "";
-    var i = 0,
-        l = hex.length;
+    var str = '';
+    var i = 0;var l = hex.length;
     if (hex.substring(0, 2) === '0x') {
         i = 2;
     }
     for (; i < l; i += 2) {
         var code = parseInt(hex.substr(i, 2), 16);
-        if (code === 0) break;
+        if (code === 0) {
+            break;
+        }
         str += String.fromCharCode(code);
     }
 
@@ -6166,9 +9170,8 @@ var toUtf8 = function toUtf8(hex) {
  */
 var toAscii = function toAscii(hex) {
     // Find termination
-    var str = "";
-    var i = 0,
-        l = hex.length;
+    var str = '';
+    var i = 0;var l = hex.length;
     if (hex.substring(0, 2) === '0x') {
         i = 2;
     }
@@ -6190,15 +9193,17 @@ var toAscii = function toAscii(hex) {
  */
 var fromUtf8 = function fromUtf8(str) {
     str = utf8.encode(str);
-    var hex = "";
+    var hex = '';
     for (var i = 0; i < str.length; i++) {
         var code = str.charCodeAt(i);
-        if (code === 0) break;
+        if (code === 0) {
+            break;
+        }
         var n = code.toString(16);
         hex += n.length < 2 ? '0' + n : n;
     }
 
-    return "0x" + hex;
+    return '0x' + hex;
 };
 
 /**
@@ -6210,14 +9215,14 @@ var fromUtf8 = function fromUtf8(str) {
  * @returns {String} hex representation of input string
  */
 var fromAscii = function fromAscii(str) {
-    var hex = "";
+    var hex = '';
     for (var i = 0; i < str.length; i++) {
         var code = str.charCodeAt(i);
         var n = code.toString(16);
         hex += n.length < 2 ? '0' + n : n;
     }
 
-    return "0x" + hex;
+    return '0x' + hex;
 };
 
 /**
@@ -6250,11 +9255,11 @@ var extractDisplayName = function extractDisplayName(name) {
     return length !== -1 ? name.substr(0, length) : name;
 };
 
-/// @returns overloaded part of function/event name
+// / @returns overloaded part of function/event name
 var extractTypeName = function extractTypeName(name) {
-    /// TODO: make it invulnerable
+    // / TODO: make it invulnerable
     var length = name.indexOf('(');
-    return length !== -1 ? name.substr(length + 1, name.length - 1 - (length + 1)).replace(' ', '') : "";
+    return length !== -1 ? name.substr(length + 1, name.length - 1 - (length + 1)).replace(' ', '') : '';
 };
 
 /**
@@ -6292,17 +9297,29 @@ var fromDecimal = function fromDecimal(value) {
  * @return {String}
  */
 var toHex = function toHex(val) {
-    /*jshint maxcomplexity: 8 */
+    /* jshint maxcomplexity: 8 */
 
-    if (isBoolean(val)) return fromDecimal(+val);
+    if (isBoolean(val)) {
+        return fromDecimal(+val);
+    }
 
-    if (isBigNumber(val)) return fromDecimal(val);
+    if (isBigNumber(val)) {
+        return fromDecimal(val);
+    }
 
-    if (isObject(val)) return fromUtf8(JSON.stringify(val));
+    if (isObject(val)) {
+        return fromUtf8(JSON.stringify(val));
+    }
 
     // if its a negative number, pass it through fromDecimal
     if (isString(val)) {
-        if (val.indexOf('-0x') === 0) return fromDecimal(val);else if (val.indexOf('0x') === 0) return val;else if (!isFinite(val)) return fromAscii(val);
+        if (val.indexOf('-0x') === 0) {
+            return fromDecimal(val);
+        } else if (val.indexOf('0x') === 0) {
+            return val;
+        } else if (!isFinite(val)) {
+            return fromAscii(val);
+        }
     }
 
     return fromDecimal(val);
@@ -6388,9 +9405,11 @@ var toWei = function toWei(number, unit) {
  * @return {BigNumber} BigNumber
 */
 var toBigNumber = function toBigNumber(number) {
-    /*jshint maxcomplexity:5 */
+    /* jshint maxcomplexity:5 */
     number = number || 0;
-    if (isBigNumber(number)) return number;
+    if (isBigNumber(number)) {
+        return number;
+    }
 
     if (isString(number) && (number.indexOf('0x') === 0 || number.indexOf('-0x') === 0)) {
         return new BigNumber(number.replace('0x', ''), 16);
@@ -6409,7 +9428,7 @@ var toBigNumber = function toBigNumber(number) {
 var toTwosComplement = function toTwosComplement(number) {
     var bigNumber = toBigNumber(number).round();
     if (bigNumber.lessThan(0)) {
-        return new BigNumber("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", 16).plus(bigNumber).plus(1);
+        return new BigNumber('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', 16).plus(bigNumber).plus(1);
     }
     return bigNumber;
 };
@@ -6481,7 +9500,7 @@ var toChecksumAddress = function toChecksumAddress(address) {
     var checksumAddress = '0x';
 
     for (var i = 0; i < address.length; i++) {
-        // If ith character is 9 to f then make it uppercase 
+        // If ith character is 9 to f then make it uppercase
         if (parseInt(addressHash[i], 16) > 7) {
             checksumAddress += address[i].toUpperCase();
         } else {
@@ -6622,7 +9641,7 @@ module.exports = {
     isJson: isJson
 };
 
-},{"bignumber.js":97,"ethereumjs-util":217,"utf8":312}],61:[function(require,module,exports){
+},{"bignumber.js":107,"ethereumjs-util":227,"utf8":325}],71:[function(require,module,exports){
 'use strict';
 
 var marked = require('marked');
@@ -6653,7 +9672,7 @@ marked.setOptions({
 });
 module.exports = marked;
 
-},{"marked":250}],62:[function(require,module,exports){
+},{"marked":262}],72:[function(require,module,exports){
 (function (Buffer){
 /********************************************************************************
 *   Ledger Communication toolkit
@@ -6868,7 +9887,7 @@ LedgerEth.prototype.signPersonalMessage_async = function (path, messageHex, call
 module.exports = LedgerEth;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141}],63:[function(require,module,exports){
+},{"buffer":151}],73:[function(require,module,exports){
 (function (Buffer){
 /********************************************************************************
 *   Ledger Communication toolkit
@@ -6939,7 +9958,7 @@ Ledger3.prototype.exchange = function (apduHex, callback) {
 module.exports = Ledger3;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141}],64:[function(require,module,exports){
+},{"buffer":151}],74:[function(require,module,exports){
 //Copyright 2014-2015 Google Inc. All rights reserved.
 
 //Use of this source code is governed by a BSD-style
@@ -7663,7 +10682,7 @@ u2f.getApiVersion = function (callback, opt_timeoutSeconds) {
 };
 module.exports = u2f;
 
-},{}],65:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 'use strict';
 
 var Token = function Token(contractAddress, userAddress, symbol, decimal, type) {
@@ -7672,10 +10691,10 @@ var Token = function Token(contractAddress, userAddress, symbol, decimal, type) 
     this.symbol = symbol;
     this.decimal = decimal;
     this.type = type;
-    this.balance = "Click to Load";
+    this.balance = 'Click to Load';
 };
-Token.balanceHex = "0x70a08231";
-Token.transferHex = "0xa9059cbb";
+Token.balanceHex = '0x70a08231';
+Token.transferHex = '0xa9059cbb';
 Token.popTokens = [];
 Token.prototype.getContractAddress = function () {
     return this.contractAddress;
@@ -7719,20 +10738,20 @@ Token.prototype.setBalance = function (callback) {
 Token.getTokenByAddress = function (toAdd) {
     toAdd = ethFuncs.sanitizeHex(toAdd);
     for (var i = 0; i < Token.popTokens.length; i++) {
-        if (toAdd.toLowerCase() == Token.popTokens[i].address.toLowerCase()) return Token.popTokens[i];
+        if (toAdd.toLowerCase() === Token.popTokens[i].address.toLowerCase()) return Token.popTokens[i];
     }
     return {
-        "address": toAdd,
-        "symbol": "Unknown",
-        "decimal": 0,
-        "type": "default"
+        'address': toAdd,
+        'symbol': 'Unknown',
+        'decimal': 0,
+        'type': 'default'
     };
 };
 Token.prototype.getData = function (toAdd, value) {
     try {
         if (!ethFuncs.validateEtherAddress(toAdd)) throw globalFuncs.errorMsgs[5];else if (!globalFuncs.isNumeric(value) || parseFloat(value) < 0) throw globalFuncs.errorMsgs[7];
-        var value = ethFuncs.padLeft(new BigNumber(value).times(new BigNumber(10).pow(this.getDecimal())).toString(16), 64);
-        var toAdd = ethFuncs.padLeft(ethFuncs.getNakedAddress(toAdd), 64);
+        value = ethFuncs.padLeft(new BigNumber(value).times(new BigNumber(10).pow(this.getDecimal())).toString(16), 64);
+        toAdd = ethFuncs.padLeft(ethFuncs.getNakedAddress(toAdd), 64);
         var data = Token.transferHex + toAdd + value;
         return {
             isError: false,
@@ -7747,9 +10766,10 @@ Token.prototype.getData = function (toAdd, value) {
 };
 module.exports = Token;
 
-},{}],66:[function(require,module,exports){
-arguments[4][1][0].apply(exports,arguments)
-},{"dup":1}],67:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
+module.exports=[]
+
+},{}],77:[function(require,module,exports){
 module.exports=[
   {
     "address": "0x28362cd634646620ef2290058744f9244bb90ed9",
@@ -7758,17 +10778,13 @@ module.exports=[
     "type": "default"
   },
 ]
-},{}],68:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 // English
 'use strict';
 
-var _en$data;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var en = function en() {};
 en.code = 'en';
-en.data = (_en$data = {
+en.data = {
 
   GEN_Help_0: 'Already have a wallet somewhere?',
   GEN_Help_MetaMask: 'So easy! Keys stay in WanMask, not on a phishing site! Try it today.',
@@ -7834,7 +10850,7 @@ en.data = (_en$data = {
 
   ENS_Bid_Title: 'Place a Bid',
   ENS_Finalize: 'Finalize',
-  ENS_Finalize_content: 'Finalizing this name assigns the ENS name to the winning bidder. The winner will be refunded the difference between their bid and the next-highest bid. If you are the only bidder, you will refunded all but 0.01 WAN. Any non-winners will also be refunded.',
+  ENS_Finalize_content: 'Finalizing this name assigns the WNS name to the winning bidder. The winner will be refunded the difference between their bid and the next-highest bid. If you are the only bidder, you will refunded all but 0.01 WAN. Any non-winners will also be refunded.',
   ENS_Finalize_content_1: 'You are about to finalize the auction & claim the name:',
   ENS_Helper_1: 'What is the process like?',
   ENS_Helper_10: '**If you do not reveal your bid, you will not be refunded.**',
@@ -7843,18 +10859,18 @@ en.data = (_en$data = {
   ENS_Helper_13: 'In the event that two parties bid exactly the same amount, the first bid revealed will win.',
   ENS_Helper_14: '4) Finalize the Auction',
   ENS_Helper_15: 'Once the auction has ended (after 5 days / 120 hours), the winner needs to finalize the auction in order to claim their new name.',
-  ENS_Helper_16: 'The winner will be refunded the difference between their bid and the next-highest bid. If you are the only bidder, you will refunded all but 0.01 WAN.',
+  ENS_Helper_16: 'The winner will be refunded the difference between their bid and the next-highest bid. If you are the only bidder, you will refunded all but 0.1 WAN.',
   ENS_Helper_17: 'More Information',
   ENS_Helper_18: 'The auction for this registrar is a blind auction, and is described in',
   ENS_Helper_19: 'Basically, no one can see *anything* during the auction.',
   ENS_Helper_2: '1) Preparation',
-  ENS_Helper_20: 'ENS: Read the Docs',
-  ENS_Helper_21: 'Announcing the Wanchain Name Service Relaunch Date!',
-  ENS_Helper_22: 'Knowledge Base: ENS',
+  ENS_Helper_20: 'WNS: Read the Docs',
+  ENS_Helper_21: 'Announcing the Wanchain Name Service!',
+  ENS_Helper_22: 'Knowledge Base: WNS',
   ENS_Helper_23: 'Debugging a [BAD INSTRUCTION] Reveal',
   ENS_Helper_24: 'Please try the above before relying on support for reveal issues as we are severely backlogged on support tickets. We\'re so sorry. :(',
   ENS_Helper_3: 'Decide which account you wish to own the name & ensure you have multiple backups of that account.',
-  ENS_Helper_4: 'Decide the maximum amount of WAN you are willing to pay for the name (your <u>Bid Amount</u>). Ensure that account has enough to cover your bid + 0.01 WAN for gas.',
+  ENS_Helper_4: 'Decide the maximum amount of WAN you are willing to pay for the name (your <u>Bid Amount</u>). Ensure that account has enough to cover your bid + 0.2 WAN for gas.',
   ENS_Helper_5: '2) Start an Auction / Place a Bid',
   ENS_Helper_6: 'Bidding period lasts 3 days (72 hours).',
   ENS_Helper_7: 'You will enter the <u>name</u>, <u>Actual Bid Amount</u>, <u>Bid Mask</u>, which is protected by a <u>Secret Phrase</u>.',
@@ -7923,12 +10939,650 @@ en.data = (_en$data = {
   ONBOARD_why_content__7: '**You** and **only you** are responsible for your security.',
   ONBOARD_why_content__8: 'Be diligent to keep your private key and password safe. Your private key is sometimes called your mnemonic phrase, keystore file, UTC file, JSON file,  wallet file.',
   ONBOARD_why_content__9: 'If you lose your private key or password, no one can recover it.',
-  ONBOARD_why_content__10: 'If you enter your private key on a phishing website, you will have **all your funds taken**.'
-}, _defineProperty(_en$data, 'ONBOARD_blockchain_title__alt', 'WTF is a Blockchain?'), _defineProperty(_en$data, 'ONBOARD_point_title__alt', 'What\'s the Point of MEW then?'), _defineProperty(_en$data, 'ONBOARD_whymew_title', 'If MyWanWallet can\'t do those things, what\'s the point?'), _defineProperty(_en$data, 'ONBOARD_whymew_content__1', 'Because that is the point of decentralization and the blockchain.'), _defineProperty(_en$data, 'ONBOARD_whymew_content__2', 'You don\'t have to rely on your bank, government, or anyone else when you want to move your funds.'), _defineProperty(_en$data, 'ONBOARD_whymew_content__3', 'You don\'t have to rely on the security of an exchange or bank to keep your funds safe.'), _defineProperty(_en$data, 'ONBOARD_whymew_content__4', 'If you don\'t find these things valuable, ask yourself why you think the blockchain and cryptocurrencies are valuable. 😉'), _defineProperty(_en$data, 'ONBOARD_whymew_content__5', 'If you don\'t like the sound of this, consider using [Coinbase](https://www.coinbase.com/) or [Blockchain.info](https://blockchain.info/wallet/#/signup). They have more familiar accounts with usernames & passwords.'), _defineProperty(_en$data, 'ONBOARD_whymew_content__6', 'If you are scared but want to use MEW, [get a hardware wallet](https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html)! These keep your keys secure.'), _defineProperty(_en$data, 'ONBOARD_why_title__alt', 'But...why?'), _defineProperty(_en$data, 'ONBOARD_secure_title', 'How To Protect Yourself & Your Funds'), _defineProperty(_en$data, 'ONBOARD_secure_1_title', 'How To Protect Yourself from Phishers'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__1', 'Phishers send you a message with a link to a website that looks just like MyWanWallet, EtherDelta, Paypal, or your bank, but is not the real website. They steal your information and then steal your money.'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__2', 'Install [WanMask](https://chrome.google.com/webstore/detail/omnkcjdohbnjfjmlaiboojplahajnenj).'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__3', 'Always check the URL: `https://www.MyWanWallet.nl`.'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__4', 'Always make sure the URL bar has `MyWanWallet.nl` in green.'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__5', 'Do not trust messages or links sent to you randomly via email, Slack, Reddit, Twitter, etc.'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__6', 'Always navigate directly to a site before you enter information. Do not enter information after clicking a link from a message or email.'), _defineProperty(_en$data, 'ONBOARD_secure_1_content__7', '[Install an AdBlocker](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en) and do not click ads on your search engine (e.g. Google).'), _defineProperty(_en$data, 'ONBOARD_point_title__alt_2', 'What\'s the point?'), _defineProperty(_en$data, 'ONBOARD_secure_2_title', 'How To Protect Yourself from Scams'), _defineProperty(_en$data, 'ONBOARD_secure_2_content__1', 'People will try to get you to give them money in return for nothing.'), _defineProperty(_en$data, 'ONBOARD_secure_2_content__2', 'If it is too good to be true, it probably is.'), _defineProperty(_en$data, 'ONBOARD_secure_2_content__3', 'Research before sending money to someone or some project. Look for information on a variety of websites and forums. Be wary.'), _defineProperty(_en$data, 'ONBOARD_secure_2_content__4', 'Ask questions when you don\'t understand something or it doesn\'t seem right.'), _defineProperty(_en$data, 'ONBOARD_secure_2_content__5', 'Don\'t let fear, FUD, or FOMO win over common sense. If something is very urgent, ask yourself "why?". It may be to create FOMO or prevent you from doing research.'), _defineProperty(_en$data, 'ONBOARD_secure_3_title__alt', 'Phuck Phishers'), _defineProperty(_en$data, 'ONBOARD_secure_3_title', 'How To Protect Yourself from Loss'), _defineProperty(_en$data, 'ONBOARD_secure_3_content__1', 'If you lose your private key or password, it is gone forever. Don\'t lose it.'), _defineProperty(_en$data, 'ONBOARD_secure_3_content__2', 'Make a backup of your private key and password. Do NOT just store it on your computer. Print it out on a piece of paper or save it to a USB drive.'), _defineProperty(_en$data, 'ONBOARD_secure_3_content__3', 'Store this paper or USB drive in a different physical location. A backup is not useful if it is destroyed by a fire or flood along with your laptop.'), _defineProperty(_en$data, 'ONBOARD_secure_3_content__4', 'Do not store your private key in Dropbox, Google Drive, or other cloud storage. If that account is compromised, your funds will be stolen.'), _defineProperty(_en$data, 'ONBOARD_secure_3_content__5', 'If you have more than 1-week\'s worth of pay worth of cryptocurrency, get a hardware wallet. No excuses. It\'s worth it. I promise.'), _defineProperty(_en$data, 'ONBOARD_secure_3_content__6', '[Even more Security Tips!](https://myetherwallet.github.io/knowledge-base/getting-started/protecting-yourself-and-your-funds.html)'), _defineProperty(_en$data, 'ONBOARD_secure_2_title__alt_2', 'Screw Scams'), _defineProperty(_en$data, 'ONBOARD_final_title__alt', 'One more click & you\'re done! 🤘'), _defineProperty(_en$data, 'ONBOARD_final_title', 'Alright, I\'m done lecturing you!'), _defineProperty(_en$data, 'ONBOARD_final_subtitle', 'Sorry for being like this. Onwards!'), _defineProperty(_en$data, 'ONBOARD_final_content__1', 'Create a wallet'), _defineProperty(_en$data, 'ONBOARD_final_content__2', 'Get a hardware wallet'), _defineProperty(_en$data, 'ONBOARD_final_content__3', 'How to Set up MEW + WanMask'), _defineProperty(_en$data, 'ONBOARD_final_content__4', 'How to Run MEW Offline / Locally'), _defineProperty(_en$data, 'ONBOARD_final_content__5', 'How to Send via Ledger hardware wallet'), _defineProperty(_en$data, 'ONBOARD_final_content__6', 'How to Send via TREZOR hardware wallet'), _defineProperty(_en$data, 'ONBOARD_final_content__7', 'How to Send via WanMask'), _defineProperty(_en$data, 'ONBOARD_final_content__8', 'Learn More or Contact Us'), _defineProperty(_en$data, 'ONBOARD_final_content__9', 'OMG, please just let me send FFS.'), _defineProperty(_en$data, 'ONBOARD_resume', 'It looks like you didn\'t finish reading through these slides last time. ProTip: Finish reading through the slides 😉'), _defineProperty(_en$data, 'ADD_DigitalBitbox_0a', 'Re-open MyWanWallet on a secure (SSL) connection'), _defineProperty(_en$data, 'ADD_DigitalBitbox_0b', 'Re-open MyWanWallet using [Chrome](https://www.google.com/chrome/browser/desktop/) or [Opera](https://www.opera.com/)'), _defineProperty(_en$data, 'ADD_DigitalBitbox_scan', 'Connect your Digital Bitbox'), _defineProperty(_en$data, 'ADD_Label_1', 'What would you like to do?'), _defineProperty(_en$data, 'ADD_Label_2', 'Create a Nickname'), _defineProperty(_en$data, 'ADD_Label_3', 'Your wallet is encrypted. Good! Please enter the password.'), _defineProperty(_en$data, 'ADD_Label_4', 'Add an Account to Watch'), _defineProperty(_en$data, 'ADD_Label_5', 'Enter the Address'), _defineProperty(_en$data, 'ADD_Label_6', 'Unlock your Wallet'), _defineProperty(_en$data, 'ADD_Label_6_short', 'Unlock'), _defineProperty(_en$data, 'ADD_Label_7', 'Add Account'), _defineProperty(_en$data, 'ADD_Label_8', 'Password (optional):'), _defineProperty(_en$data, 'ADD_Ledger_0a', 'Please use MyWanWallet on a secure (SSL / HTTPS) connection to connect.'), _defineProperty(_en$data, 'ADD_Ledger_0b', 'Re-open MyWanWallet using [Chrome](https://www.google.com/chrome/browser/desktop/) or [Opera](https://www.opera.com/)'), _defineProperty(_en$data, 'ADD_Ledger_1', 'Connect your Ledger Wallet'), _defineProperty(_en$data, 'ADD_Ledger_2', 'Open the Wanchain application (or a contract application)'), _defineProperty(_en$data, 'ADD_Ledger_2_Exp', 'Open the Expanse application (or a contract application)'), _defineProperty(_en$data, 'ADD_Ledger_2_Ubq', 'Open the Ubiq application (or a contract application)'), _defineProperty(_en$data, 'ADD_Ledger_3', 'Verify that Browser Support is enabled in Settings'), _defineProperty(_en$data, 'ADD_Ledger_4', 'If no Browser Support is found in settings, verify that you have [Firmware >1.2](https://www.ledgerwallet.com/apps/manager)'), _defineProperty(_en$data, 'ADD_Ledger_scan', 'Connect to Ledger Wallet'), _defineProperty(_en$data, 'ADD_MetaMask', 'Connect to WanMask'), _defineProperty(_en$data, 'ADD_Radio_1', 'Generate New Wallet'), _defineProperty(_en$data, 'ADD_Radio_2', 'Select Your Wallet File (Keystore / JSON)'), _defineProperty(_en$data, 'ADD_Radio_2_alt', 'Select Your Wallet File'), _defineProperty(_en$data, 'ADD_Radio_2_short', 'SELECT WALLET FILE...'), _defineProperty(_en$data, 'ADD_Radio_3', 'Paste Your Private Key'), _defineProperty(_en$data, 'ADD_Radio_4', 'Add an Account to Watch'), _defineProperty(_en$data, 'ADD_Radio_5', 'Paste Your Mnemonic'), _defineProperty(_en$data, 'ADD_Radio_5_Path', 'Select HD derivation path'), _defineProperty(_en$data, 'ADD_Radio_5_PathAlternative', '(Ledger)'), _defineProperty(_en$data, 'ADD_Radio_5_PathCustom', 'Custom'), _defineProperty(_en$data, 'ADD_Radio_5_PathTrezor', '(TREZOR)'), _defineProperty(_en$data, 'ADD_Radio_5_withTrezor', '(Jaxx, WanMask, Exodus, imToken, TREZOR)'), _defineProperty(_en$data, 'ADD_Radio_5_woTrezor', '(Jaxx, WanMask, Exodus, imToken)'), _defineProperty(_en$data, 'ADD_Trezor_scan', 'Connect to TREZOR'), _defineProperty(_en$data, 'ADD_Warning_1', 'You can add any account to "watch" on the wallets tab without uploading a private key. This does ** not ** mean you have access to this wallet, nor can you transfer Wancoins from it.'), _defineProperty(_en$data, 'BULK_Label_1', 'Number of Wallets To Generate'), _defineProperty(_en$data, 'BULK_Label_2', 'Generate Wallets'), _defineProperty(_en$data, 'BULK_SuccessMsg', 'Success! Your wallets have been generated.'), _defineProperty(_en$data, 'CONTRACT_ByteCode', 'Byte Code'), _defineProperty(_en$data, 'CONTRACT_Interact_CTA', 'Select a function'), _defineProperty(_en$data, 'CONTRACT_Interact_Title', 'Read / Write Contract'), _defineProperty(_en$data, 'CONTRACT_Json', 'ABI / JSON Interface'), _defineProperty(_en$data, 'CONTRACT_Read', 'READ'), _defineProperty(_en$data, 'CONTRACT_Title', 'Contract Address'), _defineProperty(_en$data, 'CONTRACT_Title_2', 'Select Existing Contract'), _defineProperty(_en$data, 'CONTRACT_Write', 'WRITE'), _defineProperty(_en$data, 'CX_error_1', 'You don\'t have any wallets saved. Click ["Add Wallet"](/cx-wallet.html#add-wallet) to add one!'), _defineProperty(_en$data, 'CX_quicksend', 'QuickSend'), _defineProperty(_en$data, 'CX_Tagline', 'Open Source JavaScript Client-Side Wancoins Wallet Chrome Extension'), _defineProperty(_en$data, 'CX_Warning_1', 'Make sure you have **external backups** of any wallets you store here. Many things could happen that would cause you to lose the data in this Chrome Extension, including uninstalling and reinstalling the extension. This extension is a way to easily access your wallets, **not** a way to back them up.'), _defineProperty(_en$data, 'decrypt_Access', 'How would you like to access your wallet?'), _defineProperty(_en$data, 'decrypt_Select', 'Select a Wallet'), _defineProperty(_en$data, 'decrypt_Title', 'Select the format of your private key'), _defineProperty(_en$data, 'DEP_generate', 'Generate Bytecode'), _defineProperty(_en$data, 'DEP_generated', 'Generated Bytecode'), _defineProperty(_en$data, 'DEP_interface', 'Generated Interface'), _defineProperty(_en$data, 'DEP_signtx', 'Sign Transaction'), _defineProperty(_en$data, 'ERROR_0', '(error_01) Please enter a valid amount.'), _defineProperty(_en$data, 'ERROR_1', '(error_02) Your password must be at least 9 characters. Please ensure it is a strong password.'), _defineProperty(_en$data, 'ERROR_2', '(error_03) Sorry! We don\'t recognize this type of wallet file.'), _defineProperty(_en$data, 'ERROR_3', '(error_04) This is not a valid wallet file.'), _defineProperty(_en$data, 'ERROR_4', '(error_05) This unit doesn\'t exists, please use the one of the following units'), _defineProperty(_en$data, 'ERROR_5', '(error_06) Please enter a valid address.'), _defineProperty(_en$data, 'ERROR_6', '(error_07) Please enter a valid password.'), _defineProperty(_en$data, 'ERROR_7', '(error_08) Please enter valid decimals     (Must be an integer. Try 0-18.)'), _defineProperty(_en$data, 'ERROR_8', '(error_09) Please enter a valid gas limit  (Must be an integer. Try 21000-4000000.)'), _defineProperty(_en$data, 'ERROR_9', '(error_10) Please enter a valid data value (Must be hex.)'), _defineProperty(_en$data, 'ERROR_10', '(error_11) Please enter a valid gas price. (Must be an integer. Try 20 GWEI / 20000000000 WEI.)'), _defineProperty(_en$data, 'ERROR_11', '(error_12) Please enter a valid nonce (Must be an integer.)'), _defineProperty(_en$data, 'ERROR_12', '(error_13) Invalid signed transaction.'), _defineProperty(_en$data, 'ERROR_13', '(error_14) A wallet with this nickname already exists.'), _defineProperty(_en$data, 'ERROR_14', '(error_15) Wallet not found.'), _defineProperty(_en$data, 'ERROR_15', '(error_16) Whoops. It doesn\'t look like a proposal with this ID exists yet or there is an error reading this proposal.'), _defineProperty(_en$data, 'ERROR_16', '(error_17) A wallet with this address already exists in storage. Please check your wallets page.'), _defineProperty(_en$data, 'ERROR_17', '(error_18) Insufficient balance. Your gas limit * gas price + amount to send exceeds your current balance. Send more WAN to your account or use the "Send Entire Balance" button. If you believe this is in error, try pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)'), _defineProperty(_en$data, 'ERROR_18', '(error_19) All gas would be used on this transaction. This means you have already voted on this proposal or the debate period has ended.'), _defineProperty(_en$data, 'ERROR_19', '(error_20) Please enter a valid symbol'), _defineProperty(_en$data, 'ERROR_20', '(error_21) Not a valid ERC-20 token'), _defineProperty(_en$data, 'ERROR_21', '(error_22) Could not estimate gas. There are not enough funds in the account, or the receiving contract address would throw an error. Feel free to manually set the gas and proceed. The error message upon sending may be more informative.'), _defineProperty(_en$data, 'ERROR_22', '(error_23) Please enter a valid node name'), _defineProperty(_en$data, 'ERROR_23', '(error_24) Please enter a valid URL. If you are on https, your URL must be https'), _defineProperty(_en$data, 'ERROR_24', '(error_25) Please enter a valid port.'), _defineProperty(_en$data, 'ERROR_25', '(error_26) Please enter a valid chain ID.'), _defineProperty(_en$data, 'ERROR_26', '(error_27) Please enter a valid ABI.'), _defineProperty(_en$data, 'ERROR_27', '(error_28) Minimum amount: 0.01. Max amount:'), _defineProperty(_en$data, 'ERROR_28', '(error_29) You need this `Keystore File + Password` or the `Private Key` (next page) to access this wallet in the future. '), _defineProperty(_en$data, 'ERROR_29', '(error_30) Please enter a valid user and password.'), _defineProperty(_en$data, 'ERROR_30', '(error_31) Please enter a valid name (7+ characters, limited punctuation)'), _defineProperty(_en$data, 'ERROR_31', '(error_32) Please enter a valid secret phrase.'), _defineProperty(_en$data, 'ERROR_32', '(error_33) Could not connect to the node. Refresh your page, try a different node (top-right corner), check your firewall settings. If custom node, check your configs.'), _defineProperty(_en$data, 'ERROR_33', '(error_34) The wallet you have unlocked does not match the owner\'s address.'), _defineProperty(_en$data, 'ERROR_34', '(error_35) The name you are attempting to reveal does not match the name you have entered.'), _defineProperty(_en$data, 'ERROR_35', '(error_36) Input address is not checksummed. <a href="https://myetherwallet.github.io/knowledge-base/addresses/not-checksummed-shows-when-i-enter-an-address.html" target="_blank" rel="noopener noreferrer">What does that mean?</a>'), _defineProperty(_en$data, 'ERROR_36', '(error_37) Please enter a valid TX hash'), _defineProperty(_en$data, 'ERROR_37', '(error_38) Please enter valid hex string. Hex only contains: 0x, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, a, b, c, d, e, f'), _defineProperty(_en$data, 'ERROR_38', '(error_39) Offer must have either price or reserve set to more than 0'), _defineProperty(_en$data, 'ERROR_39', '(error_40) Bid must be more than the specified minimum'), _defineProperty(_en$data, 'GETH_Balance', '(gwan-01) Insufficient balance. Your gas limit * gas price + amount to send exceeds your current balance. Send more WAN to your account or use the "Send Entire Balance" button. If you believe this is in error, try pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)'), _defineProperty(_en$data, 'GETH_Cheap', '(gwan-02) Gas price too low for acceptance. Try raising the gas price to 21 GWEI via the dropdown in top-right.'), _defineProperty(_en$data, 'GETH_GasLimit', '(gwan-03) Exceeds block gas limit. Transaction cost exceeds current gas limit. Limit: (d+), got: (d+). Please lower the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)'), _defineProperty(_en$data, 'GETH_InsufficientFunds', '(gwan-04) Insufficient balance. Your gas limit * gas price + amount to send exceeds your current balance. Send more WAN to your account or use the "Send Entire Balance" button. If you believe this is in error, try pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)'), _defineProperty(_en$data, 'GETH_IntrinsicGas', '(gwan-05) Intrinsic gas too low. Try raising the gas price to 21 GWEI via the dropdown in top-right or the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again.'), _defineProperty(_en$data, 'GETH_InvalidSender', '(gwan-06) Invalid sender.'), _defineProperty(_en$data, 'GETH_NegativeValue', '(gwan-07) Negative value.'), _defineProperty(_en$data, 'GETH_Nonce', "(gwan-08) This TX's [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html) is too low. Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)."), _defineProperty(_en$data, 'GETH_NonExistentAccount', '(gwan-09) Account does not exist or account balance too low'), _defineProperty(_en$data, 'PARITY_AlreadyImported', "(parity-01) A transaction with the same hash was already imported. It was probably already broadcast. To avoid duplicate transactions, check your address on [wanscan.io](https://wanscan.io) & wait 10 minutes before attempting to send again. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)"), _defineProperty(_en$data, 'PARITY_GasLimitExceeded', "(parity-02) Transaction cost exceeds current gas limit. Limit: (d+), got: (d+). Please lower the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)"), _defineProperty(_en$data, 'PARITY_InsufficientBalance', "(parity-03) Insufficient balance. The account you tried to send transaction from does not have enough funds. If you believe this is in error, try using the 'Send Entire Balance' button, or pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)"), _defineProperty(_en$data, 'PARITY_InsufficientGasPrice', "(parity-04) There is another transaction with same nonce in the queue, or the transaction fee is too low. Try incrementing the nonce by clicking the Generate button again. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)"), _defineProperty(_en$data, 'PARITY_InvalidGasLimit', "(parity-05) Supplied gas limit is beyond limit. Try lowering the gas limit to 21000. [Learn More.](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)"), _defineProperty(_en$data, 'PARITY_LimitReached', "(parity-06) There are too many transactions in the queue. Your transaction was dropped due to limit. Try increasing the gas price. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)"), _defineProperty(_en$data, 'PARITY_Old', "(parity-07) There is already a transaction with this [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html). Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)."), _defineProperty(_en$data, 'PARITY_TooCheapToReplace', "(parity-08) TX Fee is too low. It does not satisfy your node's minimal fee (minimal: (d+), got: (d+)). Try increasing the gas price and/or gas limit. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)"), _defineProperty(_en$data, 'FOOTER_1', 'Free, open-source, client-side interface for generating Wanchain wallets &amp; more. Interact with the Wanchain blockchain easily &amp; securely. Double-check the URL ( MyWanWallet.nl ) before unlocking your wallet.'), _defineProperty(_en$data, 'FOOTER_1b', 'Created by'), _defineProperty(_en$data, 'FOOTER_2', 'Donations greatly appreciated'), _defineProperty(_en$data, 'FOOTER_3', 'Client-side wallet generation by'), _defineProperty(_en$data, 'FOOTER_4', 'Disclaimer'), _defineProperty(_en$data, 'GAS_LIMIT_Desc', 'Gas limit is the amount of gas to send with your TX. `TX fee` = gas price * gas limit & is paid to miners for including your TX in a block. Increasing this number will not get your TX mined faster. Sending WAN = `21000`. Sending Tokens = ~`200000`.'), _defineProperty(_en$data, 'GAS_PRICE_Desc', 'Gas Price is the amount you pay per unit of gas. `TX fee = gas price * gas limit` & is paid to miners for including your TX in a block. Higher the gas price = faster transaction, but more expensive. Default is `182 GWEI`.'), _defineProperty(_en$data, 'GEN_desc', 'If you want to generate multiple wallets, you can do so here'), _defineProperty(_en$data, 'GEN_Help_1', 'Use your'), _defineProperty(_en$data, 'GEN_Help_10', 'Right click & save file as. Filename:'), _defineProperty(_en$data, 'GEN_Help_11', 'Don\'t open this file on your computer'), _defineProperty(_en$data, 'GEN_Help_12', 'Use it to unlock your wallet via MyWanWallet (or Mist, gwan, Parity and other wallet clients.)'), _defineProperty(_en$data, 'GEN_Help_13', 'How to Back Up Your Keystore File'), _defineProperty(_en$data, 'GEN_Help_14', 'What are these Different Formats?'), _defineProperty(_en$data, 'GEN_Help_15', 'Preventing loss &amp; theft of your funds.'), _defineProperty(_en$data, 'GEN_Help_16', 'What are these Different Formats?'), _defineProperty(_en$data, 'GEN_Help_17', 'Why Should I?'), _defineProperty(_en$data, 'GEN_Help_18', 'To have a secondary backup.'), _defineProperty(_en$data, 'GEN_Help_19', 'In case you ever forget your password.'), _defineProperty(_en$data, 'GEN_Help_2', 'to access your account.'), _defineProperty(_en$data, 'GEN_Help_20', 'Cold Storage'), _defineProperty(_en$data, 'GEN_Help_3', 'Your device * is * your wallet.'), _defineProperty(_en$data, 'GEN_Help_4', 'Guides & FAQ'), _defineProperty(_en$data, 'GEN_Help_5', 'How to Create a Wallet'), _defineProperty(_en$data, 'GEN_Help_6', 'Getting Started'), _defineProperty(_en$data, 'GEN_Help_7', 'Keep it safe · Make a backup · Don\'t share it with anyone · Don\'t lose it · It cannot be recovered if you lose it.'), _defineProperty(_en$data, 'GEN_Help_8', 'Not Downloading a File?'), _defineProperty(_en$data, 'GEN_Help_9', 'Try using Google Chrome'), _defineProperty(_en$data, 'GEN_Label_1', 'Enter a password'), _defineProperty(_en$data, 'GEN_Label_2', 'Save your `Keystore` File.'), _defineProperty(_en$data, 'GEN_Label_3', 'Save Your Address.'), _defineProperty(_en$data, 'GEN_Label_4', 'Print paper wallet or a QR code.'), _defineProperty(_en$data, 'GEN_Label_5', 'Save Your `Private Key`.'), _defineProperty(_en$data, 'GEN_Placeholder_1', 'Do NOT forget to save this!'), _defineProperty(_en$data, 'GEN_SuccessMsg', 'Success! Your wallet has been generated.'), _defineProperty(_en$data, 'GEN_Unlock', 'Unlock your wallet to see your address'), _defineProperty(_en$data, 'GET_ConfButton', 'I understand. Continue.'), _defineProperty(_en$data, 'MEW_Tagline', 'Open Source JavaScript Client-Side Wancoins Wallet'), _defineProperty(_en$data, 'MEW_Warning_1', 'Always check the URL before accessing your wallet or creating a new wallet. Beware of phishing sites!'), _defineProperty(_en$data, 'MNEM_1', 'Please select the address you would like to interact with.'), _defineProperty(_en$data, 'MNEM_2', 'Your single HD mnemonic phrase can access a number of wallets / addresses. Please select the address you would like to interact with at this time.'), _defineProperty(_en$data, 'MNEM_more', 'More Addresses'), _defineProperty(_en$data, 'MNEM_prev', 'Previous Addresses'), _defineProperty(_en$data, 'MSG_date', 'Date'), _defineProperty(_en$data, 'MSG_info1', 'Include the current date so the signature cannot be reused on a different date.'), _defineProperty(_en$data, 'MSG_info2', 'Include your nickname and where you use the nickname so someone else cannot use it.'), _defineProperty(_en$data, 'MSG_info3', 'Include a specific reason for the message so it cannot be reused for a different purpose.'), _defineProperty(_en$data, 'MSG_message', 'Message'), _defineProperty(_en$data, 'MSG_signature', 'Signature'), _defineProperty(_en$data, 'MSG_verify', 'Verify Message'), _defineProperty(_en$data, 'MYWAL_Address', 'Wallet Address'), _defineProperty(_en$data, 'MYWAL_Bal', 'Balance'), _defineProperty(_en$data, 'MYWAL_Content_1', 'Warning! You are about to remove your wallet'), _defineProperty(_en$data, 'MYWAL_Content_2', 'Be sure you have **saved the private key and/or Keystore File and the password** before you remove it.'), _defineProperty(_en$data, 'MYWAL_Content_3', 'If you want to use this wallet with your MyWanWallet CX in the future, you will need to manually re-add it using the private key/JSON and password.'), _defineProperty(_en$data, 'MYWAL_Edit', 'Edit'), _defineProperty(_en$data, 'MYWAL_Edit_2', 'Edit Wallet'), _defineProperty(_en$data, 'MYWAL_Hide', 'Hide Wallet Info'), _defineProperty(_en$data, 'MYWAL_Name', 'Wallet Name'), _defineProperty(_en$data, 'MYWAL_Nick', 'Wallet Nickname'), _defineProperty(_en$data, 'MYWAL_Remove', 'Remove'), _defineProperty(_en$data, 'MYWAL_RemoveWal', 'Remove Wallet'), _defineProperty(_en$data, 'MYWAL_View', 'View'), _defineProperty(_en$data, 'MYWAL_Viewing', 'Viewing Wallet'), _defineProperty(_en$data, 'MYWAL_WatchOnly', 'Your Watch-Only Accounts'), _defineProperty(_en$data, 'NAV_AddWallet', 'Add Wallet'), _defineProperty(_en$data, 'NAV_BulkGenerate', 'Bulk Generate'), _defineProperty(_en$data, 'NAV_CheckTxStatus', 'Check TX Status'), _defineProperty(_en$data, 'NAV_Contact', 'Contact'), _defineProperty(_en$data, 'NAV_Contracts', 'Contracts'), _defineProperty(_en$data, 'NAV_DeployContract', 'Deploy Contract'), _defineProperty(_en$data, 'NAV_DomainSale', 'DomainSale'), _defineProperty(_en$data, 'NAV_ENS', 'ENS'), _defineProperty(_en$data, 'NAV_GenerateWallet', 'Create New Wallet'), _defineProperty(_en$data, 'NAV_GenerateWallet_alt', 'New Wallet'), _defineProperty(_en$data, 'NAV_Help', 'Help'), _defineProperty(_en$data, 'NAV_InteractContract', 'Interact with Contract'), _defineProperty(_en$data, 'NAV_Multisig', 'Multisig'), _defineProperty(_en$data, 'NAV_MyWallets', 'My Wallets'), _defineProperty(_en$data, 'NAV_Offline', 'Send Offline'), _defineProperty(_en$data, 'NAV_SendEther', 'Send Wancoins & Tokens'), _defineProperty(_en$data, 'NAV_SendTokens', 'Send Tokens'), _defineProperty(_en$data, 'NAV_SignMsg', 'Sign Message'), _defineProperty(_en$data, 'NAV_Swap', 'Swap'), _defineProperty(_en$data, 'NAV_TxStatus', 'TX Status'), _defineProperty(_en$data, 'NAV_ViewWallet', 'View Wallet Info'), _defineProperty(_en$data, 'NAV_YourWallets', 'Your Wallets'), _defineProperty(_en$data, 'NODE_CTA', 'Save & Use Custom Node'), _defineProperty(_en$data, 'NODE_Name', 'Node Name'), _defineProperty(_en$data, 'NODE_Port', 'Node Port'), _defineProperty(_en$data, 'NODE_Subtitle', 'To connect to a local node...'), _defineProperty(_en$data, 'NODE_Title', 'Set Up Your Custom Node'), _defineProperty(_en$data, 'NODE_Warning', 'Your node must be HTTPS in order to connect to it via MyWanWallet.nl. You can [download the MyWanWallet repo & run it locally](https://github.com/tyrion70/mywanwallet/releases/latest) to connect to any node. Or, get free SSL certificate via [LetsEncrypt](https://letsencrypt.org/)'), _defineProperty(_en$data, 'NONCE_Desc', 'The nonce is the number of transactions sent from a given address. It ensures transactions are sent in order & not more than once.'), _defineProperty(_en$data, 'OFFLINE_Desc', 'Generating offline transactions can be done in three steps. You will complete steps 1 and 3 on an online computer, and step 2 on an offline/airgapped computer. This ensures your private keys do not touch an internet-connected device.'), _defineProperty(_en$data, 'OFFLINE_Step1_Button', 'Generate Information'), _defineProperty(_en$data, 'OFFLINE_Step1_Label_1', 'From Address'), _defineProperty(_en$data, 'OFFLINE_Step1_Label_2', 'Note: This is the FROM address, not the TO address. Nonce is generated from the originating account. If using an airgapped computer, it would be the address of the cold-storage account.'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_1', 'To Address'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_2', 'Value / Amount to Send'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_3', 'Gas Price'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_3b', 'This was displayed in Step 1 on your online computer.'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_4', 'Gas Limit'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_4b', '21000 is the default gas limit. When you send contracts or add\'l data, this may need to be different. Any unused gas will be returned to you.'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_5', 'Nonce'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_5b', 'This was displayed in Step 1 on your online computer.'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_6', 'Data'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_6b', 'This is optional. Data is often used when you send transactions to contracts.'), _defineProperty(_en$data, 'OFFLINE_Step2_Label_7', 'Enter / Select your Private Key / JSON.'), _defineProperty(_en$data, 'OFFLINE_Step2_Title', 'Step 2: Generate Transaction (Offline Computer)'), _defineProperty(_en$data, 'OFFLINE_Step3_Label_1', 'Paste the signed transaction from Step 2 here and press the "SEND TRANSACTION" button.'), _defineProperty(_en$data, 'OFFLINE_Step3_Title', 'Step 3: Send / Publish Transaction (Online Computer)'), _defineProperty(_en$data, 'OFFLINE_Title', 'Generate & Send Offline Transaction'), _defineProperty(_en$data, 'OFFLLINE_Step1_Title', 'Step 1: Generate Information (Online Computer)'), _defineProperty(_en$data, 'SEND_addr', 'To Address'), _defineProperty(_en$data, 'SEND_amount', 'Amount to Send'), _defineProperty(_en$data, 'SEND_amount_short', 'Amount'), _defineProperty(_en$data, 'SEND_custom', 'Add Custom Token'), _defineProperty(_en$data, 'SEND_gas', 'Gas'), _defineProperty(_en$data, 'SEND_generate', 'Generate Transaction'), _defineProperty(_en$data, 'SEND_raw', 'Raw Transaction'), _defineProperty(_en$data, 'SEND_signed', 'Signed Transaction'), _defineProperty(_en$data, 'SEND_trans', 'Send Transaction'), _defineProperty(_en$data, 'SEND_TransferTotal', 'Send Entire Balance'), _defineProperty(_en$data, 'SENDModal_Content_1', 'You are about to send'), _defineProperty(_en$data, 'SENDModal_Content_2', 'to address'), _defineProperty(_en$data, 'SENDModal_Content_3', 'Are you sure you want to do this?'), _defineProperty(_en$data, 'SENDModal_Content_4', 'NOTE: If you encounter an error, you most likely need to add Wancoins to your account to cover the gas cost of sending tokens. Gas is paid in Wancoins.'), _defineProperty(_en$data, 'SENDModal_No', 'No, get me out of here!'), _defineProperty(_en$data, 'SENDModal_Title', 'Warning!'), _defineProperty(_en$data, 'SENDModal_Yes', 'Yes, I am sure! Make transaction.'), _defineProperty(_en$data, 'sidebar_AccountAddr', 'Account Address'), _defineProperty(_en$data, 'sidebar_AccountBal', 'Account Balance'), _defineProperty(_en$data, 'sidebar_AccountInfo', 'Account Information'), _defineProperty(_en$data, 'sidebar_DisplayOnLedger', 'Display address on Ledger'), _defineProperty(_en$data, 'sidebar_DisplayOnTrezor', 'Display address on TREZOR'), _defineProperty(_en$data, 'sidebar_donate', 'Donate'), _defineProperty(_en$data, 'sidebar_donation', 'MyWanWallet is a free, open-source service dedicated to your privacy and security. The more donations we receive, the more time we spend creating new features, listening to your feedback, and giving you what you want. We are just two people trying to change the world. Help us?'), _defineProperty(_en$data, 'sidebar_Equiv', 'Equivalent Values'), _defineProperty(_en$data, 'sidebar_thanks', 'THANK YOU!!!'), _defineProperty(_en$data, 'sidebar_TokenBal', 'Token Balances'), _defineProperty(_en$data, 'sidebar_TransHistory', 'Transaction History'), _defineProperty(_en$data, 'SUCCESS_1', 'Valid address'), _defineProperty(_en$data, 'SUCCESS_2', 'Wallet successfully decrypted'), _defineProperty(_en$data, 'SUCCESS_3', 'Your TX has been broadcast to the network. This does not mean it has been mined & sent. During times of extreme volume, it may take 3+ hours to send. 1) Check your TX below. 2) If it is pending for hours or disappears, use the Check TX Status Page to replace. 3) Use [WAN Gas Station](https://ethgasstation.info/) to see what gas price is optimal. 4) Save your TX Hash in case you need it later:  '), _defineProperty(_en$data, 'SUCCESS_4', 'Your wallet was successfully added'), _defineProperty(_en$data, 'SUCCESS_5', 'File Selected'), _defineProperty(_en$data, 'SUCCESS_6', 'You are successfully connected'), _defineProperty(_en$data, 'SUCCESS_7', 'Message Signature Verified'), _defineProperty(_en$data, 'SWAP_elapsed', "Time elapsed since sent "), _defineProperty(_en$data, 'SWAP_information', "Your Information "), _defineProperty(_en$data, 'SWAP_init_1', "I want to swap my "), _defineProperty(_en$data, 'SWAP_init_2', " for "), _defineProperty(_en$data, 'SWAP_init_CTA', "Let's do this! "), _defineProperty(_en$data, 'SWAP_order_CTA', "Please send "), _defineProperty(_en$data, 'SWAP_progress_1', "Order Initiated "), _defineProperty(_en$data, 'SWAP_progress_2', "Waiting for your "), _defineProperty(_en$data, 'SWAP_progress_3', "Received! "), _defineProperty(_en$data, 'SWAP_progress_4', "Sending your {{orderResult.output.currency}} "), _defineProperty(_en$data, 'SWAP_progress_5', "Order Complete "), _defineProperty(_en$data, 'SWAP_rates', "Current Rates "), _defineProperty(_en$data, 'SWAP_rec_add', "Your Receiving Address "), _defineProperty(_en$data, 'SWAP_rec_amt', "Amount to receive "), _defineProperty(_en$data, 'SWAP_ref_num', "Your reference number "), _defineProperty(_en$data, 'SWAP_send_amt', "Amount to send "), _defineProperty(_en$data, 'SWAP_start_CTA', "Start Swap "), _defineProperty(_en$data, 'SWAP_time', "Time remaining to send "), _defineProperty(_en$data, 'SWAP_unlock', "Unlock your wallet to send WAN or Tokens directly from this page. "), _defineProperty(_en$data, 'SWAP_your_rate', "Your rate "), _defineProperty(_en$data, 'TOKEN_Addr', 'Token Contract Address'), _defineProperty(_en$data, 'TOKEN_Dec', 'Decimals'), _defineProperty(_en$data, 'TOKEN_hide', 'Hide Tokens'), _defineProperty(_en$data, 'TOKEN_show', 'Show All Tokens'), _defineProperty(_en$data, 'TOKEN_Symbol', 'Token Symbol'), _defineProperty(_en$data, 'TRANS_advanced', '+Advanced: Add Data'), _defineProperty(_en$data, 'TRANS_data', 'Data'), _defineProperty(_en$data, 'TRANS_desc', 'If you want to send Tokens, please use the "Send Token" page instead.'), _defineProperty(_en$data, 'TRANS_gas', 'Gas Limit'), _defineProperty(_en$data, 'TRANS_sendInfo', 'A standard transaction using 21000 gas will cost 0.000441 WAN. We do not take a transaction fee.'), _defineProperty(_en$data, 'translate_version', '0.5'), _defineProperty(_en$data, 'Translator_Desc', ''), _defineProperty(_en$data, 'TranslatorAddr_1', ''), _defineProperty(_en$data, 'TranslatorAddr_2', ''), _defineProperty(_en$data, 'TranslatorAddr_3', ''), _defineProperty(_en$data, 'TranslatorAddr_4', ''), _defineProperty(_en$data, 'TranslatorAddr_5', ''), _defineProperty(_en$data, 'TranslatorName_1', ''), _defineProperty(_en$data, 'TranslatorName_2', ''), _defineProperty(_en$data, 'TranslatorName_3', ''), _defineProperty(_en$data, 'TranslatorName_4', ''), _defineProperty(_en$data, 'TranslatorName_5', ''), _defineProperty(_en$data, 'tx_Details', 'Transaction Details'), _defineProperty(_en$data, 'tx_foundInPending', 'Pending Transaction Found'), _defineProperty(_en$data, 'tx_foundInPending_1', 'Your transaction was located in the TX Pool of the node you are connected to.'), _defineProperty(_en$data, 'tx_foundInPending_2', 'It is currently pending (waiting to be mined).'), _defineProperty(_en$data, 'tx_foundInPending_3', 'There is a chance you can "cancel" or replace this transaction. Unlock your wallet below.'), _defineProperty(_en$data, 'tx_FoundOnChain', 'Transaction Found'), _defineProperty(_en$data, 'tx_FoundOnChain_1', 'Your transaction was successfully mined and is on the blockchain.'), _defineProperty(_en$data, 'tx_FoundOnChain_2', '**If you see a red `( ! )`, a `BAD INSTRUCTION` or `OUT OF GAS` error message**, it means that the transaction was not successfully *sent*. You cannot cancel or replace this transaction. Instead, send a new transaction. If you received an "Out of Gas" error, you should double the gas limit you specified originally.'), _defineProperty(_en$data, 'tx_FoundOnChain_3', '**If you do not see any errors, your transaction was successfully sent.** Your WAN or Tokens are where you sent them. If you cannot see this WAN or Tokens credited in your other wallet / exchange account, and it has been 24+ hours since you sent, please [contact that service](https://myetherwallet.github.io/knowledge-base/diving-deeper/ethereum-list-of-support-and-communities.html). Send them the *link* to your transaction and ask them, nicely, to look into your situation.'), _defineProperty(_en$data, 'tx_notFound', 'Transaction Not Found'), _defineProperty(_en$data, 'tx_notFound_1', 'This TX cannot be found in the TX Pool of the node you are connected to.'), _defineProperty(_en$data, 'tx_notFound_2', 'If you just sent the transaction, please wait 15 seconds and press the "Check TX Status" button again.'), _defineProperty(_en$data, 'tx_notFound_3', 'It could still be in the TX Pool of a different node, waiting to be mined.'), _defineProperty(_en$data, 'tx_notFound_4', 'Please use the dropdown in the top-right & select a different WAN node (e.g. `WAN (MyWanWallet)`) and check again.'), _defineProperty(_en$data, 'tx_Summary', 'During times of high volume (like during ICOs) transactions can be pending for hours, if not days. This tool aims to give you the ability to find and "cancel" / replace these TXs. ** This is not typically something you can do. It should not be relied upon & will only work when the TX Pools are full. [Please, read about this tool here.](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)**'), _defineProperty(_en$data, 'TXFEE_Desc', 'The TX Fee is paid to miners for including your TX in a block. Is is the `gas limit` * `gas price`. [You can convert GWEI -> WAN here](https://www.MyWanWallet.nl/helpers.html)'), _defineProperty(_en$data, 'VIEWWALLET_HidePrivKey', '(hide)'), _defineProperty(_en$data, 'VIEWWALLET_ShowPrivKey', '(show)'), _defineProperty(_en$data, 'VIEWWALLET_Subtitle', 'This allows you to download different versions of private keys and re-print your paper wallet. You may want to do this in order to [import your account into gwan/Mist](http://ethereum.stackexchange.com/questions/465/how-to-import-a-plain-private-key-into-geth/). If you want to check your balance, we recommend using a blockchain explorer like [wanscan.io](https://wanscan.io/).'), _defineProperty(_en$data, 'VIEWWALLET_Subtitle_Short', 'This allows you to download different versions of private keys and re-print your paper wallet.'), _defineProperty(_en$data, 'VIEWWALLET_SuccessMsg', 'Success! Here are your wallet details.'), _defineProperty(_en$data, 'WARN_Send_Link', 'You arrived via a link that has the address, value, gas, data fields, or transaction type (send mode) filled in for you. You can change any information before sending. Unlock your wallet to get started.'), _defineProperty(_en$data, 'x_Access', 'Access'), _defineProperty(_en$data, 'x_AddessDesc', 'Your Address can also be known as you `Account #` or your `Public Key`. It is what you share with people so they can send you Wancoins or Tokens. Find the colorful address icon. Make sure it matches your paper wallet & whenever you enter your address somewhere.'), _defineProperty(_en$data, 'x_Address', 'Your Address'), _defineProperty(_en$data, 'x_Cancel', 'Cancel'), _defineProperty(_en$data, 'x_CancelReplaceTx', 'Cancel or Replace Transaction'), _defineProperty(_en$data, 'x_CancelTx', 'Cancel Transaction'), _defineProperty(_en$data, 'x_CSV', 'CSV file (unencrypted)'), _defineProperty(_en$data, 'x_DigitalBitbox', 'Digital Bitbox'), _defineProperty(_en$data, 'x_Download', 'Download'), _defineProperty(_en$data, 'x_Json', 'JSON File (unencrypted)'), _defineProperty(_en$data, 'x_JsonDesc', 'This is the unencrypted, JSON format of your private key. This means you do not need the password but anyone who finds your JSON can access your wallet & Wancoins without the password.'), _defineProperty(_en$data, 'x_Keystore', 'Keystore File (UTC / JSON · Recommended · Encrypted)'), _defineProperty(_en$data, 'x_Keystore2', 'Keystore File (UTC / JSON)'), _defineProperty(_en$data, 'x_KeystoreDesc', 'This Keystore file matches the format used by Mist so you can easily import it in the future. It is the recommended file to download and back up.'), _defineProperty(_en$data, 'x_Ledger', 'Ledger Wallet'), _defineProperty(_en$data, 'x_MetaMask', 'WanMask'), _defineProperty(_en$data, 'x_Mnemonic', 'Mnemonic Phrase'), _defineProperty(_en$data, 'x_ParityPhrase', 'Parity Phrase'), _defineProperty(_en$data, 'x_Password', 'Password'), _defineProperty(_en$data, 'x_PasswordDesc', 'This password * encrypts * your private key. This does not act as a seed to generate your keys. **You will need this password + your private key to unlock your wallet.**'), _defineProperty(_en$data, 'x_Print', 'Print Paper Wallet'), _defineProperty(_en$data, 'x_PrintDesc', 'ProTip: If you cannot print this right now, click "Print" and save it as a PDF until you are able to get it printed. Remove it from your computer afterwards!'), _defineProperty(_en$data, 'x_PrintShort', 'Print'), _defineProperty(_en$data, 'x_PrivKey', 'Private Key (unencrypted)'), _defineProperty(_en$data, 'x_PrivKey2', 'Private Key'), _defineProperty(_en$data, 'x_PrivKeyDesc', 'This is the unencrypted text version of your private key, meaning no password is necessary. If someone were to find your unencrypted private key, they could access your wallet without a password. For this reason, encrypted versions are typically recommended.'), _defineProperty(_en$data, 'x_ReadMore', 'Read More'), _defineProperty(_en$data, 'x_ReplaceTx', 'Replace Transaction'), _defineProperty(_en$data, 'x_Save', 'Save'), _defineProperty(_en$data, 'x_TransHash', 'Transaction Hash'), _defineProperty(_en$data, 'x_Trezor', 'TREZOR'), _defineProperty(_en$data, 'x_TXFee', 'TX Fee'), _defineProperty(_en$data, 'x_TxHash', 'TX Hash'), _defineProperty(_en$data, 'x_TXT', 'TXT file (unencrypted)'), _defineProperty(_en$data, 'x_Wallet', 'Wallet'), _defineProperty(_en$data, 'HELP_0_Desc_1', 'MyWanWallet gives you the ability to generate new wallets so you can store your Wancoins yourself, not on an exchange. This process happens entirely on your computer, not our servers. Therefore, when you generate a new wallet, **you are responsible for safely backing it up**.'), _defineProperty(_en$data, 'HELP_0_Desc_2', 'Create a new wallet.'), _defineProperty(_en$data, 'HELP_0_Desc_3', 'Back the wallet up.'), _defineProperty(_en$data, 'HELP_0_Desc_4', 'Verify you have access to this new wallet and have correctly saved all necessary information.'), _defineProperty(_en$data, 'HELP_0_Desc_5', 'Transfer Wancoins to this new wallet.'), _defineProperty(_en$data, 'HELP_0_Title', '0) I\'m new. What do I do?'), _defineProperty(_en$data, 'HELP_10_Desc_1', 'Navigate to the "Offline Transaction" page via your online computer.'), _defineProperty(_en$data, 'HELP_10_Desc_10', 'The data field below this button will populate with your signed transaction. Copy this and move it back to your online computer.'), _defineProperty(_en$data, 'HELP_10_Desc_11', 'On your online computer, paste the signed transaction into the text field in step #3 and click send. This will broadcast your transaction.'), _defineProperty(_en$data, 'HELP_10_Desc_2', 'Enter the "From Address". Please note, this is the address you are sending FROM, not TO. This generates the nonce and gas price.'), _defineProperty(_en$data, 'HELP_10_Desc_3', 'Move to your offline computer. Enter the "TO ADDRESS" and the "AMOUNT" you wish to send.'), _defineProperty(_en$data, 'HELP_10_Desc_4', 'Enter the "GAS PRICE" as it was displayed to you on your online computer in step #1.'), _defineProperty(_en$data, 'HELP_10_Desc_5', 'Enter the "NONCE" as it was displayed to you on your online computer in step #1.'), _defineProperty(_en$data, 'HELP_10_Desc_6', 'The "GAS LIMIT" has a default value of 21000. This will cover a standard transaction. If you are sending to a contract or are including additional data with your transaction, you will need to increase the gas limit. Any excess gas will be returned to you.'), _defineProperty(_en$data, 'HELP_10_Desc_7', 'If you wish, enter some data. If you enter data, you will need to include more than the 21000 default gas limit. All data is in HEX format.'), _defineProperty(_en$data, 'HELP_10_Desc_8', 'Select your wallet file -or- your private key and unlock your wallet.'), _defineProperty(_en$data, 'HELP_10_Desc_9', 'Press the "GENERATE SIGNED TRANSACTION" button.'), _defineProperty(_en$data, 'HELP_10_Title', '10) How do I make an offline transaction?'), _defineProperty(_en$data, 'HELP_12_Desc_1', 'Using an gwan/Mist JSON file from MyWanWallet v2+....'), _defineProperty(_en$data, 'HELP_12_Desc_10', 'Your account should show up immediately under "Accounts."'), _defineProperty(_en$data, 'HELP_12_Desc_11', 'Using your unencrypted private key...'), _defineProperty(_en$data, 'HELP_12_Desc_12', 'If you do not already have your unencrypted private key, navigate to the "View Wallet Details" page.'), _defineProperty(_en$data, 'HELP_12_Desc_13', 'Select your wallet file -or- enter/paste your private key to unlock your wallet.'), _defineProperty(_en$data, 'HELP_12_Desc_14', 'Copy Your Private Key (unencrypted).'), _defineProperty(_en$data, 'HELP_12_Desc_15', 'If you are on a Mac'), _defineProperty(_en$data, 'HELP_12_Desc_15b', 'If you are on a PC'), _defineProperty(_en$data, 'HELP_12_Desc_16', 'Open Text Edit and paste this private key.'), _defineProperty(_en$data, 'HELP_12_Desc_17', 'Go to the menu bar and click "Format" -> "Make Plain Text".'), _defineProperty(_en$data, 'HELP_12_Desc_18', 'Save this file to your `desktop/` as `nothing_special_delete_me.txt`. Make sure it says "UTF-8" and "If no extension is provided use .txt" in the save dialog.'), _defineProperty(_en$data, 'HELP_12_Desc_19', 'Open terminal and run the following command: `gwan account import ~/Desktop/nothing_special_delete_me.txt`'), _defineProperty(_en$data, 'HELP_12_Desc_2', 'Go to the "View Wallet Info" page.'), _defineProperty(_en$data, 'HELP_12_Desc_20', 'This will prompt you to make a new password. This is the password you will use in gwan / Wanchain Wallet / Mist whenever you send a transaction, so don\'t forget it.'), _defineProperty(_en$data, 'HELP_12_Desc_21', 'After successful import, delete `nothing_special_delete_me.txt`'), _defineProperty(_en$data, 'HELP_12_Desc_22', 'The next time you open the Wanchain Wallet application, your account will be listed under "Accounts".'), _defineProperty(_en$data, 'HELP_12_Desc_23', 'Open Notepad & paste the private key'), _defineProperty(_en$data, 'HELP_12_Desc_24', 'Save the file as `nothing_special_delete_me.txt` at `C:`'), _defineProperty(_en$data, 'HELP_12_Desc_25', 'Run the command, `gwan account import C:\\nothing_special_delete_me.txt`'), _defineProperty(_en$data, 'HELP_12_Desc_26', 'This will prompt you to make a new password. This is the password you will use in gwan / Wanchain Wallet / Mist whenever you send a transaction, so don\'t forget it.'), _defineProperty(_en$data, 'HELP_12_Desc_27', 'After successful import, delete `nothing_special_delete_me.txt`'), _defineProperty(_en$data, 'HELP_12_Desc_28', 'The next time you open the Wanchain Wallet application, your account will be listed under "Accounts".'), _defineProperty(_en$data, 'HELP_12_Desc_3', 'Unlock your wallet using your **encrypted** private key or JSON file.'), _defineProperty(_en$data, 'HELP_12_Desc_4', 'Go to the "My Wallets" page.'), _defineProperty(_en$data, 'HELP_12_Desc_5', 'Select the wallet you want to import into Mist, click the "View" icon, enter your password, and access your wallet.'), _defineProperty(_en$data, 'HELP_12_Desc_6', 'Find the "Download JSON file - gwan/Mist Format (encrypted)" section. Press the "Download" button below that. You now have your keystore file.'), _defineProperty(_en$data, 'HELP_12_Desc_7', 'Open the Wanchain Wallet application.'), _defineProperty(_en$data, 'HELP_12_Desc_8', 'In the menu bar, go "Accounts" -> "Backup" -> "Accounts"'), _defineProperty(_en$data, 'HELP_12_Desc_9', 'This will open your keystore folder. Copy the file you just downloaded (`UTC--2016-04-14......../`) into that keystore folder.'), _defineProperty(_en$data, 'HELP_12_Title', '12) How do I import a wallet created with MyWanWallet into gwan / Wanchain Wallet / Mist?'), _defineProperty(_en$data, 'HELP_13_Desc_1', 'This means you do not have enough Wancoins in your account to cover the cost of gas. Each transaction (including token and contract transactions) require gas and that gas is paid in Wancoins. The number displayed is the amount required to cover the cost of the transaction in Wei. Take that number, divide by `1000000000000000000`, and subtract the amount of Wancoin you were trying to send (if you were attempting to send Wancoin). This will give you the amount of Wancoins you need to send to that account to make the transaction.'), _defineProperty(_en$data, 'HELP_13_Title', '13) What does "Insufficient funds. Account you try to send transaction from does not have enough funds. Required XXXXXXXXXXXXXXXXXXX and got: XXXXXXXXXXXXXXXX." Mean?'), _defineProperty(_en$data, 'HELP_14_Desc_1', 'While the mouse moving thing is clever and we understand why people like it, the reality is window.crypto ensures more entropy than your mouse movements. The mouse movements aren\'t unsafe, it\'s just that we (and tons of other crypto experiments) believe in window.crypto. In addition, MyWanWallet.nl can be used on touch devices. Here\'s a [conversation between an angry redditor and Vitalik Buterin regarding mouse movements v. window.crypto](https://www.reddit.com/r/ethereum/comments/2bilqg/note_there_is_a_paranoid_highsecurity_way_to/cj5sgrm) and here is the [the window.crypto w3 spec](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-GlobalCrypto).'), _defineProperty(_en$data, 'HELP_14_Title', '14) Some sites randomize (seed) the private key generation via mouse movements. MyWanWallet.nl doesn\'t do this. Is the random number generation for MyWanWallet safe?'), _defineProperty(_en$data, 'HELP_15_Desc_1', 'Accounts will only show up in a blockchain explorer once the account has activity on it&mdash;for example, once you have transferred some Wancoins to it.'), _defineProperty(_en$data, 'HELP_15_Title', '15) Why hasn\'t the account I just created show up in the blockchain explorer? (ie: wanscan.io)'), _defineProperty(_en$data, 'HELP_16_Desc_1', 'You can use a blockchain explorer like [wanscan.io](https://wanscan.io/). Paste your address into the search bar and it will pull up your address and transaction history. For example, here\'s what our [donation account](https://wanscan.io/addr/0x7cb57b5a97eabe94205c07890be4c1ad31e486a8) looks like on wanscan.io'), _defineProperty(_en$data, 'HELP_16_Title', '16) How do I check the balance of my account?'), _defineProperty(_en$data, 'HELP_17_Desc_1', 'This is most likely due to the fact that you are behind a firewall. The API that we use to get the balance and convert said balance is often blocked by firewalls for whatever reason. You will still be able to send transactions, you just need to use a different method to see said balance, like wanscan.io'), _defineProperty(_en$data, 'HELP_17_Title', '17) Why isn\'t my balance showing up when I unlock my wallet?'), _defineProperty(_en$data, 'HELP_18_Title', '18) Where is my gwan wallet file?'), _defineProperty(_en$data, 'HELP_19_Desc_1', 'Mist files are typically found in the file locations above, but it\'s much easier to open Mist, select "Accounts" in the top bar, select "Backup", and select "Accounts". This will open the folder where your files are stored.'), _defineProperty(_en$data, 'HELP_19_Title', '19) Where is my Mist wallet file?'), _defineProperty(_en$data, 'HELP_1_Desc_1', 'Go to the "Generate Wallet" page.'), _defineProperty(_en$data, 'HELP_1_Desc_2', 'Go to the "Add Wallet" page & select "Generate New Wallet"'), _defineProperty(_en$data, 'HELP_1_Desc_3', 'Enter a strong password. If you think you may forget it, save it somewhere safe. You will need this password to send transactions.'), _defineProperty(_en$data, 'HELP_1_Desc_4', 'Click "GENERATE".'), _defineProperty(_en$data, 'HELP_1_Desc_5', 'Your wallet has now been generated.'), _defineProperty(_en$data, 'HELP_1_Title', '1) How do I create a new wallet?'), _defineProperty(_en$data, 'HELP_20_Desc_1', 'Wherever you saved it. ;) It also was emailed to you, so check there. Look for the file called `"ethereum_wallet_backup.json"` and select that file. This wallet file will be encrypted with a password that you created during the purchase of the pre-sale.'), _defineProperty(_en$data, 'HELP_20_Title', '20) Where is my pre-sale wallet file?'), _defineProperty(_en$data, 'HELP_21_Desc_1', 'Short version: yes, but finding an account with a balance would take longer than the universe...so...no.'), _defineProperty(_en$data, 'HELP_21_Desc_2', 'Long ELI5 Version: So Wanchain is based on [Public Key Cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), specifically [Elliptic curve cryptography](https://eprint.iacr.org/2013/734.pdf) which is very widely used, not just in Wanchain. Most servers are protected via ECC. Bitcoin uses the same, as well as SSH and TLS and a lot of other stuff. The Wanchain keys specifically are 256-bit keys, which are stronger than 128-bit and 192-bit, which are also widely used and still considered secure by experts.'), _defineProperty(_en$data, 'HELP_21_Desc_3', 'In this you have a private key and a public key. The private key can derive the public key, but the public key cannot be turned back into the private key. The fact that the internet and the world’s secrets are using this cryptography means that if there is a way to go from public key to private key, your lost Wancoins is the least of everyone’s problems.'), _defineProperty(_en$data, 'HELP_21_Desc_4', 'Now, that said, YES if someone else has your private key then they can indeed send Wancoin from your account. Just like if someone has your password to your email, they can read and send your email, or the password to your bank account, they could make transfers. You could download the Keystore version of your private key which is the private key that is encrypted with a password. This is like having a password that is also protected by another password.'), _defineProperty(_en$data, 'HELP_21_Desc_5', 'And YES, in theory you could just type in a string of 64 hexadecimal characters until you got one that matched. In fact, smart people could write a program to very quickly check random private keys. This is known as "brute-forcing" or "mining" private keys. People have thought about this long and hard. With a few very high end servers, they may be able to check 1M+ keys / second. However, even checking that many per second would not yield access to make the cost of running those servers even close to worthwhile - it is more likely you, and your great-grandchildren, will die before getting a match.'), _defineProperty(_en$data, 'HELP_21_Desc_6', 'If you know anything about Bitcoin, [this will put it in perspective:](http://bitcoin.stackexchange.com/questions/32331/two-people-with-same-public-address-how-will-people-network-know-how-to-deliver) *To illustrate how unlikely this is: suppose every satoshi of every bitcoin ever to be generated was sent to its own unique private keys. The probability that among those keys there could be two that would correspond to the same address is roughly one in 100 quintillion.'), _defineProperty(_en$data, 'HELP_21_Desc_7', '[If you want something a bit more technical:](http://security.stackexchange.com/questions/25375/why-not-use-larger-cipher-keys/25392#25392) *These numbers have nothing to do with the technology of the devices; they are the maximums that thermodynamics will allow. And they strongly imply that brute-force attacks against 256-bit keys will be infeasible until computers are built from something other than matter and occupy something other than space.'), _defineProperty(_en$data, 'HELP_21_Desc_8', 'Of course, this all assumes that keys are generated in a truly random way & with sufficient entropy. The keys generated here meet that criteria, as do Jaxx and Mist/gwan. The Wanchain wallets are all pretty good. Keys generated by brainwallets do not, as a person\'s brain is not capable of creating a truly random seed. There have been a number of other issues regarding lack of entropy or seeds not being generated in a truly random way in Bitcoin-land, but that\'s a separate issue that can wait for another day.'), _defineProperty(_en$data, 'HELP_21_Title', '21) Couldn\'t everybody put in random private keys, look for a balance, and send to their own address?'), _defineProperty(_en$data, 'HELP_2a_Desc_1', 'You should always back up your wallet externally and in multiple physical locations - like on a USB drive and/or a piece of paper.'), _defineProperty(_en$data, 'HELP_2a_Desc_2', 'Save the address. You can keep it to yourself or share it with others. That way, others can transfer Wancoins to you.'), _defineProperty(_en$data, 'HELP_2a_Desc_3', 'Save versions of the private key. Do not share it with anyone else. Your private key is necessary when you want to access your Wancoins to send it! There are 3 types of private keys'), _defineProperty(_en$data, 'HELP_2a_Desc_4', 'Place your address, versions of the private key, and the PDF version of your paper wallet in a folder. Save this on your computer and a USB drive.'), _defineProperty(_en$data, 'HELP_2a_Desc_5', 'Print the wallet if you have a printer. Otherwise, write down your private key and address on a piece of paper. Store this as a secure location, separate from your computer and the USB drive.'), _defineProperty(_en$data, 'HELP_2a_Desc_6', 'Keep in mind, you must prevent loss of the keys and password due to loss or failure of you hard drive failure, or USB drive, or piece of paper. You also must keep in mind physical loss / damage of an entire area (think fire or flood).'), _defineProperty(_en$data, 'HELP_2a_Title', 'How do I save/backup my wallet?'), _defineProperty(_en$data, 'HELP_2b_Desc_1', 'Go to [https://github.com/tyrion70/mywanwallet/releases/latest](https://github.com/tyrion70/etherwallet/releases/latest).'), _defineProperty(_en$data, 'HELP_2b_Desc_2', 'Click on `etherwallet-vX.X.X.X.zip`.'), _defineProperty(_en$data, 'HELP_2b_Desc_3', 'Move zip to an airgapped computer.'), _defineProperty(_en$data, 'HELP_2b_Desc_4', 'Unzip it and double-click `index.html`.'), _defineProperty(_en$data, 'HELP_2b_Desc_5', 'Generate a wallet with a strong password.'), _defineProperty(_en$data, 'HELP_2b_Desc_6', 'Save the address. Save versions of the private key. Save the password if you might not remember it forever.'), _defineProperty(_en$data, 'HELP_2b_Desc_7', 'Store these papers / USBs in multiple physically separate locations.'), _defineProperty(_en$data, 'HELP_2b_Desc_8', 'Go to the "View Wallet Info" page and type in your private key / password to ensure they are correct and access your wallet. Check that the address you wrote down is the same.'), _defineProperty(_en$data, 'HELP_2b_Title', '2b) How do I safely / offline / cold storage with MyWanWallet?'), _defineProperty(_en$data, 'HELP_3_Desc_1', '**Before you send any Wancoins to your new wallet**, you should ensure you have access to it.'), _defineProperty(_en$data, 'HELP_3_Desc_2', 'Navigate to the "View Wallet Info" page.'), _defineProperty(_en$data, 'HELP_3_Desc_3', 'Navigate to the MyWanWallet.nl "View Wallet Info" page.'), _defineProperty(_en$data, 'HELP_3_Desc_4', 'Select your wallet file -or- your private key and unlock your wallet.'), _defineProperty(_en$data, 'HELP_3_Desc_5', 'If the wallet is encrypted, a text box will automatically appear. Enter the password.'), _defineProperty(_en$data, 'HELP_3_Desc_6', 'Click the "Unlock Wallet" button.'), _defineProperty(_en$data, 'HELP_3_Desc_7', 'Your wallet information should show up. Find your account address, next to a colorful, circular icon. This icon visually represents your address. Be certain that the address is the address you have saved to your text document and is on your paper wallet.'), _defineProperty(_en$data, 'HELP_3_Desc_8', 'If you are planning on holding a large amount of Wancoins, we recommend that send a small amount of Wancoins from new wallet before depositing a large amount. Send 0.001 Wancoins to your new wallet, access that wallet, send that 0.001 Wancoins to another address, and ensure everything works smoothly.'), _defineProperty(_en$data, 'HELP_3_Title', '3) How do I verify I have access to my new wallet?'), _defineProperty(_en$data, 'HELP_4_Desc_1', 'If you plan to move a large amount of Wancoins, you should test sending a small amount to your wallet first to ensure everything goes as planned.'), _defineProperty(_en$data, 'HELP_4_Desc_10', 'A couple more fields will appear. This is your browser generating the transaction.'), _defineProperty(_en$data, 'HELP_4_Desc_11', 'Click the blue "Send Transaction" button below that.'), _defineProperty(_en$data, 'HELP_4_Desc_12', 'A pop-up will appear. Verify that the amount and the address you are sending to are correct. Then click "Yes, I am sure! Make transaction." button.'), _defineProperty(_en$data, 'HELP_4_Desc_13', 'The transaction will be submitted. The TX Hash will display. You can click that TX Hash to see it on the blockchain.'), _defineProperty(_en$data, 'HELP_4_Desc_2', 'Navigate to the "Send Wancoin & Tokens" page.'), _defineProperty(_en$data, 'HELP_4_Desc_3', 'Select your wallet file -or- your private key and unlock your wallet.'), _defineProperty(_en$data, 'HELP_4_Desc_4', 'If the wallet is encrypted, a text box will automatically appear. Enter the password.'), _defineProperty(_en$data, 'HELP_4_Desc_5', 'Click the "Unlock Wallet" button.'), _defineProperty(_en$data, 'HELP_4_Desc_6', 'Enter the address you would like to send to in the "To Address:" field.'), _defineProperty(_en$data, 'HELP_4_Desc_7', 'Enter the amount you would like to send. You can also click the "Send Entire Balance" link if you would like the transfer the entire balance.'), _defineProperty(_en$data, 'HELP_4_Desc_9', 'Click "Generate Transaction".'), _defineProperty(_en$data, 'HELP_4_Title', '4) How do I send Wancoin from one wallet to another?'), _defineProperty(_en$data, 'HELP_4CX_Desc_1', 'First, you need to add a wallet. Once you have done that, you have 2 options: the "QuickSend" functionality from the Chrome Extension icon or the "Send Wancoins & Tokens" page.'), _defineProperty(_en$data, 'HELP_4CX_Desc_10', 'Enter the password for that wallet.'), _defineProperty(_en$data, 'HELP_4CX_Desc_11', 'Click "Send Transaction."'), _defineProperty(_en$data, 'HELP_4CX_Desc_12', 'Using "Send Wancoins & Tokens" Page'), _defineProperty(_en$data, 'HELP_4CX_Desc_2', 'QuickSend'), _defineProperty(_en$data, 'HELP_4CX_Desc_3', 'Click the Chrome Extension Icon.'), _defineProperty(_en$data, 'HELP_4CX_Desc_4', 'Click the "QuickSend" button.'), _defineProperty(_en$data, 'HELP_4CX_Desc_5', 'Select the wallet you wish to send from.'), _defineProperty(_en$data, 'HELP_4CX_Desc_6', 'Enter the address you would like to send to in the "To Address:" field.'), _defineProperty(_en$data, 'HELP_4CX_Desc_7', 'Enter the amount you would like to send. You can also click the "Send Entire Balance" link if you would like the transfer the entire balance.'), _defineProperty(_en$data, 'HELP_4CX_Desc_8', 'Click "Send Transaction".'), _defineProperty(_en$data, 'HELP_4CX_Desc_9', 'Verify the address and the amount you are sending is correct.'), _defineProperty(_en$data, 'HELP_4CX_Title', '4) How do I Send Wancoins using MyWanWallet CX?'), _defineProperty(_en$data, 'HELP_5_Desc_1', 'You can run MyWanWallet.nl on your computer instead of from the GitHub servers. You can generate a wallet completely offline and send transactions from the "Offline Transaction" page.'), _defineProperty(_en$data, 'HELP_5_Desc_7', 'MyWanWallet.nl is now running entirely on your computer.'), _defineProperty(_en$data, 'HELP_5_Desc_8', 'In case you are not familiar, you need to keep the entire folder in order to run the website, not just `index.html`. Don\'t touch or move anything around in the folder. If you are storing a backup of the MyWanWallet repo for the future, we recommend just storing the ZIP so you can be sure the folder contents stay intact.'), _defineProperty(_en$data, 'HELP_5_Desc_9', 'As we are constantly updating MyWanWallet.nl, we recommend you periodically update your saved version of the repo.'), _defineProperty(_en$data, 'HELP_5_Title', '5) How do I run MyWanWallet.nl offline/locally?'), _defineProperty(_en$data, 'HELP_5CX_Desc_2', 'Click on `chrome-extension-vX.X.X.X.zip` and unzip it.'), _defineProperty(_en$data, 'HELP_5CX_Desc_3', 'Go to Google Chrome and find you settings (in the menu in the upper right).'), _defineProperty(_en$data, 'HELP_5CX_Desc_4', 'Click "Extensions" on the left.'), _defineProperty(_en$data, 'HELP_5CX_Desc_5', 'Check the "Developer Mode" button at the top of that page.'), _defineProperty(_en$data, 'HELP_5CX_Desc_6', 'Click the "Load unpacked extension..." button.'), _defineProperty(_en$data, 'HELP_5CX_Desc_7', 'Navigate to the now-unzipped folder that you downloaded earlier. Click "select".'), _defineProperty(_en$data, 'HELP_5CX_Desc_8', 'The extension should now show up in your extensions and in your Chrome Extension bar.'), _defineProperty(_en$data, 'HELP_5CX_Title', '5) How can I install this extension from the repo instead of the Chrome Store?'), _defineProperty(_en$data, 'HELP_7_Desc_0', '[Ethplorer.io](https://ethplorer.io/) is a great way to explore tokens and find the decimals of a token.'), _defineProperty(_en$data, 'HELP_7_Desc_1', 'Navigate to the "Send Wancoins & Tokens" page.'), _defineProperty(_en$data, 'HELP_7_Desc_10', 'You can now send that token as well as see it\'s balance in the sidebar.'), _defineProperty(_en$data, 'HELP_7_Desc_11', 'Click "Generate Transaction".'), _defineProperty(_en$data, 'HELP_7_Desc_12', 'A couple more fields will appear. This is your browser generating the transaction.'), _defineProperty(_en$data, 'HELP_7_Desc_13', 'Click the blue "Send Transaction" button below that.'), _defineProperty(_en$data, 'HELP_7_Desc_14', 'A pop-up will appear. Verify that the amount and the address you are sending to are correct. Then click "Yes, I am sure! Make transaction." button.'), _defineProperty(_en$data, 'HELP_7_Desc_15', 'The transaction will be submitted. The TX Hash will display. You can click that TX Hash to see it on the blockchain.'), _defineProperty(_en$data, 'HELP_7_Desc_2', 'Unlock your wallet.'), _defineProperty(_en$data, 'HELP_7_Desc_3', 'Enter the address you would like to send to in the "To Address:" field.'), _defineProperty(_en$data, 'HELP_7_Desc_4', 'Enter the amount you would like to send.'), _defineProperty(_en$data, 'HELP_7_Desc_5', 'Select which token you would like to send.'), _defineProperty(_en$data, 'HELP_7_Desc_6', 'If you do not see the token listed'), _defineProperty(_en$data, 'HELP_7_Desc_7', 'Click "Custom".'), _defineProperty(_en$data, 'HELP_7_Desc_8', 'Enter the address, name, and decimals of the token. These are provided by the developers of the token and are also needed when you "Add a Watch Token" to Mist.'), _defineProperty(_en$data, 'HELP_7_Desc_9', 'Click "Save".'), _defineProperty(_en$data, 'HELP_7_Title', '7) How do I send tokens & add custom tokens?'), _defineProperty(_en$data, 'HELP_8_Desc_1', 'MyWanWallet is not a web wallet. You don\'t have a login and nothing ever gets saved to our servers. It is simply an interface that allows you interact with the blockchain.'), _defineProperty(_en$data, 'HELP_8_Desc_2', 'If MyWanWallet.nl goes down, you would have to find another way (like gwan or Wanchain Wallet / Mist) to do what we are doing. But you wouldn\'t have to "get" your Wancoins out of MyWanWallet because it\'s not in MyWanWallet. It\'s in whatever wallet your generated via our site.'), _defineProperty(_en$data, 'HELP_8_Desc_3', 'You can import your unencrypted private key and your gwan/Mist Format (encrypted) files directly into gwan / Wanchain Wallet / Mist very easily now. See question #12 below.'), _defineProperty(_en$data, 'HELP_8_Desc_4', 'In addition, the likelihood of us taking MyWanWallet down is slim to none. It costs us almost nothing to maintain as we aren\'t storing any information. If we do take the domain down, it still is, and always will be, publicly available at [https://github.com/tyrion70/mywanwallet](https://github.com/tyrion70/mywanwallet). You can download the ZIP there and run it locally.'), _defineProperty(_en$data, 'HELP_8_Title', '8) What happens if your site goes down?'), _defineProperty(_en$data, 'HELP_8CX_Desc_1', 'First, all data is saved on your computer, not our servers. I know it can be confusing, but when you look at the Chrome Extension, you are NOT looking at stuff saved on our servers somewhere - it\'s all saved on your own computer.'), _defineProperty(_en$data, 'HELP_8CX_Desc_2', 'That said, it is **very important** that you back up all your information for any new wallets generated with MyWanWallet CX. That way if anything happens to MyWanWallet CX or your computer, you still have all the information necessary to access your Wancoins. See the #2a for how to back up your wallets.'), _defineProperty(_en$data, 'HELP_8CX_Desc_3', 'If for some reason MyWanWallet CX disappears from the Chrome Store, you can find the source on Github and load it manually. See #5 above.'), _defineProperty(_en$data, 'HELP_8CX_Title', '8) What happens if MyWanWallet CX disappears?'), _defineProperty(_en$data, 'HELP_9_Desc_1', 'No. It needs the internet in order to get the current gas price, nonce of your account, and broadcast the transaction (aka "send"). However, it only sends the signed transaction. Your private key safely stays with you. We also now provide an "Offline Transaction" page so that you can ensure your private keys are on an offline/airgapped computer at all times.'), _defineProperty(_en$data, 'HELP_9_Title', '9) Is the "Send Wancoins & Tokens" page offline?'), _defineProperty(_en$data, 'HELP_Contact_Title', 'Ways to Get in Touch'), _defineProperty(_en$data, 'HELP_Desc', 'Do you see something missing? Have another question? [Get in touch with us](mailto:support@MyWanWallet.nl), and we will not only answer your question, we will update this page to be more useful to people in the future!'), _defineProperty(_en$data, 'HELP_FAQ_Title', 'More Helpful Answers to Frequent Questions'), _defineProperty(_en$data, 'HELP_Remind_Desc_1', '**Wanchain, MyWanWallet.com & MyWanWallet CX, and some of the underlying Javascript libraries we use are under active development.** While we have thoroughly tested & tens of thousands of wallets have been successfully created by people all over the globe, there is always the remote possibility that something unexpected happens that causes your WAN to be lost. Please do not invest more than you are willing to lose, and please be careful. If something were to happen, we are sorry, but **we are not responsible for the lost Wancoins**.'), _defineProperty(_en$data, 'HELP_Remind_Desc_2', 'MyWanWallet.nl & MyWanWallet CX are not "web wallets". You do not create an account or give us your Wancoins to hold onto. All data never leaves your computer/your browser. We make it easy for you to create, save, and access your information and interact with the blockchain.'), _defineProperty(_en$data, 'HELP_Remind_Desc_3', 'If you do not save your private key & password, there is no way to recover access to your wallet or the funds it holds.  Back them up in multiple physical locations &ndash; not just on your computer!'), _defineProperty(_en$data, 'HELP_Remind_Title', 'Some reminders'), _defineProperty(_en$data, 'HELP_Sec_Desc_1', 'If one of your first questions is "Why should I trust these people?", that is a good thing. Hopefully the following will help ease your fears.'), _defineProperty(_en$data, 'HELP_Sec_Desc_2', 'We\'ve been up and running since August 2015. If you search for ["MyWanWallet" on reddit](https://www.reddit.com/search?q=MyWanWallet), you can see numerous people who use us with great success.'), _defineProperty(_en$data, 'HELP_Sec_Desc_3', 'We aren\'t going to take your money or steal your private key(s). There is no malicious code on this site. In fact the "GENERATE WALLET" pages are completely client-side. That means that all the code is executed on ** your computer** and it is never saved and transmitted anywhere.'), _defineProperty(_en$data, 'HELP_Sec_Desc_4', 'Check the URL -- This site is being served through GitHub and you can see the source code here: [https://github.com/tyrion70/mywanwallet/releases/latest](https://github.com/tyrion70/etherwallet/releases/latest) to [https://www.MyWanWallet.nl](https://www.MyWanWallet.nl).'), _defineProperty(_en$data, 'HELP_Sec_Desc_5', 'For generating wallets, you can download the [source code and run it locally](https://github.com/tyrion70/mywanwallet/releases/latest). See #5 above.'), _defineProperty(_en$data, 'HELP_Sec_Desc_6', 'Generate a test wallet and check and see what network activity is happening. The easiest way for you to do this is to right click on the page and click "inspect element". Go to the "Network" tab. Generate a test wallet. You will see there is no network activity. You may see something happening that looks like data:image/gif and data:image/png. Those are the QR codes being generated...on your computer...by your computer. No bytes were transferred.'), _defineProperty(_en$data, 'HELP_Sec_Desc_8', 'If you do not feel comfortable using this tool, then by all means, do not use it. We created this tool as a helpful way for people to generate wallets and make transactions without needing to dive into command line or run a full node. Again, feel free to reach out if you have concerns and we will respond as quickly as possible. Thanks!'), _defineProperty(_en$data, 'HELP_Sec_Title', 'Security'), _defineProperty(_en$data, 'HELP_SecCX_Desc_1', 'Where is this extension saving my information?'), _defineProperty(_en$data, 'HELP_SecCX_Desc_2', 'The information you store in this Chrome Extension is saved via [chrome.storage](http://chrome.storage/). - this is the same place your passwords are saved when you save your password in Chrome.'), _defineProperty(_en$data, 'HELP_SecCX_Desc_3', 'What information is saved?'), _defineProperty(_en$data, 'HELP_SecCX_Desc_4', 'The address, nickname, private key is stored in chrome.storage. The private key is encrypted using the password you set when you added the wallet. The nickname and wallet address is not encrypted.'), _defineProperty(_en$data, 'HELP_SecCX_Desc_5', 'Why aren\'t the nickname and wallet address encrypted?'), _defineProperty(_en$data, 'HELP_SecCX_Desc_6', 'If we were to encrypt these items, you would need to enter a password each time you wanted to view your account balance or view the nicknames. If this concerns you, we recommend you use MyWanWallet.nl instead of this Chrome Extension.'), _defineProperty(_en$data, 'HELP_SecCX_Title', 'Security - MyWanWallet CX'), _defineProperty(_en$data, 'HELP_Warning', 'If you created a wallet -or- downloaded the repo before **Dec. 31st, 2015**, please check your wallets &amp; download a new version of the repo. Click for details.'), _en$data);
+  ONBOARD_why_content__10: 'If you enter your private key on a phishing website, you will have **all your funds taken**.',
+  ONBOARD_point_title__alt: 'What\'s the Point of MEW then?',
+  ONBOARD_whymew_title: 'If MyWanWallet can\'t do those things, what\'s the point?',
+  ONBOARD_whymew_content__1: 'Because that is the point of decentralization and the blockchain.',
+  ONBOARD_whymew_content__2: 'You don\'t have to rely on your bank, government, or anyone else when you want to move your funds.',
+  ONBOARD_whymew_content__3: 'You don\'t have to rely on the security of an exchange or bank to keep your funds safe.',
+  ONBOARD_whymew_content__4: 'If you don\'t find these things valuable, ask yourself why you think the blockchain and cryptocurrencies are valuable. 😉',
+  ONBOARD_whymew_content__5: 'If you don\'t like the sound of this, consider using [Coinbase](https://www.coinbase.com/) or [Blockchain.info](https://blockchain.info/wallet/#/signup). They have more familiar accounts with usernames & passwords.',
+  ONBOARD_whymew_content__6: 'If you are scared but want to use MEW, [get a hardware wallet](https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html)! These keep your keys secure.',
+  ONBOARD_secure_title: 'How To Protect Yourself & Your Funds',
+  ONBOARD_secure_1_title: 'How To Protect Yourself from Phishers',
+  ONBOARD_secure_1_content__1: 'Phishers send you a message with a link to a website that looks just like MyWanWallet, EtherDelta, Paypal, or your bank, but is not the real website. They steal your information and then steal your money.',
+  ONBOARD_secure_1_content__2: 'Install [WanMask](https://chrome.google.com/webstore/detail/omnkcjdohbnjfjmlaiboojplahajnenj).',
+  ONBOARD_secure_1_content__3: 'Always check the URL: `https://www.MyWanWallet.nl`.',
+  ONBOARD_secure_1_content__4: 'Always make sure the URL bar has `MyWanWallet.nl` in green.',
+  ONBOARD_secure_1_content__5: 'Do not trust messages or links sent to you randomly via email, Slack, Reddit, Twitter, etc.',
+  ONBOARD_secure_1_content__6: 'Always navigate directly to a site before you enter information. Do not enter information after clicking a link from a message or email.',
+  ONBOARD_secure_1_content__7: '[Install an AdBlocker](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en) and do not click ads on your search engine (e.g. Google).',
+  ONBOARD_point_title__alt_2: 'What\'s the point?',
+  ONBOARD_secure_2_title: 'How To Protect Yourself from Scams',
+  ONBOARD_secure_2_content__1: 'People will try to get you to give them money in return for nothing.',
+  ONBOARD_secure_2_content__2: 'If it is too good to be true, it probably is.',
+  ONBOARD_secure_2_content__3: 'Research before sending money to someone or some project. Look for information on a variety of websites and forums. Be wary.',
+  ONBOARD_secure_2_content__4: 'Ask questions when you don\'t understand something or it doesn\'t seem right.',
+  ONBOARD_secure_2_content__5: 'Don\'t let fear, FUD, or FOMO win over common sense. If something is very urgent, ask yourself "why?". It may be to create FOMO or prevent you from doing research.',
+  ONBOARD_secure_3_title__alt: 'Phuck Phishers',
+  ONBOARD_secure_3_title: 'How To Protect Yourself from Loss',
+  ONBOARD_secure_3_content__1: 'If you lose your private key or password, it is gone forever. Don\'t lose it.',
+  ONBOARD_secure_3_content__2: 'Make a backup of your private key and password. Do NOT just store it on your computer. Print it out on a piece of paper or save it to a USB drive.',
+  ONBOARD_secure_3_content__3: 'Store this paper or USB drive in a different physical location. A backup is not useful if it is destroyed by a fire or flood along with your laptop.',
+  ONBOARD_secure_3_content__4: 'Do not store your private key in Dropbox, Google Drive, or other cloud storage. If that account is compromised, your funds will be stolen.',
+  ONBOARD_secure_3_content__5: 'If you have more than 1-week\'s worth of pay worth of cryptocurrency, get a hardware wallet. No excuses. It\'s worth it. I promise.',
+  ONBOARD_secure_3_content__6: '[Even more Security Tips!](https://myetherwallet.github.io/knowledge-base/getting-started/protecting-yourself-and-your-funds.html)',
+  ONBOARD_secure_2_title__alt_2: 'Screw Scams',
+  ONBOARD_final_title__alt: 'One more click & you\'re done! 🤘',
+  ONBOARD_final_title: 'Alright, I\'m done lecturing you!',
+  ONBOARD_final_subtitle: 'Sorry for being like this. Onwards!',
+  ONBOARD_final_content__1: 'Create a wallet',
+  ONBOARD_final_content__2: 'Get a hardware wallet',
+  ONBOARD_final_content__3: 'How to Set up MEW + WanMask',
+  ONBOARD_final_content__4: 'How to Run MEW Offline / Locally',
+  ONBOARD_final_content__5: 'How to Send via Ledger hardware wallet',
+  ONBOARD_final_content__6: 'How to Send via TREZOR hardware wallet',
+  ONBOARD_final_content__7: 'How to Send via WanMask',
+  ONBOARD_final_content__8: 'Learn More or Contact Us',
+  ONBOARD_final_content__9: 'OMG, please just let me send FFS.',
+  ONBOARD_resume: 'It looks like you didn\'t finish reading through these slides last time. ProTip: Finish reading through the slides 😉',
+
+  /* Old */
+  ADD_DigitalBitbox_0a: 'Re-open MyWanWallet on a secure (SSL) connection',
+  ADD_DigitalBitbox_0b: 'Re-open MyWanWallet using [Chrome](https://www.google.com/chrome/browser/desktop/) or [Opera](https://www.opera.com/)',
+  ADD_DigitalBitbox_scan: 'Connect your Digital Bitbox',
+  ADD_Label_1: 'What would you like to do?',
+  ADD_Label_2: 'Create a Nickname',
+  ADD_Label_3: 'Your wallet is encrypted. Good! Please enter the password.',
+  ADD_Label_4: 'Add an Account to Watch',
+  ADD_Label_5: 'Enter the Address',
+  ADD_Label_6: 'Unlock your Wallet',
+  ADD_Label_6_short: 'Unlock',
+  ADD_Label_7: 'Add Account',
+  ADD_Label_8: 'Password (optional):',
+  ADD_Ledger_0a: 'Please use MyWanWallet on a secure (SSL / HTTPS) connection to connect.',
+  ADD_Ledger_0b: 'Re-open MyWanWallet using [Chrome](https://www.google.com/chrome/browser/desktop/) or [Opera](https://www.opera.com/)',
+  ADD_Ledger_1: 'Connect your Ledger Wallet',
+  ADD_Ledger_2: 'Open the Wanchain application (or a contract application)',
+  ADD_Ledger_2_Exp: 'Open the Expanse application (or a contract application)',
+  ADD_Ledger_2_Ubq: 'Open the Ubiq application (or a contract application)',
+  ADD_Ledger_3: 'Verify that Browser Support is enabled in Settings',
+  ADD_Ledger_4: 'If no Browser Support is found in settings, verify that you have [Firmware >1.2](https://www.ledgerwallet.com/apps/manager)',
+  ADD_Ledger_scan: 'Connect to Ledger Wallet',
+  ADD_MetaMask: 'Connect to WanMask',
+  ADD_Radio_1: 'Generate New Wallet',
+  ADD_Radio_2: 'Select Your Wallet File (Keystore / JSON)',
+  ADD_Radio_2_alt: 'Select Your Wallet File',
+  ADD_Radio_2_short: 'SELECT WALLET FILE...',
+  ADD_Radio_3: 'Paste Your Private Key',
+  ADD_Radio_4: 'Add an Account to Watch',
+  ADD_Radio_5: 'Paste Your Mnemonic',
+  ADD_Radio_5_Path: 'Select HD derivation path',
+  ADD_Radio_5_PathAlternative: '(Ledger)',
+  ADD_Radio_5_PathCustom: 'Custom',
+  ADD_Radio_5_PathTrezor: '(TREZOR)',
+  ADD_Radio_5_withTrezor: '(Jaxx, WanMask, Exodus, imToken, TREZOR)',
+  ADD_Radio_5_woTrezor: '(Jaxx, WanMask, Exodus, imToken)',
+  ADD_Trezor_scan: 'Connect to TREZOR',
+  ADD_Warning_1: 'You can add any account to "watch" on the wallets tab without uploading a private key. This does ** not ** mean you have access to this wallet, nor can you transfer Wancoins from it.',
+
+  BULK_Label_1: 'Number of Wallets To Generate',
+  BULK_Label_2: 'Generate Wallets',
+  BULK_SuccessMsg: 'Success! Your wallets have been generated.',
+
+  CONTRACT_ByteCode: 'Byte Code',
+  CONTRACT_Interact_CTA: 'Select a function',
+  CONTRACT_Interact_Title: 'Read / Write Contract',
+  CONTRACT_Json: 'ABI / JSON Interface',
+  CONTRACT_Read: 'READ',
+  CONTRACT_Title: 'Contract Address',
+  CONTRACT_Title_2: 'Select Existing Contract',
+  CONTRACT_Write: 'WRITE',
+
+  CX_error_1: 'You don\'t have any wallets saved. Click ["Add Wallet"](/cx-wallet.html#add-wallet) to add one!',
+  CX_quicksend: 'QuickSend', // if no appropriate translation, just use "Send"
+  CX_Tagline: 'Open Source JavaScript Client-Side Wancoins Wallet Chrome Extension',
+  CX_Warning_1: 'Make sure you have **external backups** of any wallets you store here. Many things could happen that would cause you to lose the data in this Chrome Extension, including uninstalling and reinstalling the extension. This extension is a way to easily access your wallets, **not** a way to back them up.',
+
+  decrypt_Access: 'How would you like to access your wallet?',
+  decrypt_Select: 'Select a Wallet',
+  decrypt_Title: 'Select the format of your private key',
+
+  DEP_generate: 'Generate Bytecode',
+  DEP_generated: 'Generated Bytecode',
+  DEP_interface: 'Generated Interface',
+  DEP_signtx: 'Sign Transaction',
+
+  ERROR_0: '(error_01) Please enter a valid amount.',
+  ERROR_1: '(error_02) Your password must be at least 9 characters. Please ensure it is a strong password.',
+  ERROR_2: '(error_03) Sorry! We don\'t recognize this type of wallet file.',
+  ERROR_3: '(error_04) This is not a valid wallet file.',
+  ERROR_4: '(error_05) This unit doesn\'t exists, please use the one of the following units',
+  ERROR_5: '(error_06) Please enter a valid address.',
+  ERROR_6: '(error_07) Please enter a valid password.',
+  ERROR_7: '(error_08) Please enter valid decimals     (Must be an integer. Try 0-18.)',
+  ERROR_8: '(error_09) Please enter a valid gas limit  (Must be an integer. Try 21000-4000000.)',
+  ERROR_9: '(error_10) Please enter a valid data value (Must be hex.)',
+  ERROR_10: '(error_11) Please enter a valid gas price. (Must be an integer. Try 20 GWEI / 20000000000 WEI.)',
+  ERROR_11: '(error_12) Please enter a valid nonce (Must be an integer.)',
+  ERROR_12: '(error_13) Invalid signed transaction.',
+  ERROR_13: '(error_14) A wallet with this nickname already exists.',
+  ERROR_14: '(error_15) Wallet not found.',
+  ERROR_15: '(error_16) Whoops. It doesn\'t look like a proposal with this ID exists yet or there is an error reading this proposal.',
+  ERROR_16: '(error_17) A wallet with this address already exists in storage. Please check your wallets page.',
+  ERROR_17: '(error_18) Insufficient balance. Your gas limit * gas price + amount to send exceeds your current balance. Send more WAN to your account or use the "Send Entire Balance" button. If you believe this is in error, try pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)',
+  ERROR_18: '(error_19) All gas would be used on this transaction. This means you have already voted on this proposal or the debate period has ended.',
+  ERROR_19: '(error_20) Please enter a valid symbol',
+  ERROR_20: '(error_21) Not a valid ERC-20 token',
+  ERROR_21: '(error_22) Could not estimate gas. There are not enough funds in the account, or the receiving contract address would throw an error. Feel free to manually set the gas and proceed. The error message upon sending may be more informative.',
+  ERROR_22: '(error_23) Please enter a valid node name',
+  ERROR_23: '(error_24) Please enter a valid URL. If you are on https, your URL must be https',
+  ERROR_24: '(error_25) Please enter a valid port.',
+  ERROR_25: '(error_26) Please enter a valid chain ID.',
+  ERROR_26: '(error_27) Please enter a valid ABI.',
+  ERROR_27: '(error_28) Minimum amount: 0.01. Max amount:',
+  ERROR_28: '(error_29) You need this `Keystore File + Password` or the `Private Key` (next page) to access this wallet in the future. ',
+  ERROR_29: '(error_30) Please enter a valid user and password.',
+  ERROR_30: '(error_31) Please enter a valid name (7+ characters, limited punctuation)',
+  ERROR_31: '(error_32) Please enter a valid secret phrase.',
+  ERROR_32: '(error_33) Could not connect to the node. Refresh your page, try a different node (top-right corner), check your firewall settings. If custom node, check your configs.',
+  ERROR_33: '(error_34) The wallet you have unlocked does not match the owner\'s address.',
+  ERROR_34: '(error_35) The name you are attempting to reveal does not match the name you have entered.',
+  ERROR_35: '(error_36) Input address is not checksummed. <a href="https://myetherwallet.github.io/knowledge-base/addresses/not-checksummed-shows-when-i-enter-an-address.html" target="_blank" rel="noopener noreferrer">What does that mean?</a>',
+  ERROR_36: '(error_37) Please enter a valid TX hash',
+  ERROR_37: '(error_38) Please enter valid hex string. Hex only contains: 0x, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, a, b, c, d, e, f',
+  ERROR_38: '(error_39) Offer must have either price or reserve set to more than 0',
+  ERROR_39: '(error_40) Bid must be more than the specified minimum',
+
+  GETH_Balance: '(gwan-01) Insufficient balance. Your gas limit * gas price + amount to send exceeds your current balance. Send more WAN to your account or use the "Send Entire Balance" button. If you believe this is in error, try pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)',
+  GETH_Cheap: '(gwan-02) Gas price too low for acceptance. Try raising the gas price to 21 GWEI via the dropdown in top-right.',
+  GETH_GasLimit: '(gwan-03) Exceeds block gas limit. Transaction cost exceeds current gas limit. Limit: (d+), got: (d+). Please lower the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)',
+  GETH_InsufficientFunds: '(gwan-04) Insufficient balance. Your gas limit * gas price + amount to send exceeds your current balance. Send more WAN to your account or use the "Send Entire Balance" button. If you believe this is in error, try pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)',
+  GETH_IntrinsicGas: '(gwan-05) Intrinsic gas too low. Try raising the gas price to 21 GWEI via the dropdown in top-right or the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again.',
+  GETH_InvalidSender: '(gwan-06) Invalid sender.',
+  GETH_NegativeValue: '(gwan-07) Negative value.',
+  GETH_Nonce: "(gwan-08) This TX's [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html) is too low. Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html).",
+  GETH_NonExistentAccount: '(gwan-09) Account does not exist or account balance too low',
+
+  PARITY_AlreadyImported: '(parity-01) A transaction with the same hash was already imported. It was probably already broadcast. To avoid duplicate transactions, check your address on [wanscan.io](https://wanscan.io) & wait 10 minutes before attempting to send again. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)',
+  PARITY_GasLimitExceeded: '(parity-02) Transaction cost exceeds current gas limit. Limit: (d+), got: (d+). Please lower the gas limit to 21000 (for sending) or 200000 (for sending tokens or contracts) and try again. [Learn More](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)',
+  PARITY_InsufficientBalance: "(parity-03) Insufficient balance. The account you tried to send transaction from does not have enough funds. If you believe this is in error, try using the 'Send Entire Balance' button, or pressing generate again. Required (d+) and got: (d+). [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)",
+  PARITY_InsufficientGasPrice: '(parity-04) There is another transaction with same nonce in the queue, or the transaction fee is too low. Try incrementing the nonce by clicking the Generate button again. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)',
+  PARITY_InvalidGasLimit: '(parity-05) Supplied gas limit is beyond limit. Try lowering the gas limit to 21000. [Learn More.](https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html)',
+  PARITY_LimitReached: '(parity-06) There are too many transactions in the queue. Your transaction was dropped due to limit. Try increasing the gas price. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)',
+  PARITY_Old: '(parity-07) There is already a transaction with this [nonce](https://myetherwallet.github.io/knowledge-base/transactions/what-is-nonce.html). Try incrementing the nonce by pressing the Generate button again, or [replace the pending transaction](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html).',
+  PARITY_TooCheapToReplace: "(parity-08) TX Fee is too low. It does not satisfy your node's minimal fee (minimal: (d+), got: (d+)). Try increasing the gas price and/or gas limit. [Learn More.](https://myetherwallet.github.io/knowledge-base/transactions/transactions-not-showing-or-pending.html)",
+
+  FOOTER_1: 'Free, open-source, client-side interface for generating Wanchain wallets &amp; more. Interact with the Wanchain blockchain easily &amp; securely. Double-check the URL ( MyWanWallet.nl ) before unlocking your wallet.',
+  FOOTER_1b: 'Created by',
+  FOOTER_2: 'Donations greatly appreciated',
+  FOOTER_3: 'Client-side wallet generation by',
+  FOOTER_4: 'Disclaimer',
+
+  GAS_LIMIT_Desc: 'Gas limit is the amount of gas to send with your TX. `TX fee` = gas price * gas limit & is paid to miners for including your TX in a block. Increasing this number will not get your TX mined faster. Sending WAN = `21000`. Sending Tokens = ~`200000`.',
+  GAS_PRICE_Desc: 'Gas Price is the amount you pay per unit of gas. `TX fee = gas price * gas limit` & is paid to miners for including your TX in a block. Higher the gas price = faster transaction, but more expensive. Default is `182 GWEI`.',
+
+  GEN_desc: 'If you want to generate multiple wallets, you can do so here',
+  GEN_Help_1: 'Use your',
+  GEN_Help_10: 'Right click & save file as. Filename:',
+  GEN_Help_11: 'Don\'t open this file on your computer',
+  GEN_Help_12: 'Use it to unlock your wallet via MyWanWallet (or Mist, gwan, Parity and other wallet clients.)',
+  GEN_Help_13: 'How to Back Up Your Keystore File',
+  GEN_Help_14: 'What are these Different Formats?',
+  GEN_Help_15: 'Preventing loss &amp; theft of your funds.',
+  GEN_Help_16: 'What are these Different Formats?',
+  GEN_Help_17: 'Why Should I?',
+  GEN_Help_18: 'To have a secondary backup.',
+  GEN_Help_19: 'In case you ever forget your password.',
+  GEN_Help_2: 'to access your account.',
+  GEN_Help_20: 'Cold Storage',
+  GEN_Help_3: 'Your device * is * your wallet.',
+  GEN_Help_4: 'Guides & FAQ',
+  GEN_Help_5: 'How to Create a Wallet',
+  GEN_Help_6: 'Getting Started',
+  GEN_Help_7: 'Keep it safe · Make a backup · Don\'t share it with anyone · Don\'t lose it · It cannot be recovered if you lose it.',
+  GEN_Help_8: 'Not Downloading a File?',
+  GEN_Help_9: 'Try using Google Chrome',
+  GEN_Label_1: 'Enter a password',
+  GEN_Label_2: 'Save your `Keystore` File.',
+  GEN_Label_3: 'Save Your Address.',
+  GEN_Label_4: 'Print paper wallet or a QR code.',
+  GEN_Label_5: 'Save Your `Private Key`.',
+  GEN_Placeholder_1: 'Do NOT forget to save this!',
+  GEN_SuccessMsg: 'Success! Your wallet has been generated.',
+  GEN_Unlock: 'Unlock your wallet to see your address',
+  GET_ConfButton: 'I understand. Continue.',
+
+  MEW_Tagline: 'Open Source JavaScript Client-Side Wancoins Wallet',
+  MEW_Warning_1: 'Always check the URL before accessing your wallet or creating a new wallet. Beware of phishing sites!',
+
+  MNEM_1: 'Please select the address you would like to interact with.',
+  MNEM_2: 'Your single HD mnemonic phrase can access a number of wallets / addresses. Please select the address you would like to interact with at this time.',
+  MNEM_more: 'More Addresses',
+  MNEM_prev: 'Previous Addresses',
+
+  MSG_date: 'Date',
+  MSG_info1: 'Include the current date so the signature cannot be reused on a different date.',
+  MSG_info2: 'Include your nickname and where you use the nickname so someone else cannot use it.',
+  MSG_info3: 'Include a specific reason for the message so it cannot be reused for a different purpose.',
+  MSG_message: 'Message',
+  MSG_signature: 'Signature',
+  MSG_verify: 'Verify Message',
+
+  MYWAL_Address: 'Wallet Address',
+  MYWAL_Bal: 'Balance',
+  MYWAL_Content_1: 'Warning! You are about to remove your wallet',
+  MYWAL_Content_2: 'Be sure you have **saved the private key and/or Keystore File and the password** before you remove it.',
+  MYWAL_Content_3: 'If you want to use this wallet with your MyWanWallet CX in the future, you will need to manually re-add it using the private key/JSON and password.',
+  MYWAL_Edit: 'Edit',
+  MYWAL_Edit_2: 'Edit Wallet',
+  MYWAL_Hide: 'Hide Wallet Info',
+  MYWAL_Name: 'Wallet Name',
+  MYWAL_Nick: 'Wallet Nickname',
+  MYWAL_Remove: 'Remove',
+  MYWAL_RemoveWal: 'Remove Wallet',
+  MYWAL_View: 'View',
+  MYWAL_Viewing: 'Viewing Wallet',
+  MYWAL_WatchOnly: 'Your Watch-Only Accounts',
+
+  NAV_AddWallet: 'Add Wallet',
+  NAV_BulkGenerate: 'Bulk Generate',
+  NAV_CheckTxStatus: 'Check TX Status',
+  NAV_Contact: 'Contact',
+  NAV_Contracts: 'Contracts',
+  NAV_DeployContract: 'Deploy Contract',
+  NAV_DomainSale: 'DomainSale',
+  NAV_ENS: 'WNS',
+  NAV_GenerateWallet: 'Create New Wallet',
+  NAV_GenerateWallet_alt: 'New Wallet',
+  NAV_Help: 'Help',
+  NAV_InteractContract: 'Interact with Contract',
+  NAV_Multisig: 'Multisig',
+  NAV_MyWallets: 'My Wallets',
+  NAV_Offline: 'Send Offline',
+  NAV_SendEther: 'Send Wancoins & Tokens',
+  NAV_SendTokens: 'Send Tokens',
+  NAV_SignMsg: 'Sign Message',
+  NAV_Swap: 'Swap',
+  NAV_TxStatus: 'TX Status',
+  NAV_ViewWallet: 'View Wallet Info',
+  NAV_YourWallets: 'Your Wallets',
+
+  NODE_CTA: 'Save & Use Custom Node',
+  NODE_Name: 'Node Name',
+  NODE_Port: 'Node Port',
+  NODE_Subtitle: 'To connect to a local node...',
+  NODE_Title: 'Set Up Your Custom Node',
+  NODE_Warning: 'Your node must be HTTPS in order to connect to it via MyWanWallet.nl. You can [download the MyWanWallet repo & run it locally](https://github.com/tyrion70/mywanwallet/releases/latest) to connect to any node. Or, get free SSL certificate via [LetsEncrypt](https://letsencrypt.org/)',
+
+  NONCE_Desc: 'The nonce is the number of transactions sent from a given address. It ensures transactions are sent in order & not more than once.',
+
+  OFFLINE_Desc: 'Generating offline transactions can be done in three steps. You will complete steps 1 and 3 on an online computer, and step 2 on an offline/airgapped computer. This ensures your private keys do not touch an internet-connected device.',
+  OFFLINE_Step1_Button: 'Generate Information',
+  OFFLINE_Step1_Label_1: 'From Address',
+  OFFLINE_Step1_Label_2: 'Note: This is the FROM address, not the TO address. Nonce is generated from the originating account. If using an airgapped computer, it would be the address of the cold-storage account.',
+  OFFLINE_Step2_Label_1: 'To Address',
+  OFFLINE_Step2_Label_2: 'Value / Amount to Send',
+  OFFLINE_Step2_Label_3: 'Gas Price',
+  OFFLINE_Step2_Label_3b: 'This was displayed in Step 1 on your online computer.',
+  OFFLINE_Step2_Label_4: 'Gas Limit',
+  OFFLINE_Step2_Label_4b: '21000 is the default gas limit. When you send contracts or add\'l data, this may need to be different. Any unused gas will be returned to you.',
+  OFFLINE_Step2_Label_5: 'Nonce',
+  OFFLINE_Step2_Label_5b: 'This was displayed in Step 1 on your online computer.',
+  OFFLINE_Step2_Label_6: 'Data',
+  OFFLINE_Step2_Label_6b: 'This is optional. Data is often used when you send transactions to contracts.',
+  OFFLINE_Step2_Label_7: 'Enter / Select your Private Key / JSON.',
+  OFFLINE_Step2_Title: 'Step 2: Generate Transaction (Offline Computer)',
+  OFFLINE_Step3_Label_1: 'Paste the signed transaction from Step 2 here and press the "SEND TRANSACTION" button.',
+  OFFLINE_Step3_Title: 'Step 3: Send / Publish Transaction (Online Computer)',
+  OFFLINE_Title: 'Generate & Send Offline Transaction',
+  OFFLLINE_Step1_Title: 'Step 1: Generate Information (Online Computer)',
+
+  SEND_addr: 'To Address',
+  SEND_amount: 'Amount to Send',
+  SEND_amount_short: 'Amount',
+  SEND_custom: 'Add Custom Token',
+  SEND_gas: 'Gas',
+  SEND_generate: 'Generate Transaction',
+  SEND_raw: 'Raw Transaction',
+  SEND_signed: 'Signed Transaction',
+  SEND_trans: 'Send Transaction',
+  SEND_TransferTotal: 'Send Entire Balance',
+  SENDModal_Content_1: 'You are about to send',
+  SENDModal_Content_2: 'to address',
+  SENDModal_Content_3: 'Are you sure you want to do this?',
+  SENDModal_Content_4: 'NOTE: If you encounter an error, you most likely need to add Wancoins to your account to cover the gas cost of sending tokens. Gas is paid in Wancoins.',
+  SENDModal_No: 'No, get me out of here!',
+  SENDModal_Title: 'Warning!',
+  SENDModal_Yes: 'Yes, I am sure! Make transaction.',
+
+  sidebar_AccountAddr: 'Account Address',
+  sidebar_AccountBal: 'Account Balance',
+  sidebar_AccountInfo: 'Account Information',
+  sidebar_DisplayOnLedger: 'Display address on Ledger',
+  sidebar_DisplayOnTrezor: 'Display address on TREZOR',
+  sidebar_donate: 'Donate',
+  sidebar_donation: 'MyWanWallet is a free, open-source service dedicated to your privacy and security. The more donations we receive, the more time we spend creating new features, listening to your feedback, and giving you what you want. We are just two people trying to change the world. Help us?',
+  sidebar_Equiv: 'Equivalent Values',
+  sidebar_thanks: 'THANK YOU!!!',
+  sidebar_TokenBal: 'Token Balances',
+  sidebar_TransHistory: 'Transaction History',
+
+  SUCCESS_1: 'Valid address',
+  SUCCESS_2: 'Wallet successfully decrypted',
+  SUCCESS_3: 'Your TX has been broadcast to the network. This does not mean it has been mined & sent. During times of extreme volume, it may take 3+ hours to send. 1) Check your TX below. 2) If it is pending for hours or disappears, use the Check TX Status Page to replace. 3) Use [WAN Gas Station](https://ethgasstation.info/) to see what gas price is optimal. 4) Save your TX Hash in case you need it later:  ',
+  SUCCESS_4: 'Your wallet was successfully added',
+  SUCCESS_5: 'File Selected',
+  SUCCESS_6: 'You are successfully connected',
+  SUCCESS_7: 'Message Signature Verified',
+
+  SWAP_elapsed: 'Time elapsed since sent ',
+  SWAP_information: 'Your Information ',
+  SWAP_init_1: 'I want to swap my ',
+  SWAP_init_2: ' for ', // "I want to swap my X WAN for X BTC"
+  SWAP_init_CTA: "Let's do this! ", // or "Continue"
+  SWAP_order_CTA: 'Please send ', // Please send 1 WAN...
+  SWAP_progress_1: 'Order Initiated ',
+  SWAP_progress_2: 'Waiting for your ', // Waiting for your BTC...
+  SWAP_progress_3: 'Received! ', // WAN Received!
+  SWAP_progress_4: 'Sending your {{orderResult.output.currency}} ',
+  SWAP_progress_5: 'Order Complete ',
+  SWAP_rates: 'Current Rates ',
+  SWAP_rec_add: 'Your Receiving Address ',
+  SWAP_rec_amt: 'Amount to receive ',
+  SWAP_ref_num: 'Your reference number ',
+  SWAP_send_amt: 'Amount to send ',
+  SWAP_start_CTA: 'Start Swap ',
+  SWAP_time: 'Time remaining to send ',
+  SWAP_unlock: 'Unlock your wallet to send WAN or Tokens directly from this page. ',
+  SWAP_your_rate: 'Your rate ',
+
+  TOKEN_Addr: 'Token Contract Address',
+  TOKEN_Dec: 'Decimals',
+  TOKEN_hide: 'Hide Tokens',
+  TOKEN_show: 'Show All Tokens',
+  TOKEN_Symbol: 'Token Symbol',
+
+  TRANS_advanced: '+Advanced: Add Data',
+  TRANS_data: 'Data',
+  TRANS_desc: 'If you want to send Tokens, please use the "Send Token" page instead.',
+  TRANS_gas: 'Gas Limit',
+  TRANS_sendInfo: 'A standard transaction using 21000 gas will cost 0.000441 WAN. We do not take a transaction fee.',
+
+  translate_version: '0.5',
+  Translator_Desc: '',
+  TranslatorAddr_1: '',
+  TranslatorAddr_2: '',
+  TranslatorAddr_3: '',
+  TranslatorAddr_4: '',
+  TranslatorAddr_5: '',
+  TranslatorName_1: '',
+  TranslatorName_2: '',
+  TranslatorName_3: '',
+  TranslatorName_4: '',
+  TranslatorName_5: '',
+
+  tx_Details: 'Transaction Details',
+  tx_foundInPending: 'Pending Transaction Found',
+  tx_foundInPending_1: 'Your transaction was located in the TX Pool of the node you are connected to.',
+  tx_foundInPending_2: 'It is currently pending (waiting to be mined).',
+  tx_foundInPending_3: 'There is a chance you can "cancel" or replace this transaction. Unlock your wallet below.',
+  tx_FoundOnChain: 'Transaction Found',
+  tx_FoundOnChain_1: 'Your transaction was successfully mined and is on the blockchain.',
+  tx_FoundOnChain_2: '**If you see a red `( ! )`, a `BAD INSTRUCTION` or `OUT OF GAS` error message**, it means that the transaction was not successfully *sent*. You cannot cancel or replace this transaction. Instead, send a new transaction. If you received an "Out of Gas" error, you should double the gas limit you specified originally.',
+  tx_FoundOnChain_3: '**If you do not see any errors, your transaction was successfully sent.** Your WAN or Tokens are where you sent them. If you cannot see this WAN or Tokens credited in your other wallet / exchange account, and it has been 24+ hours since you sent, please [contact that service](https://myetherwallet.github.io/knowledge-base/diving-deeper/ethereum-list-of-support-and-communities.html). Send them the *link* to your transaction and ask them, nicely, to look into your situation.',
+  tx_notFound: 'Transaction Not Found',
+  tx_notFound_1: 'This TX cannot be found in the TX Pool of the node you are connected to.',
+  tx_notFound_2: 'If you just sent the transaction, please wait 15 seconds and press the "Check TX Status" button again.',
+  tx_notFound_3: 'It could still be in the TX Pool of a different node, waiting to be mined.',
+  tx_notFound_4: 'Please use the dropdown in the top-right & select a different WAN node (e.g. `WAN (MyWanWallet)`) and check again.',
+  tx_Summary: 'During times of high volume (like during ICOs) transactions can be pending for hours, if not days. This tool aims to give you the ability to find and "cancel" / replace these TXs. ** This is not typically something you can do. It should not be relied upon & will only work when the TX Pools are full. [Please, read about this tool here.](https://myetherwallet.github.io/knowledge-base/transactions/check-status-of-ethereum-transaction.html)**',
+
+  TXFEE_Desc: 'The TX Fee is paid to miners for including your TX in a block. Is is the `gas limit` * `gas price`. [You can convert GWEI -> WAN here](https://www.MyWanWallet.nl/helpers.html)',
+
+  VIEWWALLET_HidePrivKey: '(hide)',
+  VIEWWALLET_ShowPrivKey: '(show)',
+  VIEWWALLET_Subtitle: 'This allows you to download different versions of private keys and re-print your paper wallet. You may want to do this in order to [import your account into gwan/Mist](http://ethereum.stackexchange.com/questions/465/how-to-import-a-plain-private-key-into-geth/). If you want to check your balance, we recommend using a blockchain explorer like [wanscan.io](https://wanscan.io/).',
+  VIEWWALLET_Subtitle_Short: 'This allows you to download different versions of private keys and re-print your paper wallet.',
+  VIEWWALLET_SuccessMsg: 'Success! Here are your wallet details.',
+
+  WARN_Send_Link: 'You arrived via a link that has the address, value, gas, data fields, or transaction type (send mode) filled in for you. You can change any information before sending. Unlock your wallet to get started.',
+
+  x_Access: 'Access',
+  x_AddessDesc: 'Your Address can also be known as you `Account #` or your `Public Key`. It is what you share with people so they can send you Wancoins or Tokens. Find the colorful address icon. Make sure it matches your paper wallet & whenever you enter your address somewhere.',
+  x_Address: 'Your Address',
+  x_Cancel: 'Cancel',
+  x_CancelReplaceTx: 'Cancel or Replace Transaction',
+  x_CancelTx: 'Cancel Transaction',
+  x_CSV: 'CSV file (unencrypted)',
+  x_DigitalBitbox: 'Digital Bitbox',
+  x_Download: 'Download',
+  x_Json: 'JSON File (unencrypted)',
+  x_JsonDesc: 'This is the unencrypted, JSON format of your private key. This means you do not need the password but anyone who finds your JSON can access your wallet & Wancoins without the password.',
+  x_Keystore: 'Keystore File (UTC / JSON · Recommended · Encrypted)',
+  x_Keystore2: 'Keystore File (UTC / JSON)',
+  x_KeystoreDesc: 'This Keystore file matches the format used by Mist so you can easily import it in the future. It is the recommended file to download and back up.',
+  x_Ledger: 'Ledger Wallet',
+  x_MetaMask: 'WanMask',
+  x_Mnemonic: 'Mnemonic Phrase',
+  x_ParityPhrase: 'Parity Phrase',
+  x_Password: 'Password',
+  x_PasswordDesc: 'This password * encrypts * your private key. This does not act as a seed to generate your keys. **You will need this password + your private key to unlock your wallet.**',
+  x_Print: 'Print Paper Wallet',
+  x_PrintDesc: 'ProTip: If you cannot print this right now, click "Print" and save it as a PDF until you are able to get it printed. Remove it from your computer afterwards!',
+  x_PrintShort: 'Print',
+  x_PrivKey: 'Private Key (unencrypted)',
+  x_PrivKey2: 'Private Key',
+  x_PrivKeyDesc: 'This is the unencrypted text version of your private key, meaning no password is necessary. If someone were to find your unencrypted private key, they could access your wallet without a password. For this reason, encrypted versions are typically recommended.',
+  x_ReadMore: 'Read More',
+  x_ReplaceTx: 'Replace Transaction',
+  x_Save: 'Save',
+  x_TransHash: 'Transaction Hash',
+  x_Trezor: 'TREZOR',
+  x_TXFee: 'TX Fee',
+  x_TxHash: 'TX Hash',
+  x_TXT: 'TXT file (unencrypted)',
+  x_Wallet: 'Wallet',
+
+  HELP_0_Desc_1: 'MyWanWallet gives you the ability to generate new wallets so you can store your Wancoins yourself, not on an exchange. This process happens entirely on your computer, not our servers. Therefore, when you generate a new wallet, **you are responsible for safely backing it up**.',
+  HELP_0_Desc_2: 'Create a new wallet.',
+  HELP_0_Desc_3: 'Back the wallet up.',
+  HELP_0_Desc_4: 'Verify you have access to this new wallet and have correctly saved all necessary information.',
+  HELP_0_Desc_5: 'Transfer Wancoins to this new wallet.',
+  HELP_0_Title: '0) I\'m new. What do I do?',
+  HELP_10_Desc_1: 'Navigate to the "Offline Transaction" page via your online computer.',
+  HELP_10_Desc_10: 'The data field below this button will populate with your signed transaction. Copy this and move it back to your online computer.',
+  HELP_10_Desc_11: 'On your online computer, paste the signed transaction into the text field in step #3 and click send. This will broadcast your transaction.',
+  HELP_10_Desc_2: 'Enter the "From Address". Please note, this is the address you are sending FROM, not TO. This generates the nonce and gas price.',
+  HELP_10_Desc_3: 'Move to your offline computer. Enter the "TO ADDRESS" and the "AMOUNT" you wish to send.',
+  HELP_10_Desc_4: 'Enter the "GAS PRICE" as it was displayed to you on your online computer in step #1.',
+  HELP_10_Desc_5: 'Enter the "NONCE" as it was displayed to you on your online computer in step #1.',
+  HELP_10_Desc_6: 'The "GAS LIMIT" has a default value of 21000. This will cover a standard transaction. If you are sending to a contract or are including additional data with your transaction, you will need to increase the gas limit. Any excess gas will be returned to you.',
+  HELP_10_Desc_7: 'If you wish, enter some data. If you enter data, you will need to include more than the 21000 default gas limit. All data is in HEX format.',
+  HELP_10_Desc_8: 'Select your wallet file -or- your private key and unlock your wallet.',
+  HELP_10_Desc_9: 'Press the "GENERATE SIGNED TRANSACTION" button.',
+  HELP_10_Title: '10) How do I make an offline transaction?',
+  HELP_12_Desc_1: 'Using an gwan/Mist JSON file from MyWanWallet v2+....',
+  HELP_12_Desc_10: 'Your account should show up immediately under "Accounts."',
+  HELP_12_Desc_11: 'Using your unencrypted private key...',
+  HELP_12_Desc_12: 'If you do not already have your unencrypted private key, navigate to the "View Wallet Details" page.',
+  HELP_12_Desc_13: 'Select your wallet file -or- enter/paste your private key to unlock your wallet.',
+  HELP_12_Desc_14: 'Copy Your Private Key (unencrypted).',
+  HELP_12_Desc_15: 'If you are on a Mac',
+  HELP_12_Desc_15b: 'If you are on a PC',
+  HELP_12_Desc_16: 'Open Text Edit and paste this private key.',
+  HELP_12_Desc_17: 'Go to the menu bar and click "Format" -> "Make Plain Text".',
+  HELP_12_Desc_18: 'Save this file to your `desktop/` as `nothing_special_delete_me.txt`. Make sure it says "UTF-8" and "If no extension is provided use .txt" in the save dialog.',
+  HELP_12_Desc_19: 'Open terminal and run the following command: `gwan account import ~/Desktop/nothing_special_delete_me.txt`',
+  HELP_12_Desc_2: 'Go to the "View Wallet Info" page.',
+  HELP_12_Desc_20: 'This will prompt you to make a new password. This is the password you will use in gwan / Wanchain Wallet / Mist whenever you send a transaction, so don\'t forget it.',
+  HELP_12_Desc_21: 'After successful import, delete `nothing_special_delete_me.txt`',
+  HELP_12_Desc_22: 'The next time you open the Wanchain Wallet application, your account will be listed under "Accounts".',
+  HELP_12_Desc_23: 'Open Notepad & paste the private key',
+  HELP_12_Desc_24: 'Save the file as `nothing_special_delete_me.txt` at `C:`',
+  HELP_12_Desc_25: 'Run the command, `gwan account import C:\\nothing_special_delete_me.txt`',
+  HELP_12_Desc_26: 'This will prompt you to make a new password. This is the password you will use in gwan / Wanchain Wallet / Mist whenever you send a transaction, so don\'t forget it.',
+  HELP_12_Desc_27: 'After successful import, delete `nothing_special_delete_me.txt`',
+  HELP_12_Desc_28: 'The next time you open the Wanchain Wallet application, your account will be listed under "Accounts".',
+  HELP_12_Desc_3: 'Unlock your wallet using your **encrypted** private key or JSON file.',
+  HELP_12_Desc_4: 'Go to the "My Wallets" page.',
+  HELP_12_Desc_5: 'Select the wallet you want to import into Mist, click the "View" icon, enter your password, and access your wallet.',
+  HELP_12_Desc_6: 'Find the "Download JSON file - gwan/Mist Format (encrypted)" section. Press the "Download" button below that. You now have your keystore file.',
+  HELP_12_Desc_7: 'Open the Wanchain Wallet application.',
+  HELP_12_Desc_8: 'In the menu bar, go "Accounts" -> "Backup" -> "Accounts"',
+  HELP_12_Desc_9: 'This will open your keystore folder. Copy the file you just downloaded (`UTC--2016-04-14......../`) into that keystore folder.',
+  HELP_12_Title: '12) How do I import a wallet created with MyWanWallet into gwan / Wanchain Wallet / Mist?',
+  HELP_13_Desc_1: 'This means you do not have enough Wancoins in your account to cover the cost of gas. Each transaction (including token and contract transactions) require gas and that gas is paid in Wancoins. The number displayed is the amount required to cover the cost of the transaction in Wei. Take that number, divide by `1000000000000000000`, and subtract the amount of Wancoin you were trying to send (if you were attempting to send Wancoin). This will give you the amount of Wancoins you need to send to that account to make the transaction.',
+  HELP_13_Title: '13) What does "Insufficient funds. Account you try to send transaction from does not have enough funds. Required XXXXXXXXXXXXXXXXXXX and got: XXXXXXXXXXXXXXXX." Mean?',
+  HELP_14_Desc_1: 'While the mouse moving thing is clever and we understand why people like it, the reality is window.crypto ensures more entropy than your mouse movements. The mouse movements aren\'t unsafe, it\'s just that we (and tons of other crypto experiments) believe in window.crypto. In addition, MyWanWallet.nl can be used on touch devices. Here\'s a [conversation between an angry redditor and Vitalik Buterin regarding mouse movements v. window.crypto](https://www.reddit.com/r/ethereum/comments/2bilqg/note_there_is_a_paranoid_highsecurity_way_to/cj5sgrm) and here is the [the window.crypto w3 spec](https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-GlobalCrypto).',
+  HELP_14_Title: '14) Some sites randomize (seed) the private key generation via mouse movements. MyWanWallet.nl doesn\'t do this. Is the random number generation for MyWanWallet safe?',
+  HELP_15_Desc_1: 'Accounts will only show up in a blockchain explorer once the account has activity on it&mdash;for example, once you have transferred some Wancoins to it.',
+  HELP_15_Title: '15) Why hasn\'t the account I just created show up in the blockchain explorer? (ie: wanscan.io)',
+  HELP_16_Desc_1: 'You can use a blockchain explorer like [wanscan.io](https://wanscan.io/). Paste your address into the search bar and it will pull up your address and transaction history. For example, here\'s what our [donation account](https://wanscan.io/addr/0x7cb57b5a97eabe94205c07890be4c1ad31e486a8) looks like on wanscan.io',
+  HELP_16_Title: '16) How do I check the balance of my account?',
+  HELP_17_Desc_1: 'This is most likely due to the fact that you are behind a firewall. The API that we use to get the balance and convert said balance is often blocked by firewalls for whatever reason. You will still be able to send transactions, you just need to use a different method to see said balance, like wanscan.io',
+  HELP_17_Title: '17) Why isn\'t my balance showing up when I unlock my wallet?',
+  HELP_18_Title: '18) Where is my gwan wallet file?',
+  HELP_19_Desc_1: 'Mist files are typically found in the file locations above, but it\'s much easier to open Mist, select "Accounts" in the top bar, select "Backup", and select "Accounts". This will open the folder where your files are stored.',
+  HELP_19_Title: '19) Where is my Mist wallet file?',
+  HELP_1_Desc_1: 'Go to the "Generate Wallet" page.',
+  HELP_1_Desc_2: 'Go to the "Add Wallet" page & select "Generate New Wallet"',
+  HELP_1_Desc_3: 'Enter a strong password. If you think you may forget it, save it somewhere safe. You will need this password to send transactions.',
+  HELP_1_Desc_4: 'Click "GENERATE".',
+  HELP_1_Desc_5: 'Your wallet has now been generated.',
+  HELP_1_Title: '1) How do I create a new wallet?',
+  HELP_20_Desc_1: 'Wherever you saved it. ;) It also was emailed to you, so check there. Look for the file called `"ethereum_wallet_backup.json"` and select that file. This wallet file will be encrypted with a password that you created during the purchase of the pre-sale.',
+  HELP_20_Title: '20) Where is my pre-sale wallet file?',
+  HELP_21_Desc_1: 'Short version: yes, but finding an account with a balance would take longer than the universe...so...no.',
+  HELP_21_Desc_2: 'Long ELI5 Version: So Wanchain is based on [Public Key Cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), specifically [Elliptic curve cryptography](https://eprint.iacr.org/2013/734.pdf) which is very widely used, not just in Wanchain. Most servers are protected via ECC. Bitcoin uses the same, as well as SSH and TLS and a lot of other stuff. The Wanchain keys specifically are 256-bit keys, which are stronger than 128-bit and 192-bit, which are also widely used and still considered secure by experts.',
+  HELP_21_Desc_3: 'In this you have a private key and a public key. The private key can derive the public key, but the public key cannot be turned back into the private key. The fact that the internet and the world’s secrets are using this cryptography means that if there is a way to go from public key to private key, your lost Wancoins is the least of everyone’s problems.',
+  HELP_21_Desc_4: 'Now, that said, YES if someone else has your private key then they can indeed send Wancoin from your account. Just like if someone has your password to your email, they can read and send your email, or the password to your bank account, they could make transfers. You could download the Keystore version of your private key which is the private key that is encrypted with a password. This is like having a password that is also protected by another password.',
+  HELP_21_Desc_5: 'And YES, in theory you could just type in a string of 64 hexadecimal characters until you got one that matched. In fact, smart people could write a program to very quickly check random private keys. This is known as "brute-forcing" or "mining" private keys. People have thought about this long and hard. With a few very high end servers, they may be able to check 1M+ keys / second. However, even checking that many per second would not yield access to make the cost of running those servers even close to worthwhile - it is more likely you, and your great-grandchildren, will die before getting a match.',
+  HELP_21_Desc_6: 'If you know anything about Bitcoin, [this will put it in perspective:](http://bitcoin.stackexchange.com/questions/32331/two-people-with-same-public-address-how-will-people-network-know-how-to-deliver) *To illustrate how unlikely this is: suppose every satoshi of every bitcoin ever to be generated was sent to its own unique private keys. The probability that among those keys there could be two that would correspond to the same address is roughly one in 100 quintillion.',
+  HELP_21_Desc_7: '[If you want something a bit more technical:](http://security.stackexchange.com/questions/25375/why-not-use-larger-cipher-keys/25392#25392) *These numbers have nothing to do with the technology of the devices; they are the maximums that thermodynamics will allow. And they strongly imply that brute-force attacks against 256-bit keys will be infeasible until computers are built from something other than matter and occupy something other than space.',
+  HELP_21_Desc_8: 'Of course, this all assumes that keys are generated in a truly random way & with sufficient entropy. The keys generated here meet that criteria, as do Jaxx and Mist/gwan. The Wanchain wallets are all pretty good. Keys generated by brainwallets do not, as a person\'s brain is not capable of creating a truly random seed. There have been a number of other issues regarding lack of entropy or seeds not being generated in a truly random way in Bitcoin-land, but that\'s a separate issue that can wait for another day.',
+  HELP_21_Title: '21) Couldn\'t everybody put in random private keys, look for a balance, and send to their own address?',
+  HELP_2a_Desc_1: 'You should always back up your wallet externally and in multiple physical locations - like on a USB drive and/or a piece of paper.',
+  HELP_2a_Desc_2: 'Save the address. You can keep it to yourself or share it with others. That way, others can transfer Wancoins to you.',
+  HELP_2a_Desc_3: 'Save versions of the private key. Do not share it with anyone else. Your private key is necessary when you want to access your Wancoins to send it! There are 3 types of private keys',
+  HELP_2a_Desc_4: 'Place your address, versions of the private key, and the PDF version of your paper wallet in a folder. Save this on your computer and a USB drive.',
+  HELP_2a_Desc_5: 'Print the wallet if you have a printer. Otherwise, write down your private key and address on a piece of paper. Store this as a secure location, separate from your computer and the USB drive.',
+  HELP_2a_Desc_6: 'Keep in mind, you must prevent loss of the keys and password due to loss or failure of you hard drive failure, or USB drive, or piece of paper. You also must keep in mind physical loss / damage of an entire area (think fire or flood).',
+  HELP_2a_Title: 'How do I save/backup my wallet?',
+  HELP_2b_Desc_1: 'Go to [https://github.com/tyrion70/mywanwallet/releases/latest](https://github.com/tyrion70/etherwallet/releases/latest).',
+  HELP_2b_Desc_2: 'Click on `etherwallet-vX.X.X.X.zip`.',
+  HELP_2b_Desc_3: 'Move zip to an airgapped computer.',
+  HELP_2b_Desc_4: 'Unzip it and double-click `index.html`.',
+  HELP_2b_Desc_5: 'Generate a wallet with a strong password.',
+  HELP_2b_Desc_6: 'Save the address. Save versions of the private key. Save the password if you might not remember it forever.',
+  HELP_2b_Desc_7: 'Store these papers / USBs in multiple physically separate locations.',
+  HELP_2b_Desc_8: 'Go to the "View Wallet Info" page and type in your private key / password to ensure they are correct and access your wallet. Check that the address you wrote down is the same.',
+  HELP_2b_Title: '2b) How do I safely / offline / cold storage with MyWanWallet?',
+  HELP_3_Desc_1: '**Before you send any Wancoins to your new wallet**, you should ensure you have access to it.',
+  HELP_3_Desc_2: 'Navigate to the "View Wallet Info" page.',
+  HELP_3_Desc_3: 'Navigate to the MyWanWallet.nl "View Wallet Info" page.',
+  HELP_3_Desc_4: 'Select your wallet file -or- your private key and unlock your wallet.',
+  HELP_3_Desc_5: 'If the wallet is encrypted, a text box will automatically appear. Enter the password.',
+  HELP_3_Desc_6: 'Click the "Unlock Wallet" button.',
+  HELP_3_Desc_7: 'Your wallet information should show up. Find your account address, next to a colorful, circular icon. This icon visually represents your address. Be certain that the address is the address you have saved to your text document and is on your paper wallet.',
+  HELP_3_Desc_8: 'If you are planning on holding a large amount of Wancoins, we recommend that send a small amount of Wancoins from new wallet before depositing a large amount. Send 0.001 Wancoins to your new wallet, access that wallet, send that 0.001 Wancoins to another address, and ensure everything works smoothly.',
+  HELP_3_Title: '3) How do I verify I have access to my new wallet?',
+  HELP_4_Desc_1: 'If you plan to move a large amount of Wancoins, you should test sending a small amount to your wallet first to ensure everything goes as planned.',
+  HELP_4_Desc_10: 'A couple more fields will appear. This is your browser generating the transaction.',
+  HELP_4_Desc_11: 'Click the blue "Send Transaction" button below that.',
+  HELP_4_Desc_12: 'A pop-up will appear. Verify that the amount and the address you are sending to are correct. Then click "Yes, I am sure! Make transaction." button.',
+  HELP_4_Desc_13: 'The transaction will be submitted. The TX Hash will display. You can click that TX Hash to see it on the blockchain.',
+  HELP_4_Desc_2: 'Navigate to the "Send Wancoin & Tokens" page.',
+  HELP_4_Desc_3: 'Select your wallet file -or- your private key and unlock your wallet.',
+  HELP_4_Desc_4: 'If the wallet is encrypted, a text box will automatically appear. Enter the password.',
+  HELP_4_Desc_5: 'Click the "Unlock Wallet" button.',
+  HELP_4_Desc_6: 'Enter the address you would like to send to in the "To Address:" field.',
+  HELP_4_Desc_7: 'Enter the amount you would like to send. You can also click the "Send Entire Balance" link if you would like the transfer the entire balance.',
+  HELP_4_Desc_9: 'Click "Generate Transaction".',
+  HELP_4_Title: '4) How do I send Wancoin from one wallet to another?',
+  HELP_4CX_Desc_1: 'First, you need to add a wallet. Once you have done that, you have 2 options: the "QuickSend" functionality from the Chrome Extension icon or the "Send Wancoins & Tokens" page.',
+  HELP_4CX_Desc_10: 'Enter the password for that wallet.',
+  HELP_4CX_Desc_11: 'Click "Send Transaction."',
+  HELP_4CX_Desc_12: 'Using "Send Wancoins & Tokens" Page',
+  HELP_4CX_Desc_2: 'QuickSend',
+  HELP_4CX_Desc_3: 'Click the Chrome Extension Icon.',
+  HELP_4CX_Desc_4: 'Click the "QuickSend" button.',
+  HELP_4CX_Desc_5: 'Select the wallet you wish to send from.',
+  HELP_4CX_Desc_6: 'Enter the address you would like to send to in the "To Address:" field.',
+  HELP_4CX_Desc_7: 'Enter the amount you would like to send. You can also click the "Send Entire Balance" link if you would like the transfer the entire balance.',
+  HELP_4CX_Desc_8: 'Click "Send Transaction".',
+  HELP_4CX_Desc_9: 'Verify the address and the amount you are sending is correct.',
+  HELP_4CX_Title: '4) How do I Send Wancoins using MyWanWallet CX?',
+  HELP_5_Desc_1: 'You can run MyWanWallet.nl on your computer instead of from the GitHub servers. You can generate a wallet completely offline and send transactions from the "Offline Transaction" page.',
+  HELP_5_Desc_7: 'MyWanWallet.nl is now running entirely on your computer.',
+  HELP_5_Desc_8: 'In case you are not familiar, you need to keep the entire folder in order to run the website, not just `index.html`. Don\'t touch or move anything around in the folder. If you are storing a backup of the MyWanWallet repo for the future, we recommend just storing the ZIP so you can be sure the folder contents stay intact.',
+  HELP_5_Desc_9: 'As we are constantly updating MyWanWallet.nl, we recommend you periodically update your saved version of the repo.',
+  HELP_5_Title: '5) How do I run MyWanWallet.nl offline/locally?',
+  HELP_5CX_Desc_2: 'Click on `chrome-extension-vX.X.X.X.zip` and unzip it.',
+  HELP_5CX_Desc_3: 'Go to Google Chrome and find you settings (in the menu in the upper right).',
+  HELP_5CX_Desc_4: 'Click "Extensions" on the left.',
+  HELP_5CX_Desc_5: 'Check the "Developer Mode" button at the top of that page.',
+  HELP_5CX_Desc_6: 'Click the "Load unpacked extension..." button.',
+  HELP_5CX_Desc_7: 'Navigate to the now-unzipped folder that you downloaded earlier. Click "select".',
+  HELP_5CX_Desc_8: 'The extension should now show up in your extensions and in your Chrome Extension bar.',
+  HELP_5CX_Title: '5) How can I install this extension from the repo instead of the Chrome Store?',
+  HELP_7_Desc_0: '[Ethplorer.io](https://ethplorer.io/) is a great way to explore tokens and find the decimals of a token.',
+  HELP_7_Desc_1: 'Navigate to the "Send Wancoins & Tokens" page.',
+  HELP_7_Desc_10: 'You can now send that token as well as see it\'s balance in the sidebar.',
+  HELP_7_Desc_11: 'Click "Generate Transaction".',
+  HELP_7_Desc_12: 'A couple more fields will appear. This is your browser generating the transaction.',
+  HELP_7_Desc_13: 'Click the blue "Send Transaction" button below that.',
+  HELP_7_Desc_14: 'A pop-up will appear. Verify that the amount and the address you are sending to are correct. Then click "Yes, I am sure! Make transaction." button.',
+  HELP_7_Desc_15: 'The transaction will be submitted. The TX Hash will display. You can click that TX Hash to see it on the blockchain.',
+  HELP_7_Desc_2: 'Unlock your wallet.',
+  HELP_7_Desc_3: 'Enter the address you would like to send to in the "To Address:" field.',
+  HELP_7_Desc_4: 'Enter the amount you would like to send.',
+  HELP_7_Desc_5: 'Select which token you would like to send.',
+  HELP_7_Desc_6: 'If you do not see the token listed',
+  HELP_7_Desc_7: 'Click "Custom".',
+  HELP_7_Desc_8: 'Enter the address, name, and decimals of the token. These are provided by the developers of the token and are also needed when you "Add a Watch Token" to Mist.',
+  HELP_7_Desc_9: 'Click "Save".',
+  HELP_7_Title: '7) How do I send tokens & add custom tokens?',
+  HELP_8_Desc_1: 'MyWanWallet is not a web wallet. You don\'t have a login and nothing ever gets saved to our servers. It is simply an interface that allows you interact with the blockchain.',
+  HELP_8_Desc_2: 'If MyWanWallet.nl goes down, you would have to find another way (like gwan or Wanchain Wallet / Mist) to do what we are doing. But you wouldn\'t have to "get" your Wancoins out of MyWanWallet because it\'s not in MyWanWallet. It\'s in whatever wallet your generated via our site.',
+  HELP_8_Desc_3: 'You can import your unencrypted private key and your gwan/Mist Format (encrypted) files directly into gwan / Wanchain Wallet / Mist very easily now. See question #12 below.',
+  HELP_8_Desc_4: 'In addition, the likelihood of us taking MyWanWallet down is slim to none. It costs us almost nothing to maintain as we aren\'t storing any information. If we do take the domain down, it still is, and always will be, publicly available at [https://github.com/tyrion70/mywanwallet](https://github.com/tyrion70/mywanwallet). You can download the ZIP there and run it locally.',
+  HELP_8_Title: '8) What happens if your site goes down?',
+  HELP_8CX_Desc_1: 'First, all data is saved on your computer, not our servers. I know it can be confusing, but when you look at the Chrome Extension, you are NOT looking at stuff saved on our servers somewhere - it\'s all saved on your own computer.',
+  HELP_8CX_Desc_2: 'That said, it is **very important** that you back up all your information for any new wallets generated with MyWanWallet CX. That way if anything happens to MyWanWallet CX or your computer, you still have all the information necessary to access your Wancoins. See the #2a for how to back up your wallets.',
+  HELP_8CX_Desc_3: 'If for some reason MyWanWallet CX disappears from the Chrome Store, you can find the source on Github and load it manually. See #5 above.',
+  HELP_8CX_Title: '8) What happens if MyWanWallet CX disappears?',
+  HELP_9_Desc_1: 'No. It needs the internet in order to get the current gas price, nonce of your account, and broadcast the transaction (aka "send"). However, it only sends the signed transaction. Your private key safely stays with you. We also now provide an "Offline Transaction" page so that you can ensure your private keys are on an offline/airgapped computer at all times.',
+  HELP_9_Title: '9) Is the "Send Wancoins & Tokens" page offline?',
+  HELP_Contact_Title: 'Ways to Get in Touch',
+  HELP_Desc: 'Do you see something missing? Have another question? [Get in touch with us](mailto:support@MyWanWallet.nl), and we will not only answer your question, we will update this page to be more useful to people in the future!',
+  HELP_FAQ_Title: 'More Helpful Answers to Frequent Questions',
+  HELP_Remind_Desc_1: '**Wanchain, MyWanWallet.com & MyWanWallet CX, and some of the underlying Javascript libraries we use are under active development.** While we have thoroughly tested & tens of thousands of wallets have been successfully created by people all over the globe, there is always the remote possibility that something unexpected happens that causes your WAN to be lost. Please do not invest more than you are willing to lose, and please be careful. If something were to happen, we are sorry, but **we are not responsible for the lost Wancoins**.',
+  HELP_Remind_Desc_2: 'MyWanWallet.nl & MyWanWallet CX are not "web wallets". You do not create an account or give us your Wancoins to hold onto. All data never leaves your computer/your browser. We make it easy for you to create, save, and access your information and interact with the blockchain.',
+  HELP_Remind_Desc_3: 'If you do not save your private key & password, there is no way to recover access to your wallet or the funds it holds.  Back them up in multiple physical locations &ndash; not just on your computer!',
+  HELP_Remind_Title: 'Some reminders',
+  HELP_Sec_Desc_1: 'If one of your first questions is "Why should I trust these people?", that is a good thing. Hopefully the following will help ease your fears.',
+  HELP_Sec_Desc_2: 'We\'ve been up and running since August 2015. If you search for ["MyWanWallet" on reddit](https://www.reddit.com/search?q=MyWanWallet), you can see numerous people who use us with great success.',
+  HELP_Sec_Desc_3: 'We aren\'t going to take your money or steal your private key(s). There is no malicious code on this site. In fact the "GENERATE WALLET" pages are completely client-side. That means that all the code is executed on ** your computer** and it is never saved and transmitted anywhere.',
+  HELP_Sec_Desc_4: 'Check the URL -- This site is being served through GitHub and you can see the source code here: [https://github.com/tyrion70/mywanwallet/releases/latest](https://github.com/tyrion70/etherwallet/releases/latest) to [https://www.MyWanWallet.nl](https://www.MyWanWallet.nl).',
+  HELP_Sec_Desc_5: 'For generating wallets, you can download the [source code and run it locally](https://github.com/tyrion70/mywanwallet/releases/latest). See #5 above.',
+  HELP_Sec_Desc_6: 'Generate a test wallet and check and see what network activity is happening. The easiest way for you to do this is to right click on the page and click "inspect element". Go to the "Network" tab. Generate a test wallet. You will see there is no network activity. You may see something happening that looks like data:image/gif and data:image/png. Those are the QR codes being generated...on your computer...by your computer. No bytes were transferred.',
+  HELP_Sec_Desc_8: 'If you do not feel comfortable using this tool, then by all means, do not use it. We created this tool as a helpful way for people to generate wallets and make transactions without needing to dive into command line or run a full node. Again, feel free to reach out if you have concerns and we will respond as quickly as possible. Thanks!',
+  HELP_Sec_Title: 'Security',
+  HELP_SecCX_Desc_1: 'Where is this extension saving my information?',
+  HELP_SecCX_Desc_2: 'The information you store in this Chrome Extension is saved via [chrome.storage](http://chrome.storage/). - this is the same place your passwords are saved when you save your password in Chrome.',
+  HELP_SecCX_Desc_3: 'What information is saved?',
+  HELP_SecCX_Desc_4: 'The address, nickname, private key is stored in chrome.storage. The private key is encrypted using the password you set when you added the wallet. The nickname and wallet address is not encrypted.',
+  HELP_SecCX_Desc_5: 'Why aren\'t the nickname and wallet address encrypted?',
+  HELP_SecCX_Desc_6: 'If we were to encrypt these items, you would need to enter a password each time you wanted to view your account balance or view the nicknames. If this concerns you, we recommend you use MyWanWallet.nl instead of this Chrome Extension.',
+  HELP_SecCX_Title: 'Security - MyWanWallet CX',
+  HELP_Warning: 'If you created a wallet -or- downloaded the repo before **Dec. 31st, 2015**, please check your wallets &amp; download a new version of the repo. Click for details.'
+
+};
 
 module.exports = en;
 
-},{}],69:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 'use strict';
 
 var en = require('./en');
@@ -7948,7 +11602,7 @@ translate.marked = function (data) {
 };
 module.exports = translate;
 
-},{"./en":68}],70:[function(require,module,exports){
+},{"./en":78}],80:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -7970,8 +11624,8 @@ uiFuncs.getTxData = function ($scope) {
     };
 };
 uiFuncs.isTxDataValid = function (txData) {
-    if (txData.to != "0xCONTRACT" && !ethFuncs.validateEtherAddress(txData.to)) throw globalFuncs.errorMsgs[5];else if (!globalFuncs.isNumeric(txData.value) || parseFloat(txData.value) < 0) throw globalFuncs.errorMsgs[0];else if (!globalFuncs.isNumeric(txData.gasLimit) || parseFloat(txData.gasLimit) <= 0) throw globalFuncs.errorMsgs[8];else if (!ethFuncs.validateHexString(txData.data)) throw globalFuncs.errorMsgs[9];
-    if (txData.to == "0xCONTRACT") txData.to = '';
+    if (txData.to !== '0xCONTRACT' && !ethFuncs.validateEtherAddress(txData.to)) throw globalFuncs.errorMsgs[5];else if (!globalFuncs.isNumeric(txData.value) || parseFloat(txData.value) < 0) throw globalFuncs.errorMsgs[0];else if (!globalFuncs.isNumeric(txData.gasLimit) || parseFloat(txData.gasLimit) <= 0) throw globalFuncs.errorMsgs[8];else if (!ethFuncs.validateHexString(txData.data)) throw globalFuncs.errorMsgs[9];
+    if (txData.to === '0xCONTRACT') txData.to = '';
 };
 uiFuncs.signTxTrezor = function (rawTx, txData, callback) {
     // TrezorConnect.signEthereumTx(txData.path, ethFuncs.getNakedAddress(rawTx.Txtype), ethFuncs.getNakedAddress(rawTx.nonce), ethFuncs.getNakedAddress(rawTx.gasPrice), ethFuncs.getNakedAddress(rawTx.gas), ethFuncs.getNakedAddress(rawTx.to), ethFuncs.getNakedAddress(rawTx.value), ethFuncs.getNakedAddress(rawTx.data), rawTx.chainId, localCallback);
@@ -8014,17 +11668,19 @@ uiFuncs.signTxLedger = function (app, eTx, rawTx, txData, old, callback) {
     var toHash = old ? eTx.raw.slice(0, 6) : eTx.raw;
     var txToSign = ethUtil.rlp.encode(toHash);
     var localCallback = function localCallback(result, error) {
-        if (typeof error != "undefined") {
+        if (typeof error !== 'undefined') {
             error = error.errorCode ? u2f.getErrorByCode(error.errorCode) : error;
-            if (callback !== undefined) callback({
-                isError: true,
-                error: error
-            });
+            if (callback !== undefined) {
+                callback({
+                    isError: true,
+                    error: error
+                });
+            }
             return;
         }
-        rawTx.v = "0x" + result['v'];
-        rawTx.r = "0x" + result['r'];
-        rawTx.s = "0x" + result['s'];
+        rawTx.v = '0x' + result['v'];
+        rawTx.r = '0x' + result['r'];
+        rawTx.s = '0x' + result['s'];
         eTx = new wanUtil.wanchainTx(rawTx);
         rawTx.rawTx = JSON.stringify(rawTx);
         rawTx.signedTx = '0x' + eTx.serialize().toString('hex');
@@ -8035,12 +11691,14 @@ uiFuncs.signTxLedger = function (app, eTx, rawTx, txData, old, callback) {
 };
 uiFuncs.signTxDigitalBitbox = function (eTx, rawTx, txData, callback) {
     var localCallback = function localCallback(result, error) {
-        if (typeof error != "undefined") {
+        if (typeof error !== 'undefined') {
             error = error.errorCode ? u2f.getErrorByCode(error.errorCode) : error;
-            if (callback !== undefined) callback({
-                isError: true,
-                error: error
-            });
+            if (callback !== undefined) {
+                callback({
+                    isError: true,
+                    error: error
+                });
+            }
             return;
         }
         uiFuncs.notifier.info("The transaction was signed but not sent. Click the blue 'Send Transaction' button to continue.");
@@ -8053,7 +11711,7 @@ uiFuncs.signTxDigitalBitbox = function (eTx, rawTx, txData, callback) {
         rawTx.isError = false;
         if (callback !== undefined) callback(rawTx);
     };
-    uiFuncs.notifier.info("Touch the LED for 3 seconds to sign the transaction. Or tap the LED to cancel.");
+    uiFuncs.notifier.info('Touch the LED for 3 seconds to sign the transaction. Or tap the LED to cancel.');
     var app = new DigitalBitboxEth(txData.hwTransport, '');
     app.signTransaction(txData.path, eTx, localCallback);
 };
@@ -8075,7 +11733,7 @@ uiFuncs.trezorUnlockCallback = function (txData, callback) {
     uiFuncs.generateTx(txData, callback);
 };
 uiFuncs.generateTx = function (txData, callback) {
-    if (typeof txData.hwType != "undefined" && txData.hwType == "trezor" && !txData.trezorUnlocked) {
+    if (typeof txData.hwType !== 'undefined' && txData.hwType === 'trezor' && !txData.trezorUnlocked) {
         uiFuncs.trezorUnlockCallback(txData, callback);
         return;
     }
@@ -8093,15 +11751,17 @@ uiFuncs.generateTx = function (txData, callback) {
             };
             if (ajaxReq.eip155) rawTx.chainId = ajaxReq.chainId;
             var eTx = new wanUtil.wanchainTx(rawTx);
-            if (typeof txData.hwType != "undefined" && txData.hwType == "ledger") {
+            if (typeof txData.hwType !== 'undefined' && txData.hwType === 'ledger') {
                 var app = new ledgerEth(txData.hwTransport);
                 var EIP155Supported = false;
                 var localCallback = function localCallback(result, error) {
-                    if (typeof error != "undefined") {
-                        if (callback !== undefined) callback({
-                            isError: true,
-                            error: error
-                        });
+                    if (typeof error !== 'undefined') {
+                        if (callback !== undefined) {
+                            callback({
+                                isError: true,
+                                error: error
+                            });
+                        }
                         return;
                     }
                     var splitVersion = result['version'].split('.');
@@ -8115,9 +11775,9 @@ uiFuncs.generateTx = function (txData, callback) {
                     uiFuncs.signTxLedger(app, eTx, rawTx, txData, !EIP155Supported, callback);
                 };
                 app.getAppConfiguration(localCallback);
-            } else if (typeof txData.hwType != "undefined" && txData.hwType == "trezor") {
+            } else if (typeof txData.hwType !== 'undefined' && txData.hwType === 'trezor') {
                 uiFuncs.signTxTrezor(rawTx, txData, callback);
-            } else if (typeof txData.hwType != "undefined" && txData.hwType == "web3") {
+            } else if (typeof txData.hwType !== 'undefined' && txData.hwType === 'web3') {
                 // for web3, we dont actually sign it here
                 // instead we put the final params in the "signedTx" field and
                 // wait for the confirmation dialogue / sendTx method
@@ -8126,7 +11786,7 @@ uiFuncs.generateTx = function (txData, callback) {
                 rawTx.signedTx = JSON.stringify(txParams);
                 rawTx.isError = false;
                 callback(rawTx);
-            } else if (typeof txData.hwType != "undefined" && txData.hwType == "digitalBitbox") {
+            } else if (typeof txData.hwType !== 'undefined' && txData.hwType === 'digitalBitbox') {
                 uiFuncs.signTxDigitalBitbox(eTx, rawTx, txData, callback);
             } else {
                 eTx.sign(new Buffer(txData.privKey, 'hex'));
@@ -8158,10 +11818,12 @@ uiFuncs.generateTx = function (txData, callback) {
             });
         }
     } catch (e) {
-        if (callback !== undefined) callback({
-            isError: true,
-            error: e
-        });
+        if (callback !== undefined) {
+            callback({
+                isError: true,
+                error: e
+            });
+        }
     }
 };
 uiFuncs.sendTx = function (signedTx, callback) {
@@ -8204,17 +11866,21 @@ uiFuncs.transferAllBalance = function (fromAdd, gasLimit, callback) {
             var gasPrice = new BigNumber(ethFuncs.sanitizeHex(ethFuncs.addTinyMoreToGas(data.gasprice))).times(gasLimit);
             var maxVal = new BigNumber(data.balance).minus(gasPrice);
             maxVal = etherUnits.toEther(maxVal, 'wei') < 0 ? 0 : etherUnits.toEther(maxVal, 'wei');
-            if (callback !== undefined) callback({
-                isError: false,
-                unit: "ether",
-                value: maxVal
-            });
+            if (callback !== undefined) {
+                callback({
+                    isError: false,
+                    unit: 'ether',
+                    value: maxVal
+                });
+            }
         });
     } catch (e) {
-        if (callback !== undefined) callback({
-            isError: true,
-            error: e
-        });
+        if (callback !== undefined) {
+            callback({
+                isError: true,
+                error: e
+            });
+        }
     }
 };
 uiFuncs.notifier = {
@@ -8222,12 +11888,12 @@ uiFuncs.notifier = {
     warning: function warning(msg) {
         var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 5000;
 
-        this.addAlert("warning", msg, duration);
+        this.addAlert('warning', msg, duration);
     },
     info: function info(msg) {
         var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 5000;
 
-        this.addAlert("info", msg, duration);
+        this.addAlert('info', msg, duration);
     },
     danger: function danger(msg) {
         var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 7000;
@@ -8235,20 +11901,19 @@ uiFuncs.notifier = {
         msg = msg.message ? msg.message : msg;
         // Danger messages can be translated based on the type of node
         msg = globalFuncs.getEthNodeMsg(msg);
-        this.addAlert("danger", msg, duration);
+        this.addAlert('danger', msg, duration);
     },
     success: function success(msg) {
         var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 5000;
 
-        this.addAlert("success", msg, duration);
+        this.addAlert('success', msg, duration);
     },
     addAlert: function addAlert(type, msg, duration) {
-        if (duration == undefined) duration = 7000;
+        if (duration === undefined) duration = 7000;
         // Save all messages by unique id for removal
         var id = Date.now();
         alert = this.buildAlert(id, type, msg);
         this.alerts[id] = alert;
-        var that = this;
         if (duration > 0) {
             // Support permanent messages
             setTimeout(alert.close, duration);
@@ -8271,31 +11936,37 @@ uiFuncs.notifier = {
 module.exports = uiFuncs;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"wanchain-util":327}],71:[function(require,module,exports){
+},{"buffer":151,"wanchain-util":340}],81:[function(require,module,exports){
 'use strict';
 
 var validator = function validator() {};
 
 validator.isValidAddress = function (address) {
-    if (address && address == "0x0000000000000000000000000000000000000000") return false;
-    if (address) return ethFuncs.validateEtherAddress(address);
+    if (address && address === '0x0000000000000000000000000000000000000000') return false;
+    if (address) {
+        return ethFuncs.validateEtherAddress(address);
+    }
     return false;
 };
 validator.isChecksumAddress = function (address) {
     return ethFuncs.isChecksumAddress(address);
 };
 validator.isValidENSorEtherAddress = function (address) {
-    return validator.isValidAddress(address);
+    return validator.isValidAddress(address) || validator.isValidENSAddress(address);
 };
 validator.isValidENSName = function (str) {
     try {
-        return str.length > 6 && ens.normalise(str) != '' && str.substring(0, 2) != '0x';
+        return str.length > 5 && ens.normalise(str) !== '' && str.substring(0, 2) !== '0x';
     } catch (e) {
         return false;
     }
 };
 validator.isValidTxHash = function (txHash) {
-    return txHash.substring(0, 2) == "0x" && txHash.length == 66 && this.isValidHex(txHash);
+    return txHash.substring(0, 2) === '0x' && txHash.length === 66 && this.isValidHex(txHash);
+};
+validator.isValidENSAddress = function (address) {
+    address = ens.normalise(address);
+    return address.lastIndexOf('.') !== -1;
 };
 validator.isValidBTCAddress = function (address) {
     return ethUtil.WAValidator.validate(address, 'BTC');
@@ -8307,7 +11978,7 @@ validator.isValidHex = function (hex) {
     return ethFuncs.validateHexString(hex);
 };
 validator.isValidPrivKey = function (privkeyLen) {
-    return privkeyLen == 64 || privkeyLen == 66 || privkeyLen == 128 || privkeyLen == 132;
+    return privkeyLen === 64 || privkeyLen === 66 || privkeyLen === 128 || privkeyLen === 132;
 };
 validator.isValidMnemonic = function (mnemonic) {
     return hd.bip39.validateMnemonic(mnemonic);
@@ -8337,7 +12008,7 @@ validator.isValidURL = function (str) {
 };
 module.exports = validator;
 
-},{}],72:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 'use strict';
 
 var Wallet = require('./myetherwallet.js');
@@ -8345,8 +12016,8 @@ var Wallet = require('./myetherwallet.js');
 var Web3Wallet = function Web3Wallet(addressBuffer) {
     Wallet.call(this);
     this.addressBuffer = addressBuffer;
-    this.type = "web3";
-    this.hwType = "web3";
+    this.type = 'web3';
+    this.hwType = 'web3';
 };
 // subclass Wallet
 Web3Wallet.super_ = Wallet;
@@ -8393,7 +12064,7 @@ Web3Wallet.prototype.getV3Filename = function (timestamp) {
 
 module.exports = Web3Wallet;
 
-},{"./myetherwallet.js":39}],73:[function(require,module,exports){
+},{"./myetherwallet.js":49}],83:[function(require,module,exports){
 'use strict';
 
 /**
@@ -12488,13 +16159,13 @@ module.exports = Web3Wallet;
   }).info({ angularVersion: '1.6.9' }).directive('ngAnimateSwap', ngAnimateSwapDirective).directive('ngAnimateChildren', $$AnimateChildrenDirective).factory('$$rAFScheduler', $$rAFSchedulerFactory).provider('$$animateQueue', $$AnimateQueueProvider).provider('$$animation', $$AnimationProvider).provider('$animateCss', $AnimateCssProvider).provider('$$animateCssDriver', $$AnimateCssDriverProvider).provider('$$animateJs', $$AnimateJsProvider).provider('$$animateJsDriver', $$AnimateJsDriverProvider);
 })(window, window.angular);
 
-},{}],74:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 'use strict';
 
 require('./angular-animate');
 module.exports = 'ngAnimate';
 
-},{"./angular-animate":73}],75:[function(require,module,exports){
+},{"./angular-animate":83}],85:[function(require,module,exports){
 'use strict';
 
 /**
@@ -13253,13 +16924,13 @@ module.exports = 'ngAnimate';
   }]);
 })(window, window.angular);
 
-},{}],76:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 'use strict';
 
 require('./angular-sanitize');
 module.exports = 'ngSanitize';
 
-},{"./angular-sanitize":75}],77:[function(require,module,exports){
+},{"./angular-sanitize":85}],87:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -13314,7 +16985,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   return 'pascalprecht.translate';
 });
 
-},{}],78:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -17082,7 +20753,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   return 'pascalprecht.translate';
 });
 
-},{}],79:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -50812,13 +54483,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
-},{}],80:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 'use strict';
 
 require('./angular');
 module.exports = angular;
 
-},{"./angular":79}],81:[function(require,module,exports){
+},{"./angular":89}],91:[function(require,module,exports){
 'use strict';
 
 var asn1 = exports;
@@ -50831,7 +54502,7 @@ asn1.constants = require('./asn1/constants');
 asn1.decoders = require('./asn1/decoders');
 asn1.encoders = require('./asn1/encoders');
 
-},{"./asn1/api":82,"./asn1/base":84,"./asn1/constants":88,"./asn1/decoders":90,"./asn1/encoders":93,"bn.js":108}],82:[function(require,module,exports){
+},{"./asn1/api":92,"./asn1/base":94,"./asn1/constants":98,"./asn1/decoders":100,"./asn1/encoders":103,"bn.js":118}],92:[function(require,module,exports){
 'use strict';
 
 var asn1 = require('../asn1');
@@ -50890,7 +54561,7 @@ Entity.prototype.encode = function encode(data, enc, /* internal */reporter) {
   return this._getEncoder(enc).encode(data, reporter);
 };
 
-},{"../asn1":81,"inherits":238,"vm":322}],83:[function(require,module,exports){
+},{"../asn1":91,"inherits":250,"vm":335}],93:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -50998,7 +54669,7 @@ EncoderBuffer.prototype.join = function join(out, offset) {
   return out;
 };
 
-},{"../base":84,"buffer":141,"inherits":238}],84:[function(require,module,exports){
+},{"../base":94,"buffer":151,"inherits":250}],94:[function(require,module,exports){
 'use strict';
 
 var base = exports;
@@ -51008,7 +54679,7 @@ base.DecoderBuffer = require('./buffer').DecoderBuffer;
 base.EncoderBuffer = require('./buffer').EncoderBuffer;
 base.Node = require('./node');
 
-},{"./buffer":83,"./node":85,"./reporter":86}],85:[function(require,module,exports){
+},{"./buffer":93,"./node":95,"./reporter":96}],95:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -51537,7 +55208,7 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
   );
 };
 
-},{"../base":84,"minimalistic-assert":254}],86:[function(require,module,exports){
+},{"../base":94,"minimalistic-assert":266}],96:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -51657,7 +55328,7 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
   return this;
 };
 
-},{"inherits":238}],87:[function(require,module,exports){
+},{"inherits":250}],97:[function(require,module,exports){
 'use strict';
 
 var constants = require('../constants');
@@ -51703,7 +55374,7 @@ exports.tag = {
 };
 exports.tagByName = constants._reverse(exports.tag);
 
-},{"../constants":88}],88:[function(require,module,exports){
+},{"../constants":98}],98:[function(require,module,exports){
 'use strict';
 
 var constants = exports;
@@ -51725,7 +55396,7 @@ constants._reverse = function reverse(map) {
 
 constants.der = require('./der');
 
-},{"./der":87}],89:[function(require,module,exports){
+},{"./der":97}],99:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -52003,7 +55674,7 @@ function derDecodeLen(buf, primitive, fail) {
   return len;
 }
 
-},{"../../asn1":81,"inherits":238}],90:[function(require,module,exports){
+},{"../../asn1":91,"inherits":250}],100:[function(require,module,exports){
 'use strict';
 
 var decoders = exports;
@@ -52011,7 +55682,7 @@ var decoders = exports;
 decoders.der = require('./der');
 decoders.pem = require('./pem');
 
-},{"./der":89,"./pem":91}],91:[function(require,module,exports){
+},{"./der":99,"./pem":101}],101:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -52059,7 +55730,7 @@ PEMDecoder.prototype.decode = function decode(data, options) {
   return DERDecoder.prototype.decode.call(this, input, options);
 };
 
-},{"./der":89,"buffer":141,"inherits":238}],92:[function(require,module,exports){
+},{"./der":99,"buffer":151,"inherits":250}],102:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -52304,7 +55975,7 @@ function encodeTag(tag, primitive, cls, reporter) {
   return res;
 }
 
-},{"../../asn1":81,"buffer":141,"inherits":238}],93:[function(require,module,exports){
+},{"../../asn1":91,"buffer":151,"inherits":250}],103:[function(require,module,exports){
 'use strict';
 
 var encoders = exports;
@@ -52312,7 +55983,7 @@ var encoders = exports;
 encoders.der = require('./der');
 encoders.pem = require('./pem');
 
-},{"./der":92,"./pem":94}],94:[function(require,module,exports){
+},{"./der":102,"./pem":104}],104:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -52337,7 +56008,7 @@ PEMEncoder.prototype.encode = function encode(data, options) {
   return out.join('\n');
 };
 
-},{"./der":92,"inherits":238}],95:[function(require,module,exports){
+},{"./der":102,"inherits":250}],105:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -52812,7 +56483,7 @@ var objectKeys = Object.keys || function (obj) {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"util/":316}],96:[function(require,module,exports){
+},{"util/":329}],106:[function(require,module,exports){
 'use strict';
 
 exports.byteLength = byteLength;
@@ -52928,7 +56599,7 @@ function fromByteArray(uint8) {
   return parts.join('');
 }
 
-},{}],97:[function(require,module,exports){
+},{}],107:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -55659,7 +59330,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
 })(undefined);
 
-},{}],98:[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -55817,7 +59488,7 @@ module.exports = {
   }
 };
 
-},{"./wordlists/chinese_simplified.json":99,"./wordlists/chinese_traditional.json":100,"./wordlists/english.json":101,"./wordlists/french.json":102,"./wordlists/italian.json":103,"./wordlists/japanese.json":104,"./wordlists/korean.json":105,"./wordlists/spanish.json":106,"create-hash":146,"pbkdf2":261,"randombytes":274,"safe-buffer":291,"unorm":311}],99:[function(require,module,exports){
+},{"./wordlists/chinese_simplified.json":109,"./wordlists/chinese_traditional.json":110,"./wordlists/english.json":111,"./wordlists/french.json":112,"./wordlists/italian.json":113,"./wordlists/japanese.json":114,"./wordlists/korean.json":115,"./wordlists/spanish.json":116,"create-hash":156,"pbkdf2":273,"randombytes":287,"safe-buffer":304,"unorm":324}],109:[function(require,module,exports){
 module.exports=[
   "的",
   "一",
@@ -57869,7 +61540,7 @@ module.exports=[
   "歇"
 ]
 
-},{}],100:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 module.exports=[
   "的",
   "一",
@@ -59921,7 +63592,7 @@ module.exports=[
   "歇"
 ]
 
-},{}],101:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 module.exports=[
   "abandon",
   "ability",
@@ -61973,7 +65644,7 @@ module.exports=[
   "zoo"
 ]
 
-},{}],102:[function(require,module,exports){
+},{}],112:[function(require,module,exports){
 module.exports=[
   "abaisser",
   "abandon",
@@ -64025,7 +67696,7 @@ module.exports=[
   "zoologie"
 ]
 
-},{}],103:[function(require,module,exports){
+},{}],113:[function(require,module,exports){
 module.exports=[
   "abaco",
   "abbaglio",
@@ -66077,7 +69748,7 @@ module.exports=[
   "zuppa"
 ]
 
-},{}],104:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 module.exports=[
   "あいこくしん",
   "あいさつ",
@@ -68129,7 +71800,7 @@ module.exports=[
   "われる"
 ]
 
-},{}],105:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
 module.exports=[
   "가격",
   "가끔",
@@ -70181,7 +73852,7 @@ module.exports=[
   "힘껏"
 ]
 
-},{}],106:[function(require,module,exports){
+},{}],116:[function(require,module,exports){
 module.exports=[
   "ábaco",
   "abdomen",
@@ -72233,7 +75904,7 @@ module.exports=[
   "zurdo"
 ]
 
-},{}],107:[function(require,module,exports){
+},{}],117:[function(require,module,exports){
 'use strict';
 
 // Reference https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
@@ -72350,7 +76021,7 @@ module.exports = {
   encode: encode
 };
 
-},{"safe-buffer":291}],108:[function(require,module,exports){
+},{"safe-buffer":304}],118:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -75715,7 +79386,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   };
 })(typeof module === 'undefined' || module, undefined);
 
-},{"buffer":110}],109:[function(require,module,exports){
+},{"buffer":120}],119:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -75782,10 +79453,10 @@ if ((typeof self === 'undefined' ? 'undefined' : _typeof(self)) === 'object') {
   } catch (e) {}
 }
 
-},{"crypto":110}],110:[function(require,module,exports){
+},{"crypto":120}],120:[function(require,module,exports){
 "use strict";
 
-},{}],111:[function(require,module,exports){
+},{}],121:[function(require,module,exports){
 'use strict';
 
 // based on the aes implimentation in triple sec
@@ -76005,7 +79676,7 @@ AES.prototype.scrub = function () {
 
 module.exports.AES = AES;
 
-},{"safe-buffer":291}],112:[function(require,module,exports){
+},{"safe-buffer":304}],122:[function(require,module,exports){
 'use strict';
 
 var aes = require('./aes');
@@ -76126,7 +79797,7 @@ StreamCipher.prototype.setAAD = function setAAD(buf) {
 
 module.exports = StreamCipher;
 
-},{"./aes":111,"./ghash":116,"./incr32":117,"buffer-xor":140,"cipher-base":142,"inherits":238,"safe-buffer":291}],113:[function(require,module,exports){
+},{"./aes":121,"./ghash":126,"./incr32":127,"buffer-xor":150,"cipher-base":152,"inherits":250,"safe-buffer":304}],123:[function(require,module,exports){
 'use strict';
 
 var ciphers = require('./encrypter');
@@ -76143,7 +79814,7 @@ exports.createDecipher = exports.Decipher = deciphers.createDecipher;
 exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv;
 exports.listCiphers = exports.getCiphers = getCiphers;
 
-},{"./decrypter":114,"./encrypter":115,"./modes/list.json":125}],114:[function(require,module,exports){
+},{"./decrypter":124,"./encrypter":125,"./modes/list.json":135}],124:[function(require,module,exports){
 'use strict';
 
 var AuthCipher = require('./authCipher');
@@ -76268,7 +79939,7 @@ function createDecipher(suite, password) {
 exports.createDecipher = createDecipher;
 exports.createDecipheriv = createDecipheriv;
 
-},{"./aes":111,"./authCipher":112,"./modes":124,"./streamCipher":127,"cipher-base":142,"evp_bytestokey":220,"inherits":238,"safe-buffer":291}],115:[function(require,module,exports){
+},{"./aes":121,"./authCipher":122,"./modes":134,"./streamCipher":137,"cipher-base":152,"evp_bytestokey":230,"inherits":250,"safe-buffer":304}],125:[function(require,module,exports){
 'use strict';
 
 var MODES = require('./modes');
@@ -76386,7 +80057,7 @@ function createCipher(suite, password) {
 exports.createCipheriv = createCipheriv;
 exports.createCipher = createCipher;
 
-},{"./aes":111,"./authCipher":112,"./modes":124,"./streamCipher":127,"cipher-base":142,"evp_bytestokey":220,"inherits":238,"safe-buffer":291}],116:[function(require,module,exports){
+},{"./aes":121,"./authCipher":122,"./modes":134,"./streamCipher":137,"cipher-base":152,"evp_bytestokey":230,"inherits":250,"safe-buffer":304}],126:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -76474,7 +80145,7 @@ GHASH.prototype.final = function (abl, bl) {
 
 module.exports = GHASH;
 
-},{"safe-buffer":291}],117:[function(require,module,exports){
+},{"safe-buffer":304}],127:[function(require,module,exports){
 "use strict";
 
 function incr32(iv) {
@@ -76493,7 +80164,7 @@ function incr32(iv) {
 }
 module.exports = incr32;
 
-},{}],118:[function(require,module,exports){
+},{}],128:[function(require,module,exports){
 'use strict';
 
 var xor = require('buffer-xor');
@@ -76514,7 +80185,7 @@ exports.decrypt = function (self, block) {
   return xor(out, pad);
 };
 
-},{"buffer-xor":140}],119:[function(require,module,exports){
+},{"buffer-xor":150}],129:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -76551,7 +80222,7 @@ exports.encrypt = function (self, data, decrypt) {
   return out;
 };
 
-},{"buffer-xor":140,"safe-buffer":291}],120:[function(require,module,exports){
+},{"buffer-xor":150,"safe-buffer":304}],130:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -76597,7 +80268,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out;
 };
 
-},{"safe-buffer":291}],121:[function(require,module,exports){
+},{"safe-buffer":304}],131:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -76623,7 +80294,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out;
 };
 
-},{"safe-buffer":291}],122:[function(require,module,exports){
+},{"safe-buffer":304}],132:[function(require,module,exports){
 'use strict';
 
 var xor = require('buffer-xor');
@@ -76654,7 +80325,7 @@ exports.encrypt = function (self, chunk) {
   return xor(chunk, pad);
 };
 
-},{"../incr32":117,"buffer-xor":140,"safe-buffer":291}],123:[function(require,module,exports){
+},{"../incr32":127,"buffer-xor":150,"safe-buffer":304}],133:[function(require,module,exports){
 "use strict";
 
 exports.encrypt = function (self, block) {
@@ -76665,7 +80336,7 @@ exports.decrypt = function (self, block) {
   return self._cipher.decryptBlock(block);
 };
 
-},{}],124:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
 'use strict';
 
 var modeModules = {
@@ -76687,7 +80358,7 @@ for (var key in modes) {
 
 module.exports = modes;
 
-},{"./cbc":118,"./cfb":119,"./cfb1":120,"./cfb8":121,"./ctr":122,"./ecb":123,"./list.json":125,"./ofb":126}],125:[function(require,module,exports){
+},{"./cbc":128,"./cfb":129,"./cfb1":130,"./cfb8":131,"./ctr":132,"./ecb":133,"./list.json":135,"./ofb":136}],135:[function(require,module,exports){
 module.exports={
   "aes-128-ecb": {
     "cipher": "AES",
@@ -76880,7 +80551,7 @@ module.exports={
   }
 }
 
-},{}],126:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -76902,7 +80573,7 @@ exports.encrypt = function (self, chunk) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"buffer-xor":140}],127:[function(require,module,exports){
+},{"buffer":151,"buffer-xor":150}],137:[function(require,module,exports){
 'use strict';
 
 var aes = require('./aes');
@@ -76933,7 +80604,7 @@ StreamCipher.prototype._final = function () {
 
 module.exports = StreamCipher;
 
-},{"./aes":111,"cipher-base":142,"inherits":238,"safe-buffer":291}],128:[function(require,module,exports){
+},{"./aes":121,"cipher-base":152,"inherits":250,"safe-buffer":304}],138:[function(require,module,exports){
 'use strict';
 
 var ebtk = require('evp_bytestokey');
@@ -77010,7 +80681,7 @@ function getCiphers() {
 }
 exports.listCiphers = exports.getCiphers = getCiphers;
 
-},{"browserify-aes/browser":113,"browserify-aes/modes":124,"browserify-des":129,"browserify-des/modes":130,"evp_bytestokey":220}],129:[function(require,module,exports){
+},{"browserify-aes/browser":123,"browserify-aes/modes":134,"browserify-des":139,"browserify-des/modes":140,"evp_bytestokey":230}],139:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -77059,7 +80730,7 @@ DES.prototype._final = function () {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"cipher-base":142,"des.js":186,"inherits":238}],130:[function(require,module,exports){
+},{"buffer":151,"cipher-base":152,"des.js":196,"inherits":250}],140:[function(require,module,exports){
 'use strict';
 
 exports['des-ecb'] = {
@@ -77087,7 +80758,7 @@ exports['des-ede'] = {
   iv: 0
 };
 
-},{}],131:[function(require,module,exports){
+},{}],141:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -77132,7 +80803,7 @@ function getr(priv) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":108,"buffer":141,"randombytes":274}],132:[function(require,module,exports){
+},{"bn.js":118,"buffer":151,"randombytes":287}],142:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -77161,12 +80832,12 @@ module.exports = {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"js-sha3":242}],133:[function(require,module,exports){
+},{"buffer":151,"js-sha3":254}],143:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./browser/algorithms.json');
 
-},{"./browser/algorithms.json":134}],134:[function(require,module,exports){
+},{"./browser/algorithms.json":144}],144:[function(require,module,exports){
 module.exports={
   "sha224WithRSAEncryption": {
     "sign": "rsa",
@@ -77320,7 +80991,7 @@ module.exports={
   }
 }
 
-},{}],135:[function(require,module,exports){
+},{}],145:[function(require,module,exports){
 module.exports={
   "1.3.132.0.10": "secp256k1",
   "1.3.132.0.33": "p224",
@@ -77330,7 +81001,7 @@ module.exports={
   "1.3.132.0.35": "p521"
 }
 
-},{}],136:[function(require,module,exports){
+},{}],146:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -77427,7 +81098,7 @@ module.exports = {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"./algorithms.json":134,"./sign":137,"./verify":138,"buffer":141,"create-hash":146,"inherits":238,"stream":307}],137:[function(require,module,exports){
+},{"./algorithms.json":144,"./sign":147,"./verify":148,"buffer":151,"create-hash":156,"inherits":250,"stream":320}],147:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -77579,7 +81250,7 @@ module.exports.getKey = getKey;
 module.exports.makeKey = makeKey;
 
 }).call(this,require("buffer").Buffer)
-},{"./curves.json":135,"bn.js":108,"browserify-rsa":131,"buffer":141,"create-hmac":149,"elliptic":199,"parse-asn1":260}],138:[function(require,module,exports){
+},{"./curves.json":145,"bn.js":118,"browserify-rsa":141,"buffer":151,"create-hmac":159,"elliptic":209,"parse-asn1":272}],148:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -77664,7 +81335,7 @@ function checkValue(b, q) {
 module.exports = verify;
 
 }).call(this,require("buffer").Buffer)
-},{"./curves.json":135,"bn.js":108,"buffer":141,"elliptic":199,"parse-asn1":260}],139:[function(require,module,exports){
+},{"./curves.json":145,"bn.js":118,"buffer":151,"elliptic":209,"parse-asn1":272}],149:[function(require,module,exports){
 'use strict';
 
 // Base58 encoding/decoding
@@ -77758,7 +81429,7 @@ module.exports = {
   decode: decode
 };
 
-},{}],140:[function(require,module,exports){
+},{}],150:[function(require,module,exports){
 (function (Buffer){
 "use strict";
 
@@ -77774,7 +81445,7 @@ module.exports = function xor(a, b) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141}],141:[function(require,module,exports){
+},{"buffer":151}],151:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -79440,7 +83111,7 @@ function numberIsNaN(obj) {
   return obj !== obj; // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":96,"ieee754":236}],142:[function(require,module,exports){
+},{"base64-js":106,"ieee754":248}],152:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -79543,7 +83214,7 @@ CipherBase.prototype._toString = function (value, enc, fin) {
 
 module.exports = CipherBase;
 
-},{"inherits":238,"safe-buffer":291,"stream":307,"string_decoder":309}],143:[function(require,module,exports){
+},{"inherits":250,"safe-buffer":304,"stream":320,"string_decoder":322}],153:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -79642,7 +83313,7 @@ module.exports = {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"bs58":139,"buffer":141,"create-hash":146}],144:[function(require,module,exports){
+},{"bs58":149,"buffer":151,"create-hash":156}],154:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -79753,7 +83424,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":239}],145:[function(require,module,exports){
+},{"../../is-buffer/index.js":251}],155:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -79881,7 +83552,7 @@ function formatReturnValue(bn, enc, len) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":108,"buffer":141,"elliptic":199}],146:[function(require,module,exports){
+},{"bn.js":118,"buffer":151,"elliptic":209}],156:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -79938,7 +83609,7 @@ module.exports = function createHash(alg) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"./md5":148,"buffer":141,"cipher-base":142,"inherits":238,"ripemd160":289,"sha.js":300}],147:[function(require,module,exports){
+},{"./md5":158,"buffer":151,"cipher-base":152,"inherits":250,"ripemd160":302,"sha.js":313}],157:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -79973,7 +83644,7 @@ module.exports = function hash(buf, fn) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141}],148:[function(require,module,exports){
+},{"buffer":151}],158:[function(require,module,exports){
 'use strict';
 /*
  * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
@@ -80126,7 +83797,7 @@ module.exports = function md5(buf) {
   return makeHash(buf, core_md5);
 };
 
-},{"./make-hash":147}],149:[function(require,module,exports){
+},{"./make-hash":157}],159:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -80191,7 +83862,7 @@ module.exports = function createHmac(alg, key) {
   return new Hmac(alg, key);
 };
 
-},{"./legacy":150,"cipher-base":142,"create-hash/md5":148,"inherits":238,"ripemd160":289,"safe-buffer":291,"sha.js":300}],150:[function(require,module,exports){
+},{"./legacy":160,"cipher-base":152,"create-hash/md5":158,"inherits":250,"ripemd160":302,"safe-buffer":304,"sha.js":313}],160:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -80240,7 +83911,7 @@ Hmac.prototype._final = function () {
 };
 module.exports = Hmac;
 
-},{"cipher-base":142,"inherits":238,"safe-buffer":291}],151:[function(require,module,exports){
+},{"cipher-base":152,"inherits":250,"safe-buffer":304}],161:[function(require,module,exports){
 'use strict';
 
 exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = require('randombytes');
@@ -80335,7 +84006,7 @@ exports.constants = {
   'POINT_CONVERSION_HYBRID': 6
 };
 
-},{"browserify-cipher":128,"browserify-sign":136,"browserify-sign/algos":133,"create-ecdh":145,"create-hash":146,"create-hmac":149,"diffie-hellman":195,"pbkdf2":261,"public-encrypt":268,"randombytes":274,"randomfill":275}],152:[function(require,module,exports){
+},{"browserify-cipher":138,"browserify-sign":146,"browserify-sign/algos":143,"create-ecdh":155,"create-hash":156,"create-hmac":159,"diffie-hellman":205,"pbkdf2":273,"public-encrypt":280,"randombytes":287,"randomfill":288}],162:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -80568,7 +84239,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.AES;
 });
 
-},{"./cipher-core":153,"./core":154,"./enc-base64":155,"./evpkdf":157,"./md5":162}],153:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164,"./enc-base64":165,"./evpkdf":167,"./md5":172}],163:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -81445,7 +85116,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	}();
 });
 
-},{"./core":154}],154:[function(require,module,exports){
+},{"./core":164}],164:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82205,7 +85876,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS;
 });
 
-},{}],155:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82341,7 +86012,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.enc.Base64;
 });
 
-},{"./core":154}],156:[function(require,module,exports){
+},{"./core":164}],166:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82492,7 +86163,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.enc.Utf16;
 });
 
-},{"./core":154}],157:[function(require,module,exports){
+},{"./core":164}],167:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82626,7 +86297,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.EvpKDF;
 });
 
-},{"./core":154,"./hmac":159,"./sha1":178}],158:[function(require,module,exports){
+},{"./core":164,"./hmac":169,"./sha1":188}],168:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82694,7 +86365,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.format.Hex;
 });
 
-},{"./cipher-core":153,"./core":154}],159:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],169:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82839,7 +86510,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	})();
 });
 
-},{"./core":154}],160:[function(require,module,exports){
+},{"./core":164}],170:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82860,7 +86531,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS;
 });
 
-},{"./aes":152,"./cipher-core":153,"./core":154,"./enc-base64":155,"./enc-utf16":156,"./evpkdf":157,"./format-hex":158,"./hmac":159,"./lib-typedarrays":161,"./md5":162,"./mode-cfb":163,"./mode-ctr":165,"./mode-ctr-gladman":164,"./mode-ecb":166,"./mode-ofb":167,"./pad-ansix923":168,"./pad-iso10126":169,"./pad-iso97971":170,"./pad-nopadding":171,"./pad-zeropadding":172,"./pbkdf2":173,"./rabbit":175,"./rabbit-legacy":174,"./rc4":176,"./ripemd160":177,"./sha1":178,"./sha224":179,"./sha256":180,"./sha3":181,"./sha384":182,"./sha512":183,"./tripledes":184,"./x64-core":185}],161:[function(require,module,exports){
+},{"./aes":162,"./cipher-core":163,"./core":164,"./enc-base64":165,"./enc-utf16":166,"./evpkdf":167,"./format-hex":168,"./hmac":169,"./lib-typedarrays":171,"./md5":172,"./mode-cfb":173,"./mode-ctr":175,"./mode-ctr-gladman":174,"./mode-ecb":176,"./mode-ofb":177,"./pad-ansix923":178,"./pad-iso10126":179,"./pad-iso97971":180,"./pad-nopadding":181,"./pad-zeropadding":182,"./pbkdf2":183,"./rabbit":185,"./rabbit-legacy":184,"./rc4":186,"./ripemd160":187,"./sha1":188,"./sha224":189,"./sha256":190,"./sha3":191,"./sha384":192,"./sha512":193,"./tripledes":194,"./x64-core":195}],171:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82929,7 +86600,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.lib.WordArray;
 });
 
-},{"./core":154}],162:[function(require,module,exports){
+},{"./core":164}],172:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83186,7 +86857,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.MD5;
 });
 
-},{"./core":154}],163:[function(require,module,exports){
+},{"./core":164}],173:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83266,7 +86937,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.mode.CFB;
 });
 
-},{"./cipher-core":153,"./core":154}],164:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],174:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83370,7 +87041,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.mode.CTRGladman;
 });
 
-},{"./cipher-core":153,"./core":154}],165:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],175:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83430,7 +87101,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.mode.CTR;
 });
 
-},{"./cipher-core":153,"./core":154}],166:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],176:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83472,7 +87143,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.mode.ECB;
 });
 
-},{"./cipher-core":153,"./core":154}],167:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],177:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83528,7 +87199,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.mode.OFB;
 });
 
-},{"./cipher-core":153,"./core":154}],168:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],178:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83579,7 +87250,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.pad.Ansix923;
 });
 
-},{"./cipher-core":153,"./core":154}],169:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],179:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83624,7 +87295,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.pad.Iso10126;
 });
 
-},{"./cipher-core":153,"./core":154}],170:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],180:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83666,7 +87337,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.pad.Iso97971;
 });
 
-},{"./cipher-core":153,"./core":154}],171:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],181:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83696,7 +87367,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.pad.NoPadding;
 });
 
-},{"./cipher-core":153,"./core":154}],172:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],182:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83743,7 +87414,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.pad.ZeroPadding;
 });
 
-},{"./cipher-core":153,"./core":154}],173:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164}],183:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -83890,7 +87561,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.PBKDF2;
 });
 
-},{"./core":154,"./hmac":159,"./sha1":178}],174:[function(require,module,exports){
+},{"./core":164,"./hmac":169,"./sha1":188}],184:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -84071,7 +87742,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.RabbitLegacy;
 });
 
-},{"./cipher-core":153,"./core":154,"./enc-base64":155,"./evpkdf":157,"./md5":162}],175:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164,"./enc-base64":165,"./evpkdf":167,"./md5":172}],185:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -84253,7 +87924,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.Rabbit;
 });
 
-},{"./cipher-core":153,"./core":154,"./enc-base64":155,"./evpkdf":157,"./md5":162}],176:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164,"./enc-base64":165,"./evpkdf":167,"./md5":172}],186:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -84394,7 +88065,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.RC4;
 });
 
-},{"./cipher-core":153,"./core":154,"./enc-base64":155,"./evpkdf":157,"./md5":162}],177:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164,"./enc-base64":165,"./evpkdf":167,"./md5":172}],187:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -84631,7 +88302,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.RIPEMD160;
 });
 
-},{"./core":154}],178:[function(require,module,exports){
+},{"./core":164}],188:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -84779,7 +88450,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.SHA1;
 });
 
-},{"./core":154}],179:[function(require,module,exports){
+},{"./core":164}],189:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -84858,7 +88529,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.SHA224;
 });
 
-},{"./core":154,"./sha256":180}],180:[function(require,module,exports){
+},{"./core":164,"./sha256":190}],190:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -85055,7 +88726,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.SHA256;
 });
 
-},{"./core":154}],181:[function(require,module,exports){
+},{"./core":164}],191:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -85370,7 +89041,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.SHA3;
 });
 
-},{"./core":154,"./x64-core":185}],182:[function(require,module,exports){
+},{"./core":164,"./x64-core":195}],192:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -85450,7 +89121,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.SHA384;
 });
 
-},{"./core":154,"./sha512":183,"./x64-core":185}],183:[function(require,module,exports){
+},{"./core":164,"./sha512":193,"./x64-core":195}],193:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -85729,7 +89400,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.SHA512;
 });
 
-},{"./core":154,"./x64-core":185}],184:[function(require,module,exports){
+},{"./core":164,"./x64-core":195}],194:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -86472,7 +90143,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS.TripleDES;
 });
 
-},{"./cipher-core":153,"./core":154,"./enc-base64":155,"./evpkdf":157,"./md5":162}],185:[function(require,module,exports){
+},{"./cipher-core":163,"./core":164,"./enc-base64":165,"./evpkdf":167,"./md5":172}],195:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -86778,7 +90449,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	return CryptoJS;
 });
 
-},{"./core":154}],186:[function(require,module,exports){
+},{"./core":164}],196:[function(require,module,exports){
 'use strict';
 
 exports.utils = require('./des/utils');
@@ -86787,7 +90458,7 @@ exports.DES = require('./des/des');
 exports.CBC = require('./des/cbc');
 exports.EDE = require('./des/ede');
 
-},{"./des/cbc":187,"./des/cipher":188,"./des/des":189,"./des/ede":190,"./des/utils":191}],187:[function(require,module,exports){
+},{"./des/cbc":197,"./des/cipher":198,"./des/des":199,"./des/ede":200,"./des/utils":201}],197:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -86855,7 +90526,7 @@ proto._update = function _update(inp, inOff, out, outOff) {
   }
 };
 
-},{"inherits":238,"minimalistic-assert":254}],188:[function(require,module,exports){
+},{"inherits":250,"minimalistic-assert":266}],198:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -86982,7 +90653,7 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
   return this._unpad(out);
 };
 
-},{"minimalistic-assert":254}],189:[function(require,module,exports){
+},{"minimalistic-assert":266}],199:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -87119,7 +90790,7 @@ DES.prototype._decrypt = function _decrypt(state, lStart, rStart, out, off) {
   utils.rip(l, r, out, off);
 };
 
-},{"../des":186,"inherits":238,"minimalistic-assert":254}],190:[function(require,module,exports){
+},{"../des":196,"inherits":250,"minimalistic-assert":266}],200:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -87168,7 +90839,7 @@ EDE.prototype._update = function _update(inp, inOff, out, outOff) {
 EDE.prototype._pad = DES.prototype._pad;
 EDE.prototype._unpad = DES.prototype._unpad;
 
-},{"../des":186,"inherits":238,"minimalistic-assert":254}],191:[function(require,module,exports){
+},{"../des":196,"inherits":250,"minimalistic-assert":266}],201:[function(require,module,exports){
 'use strict';
 
 exports.readUInt32BE = function readUInt32BE(bytes, off) {
@@ -87374,7 +91045,7 @@ exports.padSplit = function padSplit(num, size, group) {
   }return out.join(' ');
 };
 
-},{}],192:[function(require,module,exports){
+},{}],202:[function(require,module,exports){
 'use strict';
 
 var detectBrowser = require('./lib/detectBrowser');
@@ -87387,7 +91058,7 @@ if (typeof navigator !== 'undefined' && navigator) {
 
 module.exports = detectBrowser(agent);
 
-},{"./lib/detectBrowser":193}],193:[function(require,module,exports){
+},{"./lib/detectBrowser":203}],203:[function(require,module,exports){
 'use strict';
 
 var detectOS = require('./detectOS.js');
@@ -87415,7 +91086,7 @@ module.exports = function detectBrowser(userAgentString) {
     }).filter(Boolean).shift();
 };
 
-},{"./detectOS.js":194}],194:[function(require,module,exports){
+},{"./detectOS.js":204}],204:[function(require,module,exports){
 'use strict';
 
 module.exports = function detectOS(userAgentString) {
@@ -87505,7 +91176,7 @@ module.exports = function detectOS(userAgentString) {
   return detected && detected[0] ? detected[0].name : null;
 };
 
-},{}],195:[function(require,module,exports){
+},{}],205:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -87553,7 +91224,7 @@ exports.DiffieHellmanGroup = exports.createDiffieHellmanGroup = exports.getDiffi
 exports.createDiffieHellman = exports.DiffieHellman = createDiffieHellman;
 
 }).call(this,require("buffer").Buffer)
-},{"./lib/dh":196,"./lib/generatePrime":197,"./lib/primes.json":198,"buffer":141}],196:[function(require,module,exports){
+},{"./lib/dh":206,"./lib/generatePrime":207,"./lib/primes.json":208,"buffer":151}],206:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -87720,7 +91391,7 @@ function formatReturnValue(bn, enc) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./generatePrime":197,"bn.js":108,"buffer":141,"miller-rabin":253,"randombytes":274}],197:[function(require,module,exports){
+},{"./generatePrime":207,"bn.js":118,"buffer":151,"miller-rabin":265,"randombytes":287}],207:[function(require,module,exports){
 'use strict';
 
 var randomBytes = require('randombytes');
@@ -87821,7 +91492,7 @@ function findPrime(bits, gen) {
   }
 }
 
-},{"bn.js":108,"miller-rabin":253,"randombytes":274}],198:[function(require,module,exports){
+},{"bn.js":118,"miller-rabin":265,"randombytes":287}],208:[function(require,module,exports){
 module.exports={
     "modp1": {
         "gen": "02",
@@ -87856,7 +91527,7 @@ module.exports={
         "prime": "ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c93402849236c3fab4d27c7026c1d4dcb2602646dec9751e763dba37bdf8ff9406ad9e530ee5db382f413001aeb06a53ed9027d831179727b0865a8918da3edbebcf9b14ed44ce6cbaced4bb1bdb7f1447e6cc254b332051512bd7af426fb8f401378cd2bf5983ca01c64b92ecf032ea15d1721d03f482d7ce6e74fef6d55e702f46980c82b5a84031900b1c9e59e7c97fbec7e8f323a97a7e36cc88be0f1d45b7ff585ac54bd407b22b4154aacc8f6d7ebf48e1d814cc5ed20f8037e0a79715eef29be32806a1d58bb7c5da76f550aa3d8a1fbff0eb19ccb1a313d55cda56c9ec2ef29632387fe8d76e3c0468043e8f663f4860ee12bf2d5b0b7474d6e694f91e6dbe115974a3926f12fee5e438777cb6a932df8cd8bec4d073b931ba3bc832b68d9dd300741fa7bf8afc47ed2576f6936ba424663aab639c5ae4f5683423b4742bf1c978238f16cbe39d652de3fdb8befc848ad922222e04a4037c0713eb57a81a23f0c73473fc646cea306b4bcbc8862f8385ddfa9d4b7fa2c087e879683303ed5bdd3a062b3cf5b3a278a66d2a13f83f44f82ddf310ee074ab6a364597e899a0255dc164f31cc50846851df9ab48195ded7ea1b1d510bd7ee74d73faf36bc31ecfa268359046f4eb879f924009438b481c6cd7889a002ed5ee382bc9190da6fc026e479558e4475677e9aa9e3050e2765694dfc81f56e880b96e7160c980dd98edd3dfffffffffffffffff"
     }
 }
-},{}],199:[function(require,module,exports){
+},{}],209:[function(require,module,exports){
 'use strict';
 
 var elliptic = exports;
@@ -87871,7 +91542,7 @@ elliptic.curves = require('./elliptic/curves');
 elliptic.ec = require('./elliptic/ec');
 elliptic.eddsa = require('./elliptic/eddsa');
 
-},{"../package.json":214,"./elliptic/curve":202,"./elliptic/curves":205,"./elliptic/ec":206,"./elliptic/eddsa":209,"./elliptic/utils":213,"brorand":109}],200:[function(require,module,exports){
+},{"../package.json":224,"./elliptic/curve":212,"./elliptic/curves":215,"./elliptic/ec":216,"./elliptic/eddsa":219,"./elliptic/utils":223,"brorand":119}],210:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -88203,7 +91874,7 @@ BasePoint.prototype.dblp = function dblp(k) {
   }return r;
 };
 
-},{"../../elliptic":199,"bn.js":108}],201:[function(require,module,exports){
+},{"../../elliptic":209,"bn.js":118}],211:[function(require,module,exports){
 'use strict';
 
 var curve = require('../curve');
@@ -88591,7 +92262,7 @@ Point.prototype.eqXToP = function eqXToP(x) {
 Point.prototype.toP = Point.prototype.normalize;
 Point.prototype.mixedAdd = Point.prototype.add;
 
-},{"../../elliptic":199,"../curve":202,"bn.js":108,"inherits":238}],202:[function(require,module,exports){
+},{"../../elliptic":209,"../curve":212,"bn.js":118,"inherits":250}],212:[function(require,module,exports){
 'use strict';
 
 var curve = exports;
@@ -88601,7 +92272,7 @@ curve.short = require('./short');
 curve.mont = require('./mont');
 curve.edwards = require('./edwards');
 
-},{"./base":200,"./edwards":201,"./mont":203,"./short":204}],203:[function(require,module,exports){
+},{"./base":210,"./edwards":211,"./mont":213,"./short":214}],213:[function(require,module,exports){
 'use strict';
 
 var curve = require('../curve');
@@ -88778,7 +92449,7 @@ Point.prototype.getX = function getX() {
   return this.x.fromRed();
 };
 
-},{"../../elliptic":199,"../curve":202,"bn.js":108,"inherits":238}],204:[function(require,module,exports){
+},{"../../elliptic":209,"../curve":212,"bn.js":118,"inherits":250}],214:[function(require,module,exports){
 'use strict';
 
 var curve = require('../curve');
@@ -89643,7 +93314,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
   return this.z.cmpn(0) === 0;
 };
 
-},{"../../elliptic":199,"../curve":202,"bn.js":108,"inherits":238}],205:[function(require,module,exports){
+},{"../../elliptic":209,"../curve":212,"bn.js":118,"inherits":250}],215:[function(require,module,exports){
 'use strict';
 
 var curves = exports;
@@ -89801,7 +93472,7 @@ defineCurve('secp256k1', {
   g: ['79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798', '483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', pre]
 });
 
-},{"../elliptic":199,"./precomputed/secp256k1":212,"hash.js":222}],206:[function(require,module,exports){
+},{"../elliptic":209,"./precomputed/secp256k1":222,"hash.js":232}],216:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -90019,7 +93690,7 @@ EC.prototype.getKeyRecoveryParam = function (e, signature, Q, enc) {
   throw new Error('Unable to find valid recovery factor');
 };
 
-},{"../../elliptic":199,"./key":207,"./signature":208,"bn.js":108,"hmac-drbg":235}],207:[function(require,module,exports){
+},{"../../elliptic":209,"./key":217,"./signature":218,"bn.js":118,"hmac-drbg":245}],217:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -90126,7 +93797,7 @@ KeyPair.prototype.inspect = function inspect() {
   return '<Key priv: ' + (this.priv && this.priv.toString(16, 2)) + ' pub: ' + (this.pub && this.pub.inspect()) + ' >';
 };
 
-},{"../../elliptic":199,"bn.js":108}],208:[function(require,module,exports){
+},{"../../elliptic":209,"bn.js":118}],218:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -90256,7 +93927,7 @@ Signature.prototype.toDER = function toDER(enc) {
   return utils.encode(res, enc);
 };
 
-},{"../../elliptic":199,"bn.js":108}],209:[function(require,module,exports){
+},{"../../elliptic":209,"bn.js":118}],219:[function(require,module,exports){
 'use strict';
 
 var hash = require('hash.js');
@@ -90373,7 +94044,7 @@ EDDSA.prototype.isPoint = function isPoint(val) {
   return val instanceof this.pointClass;
 };
 
-},{"../../elliptic":199,"./key":210,"./signature":211,"hash.js":222}],210:[function(require,module,exports){
+},{"../../elliptic":209,"./key":220,"./signature":221,"hash.js":232}],220:[function(require,module,exports){
 'use strict';
 
 var elliptic = require('../../elliptic');
@@ -90465,7 +94136,7 @@ KeyPair.prototype.getPublic = function getPublic(enc) {
 
 module.exports = KeyPair;
 
-},{"../../elliptic":199}],211:[function(require,module,exports){
+},{"../../elliptic":209}],221:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -90532,7 +94203,7 @@ Signature.prototype.toHex = function toHex() {
 
 module.exports = Signature;
 
-},{"../../elliptic":199,"bn.js":108}],212:[function(require,module,exports){
+},{"../../elliptic":209,"bn.js":118}],222:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -90546,7 +94217,7 @@ module.exports = {
   }
 };
 
-},{}],213:[function(require,module,exports){
+},{}],223:[function(require,module,exports){
 'use strict';
 
 var utils = exports;
@@ -90649,7 +94320,7 @@ function intFromLE(bytes) {
 }
 utils.intFromLE = intFromLE;
 
-},{"bn.js":108,"minimalistic-assert":254,"minimalistic-crypto-utils":255}],214:[function(require,module,exports){
+},{"bn.js":118,"minimalistic-assert":266,"minimalistic-crypto-utils":267}],224:[function(require,module,exports){
 module.exports={
   "_args": [
     [
@@ -90742,7 +94413,7 @@ module.exports={
   "version": "6.4.0"
 }
 
-},{}],215:[function(require,module,exports){
+},{}],225:[function(require,module,exports){
 module.exports={
   "genesisGasLimit": {
     "v": 5000,
@@ -90979,7 +94650,7 @@ module.exports={
   }
 }
 
-},{}],216:[function(require,module,exports){
+},{}],226:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -91301,7 +94972,7 @@ var Transaction = function () {
 module.exports = Transaction;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"ethereum-common/params.json":215,"ethereumjs-util":217}],217:[function(require,module,exports){
+},{"buffer":151,"ethereum-common/params.json":225,"ethereumjs-util":227}],227:[function(require,module,exports){
 'use strict';
 
 var _typeof3 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -92007,7 +95678,7 @@ exports.defineProperties = function (self, fields, data) {
   }
 };
 
-},{"assert":95,"bn.js":108,"create-hash":146,"ethjs-util":218,"keccak":244,"rlp":290,"safe-buffer":291,"secp256k1":293}],218:[function(require,module,exports){
+},{"assert":105,"bn.js":118,"create-hash":156,"ethjs-util":228,"keccak":256,"rlp":303,"safe-buffer":304,"secp256k1":306}],228:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -92233,7 +95904,7 @@ module.exports = {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"is-hex-prefixed":240,"strip-hex-prefix":310}],219:[function(require,module,exports){
+},{"buffer":151,"is-hex-prefixed":252,"strip-hex-prefix":323}],229:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -92508,7 +96179,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],220:[function(require,module,exports){
+},{}],230:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -92557,7 +96228,7 @@ function EVP_BytesToKey(password, salt, keyBits, ivLen) {
 
 module.exports = EVP_BytesToKey;
 
-},{"md5.js":251,"safe-buffer":291}],221:[function(require,module,exports){
+},{"md5.js":263,"safe-buffer":304}],231:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -92646,7 +96317,7 @@ HashBase.prototype._digest = function () {
 module.exports = HashBase;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"inherits":238,"stream":307}],222:[function(require,module,exports){
+},{"buffer":151,"inherits":250,"stream":320}],232:[function(require,module,exports){
 'use strict';
 
 var hash = exports;
@@ -92665,7 +96336,7 @@ hash.sha384 = hash.sha.sha384;
 hash.sha512 = hash.sha.sha512;
 hash.ripemd160 = hash.ripemd.ripemd160;
 
-},{"./hash/common":223,"./hash/hmac":224,"./hash/ripemd":225,"./hash/sha":226,"./hash/utils":233}],223:[function(require,module,exports){
+},{"./hash/common":233,"./hash/hmac":234,"./hash/ripemd":235,"./hash/sha":236,"./hash/utils":243}],233:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -92755,7 +96426,7 @@ BlockHash.prototype._pad = function pad() {
   return res;
 };
 
-},{"./utils":233,"minimalistic-assert":254}],224:[function(require,module,exports){
+},{"./utils":243,"minimalistic-assert":266}],234:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -92801,7 +96472,7 @@ Hmac.prototype.digest = function digest(enc) {
   return this.outer.digest(enc);
 };
 
-},{"./utils":233,"minimalistic-assert":254}],225:[function(require,module,exports){
+},{"./utils":243,"minimalistic-assert":266}],235:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -92886,7 +96557,7 @@ var s = [11, 14, 15, 12, 5, 8, 7, 9, 11, 13, 14, 15, 6, 7, 9, 8, 7, 6, 8, 13, 11
 
 var sh = [8, 9, 9, 11, 13, 15, 15, 5, 7, 7, 8, 11, 14, 14, 12, 6, 9, 13, 15, 7, 12, 8, 9, 11, 7, 7, 12, 7, 6, 15, 13, 11, 9, 7, 15, 11, 8, 6, 6, 14, 12, 13, 5, 14, 13, 13, 7, 5, 15, 5, 8, 11, 14, 14, 6, 14, 6, 9, 12, 9, 12, 5, 15, 8, 8, 5, 12, 9, 12, 5, 14, 6, 8, 13, 6, 5, 15, 13, 11, 11];
 
-},{"./common":223,"./utils":233}],226:[function(require,module,exports){
+},{"./common":233,"./utils":243}],236:[function(require,module,exports){
 'use strict';
 
 exports.sha1 = require('./sha/1');
@@ -92895,7 +96566,7 @@ exports.sha256 = require('./sha/256');
 exports.sha384 = require('./sha/384');
 exports.sha512 = require('./sha/512');
 
-},{"./sha/1":227,"./sha/224":228,"./sha/256":229,"./sha/384":230,"./sha/512":231}],227:[function(require,module,exports){
+},{"./sha/1":237,"./sha/224":238,"./sha/256":239,"./sha/384":240,"./sha/512":241}],237:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -92960,7 +96631,7 @@ SHA1.prototype._digest = function digest(enc) {
   if (enc === 'hex') return utils.toHex32(this.h, 'big');else return utils.split32(this.h, 'big');
 };
 
-},{"../common":223,"../utils":233,"./common":232}],228:[function(require,module,exports){
+},{"../common":233,"../utils":243,"./common":242}],238:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -92985,7 +96656,7 @@ SHA224.prototype._digest = function digest(enc) {
   if (enc === 'hex') return utils.toHex32(this.h.slice(0, 7), 'big');else return utils.split32(this.h.slice(0, 7), 'big');
 };
 
-},{"../utils":233,"./256":229}],229:[function(require,module,exports){
+},{"../utils":243,"./256":239}],239:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -93067,7 +96738,7 @@ SHA256.prototype._digest = function digest(enc) {
   if (enc === 'hex') return utils.toHex32(this.h, 'big');else return utils.split32(this.h, 'big');
 };
 
-},{"../common":223,"../utils":233,"./common":232,"minimalistic-assert":254}],230:[function(require,module,exports){
+},{"../common":233,"../utils":243,"./common":242,"minimalistic-assert":266}],240:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -93092,7 +96763,7 @@ SHA384.prototype._digest = function digest(enc) {
   if (enc === 'hex') return utils.toHex32(this.h.slice(0, 12), 'big');else return utils.split32(this.h.slice(0, 12), 'big');
 };
 
-},{"../utils":233,"./512":231}],231:[function(require,module,exports){
+},{"../utils":243,"./512":241}],241:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -93341,7 +97012,7 @@ function g1_512_lo(xh, xl) {
   return r;
 }
 
-},{"../common":223,"../utils":233,"minimalistic-assert":254}],232:[function(require,module,exports){
+},{"../common":233,"../utils":243,"minimalistic-assert":266}],242:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -93389,7 +97060,7 @@ function g1_256(x) {
 }
 exports.g1_256 = g1_256;
 
-},{"../utils":233}],233:[function(require,module,exports){
+},{"../utils":243}],243:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -93615,7 +97286,7 @@ function shr64_lo(ah, al, num) {
 }
 exports.shr64_lo = shr64_lo;
 
-},{"inherits":238,"minimalistic-assert":254}],234:[function(require,module,exports){
+},{"inherits":250,"minimalistic-assert":266}],244:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -93856,7 +97527,7 @@ HDKey.HARDENED_OFFSET = HARDENED_OFFSET;
 module.exports = HDKey;
 
 }).call(this,require("buffer").Buffer)
-},{"assert":95,"buffer":141,"coinstring":143,"crypto":151,"secp256k1":293}],235:[function(require,module,exports){
+},{"assert":105,"buffer":151,"coinstring":153,"crypto":161,"secp256k1":306}],245:[function(require,module,exports){
 'use strict';
 
 var hash = require('hash.js');
@@ -93959,7 +97630,204 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
   return utils.encode(res, enc);
 };
 
-},{"hash.js":222,"minimalistic-assert":254,"minimalistic-crypto-utils":255}],236:[function(require,module,exports){
+},{"hash.js":232,"minimalistic-assert":266,"minimalistic-crypto-utils":267}],246:[function(require,module,exports){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/* This file is generated from the Unicode IDNA table, using
+   the build-unicode-tables.py script. Please edit that
+   script instead of this file. */
+
+/* istanbul ignore next */
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define([], function () {
+      return factory();
+    });
+  } else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') {
+    module.exports = factory();
+  } else {
+    root.uts46_map = factory();
+  }
+})(undefined, function () {
+  var blocks = [new Uint32Array([2157250, 2157314, 2157378, 2157442, 2157506, 2157570, 2157634, 0, 2157698, 2157762, 2157826, 2157890, 2157954, 0, 2158018, 0]), new Uint32Array([2179041, 6291456, 2179073, 6291456, 2179105, 6291456, 2179137, 6291456, 2179169, 6291456, 2179201, 6291456, 2179233, 6291456, 2179265, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 14680064, 14680064, 14680064, 14680064, 14680064]), new Uint32Array([0, 2113729, 2197345, 2197377, 2113825, 2197409, 2197441, 2113921, 2197473, 2114017, 2197505, 2197537, 2197569, 2197601, 2197633, 2197665]), new Uint32Array([6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 23068672, 23068672, 23068672, 0, 0, 0, 0, 23068672]), new Uint32Array([14680064, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 14680064, 14680064]), new Uint32Array([2196001, 2196033, 2196065, 2196097, 2196129, 2196161, 2196193, 2196225, 2196257, 2196289, 2196321, 2196353, 2196385, 2196417, 2196449, 2196481]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 0, 0, 0, 0, 0]), new Uint32Array([2097281, 2105921, 2097729, 2106081, 0, 2097601, 2162337, 2106017, 2133281, 2097505, 2105889, 2097185, 2097697, 2135777, 2097633, 2097441]), new Uint32Array([2177025, 6291456, 2177057, 6291456, 2177089, 6291456, 2177121, 6291456, 2177153, 6291456, 2177185, 6291456, 2177217, 6291456, 2177249, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 0, 6291456, 6291456, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456]), new Uint32Array([0, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 6291456]), new Uint32Array([2134435, 2134531, 2134627, 2134723, 2134723, 2134819, 2134819, 2134915, 2134915, 2135011, 2105987, 2135107, 2135203, 2135299, 2131587, 2135395]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 6291456, 2168673, 2169249, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2147906, 2147970, 2148034, 2148098, 2148162, 2148226, 2148290, 2148354, 2147906, 2147970, 2148034, 2148098, 2148162, 2148226, 2148290, 2148354]), new Uint32Array([2125219, 2125315, 2152834, 2152898, 2125411, 2152962, 2153026, 2125506, 2125507, 2125603, 2153090, 2153154, 2153218, 2153282, 2153346, 2105348]), new Uint32Array([2203393, 6291456, 2203425, 6291456, 2203457, 6291456, 2203489, 6291456, 6291456, 6291456, 6291456, 2203521, 6291456, 2181281, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 23068672, 6291456, 2145538, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 6291456]), new Uint32Array([2139426, 2160834, 2160898, 2160962, 2134242, 2161026, 2161090, 2161154, 2161218, 2161282, 2161346, 2161410, 2138658, 2161474, 2161538, 2134722]), new Uint32Array([2119939, 2124930, 2125026, 2106658, 2125218, 2128962, 2129058, 2129154, 2129250, 2129346, 2129442, 2108866, 2108770, 2150466, 2150530, 2150594]), new Uint32Array([2201601, 6291456, 2201633, 6291456, 2201665, 6291456, 2201697, 6291456, 2201729, 6291456, 2201761, 6291456, 2201793, 6291456, 2201825, 6291456]), new Uint32Array([2193537, 2193569, 2193601, 2193633, 2193665, 2193697, 2193729, 2193761, 2193793, 2193825, 2193857, 2193889, 2193921, 2193953, 2193985, 2194017]), new Uint32Array([6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2190561, 6291456, 2190593, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2190625, 6291456, 2190657, 6291456, 23068672]), new Uint32Array([2215905, 2215937, 2215969, 2216001, 2216033, 2216065, 2216097, 2216129, 2216161, 2216193, 2216225, 2216257, 2105441, 2216289, 2216321, 2216353]), new Uint32Array([23068672, 18884130, 23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2191233, 2191265, 2191297, 2191329, 2191361, 2191393, 2191425, 2117377, 2191457, 2191489, 2191521, 2191553, 2191585, 2191617, 2191649, 2117953]), new Uint32Array([2132227, 2132323, 2132419, 2132419, 2132515, 2132515, 2132611, 2132707, 2132707, 2132803, 2132899, 2132899, 2132995, 2132995, 2133091, 2133187]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 6291456, 0, 0]), new Uint32Array([2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 10609889, 10610785, 10609921, 10610817, 2222241]), new Uint32Array([6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 0, 0]), new Uint32Array([2219969, 2157121, 2157441, 2157505, 2157889, 2157953, 2220001, 2158465, 2158529, 10575617, 2156994, 2157058, 2129923, 2130019, 2157122, 2157186]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0]), new Uint32Array([2185249, 6291456, 2185281, 6291456, 2185313, 6291456, 2185345, 6291456, 2185377, 6291456, 2185409, 6291456, 2185441, 6291456, 2185473, 6291456]), new Uint32Array([0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 23068672, 23068672, 0, 0, 23068672, 23068672, 23068672, 6291456, 0]), new Uint32Array([2183361, 6291456, 2183393, 6291456, 2183425, 6291456, 2183457, 6291456, 2183489, 6291456, 2183521, 6291456, 2183553, 6291456, 2183585, 6291456]), new Uint32Array([2192161, 2192193, 2192225, 2192257, 2192289, 2192321, 2192353, 2192385, 2192417, 2192449, 2192481, 2192513, 2192545, 2192577, 2192609, 2192641]), new Uint32Array([2212001, 2212033, 2212065, 2212097, 2212129, 2212161, 2212193, 2212225, 2212257, 2212289, 2212321, 2212353, 2212385, 2212417, 2212449, 2207265]), new Uint32Array([2249825, 2249857, 2249889, 2249921, 2249954, 2250018, 2250082, 2250145, 2250177, 2250209, 2250241, 2250274, 2250337, 2250370, 2250433, 2250465]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2147905, 2147969, 2148033, 2148097, 2148161, 2148225, 2148289, 2148353]), new Uint32Array([10485857, 6291456, 2197217, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 23068672, 23068672]), new Uint32Array([0, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456]), new Uint32Array([2180353, 2180385, 2144033, 2180417, 2180449, 2180481, 2180513, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 10610209, 10610465, 10610241, 10610753, 10609857]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 0, 0]), new Uint32Array([2223842, 2223906, 2223970, 2224034, 2224098, 2224162, 2224226, 2224290, 2224354, 2224418, 2224482, 2224546, 2224610, 2224674, 2224738, 2224802]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 18923650, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 18923714, 23068672, 23068672]), new Uint32Array([2126179, 2125538, 2126275, 2126371, 2126467, 2125634, 2126563, 2105603, 2105604, 2125346, 2126659, 2126755, 2126851, 2098179, 2098181, 2098182]), new Uint32Array([2227426, 2227490, 2227554, 2227618, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2192353, 2240642, 2240642, 2240705, 2240737, 2240737, 2240769, 2240802, 2240866, 2240929, 2240961, 2240993, 2241025, 2241057, 2241089, 2241121]), new Uint32Array([6291456, 2170881, 2170913, 2170945, 6291456, 2170977, 6291456, 2171009, 2171041, 6291456, 6291456, 6291456, 2171073, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2132226, 2132514, 2163586, 2132610, 2160386, 2133090, 2133186, 2160450, 2160514, 2160578, 2133570, 2106178, 2160642, 2133858, 2160706, 2160770]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 10532162, 10532226, 10532290, 10532354, 10532418, 10532482, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 23068672]), new Uint32Array([2098209, 2108353, 2108193, 2108481, 2170241, 2111713, 2105473, 2105569, 2105601, 2112289, 2112481, 2098305, 2108321, 0, 0, 0]), new Uint32Array([2209121, 2209153, 2209185, 2209217, 2209249, 2209281, 2209313, 2209345, 2209377, 2209409, 2209441, 2209473, 2207265, 2209505, 2209537, 2209569]), new Uint32Array([2189025, 6291456, 2189057, 6291456, 2189089, 6291456, 2189121, 6291456, 2189153, 6291456, 2189185, 6291456, 2189217, 6291456, 2189249, 6291456]), new Uint32Array([2173825, 2153473, 2173857, 2173889, 2173921, 2173953, 2173985, 2173761, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2233057]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2165764, 2140004]), new Uint32Array([2215105, 6291456, 2215137, 6291456, 6291456, 2215169, 2215201, 6291456, 6291456, 6291456, 2215233, 2215265, 2215297, 2215329, 2215361, 2215393]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 6291456, 6291456, 6291456, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([10505091, 10505187, 10505283, 10505379, 10505475, 10505571, 10505667, 10505763, 10505859, 10505955, 10506051, 10506147, 10506243, 10506339, 10506435, 10506531]), new Uint32Array([2229730, 2229794, 2229858, 2229922, 2229986, 2230050, 2230114, 2230178, 2230242, 2230306, 2230370, 2230434, 2230498, 2230562, 2230626, 2230690]), new Uint32Array([2105505, 2098241, 2108353, 2108417, 2105825, 0, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193, 2112481, 2112577, 2098177]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 10502115, 10502178, 10502211, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456]), new Uint32Array([2190305, 6291456, 2190337, 6291456, 2190369, 6291456, 2190401, 6291456, 2190433, 6291456, 2190465, 6291456, 2190497, 6291456, 2190529, 6291456]), new Uint32Array([2173793, 2173985, 2174017, 6291456, 2173761, 2173697, 6291456, 2174689, 6291456, 2174017, 2174721, 6291456, 6291456, 2174753, 2174785, 2174817]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2099521, 2099105, 2120705, 2098369, 2120801, 2103361, 2097985, 2098433, 2121377, 2121473, 2099169, 2099873, 2098401, 2099393, 2152609, 2100033]), new Uint32Array([2132898, 2163842, 2163906, 2133282, 2132034, 2131938, 2137410, 2132802, 2132706, 2164866, 2133282, 2160578, 2165186, 2165186, 6291456, 6291456]), new Uint32Array([10500003, 10500099, 10500195, 10500291, 10500387, 10500483, 10500579, 10500675, 10500771, 10500867, 10500963, 10501059, 10501155, 10501251, 10501347, 10501443]), new Uint32Array([2163458, 2130978, 2131074, 2131266, 2131362, 2163522, 2160130, 2132066, 2131010, 2131106, 2106018, 2131618, 2131298, 2132034, 2131938, 2137410]), new Uint32Array([2212961, 2116993, 2212993, 2213025, 2213057, 2213089, 2213121, 2213153, 2213185, 2213217, 2213249, 2209633, 2213281, 2213313, 2213345, 2213377]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456]), new Uint32Array([2113729, 2113825, 2113921, 2114017, 2114113, 2114209, 2114305, 2114401, 2114497, 2114593, 2114689, 2114785, 2114881, 2114977, 2115073, 2115169]), new Uint32Array([2238177, 2238209, 2238241, 2238273, 2238305, 2238337, 2238337, 2217537, 2238369, 2238401, 2238433, 2238465, 2215649, 2238497, 2238529, 2238561]), new Uint32Array([2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905]), new Uint32Array([6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 0, 0]), new Uint32Array([6291456, 0, 6291456, 2145026, 0, 6291456, 2145090, 0, 6291456, 6291456, 0, 0, 23068672, 0, 23068672, 23068672]), new Uint32Array([2099233, 2122017, 2200673, 2098113, 2121537, 2103201, 2200705, 2104033, 2121857, 2121953, 2122401, 2099649, 2099969, 2123009, 2100129, 2100289]), new Uint32Array([6291456, 23068672, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0]), new Uint32Array([2187681, 2187713, 2187745, 2187777, 2187809, 2187841, 2187873, 2187905, 2187937, 2187969, 2188001, 2188033, 2188065, 2188097, 2188129, 2188161]), new Uint32Array([0, 10554498, 10554562, 10554626, 10554690, 10554754, 10554818, 10554882, 10554946, 10555010, 10555074, 6291456, 6291456, 0, 0, 0]), new Uint32Array([2235170, 2235234, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2181153, 6291456, 2188897, 6291456, 6291456, 2188929, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2111905, 2100865, 2188961, 2188993]), new Uint32Array([2100833, 2100897, 0, 0, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 10575617, 2187041, 10502177, 10489601, 10489697, 2112289]), new Uint32Array([6291456, 2172833, 6291456, 2172865, 2172897, 2172929, 2172961, 6291456, 2172993, 6291456, 2173025, 6291456, 2173057, 6291456, 2173089, 6291456]), new Uint32Array([6291456, 0, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 23068672, 6291456, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 2190721]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456]), new Uint32Array([2184993, 6291456, 2185025, 6291456, 2185057, 6291456, 2185089, 6291456, 2185121, 6291456, 2185153, 6291456, 2185185, 6291456, 2185217, 6291456]), new Uint32Array([2115265, 2115361, 2115457, 2115553, 2115649, 2115745, 2115841, 2115937, 2116033, 2116129, 2116225, 2116321, 2150658, 2150722, 2200225, 6291456]), new Uint32Array([2168321, 6291456, 2168353, 6291456, 2168385, 6291456, 2168417, 6291456, 2168449, 6291456, 2168481, 6291456, 2168513, 6291456, 2168545, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 0, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456, 0, 6291456, 0, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 2186625, 0, 0, 6291456, 6291456, 2186657, 2186689, 2186721, 2173505, 0, 10496067, 10496163, 10496259]), new Uint32Array([2178785, 6291456, 2178817, 6291456, 2178849, 6291456, 2178881, 6291456, 2178913, 6291456, 2178945, 6291456, 2178977, 6291456, 2179009, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0]), new Uint32Array([2097152, 0, 0, 0, 2097152, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 0, 2197857, 2197889, 2197921, 2197953, 2197985, 2198017, 0, 0, 2198049, 2198081, 2198113, 2198145, 2198177, 2198209]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2098209, 2167297, 2111137, 6291456]), new Uint32Array([2171393, 6291456, 2171425, 6291456, 2171457, 6291456, 2171489, 6291456, 2171521, 6291456, 2171553, 6291456, 2171585, 6291456, 2171617, 6291456]), new Uint32Array([2206753, 2206785, 2195457, 2206817, 2206849, 2206881, 2206913, 2197153, 2197153, 2206945, 2117857, 2206977, 2207009, 2207041, 2207073, 2207105]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 23068672, 0, 0, 0, 0, 2144834, 2144898, 0, 2144962]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 23068672]), new Uint32Array([2108193, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 0, 2105505, 2098241]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 2202049, 6291456, 2202081, 6291456, 2202113, 6291456, 2202145, 6291456, 2202177, 6291456, 2202209, 6291456, 2202241, 6291456]), new Uint32Array([10501155, 10501251, 10501347, 10501443, 10501539, 10501635, 10501731, 10501827, 10501923, 10502019, 2141731, 2105505, 2098177, 2155586, 2166530, 0]), new Uint32Array([2102081, 2102209, 2100833, 2100737, 2098337, 2101441, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 2100833, 2100737, 2098337, 2101441]), new Uint32Array([2146882, 2146946, 2147010, 2147074, 2147138, 2147202, 2147266, 2147330, 2146882, 2146946, 2147010, 2147074, 2147138, 2147202, 2147266, 2147330]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0]), new Uint32Array([10502307, 10502403, 10502499, 10502595, 10502691, 10502787, 10502883, 10502979, 10503075, 10503171, 10503267, 10503363, 10503459, 10503555, 10503651, 10503747]), new Uint32Array([2179937, 2179969, 2180001, 2180033, 2156545, 2180065, 2156577, 2180097, 2180129, 2180161, 2180193, 2180225, 2180257, 2180289, 2156737, 2180321]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 0, 0, 0, 6291456, 0, 0, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0]), new Uint32Array([2227682, 2227746, 2227810, 2227874, 2227938, 2228002, 2228066, 2228130, 2228194, 2228258, 2228322, 2228386, 2228450, 2228514, 2228578, 2228642]), new Uint32Array([2105601, 2169121, 2108193, 2170049, 2181025, 2181057, 2112481, 2108321, 2108289, 2181089, 2170497, 2100865, 2181121, 2173601, 2173633, 2173665]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2180641, 6291456, 6291456, 6291456]), new Uint32Array([0, 6291456, 6291456, 6291456, 0, 6291456, 0, 6291456, 0, 0, 6291456, 6291456, 0, 6291456, 6291456, 6291456]), new Uint32Array([2178273, 6291456, 2178305, 6291456, 2178337, 6291456, 2178369, 6291456, 2178401, 6291456, 2178433, 6291456, 2178465, 6291456, 2178497, 6291456]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 23068672, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456]), new Uint32Array([2237377, 2237409, 2236225, 2237441, 2237473, 2217441, 2215521, 2215553, 2217473, 2237505, 2237537, 2209697, 2237569, 2215585, 2237601, 2237633]), new Uint32Array([2221985, 2165601, 2165601, 2165665, 2165665, 2222017, 2222017, 2165729, 2165729, 2158913, 2158913, 2158913, 2158913, 2097281, 2097281, 2105921]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2149634, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2176897, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 2176929, 6291456, 2176961, 6291456, 2176993, 6291456]), new Uint32Array([2172641, 6291456, 2172673, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2172705, 2172737, 6291456, 2172769, 2172801, 6291456]), new Uint32Array([2099173, 2104196, 2121667, 2099395, 2121763, 2152258, 2152322, 2098946, 2152386, 2121859, 2121955, 2099333, 2122051, 2104324, 2099493, 2122147]), new Uint32Array([6291456, 6291456, 6291456, 2145794, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 2145858, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 0, 0, 6291456, 0]), new Uint32Array([0, 2105921, 2097729, 0, 2097377, 0, 0, 2106017, 0, 2097505, 2105889, 2097185, 2097697, 2135777, 2097633, 2097441]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2239074, 2239138, 2239201, 2239233, 2239265, 2239297, 2239329, 2239361, 0, 2239393, 2239425, 2239425, 2239458, 2239521, 2239553, 2209569]), new Uint32Array([14680064, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 6291456, 23068672]), new Uint32Array([2108321, 2108289, 2113153, 2098209, 2180897, 2180929, 2180961, 2111137, 2098241, 2108353, 2170241, 2170273, 2180993, 2105825, 6291456, 2105473]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2146114, 6291456, 6291456, 6291456, 0, 0, 0]), new Uint32Array([2105921, 2105921, 2105921, 2222049, 2222049, 2130977, 2130977, 2130977, 2130977, 2160065, 2160065, 2160065, 2160065, 2097729, 2097729, 2097729]), new Uint32Array([2218145, 2214785, 2207937, 2218177, 2218209, 2192993, 2210113, 2212769, 2218241, 2218273, 2216129, 2218305, 2216161, 2218337, 2218369, 2218401]), new Uint32Array([0, 0, 0, 2156546, 2156610, 2156674, 2156738, 2156802, 0, 0, 0, 0, 0, 2156866, 23068672, 2156930]), new Uint32Array([23068672, 23068672, 23068672, 0, 0, 0, 0, 23068672, 23068672, 0, 0, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([2213409, 2213441, 2213473, 2213505, 2213537, 2213569, 2213601, 2213633, 2213665, 2195681, 2213697, 2213729, 2213761, 2213793, 2213825, 2213857]), new Uint32Array([2100033, 2099233, 2122017, 2200673, 2098113, 2121537, 2103201, 2200705, 2104033, 2121857, 2121953, 2122401, 2099649, 2099969, 2123009, 2100129]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2201857, 6291456, 2201889, 6291456, 2201921, 6291456, 2201953, 6291456, 2201985, 6291456, 2202017, 6291456, 2176193, 2176257, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2188193, 2188225, 2188257, 2188289, 2188321, 2188353, 2188385, 2188417, 2188449, 2188481, 2188513, 2188545, 2188577, 2188609, 2188641, 0]), new Uint32Array([10554529, 2221089, 0, 10502113, 10562017, 10537921, 10538049, 2221121, 2221153, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2213889, 2213921, 2213953, 2213985, 2214017, 2214049, 2214081, 2194177, 2214113, 2214145, 2214177, 2214209, 2214241, 2214273, 2214305, 2214337]), new Uint32Array([2166978, 2167042, 2099169, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2180545, 6291456, 6291456, 6291456]), new Uint32Array([10518915, 10519011, 10519107, 10519203, 2162242, 2162306, 2159554, 2162370, 2159362, 2159618, 2105922, 2162434, 2159746, 2162498, 2159810, 2159874]), new Uint32Array([2161730, 2161794, 2135586, 2161858, 2161922, 2137186, 2131810, 2160290, 2135170, 2161986, 2137954, 2162050, 2162114, 2162178, 10518723, 10518819]), new Uint32Array([10506627, 10506723, 10506819, 10506915, 10507011, 10507107, 10507203, 10507299, 10507395, 10507491, 10507587, 10507683, 10507779, 10507875, 10507971, 10508067]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 0, 0, 0, 0, 0, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0]), new Uint32Array([2175873, 2175905, 2175937, 2175969, 2176001, 2176033, 2176065, 2176097, 2176129, 2176161, 2176193, 2176225, 2176257, 2176289, 2176321, 2176353]), new Uint32Array([2140006, 2140198, 2140390, 2140582, 2140774, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672]), new Uint32Array([2108193, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 2105505, 2098241]), new Uint32Array([0, 23068672, 0, 0, 0, 0, 0, 0, 0, 2145154, 2145218, 2145282, 6291456, 0, 2145346, 0]), new Uint32Array([0, 0, 0, 0, 10531458, 10495395, 2148545, 2143201, 2173473, 2148865, 2173505, 0, 2173537, 0, 2173569, 2149121]), new Uint32Array([10537282, 10495683, 2148738, 2148802, 2148866, 0, 6291456, 2148930, 2186593, 2173473, 2148737, 2148865, 2148802, 10495779, 10495875, 10495971]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2215425, 2215457, 2215489, 2215521, 2215553, 2215585, 2215617, 2215649, 2215681, 2215713, 2215745, 2215777, 2192033, 2215809, 2215841, 2215873]), new Uint32Array([2242049, 2242081, 2242113, 2242145, 2242177, 2242209, 2242241, 2242273, 2215937, 2242305, 2242338, 2242401, 2242433, 2242465, 2242497, 2216001]), new Uint32Array([10554529, 2221089, 0, 0, 10562017, 10502113, 10538049, 10537921, 2221185, 10489601, 10489697, 10609889, 10609921, 2141729, 2141793, 10610273]), new Uint32Array([2141923, 2142019, 2142115, 2142211, 2142307, 2142403, 2142499, 2142595, 2142691, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([0, 2221185, 2221217, 10609857, 10609857, 10489601, 10489697, 10609889, 10609921, 2141729, 2141793, 2221345, 2221377, 2221409, 2221441, 2187105]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 18923970, 23068672, 23068672, 23068672, 0, 6291456, 6291456]), new Uint32Array([2183105, 6291456, 2183137, 6291456, 2183169, 6291456, 2183201, 6291456, 2183233, 6291456, 2183265, 6291456, 2183297, 6291456, 2183329, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2134434, 2134818, 2097666, 2097186, 2097474, 2097698, 2105986, 2131586, 2132450, 2131874, 2131778, 2135970, 2135778, 2161602, 2136162, 2161666]), new Uint32Array([2236865, 2236897, 2236930, 2236993, 2237025, 2235681, 2237058, 2237121, 2237153, 2237185, 2237217, 2217281, 2237250, 2191233, 2237313, 2237345]), new Uint32Array([2190049, 6291456, 2190081, 6291456, 2190113, 6291456, 2190145, 6291456, 2190177, 6291456, 2190209, 6291456, 2190241, 6291456, 2190273, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2101922, 2102050, 2102178, 2102306, 10498755, 10498851, 10498947, 10499043, 10499139, 10499235, 10499331, 10499427, 10499523, 10489604, 10489732, 10489860]), new Uint32Array([2166914, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0]), new Uint32Array([2181601, 2170561, 2181633, 2181665, 2170753, 2181697, 2172897, 2170881, 2181729, 2170913, 2172929, 2113441, 2181761, 2181793, 2171009, 2173761]), new Uint32Array([0, 2105921, 2097729, 2106081, 0, 2097601, 2162337, 2106017, 2133281, 2097505, 0, 2097185, 2097697, 2135777, 2097633, 2097441]), new Uint32Array([6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0]), new Uint32Array([2248001, 2248033, 2248066, 2248130, 2248193, 2248226, 2248289, 2248322, 2248385, 2248417, 2216673, 2248450, 2248514, 2248577, 2248610, 2248673]), new Uint32Array([6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 0, 0, 0]), new Uint32Array([2169729, 6291456, 2169761, 6291456, 2169793, 6291456, 2169825, 6291456, 2169857, 2169889, 6291456, 2169921, 6291456, 2143329, 6291456, 2098305]), new Uint32Array([2162178, 2163202, 2163266, 2135170, 2136226, 2161986, 2137954, 2159426, 2159490, 2163330, 2159554, 2163394, 2159682, 2139522, 2136450, 2159746]), new Uint32Array([2173953, 2173985, 0, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2174209, 2174241, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 4271169, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2174273]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 6291456, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 2190785, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2189793, 6291456, 2189825, 6291456, 2189857, 6291456, 2189889, 6291456, 2189921, 6291456, 2189953, 6291456, 2189985, 6291456, 2190017, 6291456]), new Uint32Array([2105601, 2112289, 2108193, 2112481, 2112577, 0, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 0, 2098209, 2111137]), new Uint32Array([2172129, 6291456, 2172161, 6291456, 2172193, 6291456, 2172225, 6291456, 2172257, 6291456, 2172289, 6291456, 2172321, 6291456, 2172353, 6291456]), new Uint32Array([2214753, 6291456, 2214785, 6291456, 6291456, 2214817, 2214849, 2214881, 2214913, 2214945, 2214977, 2215009, 2215041, 2215073, 2194401, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([0, 0, 0, 0, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([10610305, 10610337, 10575617, 2221761, 10610401, 10610433, 10502177, 0, 10610465, 10610497, 10610529, 10610561, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 23068672, 0, 0, 0, 0, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2187105, 2187137, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2199393, 2199425, 2199457, 2199489, 2199521, 2199553, 2199585, 2199617, 2199649, 2199681, 2199713, 2199745, 2199777, 2199809, 2199841, 0]), new Uint32Array([2217249, 2217281, 2217313, 2217345, 2217377, 2217409, 2217441, 2217473, 2215617, 2217505, 2217537, 2217569, 2214753, 2217601, 2217633, 2217665]), new Uint32Array([2170273, 2170305, 6291456, 2170337, 2170369, 6291456, 2170401, 2170433, 2170465, 6291456, 6291456, 6291456, 2170497, 2170529, 6291456, 2170561]), new Uint32Array([2188673, 6291456, 2188705, 2188737, 2188769, 6291456, 6291456, 2188801, 6291456, 2188833, 6291456, 2188865, 6291456, 2180929, 2181505, 2180897]), new Uint32Array([10489988, 10490116, 10490244, 10490372, 10490500, 10490628, 10490756, 10490884, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2147393, 2147457, 2147521, 2147585, 2147649, 2147713, 2147777, 2147841]), new Uint32Array([23068672, 23068672, 0, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0]), new Uint32Array([2241153, 2241185, 2241217, 2215809, 2241250, 2241313, 2241345, 2241377, 2217921, 2241377, 2241409, 2215873, 2241441, 2241473, 2241505, 2241537]), new Uint32Array([23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2220417, 2220417, 2220449, 2220449, 2220481, 2220481, 2220513, 2220513, 2220545, 2220545, 2220577, 2220577, 2220609, 2220609, 2220641, 2220641]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2144002, 0, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456]), new Uint32Array([2167105, 2167137, 2167169, 2167201, 2167233, 2167265, 2167297, 2167329, 2167361, 2167393, 2167425, 2167457, 2167489, 2167521, 2167553, 2167585]), new Uint32Array([10575521, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193]), new Uint32Array([2234146, 2234210, 2234274, 2234338, 2234402, 2234466, 2234530, 2234594, 2234658, 2234722, 2234786, 2234850, 2234914, 2234978, 2235042, 2235106]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 2180577, 0, 0, 0, 0, 0, 2180609, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 6291456, 6291456]), new Uint32Array([2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193, 2112481]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2242529, 2242561, 2242593, 2242625, 2242657, 2242689, 2242721, 2242753, 2207937, 2218177, 2242785, 2242817, 2242849, 2242882, 2242945, 2242977]), new Uint32Array([2118049, 2105345, 2118241, 2105441, 2118433, 2118529, 2118625, 2118721, 2118817, 2200257, 2200289, 2191809, 2200321, 2200353, 2200385, 2200417]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0]), new Uint32Array([2185505, 6291456, 2185537, 6291456, 2185569, 6291456, 2185601, 6291456, 2185633, 6291456, 2185665, 6291456, 2185697, 6291456, 2185729, 6291456]), new Uint32Array([2231970, 2232034, 2232098, 2232162, 2232226, 2232290, 2232354, 2232418, 2232482, 2232546, 2232610, 2232674, 2232738, 2232802, 2232866, 2232930]), new Uint32Array([2218625, 2246402, 2246466, 2246530, 2246594, 2246657, 2246689, 2246689, 2218657, 2219681, 2246721, 2246753, 2246785, 2246818, 2246881, 2208481]), new Uint32Array([2197025, 2197057, 2197089, 2197121, 2197153, 2197185, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2219137, 2216961, 2219169, 2219201, 2219233, 2219265, 2219297, 2217025, 2215041, 2219329, 2217057, 2219361, 2217089, 2219393, 2197153, 2219426]), new Uint32Array([23068672, 23068672, 23068672, 0, 0, 0, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713]), new Uint32Array([2243522, 2243585, 2243617, 2243649, 2243681, 2210113, 2243713, 2243746, 2243810, 2243874, 2243937, 2243970, 2244033, 2244065, 2244097, 2244129]), new Uint32Array([2178017, 6291456, 2178049, 6291456, 2178081, 6291456, 2178113, 6291456, 2178145, 6291456, 2178177, 6291456, 2178209, 6291456, 2178241, 6291456]), new Uint32Array([10553858, 2165314, 10518722, 6291456, 10518818, 0, 10518914, 2130690, 10519010, 2130786, 10519106, 2130882, 10519202, 2165378, 10554050, 2165506]), new Uint32Array([0, 0, 2135491, 2135587, 2135683, 2135779, 2135875, 2135971, 2135971, 2136067, 2136163, 2136259, 2136355, 2136355, 2136451, 2136547]), new Uint32Array([23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2220033, 2220033, 2220065, 2220065, 2220065, 2220065, 2220097, 2220097, 2220097, 2220097, 2220129, 2220129, 2220129, 2220129, 2220161, 2220161]), new Uint32Array([6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2100897, 2100898, 2100899, 2150018, 2100865, 2100866, 2100867, 2100868, 2150082, 2108481, 2109858, 2109859, 2105569, 2105505, 2098241, 2105601]), new Uint32Array([2097217, 2097505, 2097505, 2097505, 2097505, 2165570, 2165570, 2165634, 2165634, 2165698, 2165698, 2097858, 2097858, 0, 0, 2097152]), new Uint32Array([23068672, 6291456, 23068672, 23068672, 23068672, 6291456, 6291456, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0]), new Uint32Array([10503843, 10503939, 10504035, 10504131, 10504227, 10504323, 10504419, 10504515, 10504611, 10504707, 10504803, 10504899, 10504995, 10491140, 10491268, 0]), new Uint32Array([2173697, 2173729, 2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889, 2173921, 2173953, 2173985, 2173761, 2174017, 2174049]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2134145, 2097153, 2134241, 2105953, 2132705, 2130977, 2160065, 2131297, 2162049, 2133089, 2160577, 2133857, 2235297, 2220769, 2235329, 2235361]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2222401, 2222433, 2222465, 10531394, 2222497, 2222529, 2222561, 0, 2222593, 2222625, 2222657, 2222689, 2222721, 2222753, 2222785, 0]), new Uint32Array([2184481, 6291456, 2184513, 6291456, 2184545, 6291456, 2184577, 6291456, 2184609, 6291456, 2184641, 6291456, 2184673, 6291456, 2184705, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2105570, 2156034, 2126947, 2156098, 2153666, 2127043, 2127139, 2156162, 0, 2127235, 2156226, 2156290, 2156354, 2156418, 2127331, 2127427]), new Uint32Array([2215905, 2207041, 2153185, 2241569, 2241601, 2241633, 2241665, 2241697, 2241730, 2241793, 2241825, 2241857, 2241889, 2241921, 2241954, 2242017]), new Uint32Array([2203777, 6291456, 2203809, 6291456, 2203841, 6291456, 2203873, 6291456, 2203905, 6291456, 2173121, 2180993, 2181249, 2203937, 2181313, 0]), new Uint32Array([2168577, 6291456, 2168609, 6291456, 2168641, 6291456, 2168673, 6291456, 2168705, 6291456, 2168737, 6291456, 2168769, 6291456, 2168801, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 23068672, 23068672, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([2210113, 2195521, 2210145, 2210177, 2210209, 2210241, 2210273, 2210305, 2210337, 2210369, 2210401, 2210433, 2210465, 2210497, 2210529, 2210561]), new Uint32Array([6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0]), new Uint32Array([2228706, 2228770, 2228834, 2228898, 2228962, 2229026, 2229090, 2229154, 2229218, 2229282, 2229346, 2229410, 2229474, 2229538, 2229602, 2229666]), new Uint32Array([23068672, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 18874368, 18874368, 18874368, 0, 0]), new Uint32Array([2133089, 2133281, 2133281, 2133281, 2133281, 2160577, 2160577, 2160577, 2160577, 2097441, 2097441, 2097441, 2097441, 2133857, 2133857, 2133857]), new Uint32Array([6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2173825, 2153473, 2173857, 2173889, 2173921, 2173953, 2173985, 2174017, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2233089]), new Uint32Array([2178529, 6291456, 2178561, 6291456, 2178593, 6291456, 2178625, 6291456, 2178657, 6291456, 2178689, 6291456, 2178721, 6291456, 2178753, 6291456]), new Uint32Array([2221025, 2221025, 2221057, 2221057, 2159329, 2159329, 2159329, 2159329, 2097217, 2097217, 2158914, 2158914, 2158978, 2158978, 2159042, 2159042]), new Uint32Array([2208161, 2208193, 2208225, 2208257, 2194433, 2208289, 2208321, 2208353, 2208385, 2208417, 2208449, 2208481, 2208513, 2208545, 2208577, 2208609]), new Uint32Array([2169217, 6291456, 2169249, 6291456, 2169281, 6291456, 2169313, 6291456, 2169345, 6291456, 2169377, 6291456, 2169409, 6291456, 2169441, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2133187, 2133283, 2133283, 2133379, 2133475, 2133571, 2133667, 2133667, 2133763, 2133859, 2133955, 2134051, 2134147, 2134147, 2134243, 2134339]), new Uint32Array([2197697, 2114113, 2114209, 2197729, 2197761, 2114305, 2197793, 2114401, 2114497, 2197825, 2114593, 2114689, 2114785, 2114881, 2114977, 0]), new Uint32Array([2193089, 2193121, 2193153, 2193185, 2117665, 2117569, 2193217, 2193249, 2193281, 2193313, 2193345, 2193377, 2193409, 2193441, 2193473, 2193505]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2184225, 6291456, 2184257, 6291456, 2184289, 6291456, 2184321, 6291456, 2184353, 6291456, 2184385, 6291456, 2184417, 6291456, 2184449, 6291456]), new Uint32Array([2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2100833, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2098657, 2098049, 2200737, 2123489, 2123681, 2200769, 2098625, 2100321, 2098145, 2100449, 2098017, 2098753, 2200801, 2200833, 2200865, 0]), new Uint32Array([23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0]), new Uint32Array([2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 0, 2098241, 2108353, 2108417, 2105825, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2181153, 2105505, 2181185, 2167617, 2180993]), new Uint32Array([2160002, 2160066, 2160130, 2160194, 2160258, 2132066, 2131010, 2131106, 2106018, 2131618, 2160322, 2131298, 2132034, 2131938, 2137410, 2132226]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6291456]), new Uint32Array([2183617, 6291456, 2183649, 6291456, 2183681, 6291456, 2183713, 6291456, 2183745, 6291456, 2183777, 6291456, 2183809, 6291456, 2183841, 6291456]), new Uint32Array([0, 6291456, 6291456, 0, 6291456, 0, 0, 6291456, 6291456, 0, 6291456, 0, 0, 6291456, 0, 0]), new Uint32Array([2250977, 2251009, 2251041, 2251073, 2195009, 2251106, 2251169, 2251201, 2251233, 2251265, 2251297, 2251330, 2251394, 2251457, 2251489, 2251521]), new Uint32Array([2205729, 2205761, 2205793, 2205825, 2205857, 2205889, 2205921, 2205953, 2205985, 2206017, 2206049, 2206081, 2206113, 2206145, 2206177, 2206209]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2143170, 2168993, 6291456, 2169025, 6291456, 2169057, 6291456, 2169089, 6291456, 2143234, 2169121, 6291456, 2169153, 6291456, 2169185, 6291456]), new Uint32Array([23068672, 23068672, 2190689, 6291456, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2248706, 2248769, 2248801, 2248833, 2248865, 2248897, 2248929, 2248962, 2249026, 2249090, 2249154, 2240705, 2249217, 2249249, 2249281, 2249313]), new Uint32Array([10485857, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 10495394, 6291456, 2098209, 6291456, 6291456, 2097152, 6291456, 10531394]), new Uint32Array([0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0]), new Uint32Array([14680064, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2173985, 2173953, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889]), new Uint32Array([6291456, 2186977, 6291456, 6291456, 6291456, 6291456, 6291456, 10537858, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2209601, 2209633, 2209665, 2209697, 2209729, 2209761, 2209793, 2209825, 2209857, 2209889, 2209921, 2209953, 2209985, 2210017, 2210049, 2210081]), new Uint32Array([10501539, 10501635, 10501731, 10501827, 10501923, 10502019, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905]), new Uint32Array([2173697, 2173729, 2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889, 2173921, 2173953, 2173985, 2174017, 2174017, 2174049]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 0, 0]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2194561, 2194593, 2194625, 2119777, 2119873, 2194657, 2194689, 2194721, 2194753, 2194785, 2194817, 2194849, 2194881, 2194913, 2194945, 2194977]), new Uint32Array([2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569]), new Uint32Array([2222818, 2222882, 2222946, 2223010, 2223074, 2223138, 2223202, 2223266, 2223330, 2223394, 2223458, 2223522, 2223586, 2223650, 2223714, 2223778]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672]), new Uint32Array([0, 2179553, 2179585, 2179617, 2179649, 2144001, 2179681, 2179713, 2179745, 2179777, 2179809, 2156705, 2179841, 2156833, 2179873, 2179905]), new Uint32Array([6291456, 23068672, 6291456, 2145602, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 6291456, 0, 0]), new Uint32Array([2196513, 2196545, 2196577, 2196609, 2196641, 2196673, 2196705, 2196737, 2196769, 2196801, 2196833, 2196865, 2196897, 2196929, 2196961, 2196993]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2177281, 6291456, 2177313, 6291456, 2177345, 6291456, 2177377, 6291456, 2177409, 6291456, 2177441, 6291456, 2177473, 6291456, 2177505, 6291456]), new Uint32Array([2187137, 2221473, 2221505, 2221537, 2221569, 6291456, 6291456, 10610209, 10610241, 10537986, 10537986, 10537986, 10537986, 10609857, 10609857, 10609857]), new Uint32Array([2243009, 2243041, 2216033, 2243074, 2243137, 2243169, 2243201, 2219617, 2243233, 2243265, 2243297, 2243329, 2243362, 2243425, 2243457, 2243489]), new Uint32Array([10485857, 10485857, 10485857, 10485857, 10485857, 10485857, 10485857, 10485857, 10485857, 10485857, 10485857, 2097152, 4194304, 4194304, 0, 0]), new Uint32Array([2143042, 6291456, 2143106, 2143106, 2168833, 6291456, 2168865, 6291456, 6291456, 2168897, 6291456, 2168929, 6291456, 2168961, 6291456, 2143170]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2204193, 2204225, 2204257, 2204289, 2204321, 2204353, 2204385, 2204417, 2204449, 2204481, 2204513, 2204545, 2204577, 2204609, 2204641, 2204673]), new Uint32Array([2202753, 6291456, 2202785, 6291456, 2202817, 6291456, 2202849, 6291456, 2202881, 6291456, 2202913, 6291456, 2202945, 6291456, 2202977, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193, 2112481, 2112577, 2098177, 2098305, 2108321]), new Uint32Array([2147394, 2147458, 2147522, 2147586, 2147650, 2147714, 2147778, 2147842, 2147394, 2147458, 2147522, 2147586, 2147650, 2147714, 2147778, 2147842]), new Uint32Array([2253313, 2253346, 2253409, 2253441, 2253473, 2253505, 2253537, 2253569, 2253601, 2253634, 2219393, 2253697, 2253729, 2253761, 2253793, 2253825]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([2162562, 2162626, 2131362, 2162690, 2159938, 2160002, 2162754, 2162818, 2160130, 2162882, 2160194, 2160258, 2160834, 2160898, 2161026, 2161090]), new Uint32Array([2175361, 2175393, 2175425, 2175457, 2175489, 2175521, 2175553, 2175585, 2175617, 2175649, 2175681, 2175713, 2175745, 2175777, 2175809, 2175841]), new Uint32Array([2253858, 2253921, 2253954, 2254018, 2254082, 2196737, 2254145, 2196865, 2254177, 2254209, 2254241, 2254273, 2197025, 2254306, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2202113, 2204129, 2188705, 2204161]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 0, 0]), new Uint32Array([2173985, 2174017, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2233089, 2173697, 2173761, 2173793, 2174113, 2173985, 2173953]), new Uint32Array([2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 2100833, 2100737, 2098337, 2101441, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209]), new Uint32Array([2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 2105505, 2098241, 0, 2108417, 0, 2111713, 2100897, 2111905]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2175425, 2175489, 2175809, 2175905, 2175937, 2175937, 2176193, 2176417, 2180865, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 2143298, 2143298, 2143298, 2143362, 2143362, 2143362, 2143426, 2143426, 2143426, 2171105, 6291456, 2171137]), new Uint32Array([2120162, 2120258, 2151618, 2151682, 2151746, 2151810, 2151874, 2151938, 2152002, 2120035, 2120131, 2120227, 2152066, 2120323, 2152130, 2120419]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2195361, 2142433, 2236065, 2236097, 2236129, 2236161, 2118241, 2117473, 2236193, 2236225, 2236257, 2236289, 0, 0, 0, 0]), new Uint32Array([2189281, 6291456, 2189313, 6291456, 2189345, 6291456, 2189377, 6291456, 2189409, 6291456, 2189441, 6291456, 2189473, 6291456, 2189505, 6291456]), new Uint32Array([6291456, 6291456, 2145922, 6291456, 6291456, 6291456, 6291456, 2145986, 6291456, 6291456, 6291456, 6291456, 2146050, 6291456, 6291456, 6291456]), new Uint32Array([2100833, 2100737, 2098337, 2101441, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 10502113, 10562017, 10610401, 10502177, 10610433, 10538049]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 2186401, 0, 2186433, 0, 2186465, 0, 2186497]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 23068672, 23068672, 23068672]), new Uint32Array([0, 0, 2198241, 2198273, 2198305, 2198337, 2198369, 2198401, 0, 0, 2198433, 2198465, 2198497, 0, 0, 0]), new Uint32Array([6291456, 0, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 23068672, 6291456, 23068672, 23068672]), new Uint32Array([0, 2105921, 2097729, 0, 2097377, 0, 0, 2106017, 2133281, 2097505, 2105889, 0, 2097697, 2135777, 2097633, 2097441]), new Uint32Array([2197889, 2197921, 2197953, 2197985, 2198017, 2198049, 2198081, 2198113, 2198145, 2198177, 2198209, 2198241, 2198273, 2198305, 2198337, 2198369]), new Uint32Array([2132514, 2132610, 2160386, 2133090, 2133186, 2160450, 2160514, 2133282, 2160578, 2133570, 2106178, 2160642, 2133858, 2160706, 2160770, 2134146]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 23068672, 23068672, 6291456, 23068672, 23068672, 6291456, 23068672, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2184737, 6291456, 2184769, 6291456, 2184801, 6291456, 2184833, 6291456, 2184865, 6291456, 2184897, 6291456, 2184929, 6291456, 2184961, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 0, 6291456]), new Uint32Array([6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 23068672, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 2186753, 6291456, 6291456, 6291456, 6291456, 2186785, 2186817, 2186849, 2173569, 2186881, 10496355, 10495395, 10575521]), new Uint32Array([0, 0, 2097729, 0, 0, 0, 0, 2106017, 0, 2097505, 0, 2097185, 0, 2135777, 2097633, 2097441]), new Uint32Array([2189537, 6291456, 2189569, 6291456, 2189601, 6291456, 2189633, 6291456, 2189665, 6291456, 2189697, 6291456, 2189729, 6291456, 2189761, 6291456]), new Uint32Array([2202497, 6291456, 2202529, 6291456, 2202561, 6291456, 2202593, 6291456, 2202625, 6291456, 2202657, 6291456, 2202689, 6291456, 2202721, 6291456]), new Uint32Array([2245217, 2218369, 2245249, 2245282, 2245345, 2245377, 2245410, 2245474, 2245537, 2245569, 2245601, 2245633, 2245665, 2245665, 2245697, 2245729]), new Uint32Array([6291456, 0, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 0, 0, 0, 0, 0, 0, 23068672, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 23068672, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672]), new Uint32Array([0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2097281, 2105921, 2097729, 2106081, 2097377, 2097601, 2162337, 2106017, 2133281, 2097505, 0, 2097185, 2097697, 2135777, 2097633, 2097441]), new Uint32Array([2176641, 6291456, 2176673, 6291456, 2176705, 6291456, 2176737, 6291456, 2176769, 6291456, 2176801, 6291456, 2176833, 6291456, 2176865, 6291456]), new Uint32Array([2174145, 2174177, 2149057, 2233089, 2173697, 2173761, 2173793, 2174113, 2173985, 2173953, 2174369, 2174369, 0, 0, 2100833, 2100737]), new Uint32Array([2116513, 2190817, 2190849, 2190881, 2190913, 2190945, 2116609, 2190977, 2191009, 2191041, 2191073, 2117185, 2191105, 2191137, 2191169, 2191201]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456]), new Uint32Array([0, 0, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456]), new Uint32Array([2167617, 2167649, 2167681, 2167713, 2167745, 2167777, 2167809, 6291456, 2167841, 2167873, 2167905, 2167937, 2167969, 2168001, 2168033, 4240130]), new Uint32Array([2165122, 2163970, 2164034, 2164098, 2164162, 2164226, 2164290, 2164354, 2164418, 2164482, 2164546, 2133122, 2134562, 2132162, 2132834, 2136866]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 2186209, 2186241, 2186273, 2186305, 2186337, 2186369, 0, 0]), new Uint32Array([2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 14680064, 14680064, 14680064, 14680064, 14680064]), new Uint32Array([0, 0, 23068672, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456]), new Uint32Array([0, 10537921, 10610689, 10610273, 10610497, 10610529, 10610305, 10610721, 10489601, 10489697, 10610337, 10575617, 10554529, 2221761, 2197217, 10496577]), new Uint32Array([2105473, 2105569, 2105601, 2112289, 0, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441]), new Uint32Array([2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481]), new Uint32Array([2125346, 2153410, 2153474, 2127394, 2153538, 2153602, 2153666, 2153730, 2105507, 2105476, 2153794, 2153858, 2153922, 2153986, 2154050, 2105794]), new Uint32Array([2200449, 2119681, 2200481, 2153313, 2199873, 2199905, 2199937, 2200513, 2200545, 2200577, 2200609, 2119105, 2119201, 2119297, 2119393, 2119489]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2175777, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2222273, 2197217, 2221473, 2221505, 2221089, 2222305, 2200865, 2099681, 2104481, 2222337, 2099905, 2120737, 2222369, 2103713, 2100225, 2098785]), new Uint32Array([2201377, 6291456, 2201409, 6291456, 2201441, 6291456, 2201473, 6291456, 2201505, 6291456, 2201537, 6291456, 2201569, 6291456, 6291456, 23068672]), new Uint32Array([2174081, 2174113, 2174145, 2174177, 2149057, 2233057, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761, 2143969, 2173793]), new Uint32Array([2200897, 6291456, 2200929, 6291456, 2200961, 6291456, 2200993, 6291456, 2201025, 6291456, 2180865, 6291456, 2201057, 6291456, 2201089, 6291456]), new Uint32Array([0, 0, 0, 0, 0, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0]), new Uint32Array([2161154, 2161410, 2138658, 2161474, 2161538, 2097666, 2097186, 2097474, 2162946, 2132450, 2163010, 2163074, 2136162, 2163138, 2161666, 2161730]), new Uint32Array([2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889, 2173921, 2173953]), new Uint32Array([0, 0, 0, 0, 0, 0, 23068672, 23068672, 0, 0, 0, 0, 2145410, 2145474, 0, 6291456]), new Uint32Array([2244161, 2216065, 2212769, 2244193, 2244225, 2244257, 2244290, 2244353, 2244385, 2244417, 2244449, 2218273, 2244481, 2244514, 2244577, 2244609]), new Uint32Array([2125730, 2125699, 2125795, 2125891, 2125987, 2154114, 2154178, 2154242, 2154306, 2154370, 2154434, 2154498, 2126082, 2126178, 2126274, 2126083]), new Uint32Array([2237665, 2237697, 2237697, 2237697, 2237730, 2237793, 2237825, 2237857, 2237890, 2237953, 2237985, 2238017, 2238049, 2238081, 2238113, 2238145]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2150146, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 23068672, 23068672, 0, 0, 23068672, 23068672, 23068672, 0, 0]), new Uint32Array([2214369, 2238593, 2238625, 2238657, 2238689, 2238721, 2238753, 2238785, 2238817, 2238850, 2238913, 2238945, 2238977, 2235457, 2239009, 2239041]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0]), new Uint32Array([2252066, 2252130, 2252193, 2252225, 2252257, 2252290, 2252353, 2252385, 2252417, 2252449, 2252481, 2252513, 2252545, 2252578, 2252641, 2252673]), new Uint32Array([2197697, 2114113, 2114209, 2197729, 2197761, 2114305, 2197793, 2114401, 2114497, 2197825, 2114593, 2114689, 2114785, 2114881, 2114977, 2197857]), new Uint32Array([2224866, 2224930, 2224994, 2225058, 2225122, 2225186, 2225250, 2225314, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2219490, 2219554, 2219617, 2219649, 2219681, 2219714, 2219778, 2219842, 2219905, 2219937, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456]), new Uint32Array([2113345, 2113441, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289]), new Uint32Array([2174081, 2174113, 2174145, 2174177, 2149057, 2233089, 2173697, 2173761, 2173793, 2174113, 2173985, 2173953, 2148481, 2173601, 2173633, 2173665]), new Uint32Array([2220161, 2220161, 2220193, 2220193, 2220193, 2220193, 2220225, 2220225, 2220225, 2220225, 2220257, 2220257, 2220257, 2220257, 2220289, 2220289]), new Uint32Array([2192673, 2192705, 2192737, 2192769, 2192801, 2192833, 2192865, 2118049, 2192897, 2117473, 2117761, 2192929, 2192961, 2192993, 2193025, 2193057]), new Uint32Array([2179297, 6291456, 2179329, 6291456, 2179361, 6291456, 2179393, 6291456, 2179425, 6291456, 2179457, 6291456, 2179489, 6291456, 2179521, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2235745, 2235777, 2193633, 2235809, 2235841, 2235873, 2235905, 2235937, 2235969, 2116513, 2116705, 2236001, 2200513, 2199905, 2200545, 2236033]), new Uint32Array([2113153, 2108481, 2113345, 2113441, 2232993, 2233025, 0, 0, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761]), new Uint32Array([2170593, 6291456, 2170625, 6291456, 2170657, 6291456, 2170689, 2170721, 6291456, 2170753, 6291456, 6291456, 2170785, 6291456, 2170817, 2170849]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2166786, 2166850, 0, 0, 0, 0]), new Uint32Array([23068672, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456]), new Uint32Array([2100833, 2100737, 2098337, 2101441, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 10575617, 2187041, 10502177, 10489601, 10489697, 0]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2134562, 2132162, 2132834, 2136866, 2136482, 2164610, 2164674, 2164738, 2164802, 2132802, 2132706, 2164866, 2132898, 2164930, 2164994, 2165058]), new Uint32Array([6291456, 6291456, 2098337, 2101441, 10531458, 2153473, 6291456, 6291456, 10531522, 2100737, 2108193, 6291456, 2106499, 2106595, 2106691, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2233122, 2233186, 2233250, 2233314, 2233378, 2233442, 2233506, 2233570, 2233634, 2233698, 2233762, 2233826, 2233890, 2233954, 2234018, 2234082]), new Uint32Array([23068672, 6291456, 23068672, 23068672, 23068672, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2205217, 2205249, 2205281, 2205313, 2205345, 2205377, 2205409, 2205441, 2205473, 2205505, 2205537, 2205569, 2205601, 2205633, 2205665, 2205697]), new Uint32Array([6291456, 0, 6291456, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 0, 0, 23068672, 6291456, 23068672, 23068672]), new Uint32Array([2173601, 2173761, 2174081, 2173569, 2174241, 2174113, 2173953, 6291456, 2174305, 6291456, 2174337, 6291456, 2174369, 6291456, 2174401, 6291456]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456]), new Uint32Array([2152450, 2152514, 2099653, 2104452, 2099813, 2122243, 2099973, 2152578, 2122339, 2122435, 2122531, 2122627, 2122723, 2104580, 2122819, 2152642]), new Uint32Array([2236385, 2236417, 2236449, 2236482, 2236545, 2215425, 2236577, 2236609, 2236641, 2236673, 2215457, 2236705, 2236737, 2236770, 2215489, 2236833]), new Uint32Array([2163394, 2159746, 2163458, 2131362, 2163522, 2160130, 2163778, 2132226, 2163842, 2132898, 2163906, 2161410, 2138658, 2097666, 2136162, 2163650]), new Uint32Array([2218721, 2246913, 2246946, 2216385, 2247010, 2247074, 2215009, 2247137, 2247169, 2216481, 2247201, 2247233, 2247266, 2247330, 2247330, 0]), new Uint32Array([2129730, 2129762, 2129858, 2129731, 2129827, 2156482, 2156482, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 0, 0, 0, 0, 0, 6291456, 0, 0]), new Uint32Array([2203969, 2204001, 2181377, 2204033, 2204065, 6291456, 2204097, 6291456, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2169473, 6291456, 2169505, 6291456, 2169537, 6291456, 2169569, 6291456, 2169601, 6291456, 2169633, 6291456, 2169665, 6291456, 2169697, 6291456]), new Uint32Array([2141542, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2220801, 2220801, 2220801, 2220801, 2220833, 2220833, 2220865, 2220865, 2220865, 2220865, 2220897, 2220897, 2220897, 2220897, 2139873, 2139873]), new Uint32Array([0, 0, 0, 0, 0, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 6291456, 0]), new Uint32Array([2214849, 2218433, 2218465, 2218497, 2218529, 2218561, 2214881, 2218593, 2218625, 2218657, 2218689, 2218721, 2218753, 2216545, 2218785, 2218817]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6291456]), new Uint32Array([2136482, 2164610, 2164674, 2164738, 2164802, 2132802, 2132706, 2164866, 2132898, 2164930, 2164994, 2165058, 2165122, 2132802, 2132706, 2164866]), new Uint32Array([2207649, 2207681, 2207713, 2207745, 2207777, 2207809, 2207841, 2207873, 2207905, 2207937, 2207969, 2208001, 2208033, 2208065, 2208097, 2208129]), new Uint32Array([2123683, 2105092, 2152706, 2123779, 2105220, 2152770, 2100453, 2098755, 2123906, 2124002, 2124098, 2124194, 2124290, 2124386, 2124482, 2124578]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 0, 0, 0, 0, 0, 0, 0, 10485857]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([10508163, 10508259, 10508355, 10508451, 2200129, 2200161, 2192737, 2200193, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2203553, 6291456, 2203585, 6291456, 6291456, 6291456, 2203617, 6291456, 2203649, 6291456, 2203681, 6291456, 2203713, 6291456, 2203745, 6291456]), new Uint32Array([18884449, 18884065, 23068672, 18884417, 18884034, 18921185, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 18874368]), new Uint32Array([2247393, 2247426, 2247489, 2247521, 2247553, 2247586, 2247649, 2247681, 2247713, 2247745, 2247777, 2247810, 2247873, 2247905, 2247937, 2247969]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 23068672]), new Uint32Array([2134145, 2097153, 2134241, 0, 2132705, 2130977, 2160065, 2131297, 0, 2133089, 2160577, 2133857, 2235297, 0, 2235329, 0]), new Uint32Array([2182593, 6291456, 2182625, 6291456, 2182657, 6291456, 2182689, 6291456, 2182721, 6291456, 2182753, 6291456, 2182785, 6291456, 2182817, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2102402, 2102403, 6291456, 2110050]), new Uint32Array([2149890, 2108323, 2149954, 6291456, 2113441, 6291456, 2149057, 6291456, 2113441, 6291456, 2105473, 2167265, 2111137, 2105505, 6291456, 2108353]), new Uint32Array([2219105, 2219137, 2195233, 2251554, 2251617, 2251649, 2251681, 2251713, 2251746, 2251810, 2251873, 2251905, 2251937, 2251970, 2252033, 2219169]), new Uint32Array([2203009, 6291456, 2203041, 6291456, 2203073, 6291456, 2203105, 6291456, 2203137, 6291456, 2203169, 6291456, 2203201, 6291456, 2203233, 6291456]), new Uint32Array([2128195, 2128291, 2128387, 2128483, 2128579, 2128675, 2128771, 2128867, 2128963, 2129059, 2129155, 2129251, 2129347, 2129443, 2129539, 2129635]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2140964, 2141156, 2140966, 2141158, 2141350]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2225378, 2225442, 2225506, 2225570, 2225634, 2225698, 2225762, 2225826, 2225890, 2225954, 2226018, 2226082, 2226146, 2226210, 2226274, 2226338]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417]), new Uint32Array([2108353, 2108417, 0, 2105601, 2108193, 2157121, 2157313, 2157377, 2157441, 2100897, 6291456, 2108419, 2173953, 2173633, 2173633, 2173953]), new Uint32Array([2111713, 2173121, 2111905, 2098177, 2173153, 2173185, 2173217, 2113153, 2113345, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 2190753]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2197249, 6291456, 2117377, 2197281, 2197313, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 0, 0, 0, 0, 0, 0, 23068672, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456]), new Uint32Array([2098337, 2101441, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 2100833, 2100737, 2098337, 2101441, 2101569, 2101697, 2101825, 2101953]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0]), new Uint32Array([0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 23068672, 23068672, 23068672]), new Uint32Array([2173281, 6291456, 2173313, 6291456, 2173345, 6291456, 2173377, 6291456, 0, 0, 10532546, 6291456, 6291456, 6291456, 10562017, 2173441]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 0, 0]), new Uint32Array([23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2159426, 2159490, 2159554, 2159362, 2159618, 2159682, 2139522, 2136450, 2159746, 2159810, 2159874, 2130978, 2131074, 2131266, 2131362, 2159938]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2203233, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2203265, 6291456, 2203297, 6291456, 2203329, 2203361, 6291456]), new Uint32Array([6291456, 6291456, 2148418, 2148482, 2148546, 0, 6291456, 2148610, 2186529, 2186561, 2148417, 2148545, 2148482, 10495778, 2143969, 10495778]), new Uint32Array([2134146, 2139426, 2160962, 2134242, 2161218, 2161282, 2161346, 2161410, 2138658, 2134722, 2134434, 2134818, 2097666, 2097346, 2097698, 2105986]), new Uint32Array([2198881, 2198913, 2198945, 2198977, 2199009, 2199041, 2199073, 2199105, 2199137, 2199169, 2199201, 2199233, 2199265, 2199297, 2199329, 2199361]), new Uint32Array([0, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456]), new Uint32Array([10610561, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193]), new Uint32Array([2183873, 6291456, 2183905, 6291456, 2183937, 6291456, 2183969, 6291456, 2184001, 6291456, 2184033, 6291456, 2184065, 6291456, 2184097, 6291456]), new Uint32Array([2244642, 2244706, 2244769, 2244801, 2218305, 2244833, 2244865, 2244897, 2244929, 2244961, 2244993, 2245026, 2245089, 2245122, 2245185, 0]), new Uint32Array([6291456, 6291456, 2116513, 2116609, 2116705, 2116801, 2199873, 2199905, 2199937, 2199969, 2190913, 2200001, 2200033, 2200065, 2200097, 2191009]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 2180673, 2180705, 2180737, 2180769, 2180801, 2180833, 0, 0]), new Uint32Array([2098081, 2099521, 2099105, 2120705, 2098369, 2120801, 2103361, 2097985, 2098433, 2121377, 2121473, 2099169, 2099873, 2098401, 2099393, 2152609]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2150402]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 2145666, 2145730, 6291456, 6291456]), new Uint32Array([2173921, 2173953, 2173985, 2173761, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2233057, 2148481, 2173601, 2173633, 2173665]), new Uint32Array([2187073, 6291456, 6291456, 6291456, 6291456, 2098241, 2098241, 2108353, 2100897, 2111905, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2102404, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2100612, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 10485857]), new Uint32Array([2149057, 2233057, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889]), new Uint32Array([2217697, 2217729, 2217761, 2217793, 2217825, 2217857, 2217889, 2217921, 2217953, 2215873, 2217985, 2215905, 2218017, 2218049, 2218081, 2218113]), new Uint32Array([2211233, 2218849, 2216673, 2218881, 2218913, 2218945, 2218977, 2219009, 2216833, 2219041, 2215137, 2219073, 2216865, 2209505, 2219105, 2216897]), new Uint32Array([2240097, 2240129, 2240161, 2240193, 2240225, 2240257, 2240289, 2240321, 2240353, 2240386, 2240449, 2240481, 2240513, 2240545, 2207905, 2240578]), new Uint32Array([6291456, 6291456, 2202273, 6291456, 2202305, 6291456, 2202337, 6291456, 2202369, 6291456, 2202401, 6291456, 2202433, 6291456, 2202465, 6291456]), new Uint32Array([0, 23068672, 23068672, 18923394, 23068672, 18923458, 18923522, 18884099, 18923586, 18884195, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2201121, 6291456, 2201153, 6291456, 2201185, 6291456, 2201217, 6291456, 2201249, 6291456, 2201281, 6291456, 2201313, 6291456, 2201345, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456]), new Uint32Array([2211041, 2211073, 2211105, 2211137, 2211169, 2211201, 2211233, 2211265, 2211297, 2211329, 2211361, 2211393, 2211425, 2211457, 2211489, 2211521]), new Uint32Array([2181825, 6291456, 2181857, 6291456, 2181889, 6291456, 2181921, 6291456, 2181953, 6291456, 2181985, 6291456, 2182017, 6291456, 2182049, 6291456]), new Uint32Array([2162337, 2097633, 2097633, 2097633, 2097633, 2132705, 2132705, 2132705, 2132705, 2097153, 2097153, 2097153, 2097153, 2133089, 2133089, 2133089]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 2148545, 6291456, 2173473, 6291456, 2148865, 6291456, 2173505, 6291456, 2173537, 6291456, 2173569, 6291456, 2149121, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 0, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0]), new Uint32Array([2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889, 2173921, 2173953, 2173985, 2174017, 2174017, 2174049, 2174081, 2174113]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2207137, 2207169, 2207201, 2207233, 2207265, 2207297, 2207329, 2207361, 2207393, 2207425, 2207457, 2207489, 2207521, 2207553, 2207585, 2207617]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 23068672, 6291456, 6291456, 0, 23068672, 23068672, 0, 0, 0, 0, 0, 0]), new Uint32Array([2198401, 2198433, 2198465, 2198497, 0, 2198529, 2198561, 2198593, 2198625, 2198657, 2198689, 2198721, 2198753, 2198785, 2198817, 2198849]), new Uint32Array([2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193, 2112481, 2112577, 2098177]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 0, 0]), new Uint32Array([2216385, 2118721, 2216417, 2216449, 2216481, 2216513, 2216545, 2211233, 2216577, 2216609, 2216641, 2216673, 2216705, 2216737, 2216737, 2216769]), new Uint32Array([2216801, 2216833, 2216865, 2216897, 2216929, 2216961, 2216993, 2215169, 2217025, 2217057, 2217089, 2217121, 2217154, 2217217, 0, 0]), new Uint32Array([2210593, 2191809, 2210625, 2210657, 2210689, 2210721, 2210753, 2210785, 2210817, 2210849, 2191297, 2210881, 2210913, 2210945, 2210977, 2211009]), new Uint32Array([0, 0, 2105825, 0, 0, 2111905, 2105473, 0, 0, 2112289, 2108193, 2112481, 2112577, 0, 2098305, 2108321]), new Uint32Array([0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 2097153, 2134241, 0, 2132705, 0, 0, 2131297, 0, 2133089, 0, 2133857, 0, 2220769, 0, 2235361]), new Uint32Array([14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 6291456, 6291456, 14680064]), new Uint32Array([23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2171873, 6291456, 2171905, 6291456, 2171937, 6291456, 2171969, 6291456, 2172001, 6291456, 2172033, 6291456, 2172065, 6291456, 2172097, 6291456]), new Uint32Array([2220929, 2220929, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2133857, 2134145, 2134145, 2134145, 2134145, 2134241, 2134241, 2134241, 2134241, 2105889, 2105889, 2105889, 2105889, 2097185, 2097185, 2097185]), new Uint32Array([2173697, 2173761, 2173793, 2174113, 2173985, 2173953, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761, 2143969, 2173793]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10499619, 10499715, 10499811, 10499907]), new Uint32Array([0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 0, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 0, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 23068672, 23068672]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 2144322, 2144386, 2144450, 2144514, 2144578, 2144642, 2144706, 2144770]), new Uint32Array([23068672, 23068672, 23068672, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2113153, 2108481, 2113345, 2113441, 2098209, 2111137, 0, 2098241, 2108353, 2108417, 2105825, 0, 0, 2111905, 2105473, 2105569]), new Uint32Array([2236321, 2236353, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2152194, 2121283, 2103684, 2103812, 2097986, 2098533, 2097990, 2098693, 2098595, 2098853, 2099013, 2103940, 2121379, 2121475, 2121571, 2104068]), new Uint32Array([2206241, 2206273, 2206305, 2206337, 2206369, 2206401, 2206433, 2206465, 2206497, 2206529, 2206561, 2206593, 2206625, 2206657, 2206689, 2206721]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 16777216, 16777216, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 23068672, 23068672, 10538818, 10538882, 6291456, 6291456, 2150338]), new Uint32Array([6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2214369, 2214401, 2214433, 2214465, 2214497, 2214529, 2214561, 2214593, 2194977, 2214625, 2195073, 2214657, 2214689, 2214721, 6291456, 6291456]), new Uint32Array([2097152, 2097152, 2097152, 2097152, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2182081, 6291456, 2182113, 6291456, 2182145, 6291456, 2182177, 6291456, 2182209, 6291456, 2182241, 6291456, 2182273, 6291456, 2182305, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2146881, 2146945, 2147009, 2147073, 2147137, 2147201, 2147265, 2147329]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 23068672, 23068672]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2122915, 2123011, 2123107, 2104708, 2123203, 2123299, 2123395, 2100133, 2104836, 2100290, 2100293, 2104962, 2104964, 2098052, 2123491, 2123587]), new Uint32Array([23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456]), new Uint32Array([6291456, 2171169, 6291456, 2171201, 6291456, 2171233, 6291456, 2171265, 6291456, 2171297, 6291456, 2171329, 6291456, 6291456, 2171361, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 0, 2148994, 2149058, 2149122, 0, 6291456, 2149186, 2186945, 2173537, 2148993, 2149121, 2149058, 10531458, 10496066, 0]), new Uint32Array([2195009, 2195041, 2195073, 2195105, 2195137, 2195169, 2195201, 2195233, 2195265, 2195297, 2195329, 2195361, 2195393, 2195425, 2195457, 2195489]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 0, 0, 6291456, 6291456]), new Uint32Array([2182849, 6291456, 2182881, 6291456, 2182913, 6291456, 2182945, 6291456, 2182977, 6291456, 2183009, 6291456, 2183041, 6291456, 2183073, 6291456]), new Uint32Array([2211553, 2210081, 2211585, 2211617, 2211649, 2211681, 2211713, 2211745, 2211777, 2211809, 2209569, 2211841, 2211873, 2211905, 2211937, 2211969]), new Uint32Array([2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2166594, 2127298, 2166658, 2142978, 2141827, 2166722]), new Uint32Array([2173985, 2173761, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2233057, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 2185761, 2185793, 2185825, 2185857, 2185889, 2185921, 0, 0]), new Uint32Array([6291456, 2148481, 2173601, 2173633, 2173665, 2173697, 2173729, 2148801, 2173761, 2143969, 2173793, 2173825, 2153473, 2173857, 2173889, 2173921]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 6291456]), new Uint32Array([0, 0, 0, 2220961, 2220961, 2220961, 2220961, 2144193, 2144193, 2159201, 2159201, 2159265, 2159265, 2144194, 2220993, 2220993]), new Uint32Array([2192641, 2235393, 2235425, 2152257, 2116609, 2235457, 2235489, 2200065, 2235521, 2235553, 2235585, 2212449, 2235617, 2235649, 2235681, 2235713]), new Uint32Array([2194049, 2194081, 2194113, 2194145, 2194177, 2194209, 2194241, 2194273, 2194305, 2194337, 2194369, 2194401, 2194433, 2194465, 2194497, 2194529]), new Uint32Array([2196673, 2208641, 2208673, 2208705, 2208737, 2208769, 2208801, 2208833, 2208865, 2208897, 2208929, 2208961, 2208993, 2209025, 2209057, 2209089]), new Uint32Array([2191681, 2191713, 2191745, 2191777, 2153281, 2191809, 2191841, 2191873, 2191905, 2191937, 2191969, 2192001, 2192033, 2192065, 2192097, 2192129]), new Uint32Array([2230946, 2231010, 2231074, 2231138, 2231202, 2231266, 2231330, 2231394, 2231458, 2231522, 2231586, 2231650, 2231714, 2231778, 2231842, 2231906]), new Uint32Array([14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064, 14680064]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 2185953, 2185985, 2186017, 2186049, 2186081, 2186113, 2186145, 2186177]), new Uint32Array([2139811, 2139907, 2097284, 2105860, 2105988, 2106116, 2106244, 2097444, 2097604, 2097155, 10485778, 10486344, 2106372, 6291456, 0, 0]), new Uint32Array([2110051, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2172385, 6291456, 2172417, 6291456, 2172449, 6291456, 2172481, 6291456, 2172513, 6291456, 2172545, 6291456, 2172577, 6291456, 2172609, 6291456]), new Uint32Array([0, 0, 23068672, 23068672, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2249345, 2249377, 2249409, 2249441, 2249473, 2249505, 2249537, 2249570, 2210209, 2249633, 2249665, 2249697, 2249729, 2249761, 2249793, 2216769]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2187169, 2187201, 2187233, 2187265, 2187297, 2187329, 2187361, 2187393, 2187425, 2187457, 2187489, 2187521, 2187553, 2187585, 2187617, 2187649]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([0, 0, 0, 6291456, 6291456, 0, 0, 0, 6291456, 6291456, 6291456, 0, 0, 0, 6291456, 6291456]), new Uint32Array([2182337, 6291456, 2182369, 6291456, 2182401, 6291456, 2182433, 6291456, 2182465, 6291456, 2182497, 6291456, 2182529, 6291456, 2182561, 6291456]), new Uint32Array([2138179, 2138275, 2138371, 2138467, 2134243, 2134435, 2138563, 2138659, 2138755, 2138851, 2138947, 2139043, 2138947, 2138755, 2139139, 2139235]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([0, 0, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2250498, 2250562, 2250625, 2250657, 2208321, 2250689, 2250721, 2250753, 2250785, 2250817, 2250849, 2218945, 2250881, 2250913, 2250945, 0]), new Uint32Array([2170369, 2105569, 2098305, 2108481, 2173249, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456]), new Uint32Array([2100897, 2111905, 2105473, 2105569, 2105601, 0, 2108193, 0, 0, 0, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481]), new Uint32Array([2100897, 2100897, 2105569, 2105569, 6291456, 2112289, 2149826, 6291456, 6291456, 2112481, 2112577, 2098177, 2098177, 2098177, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 2169953, 2169985, 6291456, 2170017, 6291456, 2170049, 2170081, 6291456, 2170113, 2170145, 2170177, 6291456, 6291456, 2170209, 2170241]), new Uint32Array([6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([0, 0, 0, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2220641, 2220641, 2220673, 2220673, 2220673, 2220673, 2220705, 2220705, 2220705, 2220705, 2220737, 2220737, 2220737, 2220737, 2220769, 2220769]), new Uint32Array([2127650, 2127746, 2127842, 2127938, 2128034, 2128130, 2128226, 2128322, 2128418, 2127523, 2127619, 2127715, 2127811, 2127907, 2128003, 2128099]), new Uint32Array([2143969, 2173793, 2173825, 2153473, 2173857, 2173889, 2173921, 2173953, 2173985, 2173761, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177]), new Uint32Array([0, 0, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([2204705, 2204737, 2204769, 2204801, 2204833, 2204865, 2204897, 2204929, 2204961, 2204993, 2205025, 2205057, 2205089, 2205121, 2205153, 2205185]), new Uint32Array([2176385, 6291456, 2176417, 6291456, 2176449, 6291456, 2176481, 6291456, 2176513, 6291456, 2176545, 6291456, 2176577, 6291456, 2176609, 6291456]), new Uint32Array([2195521, 2195553, 2195585, 2195617, 2195649, 2195681, 2117857, 2195713, 2195745, 2195777, 2195809, 2195841, 2195873, 2195905, 2195937, 2195969]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456]), new Uint32Array([2173921, 2173953, 2173985, 2174017, 2174017, 2174049, 2174081, 2174113, 2174145, 2174177, 2149057, 2233089, 2173697, 2173761, 2173793, 2174113]), new Uint32Array([2131586, 2132450, 2135970, 2135778, 2161602, 2136162, 2163650, 2161794, 2135586, 2163714, 2137186, 2131810, 2160290, 2135170, 2097506, 2159554]), new Uint32Array([2134145, 2097153, 2134241, 2105953, 2132705, 2130977, 2160065, 2131297, 2162049, 2133089, 2160577, 2133857, 0, 0, 0, 0]), new Uint32Array([2116513, 2116609, 2116705, 2116801, 2116897, 2116993, 2117089, 2117185, 2117281, 2117377, 2117473, 2117569, 2117665, 2117761, 2117857, 2117953]), new Uint32Array([2100737, 2098337, 2101441, 2101569, 2101697, 2101825, 2101953, 2102081, 2102209, 2100802, 2101154, 2101282, 2101410, 2101538, 2101666, 2101794]), new Uint32Array([2100289, 2098657, 2098049, 2200737, 2123489, 2123681, 2200769, 2098625, 2100321, 2098145, 2100449, 2098017, 2098753, 2098977, 2150241, 2150305]), new Uint32Array([6291456, 6291456, 6291456, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 2109955, 6291456, 6291456, 0, 0, 0, 0]), new Uint32Array([18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368, 18874368]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 6291456, 0, 6291456, 0, 0]), new Uint32Array([2130979, 2131075, 2131075, 2131171, 2131267, 2131363, 2131459, 2131555, 2131651, 2131651, 2131747, 2131843, 2131939, 2132035, 2132131, 2132227]), new Uint32Array([0, 2177793, 6291456, 2177825, 6291456, 2177857, 6291456, 2177889, 6291456, 2177921, 6291456, 2177953, 6291456, 2177985, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672]), new Uint32Array([6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2113345, 0, 2098209, 2111137, 2105505, 2098241, 2108353, 2108417, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289]), new Uint32Array([2136643, 2136739, 2136835, 2136931, 2137027, 2137123, 2137219, 2137315, 2137411, 2137507, 2137603, 2137699, 2137795, 2137891, 2137987, 2138083]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0]), new Uint32Array([2174433, 6291456, 2174465, 6291456, 2174497, 6291456, 2174529, 6291456, 2174561, 6291456, 2174593, 6291456, 2174625, 6291456, 2174657, 6291456]), new Uint32Array([0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2105473, 2105569, 2105601, 2112289, 2108193, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441]), new Uint32Array([10496547, 10496643, 2105505, 2149698, 6291456, 10496739, 10496835, 2170273, 6291456, 2149762, 2105825, 2111713, 2111713, 2111713, 2111713, 2168673]), new Uint32Array([6291456, 2143490, 2143490, 2143490, 2171649, 6291456, 2171681, 2171713, 2171745, 6291456, 2171777, 6291456, 2171809, 6291456, 2171841, 6291456]), new Uint32Array([2159106, 2159106, 2159170, 2159170, 2159234, 2159234, 2159298, 2159298, 2159298, 2159362, 2159362, 2159362, 2106401, 2106401, 2106401, 2106401]), new Uint32Array([2105601, 2112289, 2108193, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865, 2113153, 2108481, 2113345, 2113441, 2098209, 2111137]), new Uint32Array([2108417, 2181217, 2181249, 2181281, 2170433, 2170401, 2181313, 2181345, 2181377, 2181409, 2181441, 2181473, 2181505, 2181537, 2170529, 2181569]), new Uint32Array([2218433, 2245761, 2245793, 2245825, 2245857, 2245890, 2245953, 2245986, 2209665, 2246050, 2246113, 2246146, 2246210, 2246274, 2246337, 2246369]), new Uint32Array([2230754, 2230818, 2230882, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([6291456, 0, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 0, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2184129, 6291456, 2184161, 6291456, 2184193, 6291456, 6291456, 6291456, 6291456, 6291456, 2146818, 2183361, 6291456, 6291456, 2142978, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2135170, 2097506, 2130691, 2130787, 2130883, 2163970, 2164034, 2164098, 2164162, 2164226, 2164290, 2164354, 2164418, 2164482, 2164546, 2133122]), new Uint32Array([2108515, 2108611, 2100740, 2108707, 2108803, 2108899, 2108995, 2109091, 2109187, 2109283, 2109379, 2109475, 2109571, 2109667, 2109763, 2100738]), new Uint32Array([2102788, 2102916, 2103044, 2120515, 2103172, 2120611, 2120707, 2098373, 2103300, 2120803, 2120899, 2120995, 2103428, 2103556, 2121091, 2121187]), new Uint32Array([2158082, 2158146, 0, 2158210, 2158274, 0, 2158338, 2158402, 2158466, 2129922, 2158530, 2158594, 2158658, 2158722, 2158786, 2158850]), new Uint32Array([10499619, 10499715, 10499811, 10499907, 10500003, 10500099, 10500195, 10500291, 10500387, 10500483, 10500579, 10500675, 10500771, 10500867, 10500963, 10501059]), new Uint32Array([2239585, 2239618, 2239681, 2239713, 0, 2191969, 2239745, 2239777, 2192033, 2239809, 2239841, 2239874, 2239937, 2239970, 2240033, 2240065]), new Uint32Array([2252705, 2252738, 2252801, 2252833, 2252865, 2252897, 2252930, 2252994, 2253057, 2253089, 2253121, 2253154, 2253217, 2253250, 2219361, 2219361]), new Uint32Array([2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 2108193, 2112481, 2112577, 2098177, 2098305, 2108321, 2108289, 2100865]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 10538050, 10538114, 10538178, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([2226402, 2226466, 2226530, 2226594, 2226658, 2226722, 2226786, 2226850, 2226914, 2226978, 2227042, 2227106, 2227170, 2227234, 2227298, 2227362]), new Uint32Array([23068672, 6291456, 6291456, 6291456, 6291456, 2144066, 2144130, 2144194, 2144258, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 23068672, 23068672, 6291456, 23068672, 23068672]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2124674, 2124770, 2123875, 2123971, 2124067, 2124163, 2124259, 2124355, 2124451, 2124547, 2124643, 2124739, 2124835, 2124931, 2125027, 2125123]), new Uint32Array([2168065, 6291456, 2168097, 6291456, 2168129, 6291456, 2168161, 6291456, 2168193, 6291456, 2168225, 6291456, 2168257, 6291456, 2168289, 6291456]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0]), new Uint32Array([23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 2100610, 2100611, 6291456, 2107842, 2107843, 6291456, 6291456, 6291456, 6291456, 10537922, 6291456, 10537986, 6291456]), new Uint32Array([2174849, 2174881, 2174913, 2174945, 2174977, 2175009, 2175041, 2175073, 2175105, 2175137, 2175169, 2175201, 2175233, 2175265, 2175297, 2175329]), new Uint32Array([2154562, 2154626, 2154690, 2154754, 2141858, 2154818, 2154882, 2127298, 2154946, 2127298, 2155010, 2155074, 2155138, 2155202, 2155266, 2155202]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 23068672, 0]), new Uint32Array([2200641, 2150786, 2150850, 2150914, 2150978, 2151042, 2106562, 2151106, 2150562, 2151170, 2151234, 2151298, 2151362, 2151426, 2151490, 2151554]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 0, 0, 0, 0, 0, 0, 0, 0, 6291456, 6291456]), new Uint32Array([2220289, 2220289, 2220321, 2220321, 2220321, 2220321, 2220353, 2220353, 2220353, 2220353, 2220385, 2220385, 2220385, 2220385, 2220417, 2220417]), new Uint32Array([2155330, 2155394, 0, 2155458, 2155522, 2155586, 2105732, 0, 2155650, 2155714, 2155778, 2125314, 2155842, 2155906, 2126274, 2155970]), new Uint32Array([23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456, 23068672, 23068672, 6291456, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0]), new Uint32Array([2097729, 2106017, 2106017, 2106017, 2106017, 2131297, 2131297, 2131297, 2131297, 2106081, 2106081, 2162049, 2162049, 2105953, 2105953, 2162337]), new Uint32Array([2097185, 2097697, 2097697, 2097697, 2097697, 2135777, 2135777, 2135777, 2135777, 2097377, 2097377, 2097377, 2097377, 2097601, 2097601, 2097217]), new Uint32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23068672]), new Uint32Array([2139331, 2139427, 2139523, 2139043, 2133571, 2132611, 2139619, 2139715, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2174113, 2174145, 2100897, 2098177, 2108289, 2100865, 2173601, 2173633, 2173985, 2174113, 2174145, 6291456, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456, 23068672, 6291456, 6291456, 6291456, 6291456]), new Uint32Array([23068672, 23068672, 18923778, 23068672, 23068672, 23068672, 23068672, 18923842, 23068672, 23068672, 23068672, 23068672, 18923906, 23068672, 23068672, 23068672]), new Uint32Array([2134145, 2097153, 2134241, 0, 2132705, 2130977, 2160065, 2131297, 0, 2133089, 0, 2133857, 0, 0, 0, 0]), new Uint32Array([6291456, 6291456, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2177537, 6291456, 2177569, 6291456, 2177601, 6291456, 2177633, 6291456, 2177665, 6291456, 2177697, 6291456, 2177729, 6291456, 2177761, 6291456]), new Uint32Array([2212481, 2212513, 2212545, 2212577, 2197121, 2212609, 2212641, 2212673, 2212705, 2212737, 2212769, 2212801, 2212833, 2212865, 2212897, 2212929]), new Uint32Array([6291456, 6291456, 23068672, 23068672, 23068672, 6291456, 6291456, 0, 0, 0, 0, 0, 0, 0, 0, 0]), new Uint32Array([2098241, 2108353, 2170209, 2105825, 2111713, 2100897, 2111905, 2105473, 2105569, 2105601, 2112289, 6291456, 2108193, 2172417, 2112481, 2098177]), new Uint32Array([6291456, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 23068672, 6291456, 6291456])];
+  var blockIdxes = new Uint16Array([616, 616, 565, 147, 161, 411, 330, 2, 131, 131, 328, 454, 241, 408, 86, 86, 696, 113, 285, 350, 325, 301, 473, 214, 639, 232, 447, 64, 369, 598, 124, 672, 567, 223, 621, 154, 107, 86, 86, 86, 86, 86, 86, 505, 86, 68, 634, 86, 218, 218, 218, 218, 486, 218, 218, 513, 188, 608, 216, 86, 217, 463, 668, 85, 700, 360, 184, 86, 86, 86, 647, 402, 153, 10, 346, 718, 662, 260, 145, 298, 117, 1, 443, 342, 138, 54, 563, 86, 240, 572, 218, 70, 387, 86, 118, 460, 641, 602, 86, 86, 306, 218, 86, 692, 86, 86, 86, 86, 86, 162, 707, 86, 458, 26, 86, 218, 638, 86, 86, 86, 86, 86, 65, 449, 86, 86, 306, 183, 86, 58, 391, 667, 86, 157, 131, 131, 131, 131, 86, 433, 131, 406, 31, 218, 247, 86, 86, 693, 218, 581, 351, 86, 438, 295, 69, 462, 45, 126, 173, 650, 14, 295, 69, 97, 168, 187, 641, 78, 523, 390, 69, 108, 287, 664, 173, 219, 83, 295, 69, 108, 431, 426, 173, 694, 412, 115, 628, 52, 257, 398, 641, 118, 501, 121, 69, 579, 151, 423, 173, 620, 464, 121, 69, 382, 151, 476, 173, 27, 53, 121, 86, 594, 578, 226, 173, 86, 632, 130, 86, 96, 228, 268, 641, 622, 563, 86, 86, 21, 148, 650, 131, 131, 321, 43, 144, 343, 381, 531, 131, 131, 178, 20, 86, 399, 156, 375, 164, 541, 30, 60, 715, 198, 92, 118, 131, 131, 86, 86, 306, 407, 86, 280, 457, 196, 488, 358, 131, 131, 244, 86, 86, 143, 86, 86, 86, 86, 86, 667, 563, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 336, 363, 86, 86, 336, 86, 86, 380, 678, 67, 86, 86, 86, 678, 86, 86, 86, 512, 86, 307, 86, 708, 86, 86, 86, 86, 86, 528, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 563, 307, 86, 86, 86, 86, 86, 104, 450, 337, 86, 720, 86, 32, 450, 397, 86, 86, 86, 587, 218, 558, 708, 708, 293, 708, 86, 86, 86, 86, 86, 694, 205, 86, 8, 86, 86, 86, 86, 549, 86, 667, 697, 697, 679, 86, 458, 460, 86, 86, 650, 86, 708, 543, 86, 86, 86, 245, 86, 86, 86, 140, 218, 127, 708, 708, 458, 197, 131, 131, 131, 131, 500, 86, 86, 483, 251, 86, 306, 510, 515, 86, 722, 86, 86, 86, 65, 201, 86, 86, 483, 580, 470, 86, 86, 86, 368, 131, 131, 131, 694, 114, 110, 555, 86, 86, 123, 721, 163, 142, 713, 418, 86, 317, 675, 209, 218, 218, 218, 371, 545, 592, 629, 490, 603, 199, 46, 320, 525, 680, 310, 279, 388, 111, 42, 252, 593, 607, 235, 617, 410, 377, 50, 548, 135, 356, 17, 520, 189, 116, 392, 600, 349, 332, 482, 699, 690, 535, 119, 106, 451, 71, 152, 667, 131, 218, 218, 265, 671, 637, 492, 504, 533, 683, 269, 269, 658, 86, 86, 86, 86, 86, 86, 86, 86, 86, 491, 619, 86, 86, 6, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 229, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 667, 86, 86, 171, 131, 118, 131, 656, 206, 234, 571, 89, 334, 670, 246, 311, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 534, 86, 86, 86, 86, 86, 86, 82, 86, 86, 86, 86, 86, 430, 86, 86, 86, 86, 86, 86, 86, 86, 86, 599, 86, 324, 86, 470, 69, 640, 264, 131, 626, 101, 174, 86, 86, 667, 233, 105, 73, 374, 394, 221, 204, 84, 28, 326, 86, 86, 471, 86, 86, 86, 109, 573, 86, 171, 200, 200, 200, 200, 218, 218, 86, 86, 86, 86, 460, 131, 131, 131, 86, 506, 86, 86, 86, 86, 86, 220, 404, 34, 614, 47, 442, 305, 25, 612, 338, 601, 648, 7, 344, 255, 131, 131, 51, 86, 312, 507, 563, 86, 86, 86, 86, 588, 86, 86, 86, 86, 86, 530, 511, 86, 458, 3, 435, 384, 556, 522, 230, 527, 86, 118, 86, 86, 717, 86, 137, 273, 79, 181, 484, 23, 93, 112, 655, 249, 417, 703, 370, 87, 98, 313, 684, 585, 155, 465, 596, 481, 695, 18, 416, 428, 61, 701, 706, 282, 643, 495, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 549, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 549, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 307, 86, 86, 86, 171, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 650, 131, 422, 542, 420, 263, 24, 172, 86, 86, 86, 86, 86, 566, 86, 86, 132, 540, 395, 353, 494, 519, 19, 485, 284, 472, 131, 131, 131, 16, 714, 86, 211, 708, 86, 86, 86, 694, 698, 86, 86, 483, 704, 708, 218, 272, 86, 86, 120, 86, 159, 478, 86, 307, 247, 86, 86, 663, 597, 459, 627, 667, 86, 86, 277, 455, 39, 302, 86, 250, 86, 86, 86, 271, 99, 452, 306, 281, 329, 400, 200, 86, 86, 362, 549, 352, 646, 461, 323, 586, 86, 86, 4, 708, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 717, 86, 518, 86, 86, 650, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 125, 554, 480, 300, 613, 72, 333, 288, 561, 544, 604, 48, 719, 91, 169, 176, 590, 224, 76, 191, 29, 559, 560, 231, 537, 166, 477, 538, 256, 437, 131, 131, 469, 167, 40, 0, 685, 266, 441, 705, 239, 642, 475, 568, 640, 610, 299, 673, 517, 318, 385, 22, 202, 180, 179, 359, 424, 215, 90, 66, 521, 653, 467, 682, 453, 409, 479, 88, 131, 661, 35, 303, 15, 262, 666, 630, 712, 131, 131, 618, 659, 175, 218, 195, 347, 193, 227, 261, 150, 165, 709, 546, 294, 569, 710, 270, 413, 376, 524, 55, 242, 38, 419, 529, 170, 657, 3, 304, 122, 379, 278, 131, 651, 86, 67, 576, 458, 458, 131, 131, 86, 86, 86, 86, 86, 86, 86, 118, 309, 86, 86, 547, 86, 86, 86, 86, 667, 650, 664, 131, 131, 86, 86, 56, 131, 131, 131, 131, 131, 131, 131, 131, 86, 307, 86, 86, 86, 664, 238, 650, 86, 86, 717, 86, 118, 86, 86, 315, 86, 59, 86, 86, 574, 549, 131, 131, 340, 57, 436, 86, 86, 86, 86, 86, 86, 458, 708, 499, 691, 62, 86, 650, 86, 86, 694, 86, 86, 86, 319, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 171, 86, 549, 694, 131, 131, 131, 131, 131, 131, 131, 131, 131, 77, 86, 86, 139, 86, 502, 86, 86, 86, 667, 595, 131, 131, 131, 86, 12, 86, 13, 86, 609, 131, 131, 131, 131, 86, 86, 86, 625, 86, 669, 86, 86, 182, 129, 86, 5, 694, 104, 86, 86, 86, 86, 131, 131, 86, 86, 386, 171, 86, 86, 86, 345, 86, 324, 86, 589, 86, 213, 36, 131, 131, 131, 131, 131, 86, 86, 86, 86, 104, 131, 131, 131, 141, 290, 80, 677, 86, 86, 86, 267, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 667, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 515, 86, 86, 33, 136, 669, 86, 711, 515, 86, 86, 550, 640, 86, 104, 708, 515, 86, 159, 372, 717, 86, 86, 444, 515, 86, 86, 663, 37, 86, 563, 460, 86, 390, 624, 702, 131, 131, 131, 131, 389, 59, 708, 86, 86, 341, 208, 708, 635, 295, 69, 108, 431, 508, 100, 190, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 649, 516, 660, 131, 131, 86, 86, 86, 218, 631, 708, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 341, 575, 238, 514, 131, 131, 86, 86, 86, 218, 291, 708, 307, 131, 86, 86, 306, 367, 708, 131, 131, 131, 86, 378, 697, 86, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 615, 253, 86, 86, 86, 292, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 104, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 69, 86, 341, 553, 549, 86, 307, 86, 86, 645, 275, 455, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 708, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 667, 460, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 717, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 667, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 171, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 104, 86, 667, 459, 131, 131, 131, 131, 131, 131, 86, 458, 225, 86, 86, 86, 516, 549, 11, 390, 405, 86, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 460, 44, 218, 197, 711, 515, 131, 131, 131, 131, 664, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 307, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 308, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 640, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 118, 307, 104, 286, 591, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 549, 86, 86, 681, 86, 86, 75, 185, 314, 582, 86, 358, 496, 474, 86, 104, 131, 86, 86, 86, 86, 146, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 171, 86, 640, 131, 131, 131, 131, 131, 131, 131, 131, 246, 503, 689, 339, 674, 81, 258, 415, 439, 128, 562, 366, 414, 246, 503, 689, 583, 222, 557, 316, 636, 665, 186, 355, 95, 670, 246, 503, 689, 339, 674, 557, 258, 415, 439, 186, 355, 95, 670, 246, 503, 689, 446, 644, 536, 652, 331, 532, 335, 440, 274, 421, 297, 570, 74, 425, 364, 425, 606, 552, 403, 509, 134, 365, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 218, 218, 218, 498, 218, 218, 577, 627, 551, 497, 572, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 553, 354, 236, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 296, 455, 131, 131, 456, 243, 103, 86, 41, 459, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 9, 276, 158, 716, 393, 564, 383, 489, 401, 654, 210, 654, 131, 131, 131, 640, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 650, 86, 86, 86, 86, 86, 86, 717, 667, 563, 563, 563, 86, 549, 102, 686, 133, 246, 605, 86, 448, 86, 86, 207, 307, 131, 131, 131, 641, 86, 177, 611, 445, 373, 194, 584, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 308, 307, 171, 86, 86, 86, 86, 86, 86, 86, 717, 86, 86, 86, 86, 86, 460, 131, 131, 650, 86, 86, 86, 694, 708, 86, 86, 694, 86, 458, 131, 131, 131, 131, 131, 131, 667, 694, 289, 650, 667, 131, 131, 86, 640, 131, 131, 664, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 171, 131, 131, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 460, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 458, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86, 640, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 466, 203, 149, 429, 94, 432, 160, 687, 539, 63, 237, 283, 192, 248, 348, 259, 427, 526, 396, 676, 254, 468, 487, 212, 327, 623, 49, 633, 322, 493, 434, 688, 357, 361, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131, 131]);
+  var mappingStr = "صلى الله عليه وسلمجل جلالهキロメートルrad∕s2エスクードキログラムキロワットグラムトンクルゼイロサンチームパーセントピアストルファラッドブッシェルヘクタールマンションミリバールレントゲン′′′′1⁄10viii(10)(11)(12)(13)(14)(15)(16)(17)(18)(19)(20)∫∫∫∫(오전)(오후)アパートアルファアンペアイニングエーカーカラットカロリーキュリーギルダークローネサイクルシリングバーレルフィートポイントマイクロミクロンメガトンリットルルーブル株式会社kcalm∕s2c∕kgاكبرمحمدصلعمرسولریال1⁄41⁄23⁄4 ̈́ྲཱྀླཱྀ ̈͂ ̓̀ ̓́ ̓͂ ̔̀ ̔́ ̔͂ ̈̀‵‵‵a/ca/sc/oc/utelfax1⁄71⁄91⁄32⁄31⁄52⁄53⁄54⁄51⁄65⁄61⁄83⁄85⁄87⁄8xii0⁄3∮∮∮(1)(2)(3)(4)(5)(6)(7)(8)(9)(a)(b)(c)(d)(e)(f)(g)(h)(i)(j)(k)(l)(m)(n)(o)(p)(q)(r)(s)(t)(u)(v)(w)(x)(y)(z)::====(ᄀ)(ᄂ)(ᄃ)(ᄅ)(ᄆ)(ᄇ)(ᄉ)(ᄋ)(ᄌ)(ᄎ)(ᄏ)(ᄐ)(ᄑ)(ᄒ)(가)(나)(다)(라)(마)(바)(사)(아)(자)(차)(카)(타)(파)(하)(주)(一)(二)(三)(四)(五)(六)(七)(八)(九)(十)(月)(火)(水)(木)(金)(土)(日)(株)(有)(社)(名)(特)(財)(祝)(労)(代)(呼)(学)(監)(企)(資)(協)(祭)(休)(自)(至)pte10月11月12月ergltdアールインチウォンオンスオームカイリガロンガンマギニーケースコルナコーポセンチダースノットハイツパーツピクルフランペニヒヘルツペンスページベータボルトポンドホールホーンマイルマッハマルクヤードヤールユアンルピー10点11点12点13点14点15点16点17点18点19点20点21点22点23点24点hpabardm2dm3khzmhzghzthzmm2cm2km2mm3cm3km3kpampagpalogmilmolppmv∕ma∕m10日11日12日13日14日15日16日17日18日19日20日21日22日23日24日25日26日27日28日29日30日31日galffifflשּׁשּׂ ٌّ ٍّ َّ ُّ ِّ ّٰـَّـُّـِّتجمتحجتحمتخمتمجتمحتمخجمححميحمىسحجسجحسجىسمحسمجسممصححصممشحمشجيشمخشممضحىضخمطمحطممطميعجمعممعمىغممغميغمىفخمقمحقمملحملحيلحىلججلخملمحمحجمحيمجحمجممخممجخهمجهممنحمنحىنجمنجىنمينمىيممبخيتجيتجىتخيتخىتميتمىجميجحىجمىسخىصحيشحيضحيلجيلمييحييجييميمميقمينحيعميكمينجحمخيلجمكممجحيحجيمجيفميبحيسخينجيصلےقلے𝅘𝅥𝅮𝅘𝅥𝅯𝅘𝅥𝅰𝅘𝅥𝅱𝅘𝅥𝅲𝆹𝅥𝅮𝆺𝅥𝅮𝆹𝅥𝅯𝆺𝅥𝅯〔s〕ppv〔本〕〔三〕〔二〕〔安〕〔点〕〔打〕〔盗〕〔勝〕〔敗〕 ̄ ́ ̧ssi̇ijl·ʼndžljnjdz ̆ ̇ ̊ ̨ ̃ ̋ ιեւاٴوٴۇٴيٴक़ख़ग़ज़ड़ढ़फ़य़ড়ঢ়য়ਲ਼ਸ਼ਖ਼ਗ਼ਜ਼ਫ਼ଡ଼ଢ଼ําໍາຫນຫມགྷཌྷདྷབྷཛྷཀྵཱཱིུྲྀླྀྒྷྜྷྡྷྦྷྫྷྐྵaʾἀιἁιἂιἃιἄιἅιἆιἇιἠιἡιἢιἣιἤιἥιἦιἧιὠιὡιὢιὣιὤιὥιὦιὧιὰιαιάιᾶι ͂ὴιηιήιῆιὼιωιώιῶι ̳!! ̅???!!?rs°c°fnosmtmivix⫝̸ ゙ ゚よりコト333435참고주의363738394042444546474849503月4月5月6月7月8月9月hgevギガデシドルナノピコビルペソホンリラレムdaauovpciu平成昭和大正明治naμakakbmbgbpfnfμfμgmgμlmldlklfmnmμmpsnsμsmsnvμvkvpwnwμwmwkwkωmωbqcccddbgyhainkkktlnlxphprsrsvwbstմնմեմիվնմխיִײַשׁשׂאַאָאּבּגּדּהּוּזּטּיּךּכּלּמּנּסּףּפּצּקּרּתּוֹבֿכֿפֿאלئائەئوئۇئۆئۈئېئىئجئحئمئيبجبمبىبيتىتيثجثمثىثيخحضجضمطحظمغجفجفحفىفيقحقىقيكاكجكحكخكلكىكينخنىنيهجهىهييىذٰرٰىٰئرئزئنبزبنترتزتنثرثزثنمانرنزننيريزئخئهبهتهصخنههٰثهسهشهطىطيعىعيغىغيسىسيشىشيصىصيضىضيشخشرسرصرضراً ًـًـّ ْـْلآلألإ𝅗𝅥0,1,2,3,4,5,6,7,8,9,wzhvsdwcmcmddjほかココàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþāăąćĉċčďđēĕėęěĝğġģĥħĩīĭįĵķĺļľłńņňŋōŏőœŕŗřśŝşšţťŧũūŭůűųŵŷÿźżɓƃƅɔƈɖɗƌǝəɛƒɠɣɩɨƙɯɲɵơƣƥʀƨʃƭʈưʊʋƴƶʒƹƽǎǐǒǔǖǘǚǜǟǡǣǥǧǩǫǭǯǵƕƿǹǻǽǿȁȃȅȇȉȋȍȏȑȓȕȗșțȝȟƞȣȥȧȩȫȭȯȱȳⱥȼƚⱦɂƀʉʌɇɉɋɍɏɦɹɻʁʕͱͳʹͷ;ϳέίόύβγδεζθκλνξοπρστυφχψϊϋϗϙϛϝϟϡϣϥϧϩϫϭϯϸϻͻͼͽѐёђѓєѕіїјљњћќѝўџабвгдежзийклмнопрстуфхцчшщъыьэюяѡѣѥѧѩѫѭѯѱѳѵѷѹѻѽѿҁҋҍҏґғҕҗҙқҝҟҡңҥҧҩҫҭүұҳҵҷҹһҽҿӂӄӆӈӊӌӎӑӓӕӗәӛӝӟӡӣӥӧөӫӭӯӱӳӵӷӹӻӽӿԁԃԅԇԉԋԍԏԑԓԕԗԙԛԝԟԡԣԥԧԩԫԭԯաբգդզէըթժլծկհձղճյշոչպջռստրցփքօֆ་ⴧⴭნᏰᏱᏲᏳᏴᏵꙋɐɑᴂɜᴖᴗᴝᴥɒɕɟɡɥɪᵻʝɭᶅʟɱɰɳɴɸʂƫᴜʐʑḁḃḅḇḉḋḍḏḑḓḕḗḙḛḝḟḡḣḥḧḩḫḭḯḱḳḵḷḹḻḽḿṁṃṅṇṉṋṍṏṑṓṕṗṙṛṝṟṡṣṥṧṩṫṭṯṱṳṵṷṹṻṽṿẁẃẅẇẉẋẍẏẑẓẕạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹỻỽỿἐἑἒἓἔἕἰἱἲἳἴἵἶἷὀὁὂὃὄὅὑὓὕὗᾰᾱὲΐῐῑὶΰῠῡὺῥ`ὸ‐+−∑〈〉ⰰⰱⰲⰳⰴⰵⰶⰷⰸⰹⰺⰻⰼⰽⰾⰿⱀⱁⱂⱃⱄⱅⱆⱇⱈⱉⱊⱋⱌⱍⱎⱏⱐⱑⱒⱓⱔⱕⱖⱗⱘⱙⱚⱛⱜⱝⱞⱡɫᵽɽⱨⱪⱬⱳⱶȿɀⲁⲃⲅⲇⲉⲋⲍⲏⲑⲓⲕⲗⲙⲛⲝⲟⲡⲣⲥⲧⲩⲫⲭⲯⲱⲳⲵⲷⲹⲻⲽⲿⳁⳃⳅⳇⳉⳋⳍⳏⳑⳓⳕⳗⳙⳛⳝⳟⳡⳣⳬⳮⳳⵡ母龟丨丶丿乙亅亠人儿入冂冖冫几凵刀力勹匕匚匸卜卩厂厶又口囗士夂夊夕女子宀寸小尢尸屮山巛工己巾干幺广廴廾弋弓彐彡彳心戈戶手支攴文斗斤方无曰欠止歹殳毋比毛氏气爪父爻爿片牙牛犬玄玉瓜瓦甘生用田疋疒癶白皮皿目矛矢石示禸禾穴立竹米糸缶网羊羽老而耒耳聿肉臣臼舌舛舟艮色艸虍虫血行衣襾見角言谷豆豕豸貝赤走足身車辛辰辵邑酉釆里長門阜隶隹雨靑非面革韋韭音頁風飛食首香馬骨高髟鬥鬯鬲鬼魚鳥鹵鹿麥麻黃黍黑黹黽鼎鼓鼠鼻齊齒龍龜龠.〒卄卅ᄁᆪᆬᆭᄄᆰᆱᆲᆳᆴᆵᄚᄈᄡᄊ짜ᅢᅣᅤᅥᅦᅧᅨᅩᅪᅫᅬᅭᅮᅯᅰᅱᅲᅳᅴᅵᄔᄕᇇᇈᇌᇎᇓᇗᇙᄜᇝᇟᄝᄞᄠᄢᄣᄧᄩᄫᄬᄭᄮᄯᄲᄶᅀᅇᅌᇱᇲᅗᅘᅙᆄᆅᆈᆑᆒᆔᆞᆡ上中下甲丙丁天地問幼箏우秘男適優印注項写左右医宗夜テヌモヨヰヱヲꙁꙃꙅꙇꙉꙍꙏꙑꙓꙕꙗꙙꙛꙝꙟꙡꙣꙥꙧꙩꙫꙭꚁꚃꚅꚇꚉꚋꚍꚏꚑꚓꚕꚗꚙꚛꜣꜥꜧꜩꜫꜭꜯꜳꜵꜷꜹꜻꜽꜿꝁꝃꝅꝇꝉꝋꝍꝏꝑꝓꝕꝗꝙꝛꝝꝟꝡꝣꝥꝧꝩꝫꝭꝯꝺꝼᵹꝿꞁꞃꞅꞇꞌꞑꞓꞗꞙꞛꞝꞟꞡꞣꞥꞧꞩɬʞʇꭓꞵꞷꬷꭒᎠᎡᎢᎣᎤᎥᎦᎧᎨᎩᎪᎫᎬᎭᎮᎯᎰᎱᎲᎳᎴᎵᎶᎷᎸᎹᎺᎻᎼᎽᎾᎿᏀᏁᏂᏃᏄᏅᏆᏇᏈᏉᏊᏋᏌᏍᏎᏏᏐᏑᏒᏓᏔᏕᏖᏗᏘᏙᏚᏛᏜᏝᏞᏟᏠᏡᏢᏣᏤᏥᏦᏧᏨᏩᏪᏫᏬᏭᏮᏯ豈更賈滑串句契喇奈懶癩羅蘿螺裸邏樂洛烙珞落酪駱亂卵欄爛蘭鸞嵐濫藍襤拉臘蠟廊朗浪狼郎來冷勞擄櫓爐盧蘆虜路露魯鷺碌祿綠菉錄論壟弄籠聾牢磊賂雷壘屢樓淚漏累縷陋勒肋凜凌稜綾菱陵讀拏諾丹寧怒率異北磻便復不泌數索參塞省葉說殺沈拾若掠略亮兩凉梁糧良諒量勵呂廬旅濾礪閭驪麗黎曆歷轢年憐戀撚漣煉璉秊練聯輦蓮連鍊列劣咽烈裂廉念捻殮簾獵令囹嶺怜玲瑩羚聆鈴零靈領例禮醴隸惡了僚寮尿料燎療蓼遼暈阮劉杻柳流溜琉留硫紐類戮陸倫崙淪輪律慄栗隆利吏履易李梨泥理痢罹裏裡離匿溺吝燐璘藺隣鱗麟林淋臨笠粒狀炙識什茶刺切度拓糖宅洞暴輻降廓兀嗀塚晴凞猪益礼神祥福靖精蘒諸逸都飯飼館鶴郞隷侮僧免勉勤卑喝嘆器塀墨層悔慨憎懲敏既暑梅海渚漢煮爫琢碑祉祈祐祖禍禎穀突節縉繁署者臭艹著褐視謁謹賓贈辶難響頻恵𤋮舘並况全侀充冀勇勺啕喙嗢墳奄奔婢嬨廒廙彩徭惘慎愈慠戴揄搜摒敖望杖滛滋瀞瞧爵犯瑱甆画瘝瘟盛直睊着磌窱类絛缾荒華蝹襁覆調請諭變輸遲醙鉶陼韛頋鬒𢡊𢡄𣏕㮝䀘䀹𥉉𥳐𧻓齃龎עםٱٻپڀٺٿٹڤڦڄڃچڇڍڌڎڈژڑکگڳڱںڻۀہھۓڭۋۅۉ、〖〗—–_{}【】《》「」『』[]#&*-<>\\$%@ءؤة\"'^|~⦅⦆・ゥャ¢£¬¦¥₩│←↑→↓■○𐐨𐐩𐐪𐐫𐐬𐐭𐐮𐐯𐐰𐐱𐐲𐐳𐐴𐐵𐐶𐐷𐐸𐐹𐐺𐐻𐐼𐐽𐐾𐐿𐑀𐑁𐑂𐑃𐑄𐑅𐑆𐑇𐑈𐑉𐑊𐑋𐑌𐑍𐑎𐑏𐓘𐓙𐓚𐓛𐓜𐓝𐓞𐓟𐓠𐓡𐓢𐓣𐓤𐓥𐓦𐓧𐓨𐓩𐓪𐓫𐓬𐓭𐓮𐓯𐓰𐓱𐓲𐓳𐓴𐓵𐓶𐓷𐓸𐓹𐓺𐓻𐳀𐳁𐳂𐳃𐳄𐳅𐳆𐳇𐳈𐳉𐳊𐳋𐳌𐳍𐳎𐳏𐳐𐳑𐳒𐳓𐳔𐳕𐳖𐳗𐳘𐳙𐳚𐳛𐳜𐳝𐳞𐳟𐳠𐳡𐳢𐳣𐳤𐳥𐳦𐳧𐳨𐳩𐳪𐳫𐳬𐳭𐳮𐳯𐳰𐳱𐳲𑣀𑣁𑣂𑣃𑣄𑣅𑣆𑣇𑣈𑣉𑣊𑣋𑣌𑣍𑣎𑣏𑣐𑣑𑣒𑣓𑣔𑣕𑣖𑣗𑣘𑣙𑣚𑣛𑣜𑣝𑣞𑣟ıȷ∇∂𞤢𞤣𞤤𞤥𞤦𞤧𞤨𞤩𞤪𞤫𞤬𞤭𞤮𞤯𞤰𞤱𞤲𞤳𞤴𞤵𞤶𞤷𞤸𞤹𞤺𞤻𞤼𞤽𞤾𞤿𞥀𞥁𞥂𞥃ٮڡٯ字双多解交映無前後再新初終販声吹演投捕遊指禁空合満申割営配得可丽丸乁𠄢你侻倂偺備像㒞𠘺兔兤具𠔜㒹內𠕋冗冤仌冬𩇟刃㓟刻剆剷㔕包匆卉博即卽卿𠨬灰及叟𠭣叫叱吆咞吸呈周咢哶唐啓啣善喫喳嗂圖圗噑噴壮城埴堍型堲報墬𡓤売壷夆夢奢𡚨𡛪姬娛娧姘婦㛮嬈嬾𡧈寃寘寳𡬘寿将㞁屠峀岍𡷤嵃𡷦嵮嵫嵼巡巢㠯巽帨帽幩㡢𢆃㡼庰庳庶𪎒𢌱舁弢㣇𣊸𦇚形彫㣣徚忍志忹悁㤺㤜𢛔惇慈慌慺憲憤憯懞戛扝抱拔捐𢬌挽拼捨掃揤𢯱搢揅掩㨮摩摾撝摷㩬敬𣀊旣書晉㬙㬈㫤冒冕最暜肭䏙朡杞杓𣏃㭉柺枅桒𣑭梎栟椔楂榣槪檨𣚣櫛㰘次𣢧歔㱎歲殟殻𣪍𡴋𣫺汎𣲼沿泍汧洖派浩浸涅𣴞洴港湮㴳滇𣻑淹潮𣽞𣾎濆瀹瀛㶖灊災灷炭𠔥煅𤉣熜爨牐𤘈犀犕𤜵𤠔獺王㺬玥㺸瑇瑜璅瓊㼛甤𤰶甾𤲒𢆟瘐𤾡𤾸𥁄㿼䀈𥃳𥃲𥄙𥄳眞真瞋䁆䂖𥐝硎䃣𥘦𥚚𥛅秫䄯穊穏𥥼𥪧䈂𥮫篆築䈧𥲀糒䊠糨糣紀𥾆絣䌁緇縂繅䌴𦈨𦉇䍙𦋙罺𦌾羕翺𦓚𦔣聠𦖨聰𣍟䏕育脃䐋脾媵𦞧𦞵𣎓𣎜舄辞䑫芑芋芝劳花芳芽苦𦬼茝荣莭茣莽菧荓菊菌菜𦰶𦵫𦳕䔫蓱蓳蔖𧏊蕤𦼬䕝䕡𦾱𧃒䕫虐虧虩蚩蚈蜎蛢蜨蝫螆蟡蠁䗹衠𧙧裗裞䘵裺㒻𧢮𧥦䚾䛇誠𧲨貫賁贛起𧼯𠠄跋趼跰𠣞軔𨗒𨗭邔郱鄑𨜮鄛鈸鋗鋘鉼鏹鐕𨯺開䦕閷𨵷䧦雃嶲霣𩅅𩈚䩮䩶韠𩐊䪲𩒖頩𩖶飢䬳餩馧駂駾䯎𩬰鱀鳽䳎䳭鵧𪃎䳸𪄅𪈎𪊑䵖黾鼅鼏鼖𪘀";
+
+  function mapChar(codePoint) {
+    if (codePoint >= 0x30000) {
+      // High planes are special cased.
+      if (codePoint >= 0xE0100 && codePoint <= 0xE01EF) return 18874368;
+      return 0;
+    }
+    return blocks[blockIdxes[codePoint >> 4]][codePoint & 15];
+  }
+
+  return {
+    mapStr: mappingStr,
+    mapChar: mapChar
+  };
+});
+
+},{}],247:[function(require,module,exports){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/* istanbul ignore next */
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['punycode', './idna-map'], function (punycode, idna_map) {
+      return factory(punycode, idna_map);
+    });
+  } else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') {
+    module.exports = factory(require('punycode'), require('./idna-map'));
+  } else {
+    root.uts46 = factory(root.punycode, root.idna_map);
+  }
+})(undefined, function (punycode, idna_map) {
+
+  function mapLabel(label, useStd3ASCII, transitional) {
+    var mapped = [];
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = label[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var ch = _step.value;
+
+        var cp = ch.codePointAt(0);
+        var composite = idna_map.mapChar(cp);
+        var flags = composite >> 23;
+        var kind = composite >> 21 & 3;
+        var index = composite >> 5 & 0xffff;
+        var length = composite & 0x1f;
+        var value = idna_map.mapStr.substr(index, length);
+        if (kind == 0 || useStd3ASCII && flags & 1) {
+          throw new Error("Illegal char " + ch);
+        } else if (kind == 1) {
+          mapped.push(value);
+        } else if (kind == 2) {
+          mapped.push(transitional ? value : ch);
+        } else if (kind == 3) {
+          mapped.push(ch);
+        }
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+
+    var newLabel = mapped.join("").normalize("NFC");
+    return newLabel;
+  }
+
+  function process(domain, transitional, useStd3ASCII) {
+    if (useStd3ASCII === undefined) useStd3ASCII = false;
+    var mappedIDNA = mapLabel(domain, useStd3ASCII, transitional);
+
+    // Step 3. Break
+    var labels = mappedIDNA.split(".");
+
+    // Step 4. Convert/Validate
+    labels = labels.map(function (label) {
+      if (label.startsWith("xn--")) {
+        label = punycode.decode(label.substring(4));
+        validateLabel(label, useStd3ASCII, false);
+      } else {
+        validateLabel(label, useStd3ASCII, transitional);
+      }
+      return label;
+    });
+
+    return labels.join(".");
+  }
+
+  function validateLabel(label, useStd3ASCII, transitional) {
+    // 2. The label must not contain a U+002D HYPHEN-MINUS character in both the
+    // third position and fourth positions.
+    if (label[2] == '-' && label[3] == '-') throw new Error("Failed to validate " + label);
+
+    // 3. The label must neither begin nor end with a U+002D HYPHEN-MINUS
+    // character.
+    if (label.startsWith('-') || label.endsWith('-')) throw new Error("Failed to validate " + label);
+
+    // 4. The label must not contain a U+002E ( . ) FULL STOP.
+    if (label.includes('.')) throw new Error("Failed to validate " + label);
+
+    if (mapLabel(label, useStd3ASCII, transitional) != label) throw new Error("Failed to validate " + label);
+
+    // 5. The label must not begin with a combining mark, that is:
+    // General_Category=Mark.
+    var ch = label.codePointAt(0);
+    if (idna_map.mapChar(ch) & 0x2 << 23) throw new Error("Label contains illegal character: " + ch);
+  }
+
+  function toAscii(domain, options) {
+    if (options === undefined) options = {};
+    var transitional = 'transitional' in options ? options.transitional : true;
+    var useStd3ASCII = 'useStd3ASCII' in options ? options.useStd3ASCII : false;
+    var verifyDnsLength = 'verifyDnsLength' in options ? options.verifyDnsLength : false;
+    var labels = process(domain, transitional, useStd3ASCII).split('.');
+    var asciiLabels = labels.map(punycode.toASCII);
+    var asciiString = asciiLabels.join('.');
+    if (verifyDnsLength) {
+      if (asciiString.length < 1 || asciiString.length > 253) {
+        throw new Error("DNS name has wrong length: " + asciiString);
+      }
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = asciiLabels[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var label = _step2.value;
+
+          if (label.length < 1 || label.length > 63) throw new Error("DNS label has wrong length: " + label);
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+    }
+    return asciiString;
+  }
+
+  function toUnicode(domain, options) {
+    if (options === undefined) options = {};
+    var useStd3ASCII = 'useStd3ASCII' in options ? options.useStd3ASCII : false;
+    return process(domain, false, useStd3ASCII);
+  }
+
+  return {
+    toUnicode: toUnicode,
+    toAscii: toAscii
+  };
+});
+
+},{"./idna-map":246,"punycode":286}],248:[function(require,module,exports){
 "use strict";
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -94047,7 +97915,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128;
 };
 
-},{}],237:[function(require,module,exports){
+},{}],249:[function(require,module,exports){
 "use strict";
 
 var indexOf = [].indexOf;
@@ -94060,7 +97928,7 @@ module.exports = function (arr, obj) {
   return -1;
 };
 
-},{}],238:[function(require,module,exports){
+},{}],250:[function(require,module,exports){
 'use strict';
 
 if (typeof Object.create === 'function') {
@@ -94087,7 +97955,7 @@ if (typeof Object.create === 'function') {
   };
 }
 
-},{}],239:[function(require,module,exports){
+},{}],251:[function(require,module,exports){
 'use strict';
 
 /*!
@@ -94112,7 +97980,7 @@ function isSlowBuffer(obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0));
 }
 
-},{}],240:[function(require,module,exports){
+},{}],252:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -94131,7 +97999,7 @@ module.exports = function isHexPrefixed(str) {
   return str.slice(0, 2) === '0x';
 };
 
-},{}],241:[function(require,module,exports){
+},{}],253:[function(require,module,exports){
 'use strict';
 
 var toString = {}.toString;
@@ -94140,7 +98008,7 @@ module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],242:[function(require,module,exports){
+},{}],254:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -94577,7 +98445,7 @@ module.exports = Array.isArray || function (arr) {
 })(undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],243:[function(require,module,exports){
+},{}],255:[function(require,module,exports){
 /*
  A JavaScript implementation of the SHA family of hashes, as
  defined in FIPS PUB 180-2 as well as the corresponding HMAC implementation
@@ -94830,12 +98698,12 @@ module.exports = Array.isArray || function (arr) {
   }) : "undefined" !== typeof exports ? "undefined" !== typeof module && module.exports ? module.exports = exports = z : exports = z : U.jsSHA = z;
 })(undefined);
 
-},{}],244:[function(require,module,exports){
+},{}],256:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/api')(require('./lib/keccak'));
 
-},{"./lib/api":245,"./lib/keccak":249}],245:[function(require,module,exports){
+},{"./lib/api":257,"./lib/keccak":261}],257:[function(require,module,exports){
 'use strict';
 
 var createKeccak = require('./keccak');
@@ -94877,7 +98745,7 @@ module.exports = function (KeccakState) {
   };
 };
 
-},{"./keccak":246,"./shake":247}],246:[function(require,module,exports){
+},{"./keccak":258,"./shake":259}],258:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -94964,7 +98832,7 @@ module.exports = function (KeccakState) {
   return Keccak;
 };
 
-},{"inherits":238,"safe-buffer":291,"stream":307}],247:[function(require,module,exports){
+},{"inherits":250,"safe-buffer":304,"stream":320}],259:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -95042,7 +98910,7 @@ module.exports = function (KeccakState) {
   return Shake;
 };
 
-},{"inherits":238,"safe-buffer":291,"stream":307}],248:[function(require,module,exports){
+},{"inherits":250,"safe-buffer":304,"stream":320}],260:[function(require,module,exports){
 'use strict';
 
 var P1600_ROUND_CONSTANTS = [1, 0, 32898, 0, 32906, 2147483648, 2147516416, 2147483648, 32907, 0, 2147483649, 0, 2147516545, 2147483648, 32777, 2147483648, 138, 0, 136, 0, 2147516425, 0, 2147483658, 0, 2147516555, 0, 139, 2147483648, 32905, 2147483648, 32771, 2147483648, 32770, 2147483648, 128, 2147483648, 32778, 0, 2147483658, 2147483648, 2147516545, 2147483648, 32896, 2147483648, 2147483649, 0, 2147516424, 2147483648];
@@ -95232,7 +99100,7 @@ exports.p1600 = function (s) {
   }
 };
 
-},{}],249:[function(require,module,exports){
+},{}],261:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -95301,7 +99169,7 @@ Keccak.prototype.copy = function (dest) {
 
 module.exports = Keccak;
 
-},{"./keccak-state-unroll":248,"safe-buffer":291}],250:[function(require,module,exports){
+},{"./keccak-state-unroll":260,"safe-buffer":304}],262:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -96521,7 +100389,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 }());
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],251:[function(require,module,exports){
+},{}],263:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -96671,7 +100539,7 @@ function fnI(a, b, c, d, m, k, s) {
 module.exports = MD5;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"hash-base":252,"inherits":238}],252:[function(require,module,exports){
+},{"buffer":151,"hash-base":264,"inherits":250}],264:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -96770,7 +100638,7 @@ HashBase.prototype._digest = function () {
 
 module.exports = HashBase;
 
-},{"inherits":238,"safe-buffer":291,"stream":307}],253:[function(require,module,exports){
+},{"inherits":250,"safe-buffer":304,"stream":320}],265:[function(require,module,exports){
 'use strict';
 
 var bn = require('bn.js');
@@ -96878,7 +100746,7 @@ MillerRabin.prototype.getDivisor = function getDivisor(n, k) {
   return false;
 };
 
-},{"bn.js":108,"brorand":109}],254:[function(require,module,exports){
+},{"bn.js":118,"brorand":119}],266:[function(require,module,exports){
 'use strict';
 
 module.exports = assert;
@@ -96891,7 +100759,7 @@ assert.equal = function assertEqual(l, r, msg) {
   if (l != r) throw new Error(msg || 'Assertion failed: ' + l + ' != ' + r);
 };
 
-},{}],255:[function(require,module,exports){
+},{}],267:[function(require,module,exports){
 'use strict';
 
 var utils = exports;
@@ -96940,7 +100808,7 @@ utils.encode = function encode(arr, enc) {
   if (enc === 'hex') return toHex(arr);else return arr;
 };
 
-},{}],256:[function(require,module,exports){
+},{}],268:[function(require,module,exports){
 module.exports={"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.2": "aes-128-cbc",
 "2.16.840.1.101.3.4.1.3": "aes-128-ofb",
@@ -96954,7 +100822,7 @@ module.exports={"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.43": "aes-256-ofb",
 "2.16.840.1.101.3.4.1.44": "aes-256-cfb"
 }
-},{}],257:[function(require,module,exports){
+},{}],269:[function(require,module,exports){
 // from https://github.com/indutny/self-signed/blob/gh-pages/lib/asn1.js
 // Fedor, you are amazing.
 'use strict';
@@ -97016,7 +100884,7 @@ exports.signature = asn1.define('signature', function () {
   this.seq().obj(this.key('r').int(), this.key('s').int());
 });
 
-},{"./certificate":258,"asn1.js":81}],258:[function(require,module,exports){
+},{"./certificate":270,"asn1.js":91}],270:[function(require,module,exports){
 // from https://github.com/Rantanen/node-dtls/blob/25a7dc861bda38cfeac93a723500eea4f0ac2e86/Certificate.js
 // thanks to @Rantanen
 
@@ -97075,7 +100943,7 @@ var X509Certificate = asn.define('X509Certificate', function () {
 
 module.exports = X509Certificate;
 
-},{"asn1.js":81}],259:[function(require,module,exports){
+},{"asn1.js":91}],271:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -97111,7 +100979,7 @@ module.exports = function (okey, password) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"browserify-aes":113,"buffer":141,"evp_bytestokey":220}],260:[function(require,module,exports){
+},{"browserify-aes":123,"buffer":151,"evp_bytestokey":230}],272:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -97228,14 +101096,14 @@ function decrypt(data, password) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./aesid.json":256,"./asn1":257,"./fixProc":259,"browserify-aes":113,"buffer":141,"pbkdf2":261}],261:[function(require,module,exports){
+},{"./aesid.json":268,"./asn1":269,"./fixProc":271,"browserify-aes":123,"buffer":151,"pbkdf2":273}],273:[function(require,module,exports){
 'use strict';
 
 exports.pbkdf2 = require('./lib/async');
 
 exports.pbkdf2Sync = require('./lib/sync');
 
-},{"./lib/async":262,"./lib/sync":265}],262:[function(require,module,exports){
+},{"./lib/async":274,"./lib/sync":277}],274:[function(require,module,exports){
 (function (process,global){
 'use strict';
 
@@ -97336,7 +101204,7 @@ module.exports = function (password, salt, iterations, keylen, digest, callback)
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./default-encoding":263,"./precondition":264,"./sync":265,"_process":267,"safe-buffer":291}],263:[function(require,module,exports){
+},{"./default-encoding":275,"./precondition":276,"./sync":277,"_process":279,"safe-buffer":304}],275:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -97352,7 +101220,7 @@ if (process.browser) {
 module.exports = defaultEncoding;
 
 }).call(this,require('_process'))
-},{"_process":267}],264:[function(require,module,exports){
+},{"_process":279}],276:[function(require,module,exports){
 'use strict';
 
 var MAX_ALLOC = Math.pow(2, 30) - 1; // default in iojs
@@ -97375,7 +101243,7 @@ module.exports = function (iterations, keylen) {
   }
 };
 
-},{}],265:[function(require,module,exports){
+},{}],277:[function(require,module,exports){
 'use strict';
 
 var md5 = require('create-hash/md5');
@@ -97482,7 +101350,7 @@ function pbkdf2(password, salt, iterations, keylen, digest) {
 
 module.exports = pbkdf2;
 
-},{"./default-encoding":263,"./precondition":264,"create-hash/md5":148,"ripemd160":289,"safe-buffer":291,"sha.js":300}],266:[function(require,module,exports){
+},{"./default-encoding":275,"./precondition":276,"create-hash/md5":158,"ripemd160":302,"safe-buffer":304,"sha.js":313}],278:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -97527,7 +101395,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 }
 
 }).call(this,require('_process'))
-},{"_process":267}],267:[function(require,module,exports){
+},{"_process":279}],279:[function(require,module,exports){
 'use strict';
 
 // shim for using process in browser
@@ -97716,7 +101584,7 @@ process.umask = function () {
     return 0;
 };
 
-},{}],268:[function(require,module,exports){
+},{}],280:[function(require,module,exports){
 'use strict';
 
 exports.publicEncrypt = require('./publicEncrypt');
@@ -97730,7 +101598,7 @@ exports.publicDecrypt = function publicDecrypt(key, buf) {
   return exports.privateDecrypt(key, buf, true);
 };
 
-},{"./privateDecrypt":270,"./publicEncrypt":271}],269:[function(require,module,exports){
+},{"./privateDecrypt":282,"./publicEncrypt":283}],281:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -97753,7 +101621,7 @@ function i2ops(c) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"create-hash":146}],270:[function(require,module,exports){
+},{"buffer":151,"create-hash":156}],282:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -97867,7 +101735,7 @@ function compare(a, b) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./mgf":269,"./withPublic":272,"./xor":273,"bn.js":108,"browserify-rsa":131,"buffer":141,"create-hash":146,"parse-asn1":260}],271:[function(require,module,exports){
+},{"./mgf":281,"./withPublic":284,"./xor":285,"bn.js":118,"browserify-rsa":141,"buffer":151,"create-hash":156,"parse-asn1":272}],283:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -97968,7 +101836,7 @@ function nonZero(len, crypto) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./mgf":269,"./withPublic":272,"./xor":273,"bn.js":108,"browserify-rsa":131,"buffer":141,"create-hash":146,"parse-asn1":260,"randombytes":274}],272:[function(require,module,exports){
+},{"./mgf":281,"./withPublic":284,"./xor":285,"bn.js":118,"browserify-rsa":141,"buffer":151,"create-hash":156,"parse-asn1":272,"randombytes":287}],284:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -97980,7 +101848,7 @@ function withPublic(paddedMsg, key) {
 module.exports = withPublic;
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":108,"buffer":141}],273:[function(require,module,exports){
+},{"bn.js":118,"buffer":151}],285:[function(require,module,exports){
 "use strict";
 
 module.exports = function xor(a, b) {
@@ -97992,7 +101860,540 @@ module.exports = function xor(a, b) {
   return a;
 };
 
-},{}],274:[function(require,module,exports){
+},{}],286:[function(require,module,exports){
+(function (global){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/*! https://mths.be/punycode v1.4.1 by @mathias */
+;(function (root) {
+
+	/** Detect free variables */
+	var freeExports = (typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) == 'object' && exports && !exports.nodeType && exports;
+	var freeModule = (typeof module === 'undefined' ? 'undefined' : _typeof(module)) == 'object' && module && !module.nodeType && module;
+	var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global;
+	if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal || freeGlobal.self === freeGlobal) {
+		root = freeGlobal;
+	}
+
+	/**
+  * The `punycode` object.
+  * @name punycode
+  * @type Object
+  */
+	var punycode,
+
+
+	/** Highest positive signed 32-bit float value */
+	maxInt = 2147483647,
+	    // aka. 0x7FFFFFFF or 2^31-1
+
+	/** Bootstring parameters */
+	base = 36,
+	    tMin = 1,
+	    tMax = 26,
+	    skew = 38,
+	    damp = 700,
+	    initialBias = 72,
+	    initialN = 128,
+	    // 0x80
+	delimiter = '-',
+	    // '\x2D'
+
+	/** Regular expressions */
+	regexPunycode = /^xn--/,
+	    regexNonASCII = /[^\x20-\x7E]/,
+	    // unprintable ASCII chars + non-ASCII chars
+	regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g,
+	    // RFC 3490 separators
+
+	/** Error messages */
+	errors = {
+		'overflow': 'Overflow: input needs wider integers to process',
+		'not-basic': 'Illegal input >= 0x80 (not a basic code point)',
+		'invalid-input': 'Invalid input'
+	},
+
+
+	/** Convenience shortcuts */
+	baseMinusTMin = base - tMin,
+	    floor = Math.floor,
+	    stringFromCharCode = String.fromCharCode,
+
+
+	/** Temporary variable */
+	key;
+
+	/*--------------------------------------------------------------------------*/
+
+	/**
+  * A generic error utility function.
+  * @private
+  * @param {String} type The error type.
+  * @returns {Error} Throws a `RangeError` with the applicable error message.
+  */
+	function error(type) {
+		throw new RangeError(errors[type]);
+	}
+
+	/**
+  * A generic `Array#map` utility function.
+  * @private
+  * @param {Array} array The array to iterate over.
+  * @param {Function} callback The function that gets called for every array
+  * item.
+  * @returns {Array} A new array of values returned by the callback function.
+  */
+	function map(array, fn) {
+		var length = array.length;
+		var result = [];
+		while (length--) {
+			result[length] = fn(array[length]);
+		}
+		return result;
+	}
+
+	/**
+  * A simple `Array#map`-like wrapper to work with domain name strings or email
+  * addresses.
+  * @private
+  * @param {String} domain The domain name or email address.
+  * @param {Function} callback The function that gets called for every
+  * character.
+  * @returns {Array} A new string of characters returned by the callback
+  * function.
+  */
+	function mapDomain(string, fn) {
+		var parts = string.split('@');
+		var result = '';
+		if (parts.length > 1) {
+			// In email addresses, only the domain name should be punycoded. Leave
+			// the local part (i.e. everything up to `@`) intact.
+			result = parts[0] + '@';
+			string = parts[1];
+		}
+		// Avoid `split(regex)` for IE8 compatibility. See #17.
+		string = string.replace(regexSeparators, '\x2E');
+		var labels = string.split('.');
+		var encoded = map(labels, fn).join('.');
+		return result + encoded;
+	}
+
+	/**
+  * Creates an array containing the numeric code points of each Unicode
+  * character in the string. While JavaScript uses UCS-2 internally,
+  * this function will convert a pair of surrogate halves (each of which
+  * UCS-2 exposes as separate characters) into a single code point,
+  * matching UTF-16.
+  * @see `punycode.ucs2.encode`
+  * @see <https://mathiasbynens.be/notes/javascript-encoding>
+  * @memberOf punycode.ucs2
+  * @name decode
+  * @param {String} string The Unicode input string (UCS-2).
+  * @returns {Array} The new array of code points.
+  */
+	function ucs2decode(string) {
+		var output = [],
+		    counter = 0,
+		    length = string.length,
+		    value,
+		    extra;
+		while (counter < length) {
+			value = string.charCodeAt(counter++);
+			if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+				// high surrogate, and there is a next character
+				extra = string.charCodeAt(counter++);
+				if ((extra & 0xFC00) == 0xDC00) {
+					// low surrogate
+					output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
+				} else {
+					// unmatched surrogate; only append this code unit, in case the next
+					// code unit is the high surrogate of a surrogate pair
+					output.push(value);
+					counter--;
+				}
+			} else {
+				output.push(value);
+			}
+		}
+		return output;
+	}
+
+	/**
+  * Creates a string based on an array of numeric code points.
+  * @see `punycode.ucs2.decode`
+  * @memberOf punycode.ucs2
+  * @name encode
+  * @param {Array} codePoints The array of numeric code points.
+  * @returns {String} The new Unicode string (UCS-2).
+  */
+	function ucs2encode(array) {
+		return map(array, function (value) {
+			var output = '';
+			if (value > 0xFFFF) {
+				value -= 0x10000;
+				output += stringFromCharCode(value >>> 10 & 0x3FF | 0xD800);
+				value = 0xDC00 | value & 0x3FF;
+			}
+			output += stringFromCharCode(value);
+			return output;
+		}).join('');
+	}
+
+	/**
+  * Converts a basic code point into a digit/integer.
+  * @see `digitToBasic()`
+  * @private
+  * @param {Number} codePoint The basic numeric code point value.
+  * @returns {Number} The numeric value of a basic code point (for use in
+  * representing integers) in the range `0` to `base - 1`, or `base` if
+  * the code point does not represent a value.
+  */
+	function basicToDigit(codePoint) {
+		if (codePoint - 48 < 10) {
+			return codePoint - 22;
+		}
+		if (codePoint - 65 < 26) {
+			return codePoint - 65;
+		}
+		if (codePoint - 97 < 26) {
+			return codePoint - 97;
+		}
+		return base;
+	}
+
+	/**
+  * Converts a digit/integer into a basic code point.
+  * @see `basicToDigit()`
+  * @private
+  * @param {Number} digit The numeric value of a basic code point.
+  * @returns {Number} The basic code point whose value (when used for
+  * representing integers) is `digit`, which needs to be in the range
+  * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
+  * used; else, the lowercase form is used. The behavior is undefined
+  * if `flag` is non-zero and `digit` has no uppercase form.
+  */
+	function digitToBasic(digit, flag) {
+		//  0..25 map to ASCII a..z or A..Z
+		// 26..35 map to ASCII 0..9
+		return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
+	}
+
+	/**
+  * Bias adaptation function as per section 3.4 of RFC 3492.
+  * https://tools.ietf.org/html/rfc3492#section-3.4
+  * @private
+  */
+	function adapt(delta, numPoints, firstTime) {
+		var k = 0;
+		delta = firstTime ? floor(delta / damp) : delta >> 1;
+		delta += floor(delta / numPoints);
+		for (; /* no initialization */delta > baseMinusTMin * tMax >> 1; k += base) {
+			delta = floor(delta / baseMinusTMin);
+		}
+		return floor(k + (baseMinusTMin + 1) * delta / (delta + skew));
+	}
+
+	/**
+  * Converts a Punycode string of ASCII-only symbols to a string of Unicode
+  * symbols.
+  * @memberOf punycode
+  * @param {String} input The Punycode string of ASCII-only symbols.
+  * @returns {String} The resulting string of Unicode symbols.
+  */
+	function decode(input) {
+		// Don't use UCS-2
+		var output = [],
+		    inputLength = input.length,
+		    out,
+		    i = 0,
+		    n = initialN,
+		    bias = initialBias,
+		    basic,
+		    j,
+		    index,
+		    oldi,
+		    w,
+		    k,
+		    digit,
+		    t,
+
+		/** Cached calculation results */
+		baseMinusT;
+
+		// Handle the basic code points: let `basic` be the number of input code
+		// points before the last delimiter, or `0` if there is none, then copy
+		// the first basic code points to the output.
+
+		basic = input.lastIndexOf(delimiter);
+		if (basic < 0) {
+			basic = 0;
+		}
+
+		for (j = 0; j < basic; ++j) {
+			// if it's not a basic code point
+			if (input.charCodeAt(j) >= 0x80) {
+				error('not-basic');
+			}
+			output.push(input.charCodeAt(j));
+		}
+
+		// Main decoding loop: start just after the last delimiter if any basic code
+		// points were copied; start at the beginning otherwise.
+
+		for (index = basic > 0 ? basic + 1 : 0; index < inputLength;) /* no final expression */{
+
+			// `index` is the index of the next character to be consumed.
+			// Decode a generalized variable-length integer into `delta`,
+			// which gets added to `i`. The overflow checking is easier
+			// if we increase `i` as we go, then subtract off its starting
+			// value at the end to obtain `delta`.
+			for (oldi = i, w = 1, k = base;; /* no condition */k += base) {
+
+				if (index >= inputLength) {
+					error('invalid-input');
+				}
+
+				digit = basicToDigit(input.charCodeAt(index++));
+
+				if (digit >= base || digit > floor((maxInt - i) / w)) {
+					error('overflow');
+				}
+
+				i += digit * w;
+				t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+
+				if (digit < t) {
+					break;
+				}
+
+				baseMinusT = base - t;
+				if (w > floor(maxInt / baseMinusT)) {
+					error('overflow');
+				}
+
+				w *= baseMinusT;
+			}
+
+			out = output.length + 1;
+			bias = adapt(i - oldi, out, oldi == 0);
+
+			// `i` was supposed to wrap around from `out` to `0`,
+			// incrementing `n` each time, so we'll fix that now:
+			if (floor(i / out) > maxInt - n) {
+				error('overflow');
+			}
+
+			n += floor(i / out);
+			i %= out;
+
+			// Insert `n` at position `i` of the output
+			output.splice(i++, 0, n);
+		}
+
+		return ucs2encode(output);
+	}
+
+	/**
+  * Converts a string of Unicode symbols (e.g. a domain name label) to a
+  * Punycode string of ASCII-only symbols.
+  * @memberOf punycode
+  * @param {String} input The string of Unicode symbols.
+  * @returns {String} The resulting Punycode string of ASCII-only symbols.
+  */
+	function encode(input) {
+		var n,
+		    delta,
+		    handledCPCount,
+		    basicLength,
+		    bias,
+		    j,
+		    m,
+		    q,
+		    k,
+		    t,
+		    currentValue,
+		    output = [],
+
+		/** `inputLength` will hold the number of code points in `input`. */
+		inputLength,
+
+		/** Cached calculation results */
+		handledCPCountPlusOne,
+		    baseMinusT,
+		    qMinusT;
+
+		// Convert the input in UCS-2 to Unicode
+		input = ucs2decode(input);
+
+		// Cache the length
+		inputLength = input.length;
+
+		// Initialize the state
+		n = initialN;
+		delta = 0;
+		bias = initialBias;
+
+		// Handle the basic code points
+		for (j = 0; j < inputLength; ++j) {
+			currentValue = input[j];
+			if (currentValue < 0x80) {
+				output.push(stringFromCharCode(currentValue));
+			}
+		}
+
+		handledCPCount = basicLength = output.length;
+
+		// `handledCPCount` is the number of code points that have been handled;
+		// `basicLength` is the number of basic code points.
+
+		// Finish the basic string - if it is not empty - with a delimiter
+		if (basicLength) {
+			output.push(delimiter);
+		}
+
+		// Main encoding loop:
+		while (handledCPCount < inputLength) {
+
+			// All non-basic code points < n have been handled already. Find the next
+			// larger one:
+			for (m = maxInt, j = 0; j < inputLength; ++j) {
+				currentValue = input[j];
+				if (currentValue >= n && currentValue < m) {
+					m = currentValue;
+				}
+			}
+
+			// Increase `delta` enough to advance the decoder's <n,i> state to <m,0>,
+			// but guard against overflow
+			handledCPCountPlusOne = handledCPCount + 1;
+			if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
+				error('overflow');
+			}
+
+			delta += (m - n) * handledCPCountPlusOne;
+			n = m;
+
+			for (j = 0; j < inputLength; ++j) {
+				currentValue = input[j];
+
+				if (currentValue < n && ++delta > maxInt) {
+					error('overflow');
+				}
+
+				if (currentValue == n) {
+					// Represent delta as a generalized variable-length integer
+					for (q = delta, k = base;; /* no condition */k += base) {
+						t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+						if (q < t) {
+							break;
+						}
+						qMinusT = q - t;
+						baseMinusT = base - t;
+						output.push(stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0)));
+						q = floor(qMinusT / baseMinusT);
+					}
+
+					output.push(stringFromCharCode(digitToBasic(q, 0)));
+					bias = adapt(delta, handledCPCountPlusOne, handledCPCount == basicLength);
+					delta = 0;
+					++handledCPCount;
+				}
+			}
+
+			++delta;
+			++n;
+		}
+		return output.join('');
+	}
+
+	/**
+  * Converts a Punycode string representing a domain name or an email address
+  * to Unicode. Only the Punycoded parts of the input will be converted, i.e.
+  * it doesn't matter if you call it on a string that has already been
+  * converted to Unicode.
+  * @memberOf punycode
+  * @param {String} input The Punycoded domain name or email address to
+  * convert to Unicode.
+  * @returns {String} The Unicode representation of the given Punycode
+  * string.
+  */
+	function toUnicode(input) {
+		return mapDomain(input, function (string) {
+			return regexPunycode.test(string) ? decode(string.slice(4).toLowerCase()) : string;
+		});
+	}
+
+	/**
+  * Converts a Unicode string representing a domain name or an email address to
+  * Punycode. Only the non-ASCII parts of the domain name will be converted,
+  * i.e. it doesn't matter if you call it with a domain that's already in
+  * ASCII.
+  * @memberOf punycode
+  * @param {String} input The domain name or email address to convert, as a
+  * Unicode string.
+  * @returns {String} The Punycode representation of the given domain name or
+  * email address.
+  */
+	function toASCII(input) {
+		return mapDomain(input, function (string) {
+			return regexNonASCII.test(string) ? 'xn--' + encode(string) : string;
+		});
+	}
+
+	/*--------------------------------------------------------------------------*/
+
+	/** Define the public API */
+	punycode = {
+		/**
+   * A string representing the current Punycode.js version number.
+   * @memberOf punycode
+   * @type String
+   */
+		'version': '1.4.1',
+		/**
+   * An object of methods to convert from JavaScript's internal character
+   * representation (UCS-2) to Unicode code points, and back.
+   * @see <https://mathiasbynens.be/notes/javascript-encoding>
+   * @memberOf punycode
+   * @type Object
+   */
+		'ucs2': {
+			'decode': ucs2decode,
+			'encode': ucs2encode
+		},
+		'decode': decode,
+		'encode': encode,
+		'toASCII': toASCII,
+		'toUnicode': toUnicode
+	};
+
+	/** Expose `punycode` */
+	// Some AMD build optimizers, like r.js, check for specific condition patterns
+	// like the following:
+	if (typeof define == 'function' && _typeof(define.amd) == 'object' && define.amd) {
+		define('punycode', function () {
+			return punycode;
+		});
+	} else if (freeExports && freeModule) {
+		if (module.exports == freeExports) {
+			// in Node.js, io.js, or RingoJS v0.8.0+
+			freeModule.exports = punycode;
+		} else {
+			// in Narwhal or RingoJS v0.7.0-
+			for (key in punycode) {
+				punycode.hasOwnProperty(key) && (freeExports[key] = punycode[key]);
+			}
+		}
+	} else {
+		// in Rhino or a web browser
+		root.punycode = punycode;
+	}
+})(undefined);
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],287:[function(require,module,exports){
 (function (process,global){
 'use strict';
 
@@ -98035,7 +102436,7 @@ function randomBytes(size, cb) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":267,"safe-buffer":291}],275:[function(require,module,exports){
+},{"_process":279,"safe-buffer":304}],288:[function(require,module,exports){
 (function (process,global){
 'use strict';
 
@@ -98149,12 +102550,12 @@ function randomFillSync(buf, offset, size) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":267,"randombytes":274,"safe-buffer":291}],276:[function(require,module,exports){
+},{"_process":279,"randombytes":287,"safe-buffer":304}],289:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/_stream_duplex.js');
 
-},{"./lib/_stream_duplex.js":277}],277:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":290}],290:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -98280,7 +102681,7 @@ function forEach(xs, f) {
   }
 }
 
-},{"./_stream_readable":279,"./_stream_writable":281,"core-util-is":144,"inherits":238,"process-nextick-args":266}],278:[function(require,module,exports){
+},{"./_stream_readable":292,"./_stream_writable":294,"core-util-is":154,"inherits":250,"process-nextick-args":278}],291:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -98329,7 +102730,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
 
-},{"./_stream_transform":280,"core-util-is":144,"inherits":238}],279:[function(require,module,exports){
+},{"./_stream_transform":293,"core-util-is":154,"inherits":250}],292:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -99340,7 +103741,7 @@ function indexOf(xs, x) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":277,"./internal/streams/BufferList":282,"./internal/streams/destroy":283,"./internal/streams/stream":284,"_process":267,"core-util-is":144,"events":219,"inherits":238,"isarray":241,"process-nextick-args":266,"safe-buffer":291,"string_decoder/":309,"util":110}],280:[function(require,module,exports){
+},{"./_stream_duplex":290,"./internal/streams/BufferList":295,"./internal/streams/destroy":296,"./internal/streams/stream":297,"_process":279,"core-util-is":154,"events":229,"inherits":250,"isarray":253,"process-nextick-args":278,"safe-buffer":304,"string_decoder/":322,"util":120}],293:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -99556,7 +103957,7 @@ function done(stream, er, data) {
   return stream.push(null);
 }
 
-},{"./_stream_duplex":277,"core-util-is":144,"inherits":238}],281:[function(require,module,exports){
+},{"./_stream_duplex":290,"core-util-is":154,"inherits":250}],294:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -100224,7 +104625,7 @@ Writable.prototype._destroy = function (err, cb) {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":277,"./internal/streams/destroy":283,"./internal/streams/stream":284,"_process":267,"core-util-is":144,"inherits":238,"process-nextick-args":266,"safe-buffer":291,"util-deprecate":313}],282:[function(require,module,exports){
+},{"./_stream_duplex":290,"./internal/streams/destroy":296,"./internal/streams/stream":297,"_process":279,"core-util-is":154,"inherits":250,"process-nextick-args":278,"safe-buffer":304,"util-deprecate":326}],295:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -100304,7 +104705,7 @@ module.exports = function () {
   return BufferList;
 }();
 
-},{"safe-buffer":291}],283:[function(require,module,exports){
+},{"safe-buffer":304}],296:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -100378,17 +104779,17 @@ module.exports = {
   undestroy: undestroy
 };
 
-},{"process-nextick-args":266}],284:[function(require,module,exports){
+},{"process-nextick-args":278}],297:[function(require,module,exports){
 'use strict';
 
 module.exports = require('events').EventEmitter;
 
-},{"events":219}],285:[function(require,module,exports){
+},{"events":229}],298:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./readable').PassThrough;
 
-},{"./readable":286}],286:[function(require,module,exports){
+},{"./readable":299}],299:[function(require,module,exports){
 'use strict';
 
 exports = module.exports = require('./lib/_stream_readable.js');
@@ -100399,17 +104800,17 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":277,"./lib/_stream_passthrough.js":278,"./lib/_stream_readable.js":279,"./lib/_stream_transform.js":280,"./lib/_stream_writable.js":281}],287:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":290,"./lib/_stream_passthrough.js":291,"./lib/_stream_readable.js":292,"./lib/_stream_transform.js":293,"./lib/_stream_writable.js":294}],300:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./readable').Transform;
 
-},{"./readable":286}],288:[function(require,module,exports){
+},{"./readable":299}],301:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/_stream_writable.js');
 
-},{"./lib/_stream_writable.js":281}],289:[function(require,module,exports){
+},{"./lib/_stream_writable.js":294}],302:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -100705,7 +105106,7 @@ function fn5(a, b, c, d, e, m, k, s) {
 module.exports = RIPEMD160;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"hash-base":221,"inherits":238}],290:[function(require,module,exports){
+},{"buffer":151,"hash-base":231,"inherits":250}],303:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -100940,7 +105341,7 @@ function toBuffer(v) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"assert":95,"buffer":141}],291:[function(require,module,exports){
+},{"assert":105,"buffer":151}],304:[function(require,module,exports){
 'use strict';
 
 /* eslint-disable node/no-deprecated-api */
@@ -101006,7 +105407,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size);
 };
 
-},{"buffer":141}],292:[function(require,module,exports){
+},{"buffer":151}],305:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -101192,12 +105593,12 @@ function arraycopy(src, srcPos, dest, destPos, length) {
 module.exports = scrypt;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"crypto":151}],293:[function(require,module,exports){
+},{"buffer":151,"crypto":161}],306:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib')(require('./lib/elliptic'));
 
-},{"./lib":297,"./lib/elliptic":296}],294:[function(require,module,exports){
+},{"./lib":310,"./lib/elliptic":309}],307:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -101246,7 +105647,7 @@ exports.isNumberInInterval = function (number, x, y, message) {
 };
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":239}],295:[function(require,module,exports){
+},{"../../is-buffer/index.js":251}],308:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -101412,7 +105813,7 @@ exports.signatureImportLax = function (sig) {
   return { r: r, s: s };
 };
 
-},{"bip66":107,"safe-buffer":291}],296:[function(require,module,exports){
+},{"bip66":117,"safe-buffer":304}],309:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -101658,7 +106059,7 @@ exports.ecdhUnsafe = function (publicKey, privateKey, compressed) {
   return Buffer.from(pair.pub.mul(scalar).encode(true, compressed));
 };
 
-},{"../messages.json":298,"bn.js":108,"create-hash":146,"elliptic":199,"safe-buffer":291}],297:[function(require,module,exports){
+},{"../messages.json":311,"bn.js":118,"create-hash":156,"elliptic":209,"safe-buffer":304}],310:[function(require,module,exports){
 'use strict';
 
 var assert = require('./assert');
@@ -101892,7 +106293,7 @@ module.exports = function (secp256k1) {
   };
 };
 
-},{"./assert":294,"./der":295,"./messages.json":298}],298:[function(require,module,exports){
+},{"./assert":307,"./der":308,"./messages.json":311}],311:[function(require,module,exports){
 module.exports={
   "COMPRESSED_TYPE_INVALID": "compressed should be a boolean",
   "EC_PRIVATE_KEY_TYPE_INVALID": "private key should be a Buffer",
@@ -101930,7 +106331,7 @@ module.exports={
   "TWEAK_LENGTH_INVALID": "tweak length is invalid"
 }
 
-},{}],299:[function(require,module,exports){
+},{}],312:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -102015,7 +106416,7 @@ Hash.prototype._update = function () {
 
 module.exports = Hash;
 
-},{"safe-buffer":291}],300:[function(require,module,exports){
+},{"safe-buffer":304}],313:[function(require,module,exports){
 'use strict';
 
 var _exports = module.exports = function SHA(algorithm) {
@@ -102034,7 +106435,7 @@ _exports.sha256 = require('./sha256');
 _exports.sha384 = require('./sha384');
 _exports.sha512 = require('./sha512');
 
-},{"./sha":301,"./sha1":302,"./sha224":303,"./sha256":304,"./sha384":305,"./sha512":306}],301:[function(require,module,exports){
+},{"./sha":314,"./sha1":315,"./sha224":316,"./sha256":317,"./sha384":318,"./sha512":319}],314:[function(require,module,exports){
 'use strict';
 
 /*
@@ -102131,7 +106532,7 @@ Sha.prototype._hash = function () {
 
 module.exports = Sha;
 
-},{"./hash":299,"inherits":238,"safe-buffer":291}],302:[function(require,module,exports){
+},{"./hash":312,"inherits":250,"safe-buffer":304}],315:[function(require,module,exports){
 'use strict';
 
 /*
@@ -102233,7 +106634,7 @@ Sha1.prototype._hash = function () {
 
 module.exports = Sha1;
 
-},{"./hash":299,"inherits":238,"safe-buffer":291}],303:[function(require,module,exports){
+},{"./hash":312,"inherits":250,"safe-buffer":304}],316:[function(require,module,exports){
 'use strict';
 
 /**
@@ -102290,7 +106691,7 @@ Sha224.prototype._hash = function () {
 
 module.exports = Sha224;
 
-},{"./hash":299,"./sha256":304,"inherits":238,"safe-buffer":291}],304:[function(require,module,exports){
+},{"./hash":312,"./sha256":317,"inherits":250,"safe-buffer":304}],317:[function(require,module,exports){
 'use strict';
 
 /**
@@ -102413,7 +106814,7 @@ Sha256.prototype._hash = function () {
 
 module.exports = Sha256;
 
-},{"./hash":299,"inherits":238,"safe-buffer":291}],305:[function(require,module,exports){
+},{"./hash":312,"inherits":250,"safe-buffer":304}],318:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -102474,7 +106875,7 @@ Sha384.prototype._hash = function () {
 
 module.exports = Sha384;
 
-},{"./hash":299,"./sha512":306,"inherits":238,"safe-buffer":291}],306:[function(require,module,exports){
+},{"./hash":312,"./sha512":319,"inherits":250,"safe-buffer":304}],319:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -102697,7 +107098,7 @@ Sha512.prototype._hash = function () {
 
 module.exports = Sha512;
 
-},{"./hash":299,"inherits":238,"safe-buffer":291}],307:[function(require,module,exports){
+},{"./hash":312,"inherits":250,"safe-buffer":304}],320:[function(require,module,exports){
 'use strict';
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -102825,7 +107226,7 @@ Stream.prototype.pipe = function (dest, options) {
   return dest;
 };
 
-},{"events":219,"inherits":238,"readable-stream/duplex.js":276,"readable-stream/passthrough.js":285,"readable-stream/readable.js":286,"readable-stream/transform.js":287,"readable-stream/writable.js":288}],308:[function(require,module,exports){
+},{"events":229,"inherits":250,"readable-stream/duplex.js":289,"readable-stream/passthrough.js":298,"readable-stream/readable.js":299,"readable-stream/transform.js":300,"readable-stream/writable.js":301}],321:[function(require,module,exports){
 'use strict';
 
 // Generated by CoffeeScript 1.8.0
@@ -102943,7 +107344,7 @@ Stream.prototype.pipe = function (dest, options) {
   }
 }).call(undefined);
 
-},{}],309:[function(require,module,exports){
+},{}],322:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -103217,7 +107618,7 @@ function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
 
-},{"safe-buffer":291}],310:[function(require,module,exports){
+},{"safe-buffer":304}],323:[function(require,module,exports){
 'use strict';
 
 var isHexPrefixed = require('is-hex-prefixed');
@@ -103235,7 +107636,7 @@ module.exports = function stripHexPrefix(str) {
   return isHexPrefixed(str) ? str.slice(2) : str;
 };
 
-},{"is-hex-prefixed":240}],311:[function(require,module,exports){
+},{"is-hex-prefixed":252}],324:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -103685,7 +108086,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    }
 })(undefined);
 
-},{}],312:[function(require,module,exports){
+},{}],325:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -103933,7 +108334,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 })(undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],313:[function(require,module,exports){
+},{}],326:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -104005,9 +108406,9 @@ function config(name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],314:[function(require,module,exports){
-arguments[4][238][0].apply(exports,arguments)
-},{"dup":238}],315:[function(require,module,exports){
+},{}],327:[function(require,module,exports){
+arguments[4][250][0].apply(exports,arguments)
+},{"dup":250}],328:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -104016,7 +108417,7 @@ module.exports = function isBuffer(arg) {
   return arg && (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && typeof arg.copy === 'function' && typeof arg.fill === 'function' && typeof arg.readUInt8 === 'function';
 };
 
-},{}],316:[function(require,module,exports){
+},{}],329:[function(require,module,exports){
 (function (process,global){
 'use strict';
 
@@ -104568,7 +108969,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":315,"_process":267,"inherits":314}],317:[function(require,module,exports){
+},{"./support/isBuffer":328,"_process":279,"inherits":327}],330:[function(require,module,exports){
 'use strict';
 
 var v1 = require('./v1');
@@ -104580,7 +108981,7 @@ uuid.v4 = v4;
 
 module.exports = uuid;
 
-},{"./v1":320,"./v4":321}],318:[function(require,module,exports){
+},{"./v1":333,"./v4":334}],331:[function(require,module,exports){
 'use strict';
 
 /**
@@ -104600,7 +109001,7 @@ function bytesToUuid(buf, offset) {
 
 module.exports = bytesToUuid;
 
-},{}],319:[function(require,module,exports){
+},{}],332:[function(require,module,exports){
 'use strict';
 
 // Unique ID creation requires a high quality random # generator.  In the
@@ -104635,7 +109036,7 @@ if (getRandomValues) {
   };
 }
 
-},{}],320:[function(require,module,exports){
+},{}],333:[function(require,module,exports){
 'use strict';
 
 var rng = require('./lib/rng');
@@ -104745,7 +109146,7 @@ function v1(options, buf, offset) {
 
 module.exports = v1;
 
-},{"./lib/bytesToUuid":318,"./lib/rng":319}],321:[function(require,module,exports){
+},{"./lib/bytesToUuid":331,"./lib/rng":332}],334:[function(require,module,exports){
 'use strict';
 
 var rng = require('./lib/rng');
@@ -104778,7 +109179,7 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
-},{"./lib/bytesToUuid":318,"./lib/rng":319}],322:[function(require,module,exports){
+},{"./lib/bytesToUuid":331,"./lib/rng":332}],335:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -104918,7 +109319,7 @@ exports.createContext = Script.createContext = function (context) {
     return copy;
 };
 
-},{"indexof":237}],323:[function(require,module,exports){
+},{"indexof":249}],336:[function(require,module,exports){
 'use strict';
 
 // Base58 encoding/decoding
@@ -104980,7 +109381,7 @@ exports.createContext = Script.createContext = function (context) {
     }
 })(typeof module !== 'undefined' && typeof module.exports !== 'undefined');
 
-},{}],324:[function(require,module,exports){
+},{}],337:[function(require,module,exports){
 'use strict';
 
 (function (isNode) {
@@ -105019,7 +109420,7 @@ exports.createContext = Script.createContext = function (context) {
     }
 })(typeof module !== 'undefined' && typeof module.exports !== 'undefined');
 
-},{"jssha":243}],325:[function(require,module,exports){
+},{"jssha":255}],338:[function(require,module,exports){
 'use strict';
 
 (function (isNode) {
@@ -105098,7 +109499,7 @@ exports.createContext = Script.createContext = function (context) {
     }
 })(typeof module !== 'undefined' && typeof module.exports !== 'undefined');
 
-},{}],326:[function(require,module,exports){
+},{}],339:[function(require,module,exports){
 'use strict';
 
 (function (isNode) {
@@ -105168,7 +109569,7 @@ exports.createContext = Script.createContext = function (context) {
     }
 })(typeof module !== 'undefined' && typeof module.exports !== 'undefined');
 
-},{"./base58":323,"./crypto_utils":324,"./currencies":325}],327:[function(require,module,exports){
+},{"./base58":336,"./crypto_utils":337,"./currencies":338}],340:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -105683,7 +110084,7 @@ exports.contractCoinAddress = '0x0000000000000000000000000000000000000064';
 exports.contractStampAddress = '0x00000000000000000000000000000000000000c8';
 
 }).call(this,require("buffer").Buffer)
-},{"./web3_wan.js":334,"bn.js":108,"buffer":141,"crypto":151,"ethereumjs-tx":330,"ethereumjs-util":332,"keccak":244,"secp256k1":293}],328:[function(require,module,exports){
+},{"./web3_wan.js":347,"bn.js":118,"buffer":151,"crypto":161,"ethereumjs-tx":343,"ethereumjs-util":345,"keccak":256,"secp256k1":306}],341:[function(require,module,exports){
 module.exports={
   "genesisGasLimit": {
     "v": 5000,
@@ -105916,12 +110317,12 @@ module.exports={
   }
 }
 
-},{}],329:[function(require,module,exports){
+},{}],342:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./params.json');
 
-},{"./params.json":328}],330:[function(require,module,exports){
+},{"./params.json":341}],343:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -106177,7 +110578,7 @@ Transaction.prototype.validate = function (stringError) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":141,"ethereum-common/params":329,"ethereumjs-util":331}],331:[function(require,module,exports){
+},{"buffer":151,"ethereum-common/params":342,"ethereumjs-util":344}],344:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -106887,7 +111288,7 @@ exports.defineProperties = function (self, fields, data) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"assert":95,"bn.js":108,"buffer":141,"create-hash":146,"keccakjs":333,"rlp":290,"secp256k1":293}],332:[function(require,module,exports){
+},{"assert":105,"bn.js":118,"buffer":151,"create-hash":156,"keccakjs":346,"rlp":303,"secp256k1":306}],345:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -107564,12 +111965,12 @@ exports.defineProperties = function (self, fields, data) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"assert":95,"bn.js":108,"buffer":141,"create-hash":146,"ethjs-util":218,"keccak":244,"rlp":290,"secp256k1":293}],333:[function(require,module,exports){
+},{"assert":105,"bn.js":118,"buffer":151,"create-hash":156,"ethjs-util":228,"keccak":256,"rlp":303,"secp256k1":306}],346:[function(require,module,exports){
 'use strict';
 
 module.exports = require('browserify-sha3').SHA3Hash;
 
-},{"browserify-sha3":132}],334:[function(require,module,exports){
+},{"browserify-sha3":142}],347:[function(require,module,exports){
 'use strict';
 
 var Method = require("web3/lib/web3/method");
@@ -107676,9 +112077,60 @@ var properties = function properties() {
 };
 module.exports = Wan;
 
-},{"web3/lib/web3/formatters":339,"web3/lib/web3/method":341}],335:[function(require,module,exports){
-arguments[4][50][0].apply(exports,arguments)
-},{"bignumber.js":342,"dup":50}],336:[function(require,module,exports){
+},{"web3/lib/web3/formatters":352,"web3/lib/web3/method":354}],348:[function(require,module,exports){
+'use strict';
+
+/*
+    This file is part of web3.js.
+
+    web3.js is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    web3.js is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with web3.js.  If not, see <http://www.gnu.org/licenses/>.
+*/
+/** @file config.js
+ * @authors:
+ *   Marek Kotewicz <marek@ethdev.com>
+ * @date 2015
+ */
+
+/**
+ * Utils
+ * 
+ * @module utils
+ */
+
+/**
+ * Utility functions
+ * 
+ * @class [utils] config
+ * @constructor
+ */
+
+/// required to define ETH_BIGNUMBER_ROUNDING_MODE
+var BigNumber = require('bignumber.js');
+
+var ETH_UNITS = ['wei', 'kwei', 'Mwei', 'Gwei', 'szabo', 'finney', 'femtoether', 'picoether', 'nanoether', 'microether', 'milliether', 'nano', 'micro', 'milli', 'ether', 'grand', 'Mether', 'Gether', 'Tether', 'Pether', 'Eether', 'Zether', 'Yether', 'Nether', 'Dether', 'Vether', 'Uether'];
+
+module.exports = {
+    ETH_PADDING: 32,
+    ETH_SIGNATURE_LENGTH: 4,
+    ETH_UNITS: ETH_UNITS,
+    ETH_BIGNUMBER_ROUNDING_MODE: { ROUNDING_MODE: BigNumber.ROUND_DOWN },
+    ETH_POLLING_TIMEOUT: 1000 / 2,
+    defaultBlock: 'latest',
+    defaultAccount: undefined
+};
+
+},{"bignumber.js":355}],349:[function(require,module,exports){
 'use strict';
 
 /*
@@ -107719,7 +112171,7 @@ module.exports = function (value, options) {
     }).toString();
 };
 
-},{"crypto-js":160,"crypto-js/sha3":181}],337:[function(require,module,exports){
+},{"crypto-js":170,"crypto-js/sha3":191}],350:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -108342,7 +112794,7 @@ module.exports = {
     isTopic: isTopic
 };
 
-},{"./sha3.js":336,"bignumber.js":342,"utf8":312}],338:[function(require,module,exports){
+},{"./sha3.js":349,"bignumber.js":355,"utf8":325}],351:[function(require,module,exports){
 'use strict';
 
 /*
@@ -108389,7 +112841,7 @@ module.exports = {
     }
 };
 
-},{}],339:[function(require,module,exports){
+},{}],352:[function(require,module,exports){
 /*
     This file is part of web3.js.
 
@@ -108690,7 +113142,7 @@ module.exports = {
     outputSyncingFormatter: outputSyncingFormatter
 };
 
-},{"../utils/config":335,"../utils/utils":337,"./iban":340}],340:[function(require,module,exports){
+},{"../utils/config":348,"../utils/utils":350,"./iban":353}],353:[function(require,module,exports){
 'use strict';
 
 /*
@@ -108920,7 +113372,7 @@ Iban.prototype.toString = function () {
 
 module.exports = Iban;
 
-},{"bignumber.js":342}],341:[function(require,module,exports){
+},{"bignumber.js":355}],354:[function(require,module,exports){
 'use strict';
 
 /*
@@ -109088,7 +113540,7 @@ Method.prototype.request = function () {
 
 module.exports = Method;
 
-},{"../utils/utils":337,"./errors":338}],342:[function(require,module,exports){
+},{"../utils/utils":350,"./errors":351}],355:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -111772,4 +116224,4 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
 })(undefined);
 
-},{"crypto":151}]},{},[38]);
+},{"crypto":161}]},{},[48]);
