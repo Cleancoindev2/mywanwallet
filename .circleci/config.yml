@@ -98,9 +98,10 @@ jobs:
       - run:
           name: Test
           command: npm run zip
-      - store_artifacts:
-          path: releases
-          destination: releases
+      - persist_to_workspace:
+          root: .
+          paths:
+            - releases
   job-publish-release:
     docker:
       - image: circleci/golang:1.8
@@ -114,6 +115,9 @@ jobs:
             go get github.com/tcnksm/ghr
             VERSION=$(jq -r '.version' package.json)
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./releases/
+      - store_artifacts:
+          path: releases
+          destination: releases
   all-tests-pass:
     docker:
       - image: circleci/node:8.11.3-browsers
