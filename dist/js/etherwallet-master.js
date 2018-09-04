@@ -2257,7 +2257,13 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
                 $scope.tx.sendMode = 'ether';
                 $scope.tx.value = eTx.value.length ? etherUnits.toEther(ethFuncs.sanitizeHex(eTx.value.toString('hex')), 'wei') : 0;
                 $scope.unitReadable = ajaxReq.type;
-                $scope.tx.from = ethFuncs.sanitizeHex(eTx.getSenderAddress().toString('hex'));
+                if (!$scope.tx.from) {
+                    try {
+                        $scope.tx.from = ethFuncs.sanitizeHex(eTx.getSenderAddress().toString('hex'));
+                    } catch (err) {
+                        $scope.tx.from = '0x';
+                    }
+                }
                 $scope.tx.to = ethFuncs.sanitizeHex(eTx.to.toString('hex'));
             }
             new Modal(document.getElementById('sendTransactionOffline')).open();
