@@ -103,19 +103,16 @@ jobs:
           destination: releases
   job-publish-release:
     docker:
-      - image: circleci/node:8.11.3-browsers
+      - image: circleci/golang:1.8
     steps:
       - checkout
       - attach_workspace:
           at: .
       - run:
-          name: Test
-          command: npm run zip
-      - run:
           name: "Publish Release on GitHub"
           command: |
             go get github.com/tcnksm/ghr
-            VERSION=$(node -p "require('./package.json').version")
+            VERSION=$(jq -r '.version' package.json)
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./releases/
   all-tests-pass:
     docker:
