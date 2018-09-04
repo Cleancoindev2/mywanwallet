@@ -1,8 +1,8 @@
-'use strict';
-var walletService = function() {
+'use strict'
+var walletService = function () {
 	return {
         wallet: null,
-        password:''
+        password: '',
     }
-};
-module.exports = walletService;
+}
+module.exports = walletService

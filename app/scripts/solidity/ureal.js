@@ -1,5 +1,5 @@
-var f = require('./formatters');
-var SolidityType = require('./type');
+var f = require('./formatters')
+var SolidityType = require('./type')
 
 /**
  * SolidityTypeUReal is a prootype that represents ureal type
@@ -18,15 +18,15 @@ var SolidityType = require('./type');
  * ureal64[][6][], ...
  */
 var SolidityTypeUReal = function () {
-    this._inputFormatter = f.formatInputReal;
-    this._outputFormatter = f.formatOutputUReal;
-};
+    this._inputFormatter = f.formatInputReal
+    this._outputFormatter = f.formatOutputUReal
+}
 
-SolidityTypeUReal.prototype = new SolidityType({});
-SolidityTypeUReal.prototype.constructor = SolidityTypeUReal;
+SolidityTypeUReal.prototype = new SolidityType({})
+SolidityTypeUReal.prototype.constructor = SolidityTypeUReal
 
 SolidityTypeUReal.prototype.isType = function (name) {
-    return !!name.match(/^ureal([0-9]*)?(\[([0-9]*)\])*$/);
-};
+    return !!name.match(/^ureal([0-9]*)?(\[([0-9]*)\])*$/)
+}
 
-module.exports = SolidityTypeUReal;
+module.exports = SolidityTypeUReal

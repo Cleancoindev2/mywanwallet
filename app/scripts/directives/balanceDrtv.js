@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-var balanceDrtv = function() {
+var balanceDrtv = function () {
 	return {
-        restrict : "E",
-        template : require('./balanceDrtv.html')
-  };
-};
-module.exports = balanceDrtv;
+        restrict: 'E',
+        template: require('./balanceDrtv.html'),
+  }
+}
+module.exports = balanceDrtv

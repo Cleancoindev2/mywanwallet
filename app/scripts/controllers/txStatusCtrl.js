@@ -1,19 +1,19 @@
-'use strict';
+'use strict'
 
-var wanUtil = require('wanchain-util');
-var txStatusCtrl = function($scope) {
-    $scope.Validator = Validator;
-    $scope.checkTxPage = true;
-    $scope.checkTxReadOnly = true;
+var wanUtil = require('wanchain-util')
+var txStatusCtrl = function ($scope) {
+    $scope.Validator = Validator
+    $scope.checkTxPage = true
+    $scope.checkTxReadOnly = true
     $scope.txStatus = {
         found: 0,
         notFound: 1,
-        mined: 2
+        mined: 2,
     }
-    var MIN_GAS = 182;
+    var MIN_GAS = 182
     $scope.txInfo = {
         status: null, // notFound foundInPending foundOnChain
-        hash: globalFuncs.urlGet('txHash') == null ? "" : globalFuncs.urlGet('txHash'),
+        hash: globalFuncs.urlGet('txHash') == null ? '' : globalFuncs.urlGet('txHash'),
         from: '',
         to: '',
         value: '',
@@ -21,21 +21,21 @@ var txStatusCtrl = function($scope) {
         gasLimit: '',
         gasPrice: '',
         data: '',
-        nonce: ''
+        nonce: '',
     }
 
-    var applyScope = function() {
-        if (!$scope.$$phase) $scope.$apply();
+    var applyScope = function () {
+        if (!$scope.$$phase) $scope.$apply()
     }
-    var setUSDvalues = function() {
-        ajaxReq.getWANvalue(function(data) {
-            $scope.txInfo.gasPrice.usd = new BigNumber(data.usd).mul(new BigNumber($scope.txInfo.gasPrice.eth)).toFixed(2);
-            $scope.txInfo.valueUSD = new BigNumber(data.usd).mul(etherUnits.toEther($scope.txInfo.value, 'wei')).toFixed(2);
-            applyScope();
-        });
+    var setUSDvalues = function () {
+        ajaxReq.getWANvalue(function (data) {
+            $scope.txInfo.gasPrice.usd = new BigNumber(data.usd).mul(new BigNumber($scope.txInfo.gasPrice.eth)).toFixed(2)
+            $scope.txInfo.valueUSD = new BigNumber(data.usd).mul(etherUnits.toEther($scope.txInfo.value, 'wei')).toFixed(2)
+            applyScope()
+        })
     }
-    var txToObject = function(tx) {
-        var txStatus = $scope.txStatus;
+    var txToObject = function (tx) {
+        var txStatus = $scope.txStatus
         if (tx) {
             console.log('txToObject')
             console.log(tx)
@@ -45,18 +45,18 @@ var txStatusCtrl = function($scope) {
                 from: wanUtil.toChecksumAddress(tx.from),
                 to: tx.to ? wanUtil.toChecksumAddress(tx.to) : '',
                 value: new BigNumber(tx.value).toString(),
-                valueStr: etherUnits.toEther(tx.value, 'wei') + " WAN",
+                valueStr: etherUnits.toEther(tx.value, 'wei') + ' WAN',
                 gasLimit: new BigNumber(tx.gas).toString(),
                 gasPrice: {
                     wei: new BigNumber(tx.gasPrice).toString(),
                     gwei: new BigNumber(tx.gasPrice).div(etherUnits.getValueOfUnit('gwei')).toString(),
-                    eth: etherUnits.toEther(tx.gasPrice, 'wei')
+                    eth: etherUnits.toEther(tx.gasPrice, 'wei'),
                 },
-                data: tx.input == '0x' ? '' : tx.input,
-                nonce: new BigNumber(tx.nonce).toString()
+                data: tx.input === '0x' ? '' : tx.input,
+                nonce: new BigNumber(tx.nonce).toString(),
             }
-            if ($scope.txInfo.status == txStatus.found) {
-                var _gasPrice = new BigNumber($scope.txInfo.gasPrice.wei).mul(1.1).floor();
+            if ($scope.txInfo.status === txStatus.found) {
+                var _gasPrice = new BigNumber($scope.txInfo.gasPrice.wei).mul(1.1).floor()
                 if (_gasPrice.lt(etherUnits.getValueOfUnit('gwei') * MIN_GAS)) _gasPrice = new BigNumber(etherUnits.getValueOfUnit('gwei') * MIN_GAS)
                 $scope.parentTxConfig = {
                     to: $scope.txInfo.from,
@@ -67,31 +67,31 @@ var txStatusCtrl = function($scope) {
                     gasPrice: _gasPrice.toString(),
                     gasLimit: '51000',
                     data: '',
-                    nonce: $scope.txInfo.nonce
+                    nonce: $scope.txInfo.nonce,
                 }
-                new Modal(document.getElementById('sendTransaction'));
+                new Modal(document.getElementById('sendTransaction'))
             }
-            setUSDvalues();
+            setUSDvalues()
         } else {
-            $scope.txInfo.status = txStatus.notFound;
+            $scope.txInfo.status = txStatus.notFound
         }
     }
-    $scope.checkTxStatus = function() {
-        var txInfo = $scope.txInfo;
+    $scope.checkTxStatus = function () {
+        var txInfo = $scope.txInfo
         try {
-            if (!Validator.isValidTxHash(txInfo.hash)) throw globalFuncs.errorMsgs[36];
-            ajaxReq.getTransaction(txInfo.hash, function(data) {
-                if (data.error) $scope.notifier.danger(data.msg);
+            if (!Validator.isValidTxHash(txInfo.hash)) throw globalFuncs.errorMsgs[36]
+            ajaxReq.getTransaction(txInfo.hash, function (data) {
+                if (data.error) $scope.notifier.danger(data.msg)
                 else {
-                    txToObject(data.data);
+                    txToObject(data.data)
                 }
-            });
+            })
         } catch (e) {
-            $scope.notifier.danger(e);
+            $scope.notifier.danger(e)
         }
     }
 
-    globalFuncs.urlGet('txHash') == null ? '' : $scope.checkTxStatus();
+    globalFuncs.urlGet('txHash') == null ? '' : $scope.checkTxStatus()
 
-};
-module.exports = txStatusCtrl;
+}
+module.exports = txStatusCtrl
