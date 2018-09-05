@@ -208,12 +208,34 @@ gulp.task('clean', function () {
 
 
 // Bumps Version Number
-function bumpFunc (t) {
-  return gulp.src(['./package.json', './app/package.json', './app/manifest.json'])
-    .pipe(plumber({ errorHandler: onError }))
-    .pipe(bump({ type: t }))
-    .pipe(gulp.dest('./app'))
-    .pipe(notify(onSuccess('Bump ' + t)))
+function bumpFunc (done, t) {
+    gulp.src(['./app/package.json', './app/manifest.json'])
+        .pipe(plumber({ errorHandler: onError }))
+        .pipe(bump({ type: t }))
+        .pipe(gulp.dest('./app'))
+        .pipe(notify(onSuccess('Bump ' + t)))
+    gulp.src(['./package.json'])
+        .pipe(plumber({ errorHandler: onError }))
+        .pipe(bump({ type: t }))
+        .pipe(gulp.dest('./'))
+        .pipe(notify(onSuccess('Bump ' + t)))
+    done()
+}
+
+function bumpFuncApp (t) {
+    return gulp.src(['./app/package.json', './app/manifest.json'])
+        .pipe(plumber({ errorHandler: onError }))
+        .pipe(bump({ type: t }))
+        .pipe(gulp.dest('./app'))
+        .pipe(notify(onSuccess('Bump ' + t)))
+}
+
+function bumpFuncRoot (t) {
+    return gulp.src(['./package.json'])
+        .pipe(plumber({ errorHandler: onError }))
+        .pipe(bump({ type: t }))
+        .pipe(gulp.dest('./'))
+        .pipe(notify(onSuccess('Bump ' + t)))
 }
 
 
@@ -358,9 +380,9 @@ gulp.task('watchLess', function () { gulp.watch(lessWatchFolder, ['styles']) })
 gulp.task('watchPAGES', function () { gulp.watch(htmlFiles, ['html']) })
 gulp.task('watchTPL', function () { gulp.watch(tplFiles, ['html']) })
 
-gulp.task('bump-major', function () { return bumpFunc('major') })
-gulp.task('bump-minor', function () { return bumpFunc('minor') })
-gulp.task('bump', function () { return bumpFunc('patch') })
+gulp.task('bump-major', function (done) { return bumpFunc(done, 'major') })
+gulp.task('bump-minor', function (done) { return bumpFunc(done, 'minor') })
+gulp.task('bump', function (done) { return bumpFunc(done, 'patch') })
 
 gulp.task('archive', function () { return archive() })
 

@@ -1,6 +1,6 @@
 {
   "name": "mywanwallet",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "",
   "main": "gulpfile.js",
   "author": "Tyrion70",
@@ -14,7 +14,8 @@
     "test:coverage": "nyc npm run test:unit && npm run test:coveralls-upload",
     "test:coveralls-upload": "if [ $COVERALLS_REPO_TOKEN ]; then nyc report --reporter=text-lcov | coveralls; fi",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "bump": "gulp bump && gulp prep"
   },
   "devDependencies": {
     "angular": "^1.6.9",
