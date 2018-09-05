@@ -20,7 +20,7 @@ const source = require('vinyl-source-stream')
 const uglify = require('gulp-uglify')
 const zip = require('gulp-zip')
 const html2js = require('html2js-browserify')
-const injectVersion = require('gulp-inject-version');
+const injectVersion = require('gulp-inject-version')
 
 const app = './app/'
 const dist = './dist/'
@@ -62,7 +62,7 @@ gulp.task('html', function (done) {
         .pipe(plumber({ errorHandler: onError }))
         .pipe(fileinclude({ prefix: '@@', basepath: '@file' }))
         .pipe(injectVersion({
-            replace: /%%GULP_INJECT_VERSION%%/g
+            replace: /%%GULP_INJECT_VERSION%%/g,
         }))
         .pipe(gulp.dest(dist))
         .pipe(notify(onSuccess('HTML')))
@@ -221,23 +221,6 @@ function bumpFunc (done, t) {
         .pipe(notify(onSuccess('Bump ' + t)))
     done()
 }
-
-function bumpFuncApp (t) {
-    return gulp.src(['./app/package.json', './app/manifest.json'])
-        .pipe(plumber({ errorHandler: onError }))
-        .pipe(bump({ type: t }))
-        .pipe(gulp.dest('./app'))
-        .pipe(notify(onSuccess('Bump ' + t)))
-}
-
-function bumpFuncRoot (t) {
-    return gulp.src(['./package.json'])
-        .pipe(plumber({ errorHandler: onError }))
-        .pipe(bump({ type: t }))
-        .pipe(gulp.dest('./'))
-        .pipe(notify(onSuccess('Bump ' + t)))
-}
-
 
 // Get Version Number
 let versionNum

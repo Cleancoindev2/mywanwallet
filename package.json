@@ -1,10 +1,11 @@
 {
   "name": "mywanwallet",
-  "version": "1.0.4",
+  "version": "1.0.3",
   "description": "",
   "main": "gulpfile.js",
   "author": "Tyrion70",
   "license": "ISC",
+  "precommit": "npm run lint",
   "scripts": {
     "dev": "gulp",
     "dist": "gulp prep",
@@ -90,6 +91,7 @@
   },
   "dependencies": {
     "hoek": "^4.2.1",
+    "javascript-precommit": "0.0.8",
     "npm": "^6.4.0",
     "raven-js": "^3.27.0",
     "run-sequence": "^1.2.2",
