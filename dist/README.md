@@ -1,8 +1,10 @@
-[![CircleCI](https://circleci.com/gh/tyrion70/mywanwallet.svg?style=svg)](https://circleci.com/gh/tyrion70/mywanwallet) [![dependency status][dep-image]][dep-url] [![Coverage Status](https://coveralls.io/repos/github/tyrion70/mywanwallet/badge.svg)](https://coveralls.io/github/tyrion70/mywanwallet)
+[![CircleCI][circle-image]][circle-url]
+[![dependency status][dep-image]][dep-url] 
+[![Coverage Status][coveralls-image]][coveralls-url]
 
 ### [https://www.mywanwallet.nl](https://www.mywanwallet.com)
 
-### [Download the Latest Release](https://github.com/tyrion70/mywanwallet/releases/latest)
+### [Download the Latest Release](https://github.com/TyrionShared/mywanwallet/releases/latest)
 
 - wanwallet-vX.X.X.X.zip is the  package containing the software
 
@@ -49,7 +51,7 @@
 - [It is recommended you start here.](https://myetherwallet.github.io/knowledge-base/getting-started/getting-started-new.html)
 - You can run MyWanWallet.nl on your computer. You can create a wallet completely offline & send transactions from the "Offline Transaction" page.
 
-1. Go to https://github.com/tyrion70/mywanwallet/releases/latest.
+1. Go to https://github.com/TyrionShared/mywanwallet/releases/latest.
 2. Click on wanwallet-vX.X.X.X.zip.
 3. Move zip to an airgapped computer.
 4. Unzip it and double-click index.html.
@@ -95,7 +97,9 @@ If you can think of any other features or run into bugs, let us know. You can fo
 
 #### MyWanWallet.nl is licensed under The MIT License (MIT).
 
-[travis-image]: https://travis-ci.org/tyrion70/mywanwallet.svg
-[travis-url]: https://travis-ci.org/tyrion70/mywanwallet
-[dep-image]: https://david-dm.org/tyrion70/mywanwallet.svg
-[dep-url]: https://david-dm.org/tyrion70/mywanwallet
+[dep-image]: https://david-dm.org/TyrionShared/mywanwallet.svg
+[dep-url]: https://david-dm.org/TyrionShared/mywanwallet
+[circle-image]: https://circleci.com/gh/TyrionShared/mywanwallet.svg?style=svg
+[circle-url]: https://circleci.com/gh/TyrionShared/mywanwallet
+[coveralls-image]: https://coveralls.io/repos/github/TyrionShared/mywanwallet/badge.svg
+[coveralls-url]: https://coveralls.io/github/TyrionShared/mywanwallet

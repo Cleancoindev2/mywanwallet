@@ -20,6 +20,7 @@ const source = require('vinyl-source-stream')
 const uglify = require('gulp-uglify')
 const zip = require('gulp-zip')
 const html2js = require('html2js-browserify')
+const injectVersion = require('gulp-inject-version');
 
 const app = './app/'
 const dist = './dist/'
@@ -60,6 +61,9 @@ gulp.task('html', function (done) {
     return gulp.src(htmlFiles)
         .pipe(plumber({ errorHandler: onError }))
         .pipe(fileinclude({ prefix: '@@', basepath: '@file' }))
+        .pipe(injectVersion({
+            replace: /%%GULP_INJECT_VERSION%%/g
+        }))
         .pipe(gulp.dest(dist))
         .pipe(notify(onSuccess('HTML')))
 })
@@ -84,7 +88,6 @@ gulp.task('styles', function () {
         .pipe(gulp.dest(lessDestFolder))
         .pipe(notify(onSuccess('Styles')))
 })
-
 
 // js: Browserify
 const jsWatchFolder = app + 'scripts/**/*.{js,json,html}'
@@ -206,7 +209,7 @@ gulp.task('clean', function () {
 
 // Bumps Version Number
 function bumpFunc (t) {
-  return gulp.src([app + '*.json'])
+  return gulp.src(['./package.json', './app/package.json', './app/manifest.json'])
     .pipe(plumber({ errorHandler: onError }))
     .pipe(bump({ type: t }))
     .pipe(gulp.dest('./app'))
@@ -232,7 +235,7 @@ gulp.task('zip', gulp.series('getVersion', function () {
     return gulp.src(dist + '**/**/*')
         .pipe(plumber({ errorHandler: onError }))
         .pipe(rename(function (path) {
-          path.dirname = './etherwallet-' + versionNum + '/' + path.dirname
+          path.dirname = './wanwallet-' + versionNum + '/' + path.dirname
         }))
         .pipe(zip('./wanwallet-' + versionNum + '.zip'))
         .pipe(gulp.dest('./releases/'))
@@ -278,9 +281,9 @@ gulp.task('travisZip', gulp.series('getVersion', function () {
     return gulp.src(dist + '**/**/*')
         .pipe(plumber({ errorHandler: onError }))
         .pipe(rename(function (path) {
-          path.dirname = './etherwallet-' + versionNum + '/' + path.dirname
+          path.dirname = './wanwallet-' + versionNum + '/' + path.dirname
         }))
-        .pipe(zip('./etherwallet-' + versionNum + '.zip'))
+        .pipe(zip('./wanwallet-' + versionNum + '.zip'))
         .pipe(gulp.dest('./deploy/'))
         .pipe(notify(onSuccess('Zip Dist ' + versionNum)))
 }))
@@ -355,15 +358,13 @@ gulp.task('watchLess', function () { gulp.watch(lessWatchFolder, ['styles']) })
 gulp.task('watchPAGES', function () { gulp.watch(htmlFiles, ['html']) })
 gulp.task('watchTPL', function () { gulp.watch(tplFiles, ['html']) })
 
-gulp.task('bump', function () { return bumpFunc('patch') })
-gulp.task('bump-patch', function () { return bumpFunc('patch') })
+gulp.task('bump-major', function () { return bumpFunc('major') })
 gulp.task('bump-minor', function () { return bumpFunc('minor') })
+gulp.task('bump', function () { return bumpFunc('patch') })
 
 gulp.task('archive', function () { return archive() })
 
 gulp.task('prep', gulp.series('js-production', 'html', 'styles', 'copy', function (done) { done() }))
-
-gulp.task('bump', gulp.series('bump-patch', 'clean', 'zip'))
 
 gulp.task('zipit', gulp.series('clean', 'zip'))
 

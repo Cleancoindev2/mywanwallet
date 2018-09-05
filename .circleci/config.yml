@@ -113,7 +113,7 @@ jobs:
           name: "Publish Release on GitHub"
           command: |
             go get github.com/tcnksm/ghr
-            VERSION=$(jq -r '.version' package.json)
+            VERSION=v$(jq -r '.version' package.json)
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./releases/
       - store_artifacts:
           path: releases

@@ -22,8 +22,8 @@
 <meta content="https://mywanwallet.nl" name="twitter:url">
 <link rel="stylesheet" href="css/etherwallet-master.min.css">
 <script type="text/javascript" src="js/trezor-connect.js"></script>
-<script type="text/javascript" src="js/etherwallet-static.min.js?version=1.0.2"></script>
-<script type="text/javascript" src="js/etherwallet-master.js?version=1.0.2"></script>
+<script type="text/javascript" src="js/etherwallet-static.min.js?version=%%GULP_INJECT_VERSION%%"></script>
+<script type="text/javascript" src="js/etherwallet-master.js?version=%%GULP_INJECT_VERSION%%"></script>
 <meta name="description" content="MyWanWallet (MEW) is a free, open-source, client-side interface for generating Wanchain wallets & more. Interact with the Wanchain blockchain easily & securely.">
 <meta property="og:description"  content="Free, open-source, client-side Wanchain wallet. Enabling you to interact with the blockchain easily & securely.">
 <meta name="twitter:description" content="Free, open-source, client-side Wanchain wallet. Enabling you to interact with the blockchain easily & securely.">
@@ -69,7 +69,7 @@
 "description": "MyWanWallet.nl is a free, open-source, client-side interface for generating Wanchain wallets &amp; more. Interact with the Wanchain blockchain easily &amp; securely.",
 "sameAs" : [
   "https://mywanwallet.nl/",
-  "https://github.nl/tyrion70/mywanwallet",
+  "https://github.nl/TyrionShared/mywanwallet",
 ]
 }
 </script>
