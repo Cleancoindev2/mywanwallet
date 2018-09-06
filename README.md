@@ -4,7 +4,7 @@
 
 ### [https://www.mywanwallet.nl](https://www.mywanwallet.com)
 
-### [Download the Latest Release](https://github.com/TyrionShared/mywanwallet/releases/latest)
+### [Download the Latest Release](https://github.com/C3Devs/mywanwallet/releases/latest)
 
 - wanwallet-vX.X.X.X.zip is the  package containing the software
 
@@ -51,7 +51,7 @@
 - [It is recommended you start here.](https://myetherwallet.github.io/knowledge-base/getting-started/getting-started-new.html)
 - You can run MyWanWallet.nl on your computer. You can create a wallet completely offline & send transactions from the "Offline Transaction" page.
 
-1. Go to https://github.com/TyrionShared/mywanwallet/releases/latest.
+1. Go to https://github.com/C3Devs/mywanwallet/releases/latest.
 2. Click on wanwallet-vX.X.X.X.zip.
 3. Move zip to an airgapped computer.
 4. Unzip it and double-click index.html.
@@ -97,9 +97,9 @@ If you can think of any other features or run into bugs, let us know. You can fo
 
 #### MyWanWallet.nl is licensed under The MIT License (MIT).
 
-[dep-image]: https://david-dm.org/TyrionShared/mywanwallet.svg
-[dep-url]: https://david-dm.org/TyrionShared/mywanwallet
-[circle-image]: https://circleci.com/gh/TyrionShared/mywanwallet.svg?style=svg
-[circle-url]: https://circleci.com/gh/TyrionShared/mywanwallet
-[coveralls-image]: https://coveralls.io/repos/github/TyrionShared/mywanwallet/badge.svg
-[coveralls-url]: https://coveralls.io/github/TyrionShared/mywanwallet
+[dep-image]: https://david-dm.org/C3Devs/mywanwallet.svg
+[dep-url]: https://david-dm.org/C3Devs/mywanwallet
+[circle-image]: https://circleci.com/gh/C3Devs/mywanwallet.svg?style=svg
+[circle-url]: https://circleci.com/gh/C3Devs/mywanwallet
+[coveralls-image]: https://coveralls.io/repos/github/C3Devs/mywanwallet/badge.svg
+[coveralls-url]: https://coveralls.io/github/C3Devs/mywanwallet
