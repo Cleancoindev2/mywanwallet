@@ -1,3 +1,5 @@
+# MyWanWallet
+
 [![CircleCI][circle-image]][circle-url]
 [![dependency status][dep-image]][dep-url] 
 [![Coverage Status][coveralls-image]][coveralls-url]
