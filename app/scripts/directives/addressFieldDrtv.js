@@ -11,7 +11,7 @@ var addressFieldDrtv = function ($compile) {
             var setValue = function (value) {
                 var temp = scope
                 for (var i in varArr) {
-                    if (i === varArr.length - 1) temp[varArr[i]] = value
+                    if (parseInt(i) === varArr.length - 1) temp[varArr[i]] = value
                     else {
                         temp = temp[varArr[i]]
                     }

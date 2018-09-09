@@ -69,7 +69,7 @@
 "description": "MyWanWallet.nl is a free, open-source, client-side interface for generating Wanchain wallets &amp; more. Interact with the Wanchain blockchain easily &amp; securely.",
 "sameAs" : [
   "https://mywanwallet.nl/",
-  "https://github.nl/TyrionShared/mywanwallet",
+  "https://github.nl/C3Devs/mywanwallet",
 ]
 }
 </script>
