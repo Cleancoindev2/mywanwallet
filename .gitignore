@@ -18,3 +18,5 @@ chrome-extension/
 dist/
 .idea
 .nyc_output
+test-artifacts/
+test-builds/
