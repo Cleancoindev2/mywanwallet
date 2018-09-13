@@ -24,7 +24,7 @@ async function setupBrowserAndExtension ({ browser }) {
     driver = buildChromeWebDriver()
   } else if (browser === 'firefox') {
     driver = buildFirefoxWebdriver()
-    await delay(300)
+    await delay(700)
   } else {
     throw new Error(`Unknown Browser "${browser}"`)
   }

@@ -96,16 +96,6 @@ jobs:
       - run:
           name: test:coverage
           command: npm run test:coverage
-  test-e2e-chrome:
-    docker:
-      - image: circleci/node:8.11.3-browsers
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run:
-          name: test:e2e:chrome
-          command: npm run test:e2e:chrome
   test-e2e-firefox:
     docker:
       - image: circleci/node:8.11.3-browsers
@@ -116,6 +106,16 @@ jobs:
       - run:
           name: test:e2e:firefox
           command: npm run test:e2e:firefox
+  test-e2e-chrome:
+    docker:
+      - image: circleci/node:8.11.3-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: test:e2e:chrome
+          command: npm run test:e2e:chrome
   job-publish-prerelease:
     docker:
       - image: circleci/node:8.11.3-browsers
