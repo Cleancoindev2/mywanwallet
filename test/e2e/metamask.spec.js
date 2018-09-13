@@ -24,7 +24,7 @@ describe('MyWanWallet', function () {
         const installResult = await setupBrowserAndExtension({ browser })
         driver = installResult.driver
 
-        await driver.get('file://' + srcPath)
+        await driver.get('file:////' + srcPath)
         await delay(500)
     })
 
