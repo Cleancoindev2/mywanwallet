@@ -24,7 +24,7 @@ const injectVersion = require('gulp-inject-version')
 
 const app = './app/'
 const dist = './dist/'
-const browserSync = require('browser-sync').create();
+const browserSync = require('browser-sync').create()
 
 
 // Error / Success Handling
@@ -370,10 +370,10 @@ gulp.task('bump-major', function (done) { return bumpFunc(done, 'major') })
 gulp.task('bump-minor', function (done) { return bumpFunc(done, 'minor') })
 gulp.task('bump', function (done) { return bumpFunc(done, 'patch') })
 
-gulp.task('browserSync', function() {
+gulp.task('browserSync', function () {
     browserSync.init({
         server: {
-            baseDir: 'dist'
+            baseDir: 'dist',
         },
     })
 })
