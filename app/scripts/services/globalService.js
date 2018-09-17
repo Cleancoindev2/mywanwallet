@@ -11,7 +11,7 @@ var globalService = function ($http, $httpParamSerializerJQLike) {
     id: 0,
     name: 'NAV_GenerateWallet_alt',
     url: 'generate-wallet',
-    mew: false, // TODO: No wallet creation until that part is working
+    mew: true, // TODO: No wallet creation until that part is working
     cx: false,
   },
   myWallet: {
