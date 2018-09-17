@@ -2,6 +2,7 @@ const path = require('path')
 const assert = require('assert')
 const { By } = require('selenium-webdriver')
 const { delay, setupBrowserAndExtension, verboseReportOnFailure } = require('./func')
+const ethUtil = require('wanchainjs-util')
 
 const phrase = 'phrase upgrade clock rough situate wedding elder clever doctor stamp excess tent'
 // const accounts = ['0xe18035bf8712672935fdb4e5e431b1a0183d2dfc',
@@ -20,7 +21,6 @@ describe('MyWanWallet', function () {
 
     before(async function () {
         const srcPath = path.resolve(`dist/index.html`)
-        console.log(srcPath)
         const installResult = await setupBrowserAndExtension({ browser })
         driver = installResult.driver
 
@@ -51,10 +51,88 @@ describe('MyWanWallet', function () {
         await driver.quit()
     })
 
-    describe('Setup', function () {
+    describe('Startup', function () {
 
         it('remove startup alert', async () => {
             await clickElement('/html/body/section[1]/div[2]/div/i')
+            await delay(500)
+        })
+    })
+
+    describe('Create JSON Wallet', function () {
+        var privkey
+
+        it('Click new wallet button', async () => {
+            await clickElement('/html/body/header/nav/div/ul/li[1]/a')
+            await delay(500)
+        })
+
+        it('Enter invalid password', async () => {
+            await enterTextInElement('/html/body/section[1]/div/main/article[1]/section[1]/div[1]/input', '12345678')
+            await delay(200)
+            await clickElement('/html/body/section[1]/div/main/article[1]/section[1]/a')
+            await delay(200)
+            await validateValue('/html/body/section[1]/div[2]/div/div/div',
+                                '(error_02) Your password must be at least 9 characters. Please ensure it is a strong password.',
+                                'Correct error is shown')
+            await delay(200)
+            // Close error
+            await clickElement('/html/body/section[1]/div[2]/div/i')
+        })
+
+        it('Creates a new wallet', async () => {
+            await enterTextInElement('/html/body/section[1]/div/main/article[1]/section[1]/div[1]/input', 'ééééééééé')
+            await delay(200)
+            await clickElement('/html/body/section[1]/div/main/article[1]/section[1]/a')
+            await delay(500)
+            await validateValue('/html/body/section[1]/div/main/article[2]/section[1]/h1/code', 'Keystore', 'Keystore is shown')
+            await delay(200)
+        })
+
+        it('Downloads a keystore', async () => {
+            // Download Keystore
+            await clickElement('/html/body/section[1]/div/main/article[2]/section[1]/a/span[2]')
+            await delay(200)
+        })
+
+        it('Shows the private key', async () => {
+            await clickElement('/html/body/section[1]/div/main/article[2]/section[1]/p/a/span')
+            await delay(200)
+            // Store privkey
+            privkey = await driver.findElement(By.xpath('/html/body/section[1]/div/main/article[3]/section[1]/textarea')).getText()
+            await delay(200)
+            await clickElement('/html/body/section[1]/div/main/article[3]/section[1]/a[2]/span')
+            await delay(200)
+        })
+
+        it('Unlocks the wallet with the new privkey', async () => {
+            // Click Private key
+            await clickElement('/html/body/section[1]/div/main/article[4]/div[1]/div[2]/wallet-decrypt-drtv/article/section[1]/label[7]/input')
+            await delay(200)
+            await enterTextInElement('//*[@id="aria6"]', privkey)
+            await delay(200)
+            // Shows unlock button
+            await clickElement('//*[@id="selectedTypeKey"]/div[4]/a')
+            await delay(200)
+        })
+
+        it('Shows the wallet unlocked modal', async () => {
+            await validateValue('/html/body/section[1]/div[2]/div/div/div', 'Wallet successfully decrypted', 'Wallet unlocked')
+            await delay(200)
+        })
+
+        it('Shows correct checksummed address for the privkey', async () => {
+            await validateValue('/html/body/section[1]/div/main/article[4]/div[2]/article[2]/wallet-balance-drtv/aside/div[1]/ul[1]/span',
+                                ethUtil.toChecksumAddress('0x' + ethUtil.privateToAddress('0x' + privkey).toString('hex')),
+                                'Private Key matches Address')
+            await delay(200)
+        })
+    })
+
+    describe('Setup', function () {
+
+        it('Goto Send Menu', async () => {
+            await clickElement('/html/body/header/nav/div/ul/li[4]/a')
             await delay(500)
         })
 

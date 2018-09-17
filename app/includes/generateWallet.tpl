@@ -67,7 +67,7 @@
         <li>
           <p>
             <strong>
-              Ledger / TREZOR / Digital Bitbox
+              Ledger / TREZOR
             </strong>:
             <span translate="GEN_Help_1">
               Use your
@@ -98,23 +98,6 @@
               So easy! Keys stay in MetaMask, not on a phishing site! Try it today.
             </span>
           </p>
-        </li>
-      </ul>
-
-      <ul>
-        <li>
-          <p>
-            <strong>
-              Jaxx / imToken
-            </strong>
-            <span translate="GEN_Help_1">Use your</span>
-            <a ng-click="globalService.currentTab=globalService.tabs.sendTransaction.id" translate="x_Mnemonic">
-              Mnemonic Phrase
-            </a>
-            <span translate="GEN_Help_2">
-              to access your account.
-            </span>
-        </p>
         </li>
       </ul>
 
