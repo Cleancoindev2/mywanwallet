@@ -1,6 +1,5 @@
 'use strict'
 
-var wanUtil = require('wanchain-util')
 var txStatusCtrl = function ($scope) {
     $scope.Validator = Validator
     $scope.checkTxPage = true
@@ -42,8 +41,8 @@ var txStatusCtrl = function ($scope) {
             $scope.txInfo = {
                 status: tx.blockNumber ? txStatus.mined : txStatus.found,
                 hash: tx.hash,
-                from: wanUtil.toChecksumAddress(tx.from),
-                to: tx.to ? wanUtil.toChecksumAddress(tx.to) : '',
+                from: ethUtil.toChecksumAddress(tx.from),
+                to: tx.to ? ethUtil.toChecksumAddress(tx.to) : '',
                 value: new BigNumber(tx.value).toString(),
                 valueStr: etherUnits.toEther(tx.value, 'wei') + ' WAN',
                 gasLimit: new BigNumber(tx.gas).toString(),

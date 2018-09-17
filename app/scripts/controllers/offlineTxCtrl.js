@@ -1,5 +1,4 @@
 'use strict'
-const wanUtil = require('wanchain-util')
 var offlineTxCtrl = function ($scope, $sce, walletService) {
     $scope.ajaxReq = ajaxReq
     walletService.wallet = null
@@ -140,7 +139,7 @@ var offlineTxCtrl = function ($scope, $sce, walletService) {
     $scope.confirmSendTx = function () {
         try {
             if ($scope.signedTx === '' || !ethFuncs.validateHexString($scope.signedTx)) throw globalFuncs.errorMsgs[12]
-            var eTx = new wanUtil.wanchainTx($scope.signedTx)
+            var eTx = new ethUtil.Tx($scope.signedTx)
             if (eTx.data.length && Token.transferHex === ethFuncs.sanitizeHex(eTx.data.toString('hex').substr(0, 8))) {
                 var token = Token.getTokenByAddress(ethFuncs.sanitizeHex(eTx.to.toString('hex')))
                 var decoded = ethUtil.solidityCoder.decodeParams(['address', 'uint256'], ethFuncs.sanitizeHex(eTx.data.toString('hex').substr(10)))

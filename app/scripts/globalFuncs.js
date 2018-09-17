@@ -161,7 +161,7 @@ globalFuncs.urlGet = function (name) {
     name = name.toLowerCase()
     // if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search.toLowerCase())) return this.stripTags(decodeURIComponent(name[1]))
     name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search.toLowerCase())
-    if (name !== null) return stripTags(decodeURIComponent(name[1]))
+    if (name !== null) return this.stripTags(decodeURIComponent(name[1]))
 }
 globalFuncs.stripTags = function (str) {
     var SCRIPT_REGEX = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi
