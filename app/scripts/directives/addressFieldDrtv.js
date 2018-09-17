@@ -1,5 +1,4 @@
 'use strict'
-const wanUtil = require('wanchain-util')
 var addressFieldDrtv = function ($compile) {
     return {
         restrict: 'E',
@@ -47,7 +46,7 @@ var addressFieldDrtv = function ($compile) {
                             scope.addressDrtv.showDerivedAddress = true
                         } else {
                             setValue(data.data)
-                            scope.addressDrtv.derivedAddress = wanUtil.toChecksumAddress(data.data)
+                            scope.addressDrtv.derivedAddress = ethUtil.toChecksumAddress(data.data)
                             scope.addressDrtv.showDerivedAddress = true
                         }
                     })

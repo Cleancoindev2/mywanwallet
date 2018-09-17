@@ -1,4 +1,4 @@
-const Ganache = require('ganache-core')
+const Ganache = require('wanache-core')
 const nock = require('nock')
 // import Enzyme from 'enzyme'
 // import Adapter from 'enzyme-adapter-react-15'

@@ -1,5 +1,4 @@
 'use strict'
-const wanUtil = require('wanchain-util')
 var uiFuncs = function () {}
 uiFuncs.getTxData = function ($scope) {
     return {
@@ -51,7 +50,7 @@ uiFuncs.signTxTrezor = function (rawTx, txData, callback) {
         rawTx.v = result.payload.v
         rawTx.r = result.payload.r
         rawTx.s = result.payload.s
-        var eTx = new wanUtil.wanchainTx(rawTx)
+        var eTx = new ethUtil.Tx(rawTx)
         rawTx.rawTx = JSON.stringify(rawTx)
         rawTx.signedTx = '0x' + eTx.serialize().toString('hex')
         rawTx.isError = false
@@ -77,7 +76,7 @@ callback({
         rawTx.v = '0x' + result['v']
         rawTx.r = '0x' + result['r']
         rawTx.s = '0x' + result['s']
-        eTx = new wanUtil.wanchainTx(rawTx)
+        eTx = new ethUtil.Tx(rawTx)
         rawTx.rawTx = JSON.stringify(rawTx)
         rawTx.signedTx = '0x' + eTx.serialize().toString('hex')
         rawTx.isError = false
@@ -101,7 +100,7 @@ uiFuncs.signTxDigitalBitbox = function (eTx, rawTx, txData, callback) {
         rawTx.v = ethFuncs.sanitizeHex(result['v'])
         rawTx.r = ethFuncs.sanitizeHex(result['r'])
         rawTx.s = ethFuncs.sanitizeHex(result['s'])
-        var eTx_ = new wanUtil.wanchainTx(rawTx)
+        var eTx_ = new ethUtil.Tx(rawTx)
         rawTx.rawTx = JSON.stringify(rawTx)
         rawTx.signedTx = ethFuncs.sanitizeHex(eTx_.serialize().toString('hex'))
         rawTx.isError = false
@@ -146,7 +145,7 @@ uiFuncs.generateTx = function (txData, callback) {
                 data: ethFuncs.sanitizeHex(txData.data),
             }
             if (ajaxReq.eip155) rawTx.chainId = ajaxReq.chainId
-            var eTx = new wanUtil.wanchainTx(rawTx)
+            var eTx = new ethUtil.Tx(rawTx)
             if ((typeof txData.hwType !== 'undefined') && (txData.hwType === 'ledger')) {
                 var app = new ledgerEth(txData.hwTransport)
                 var EIP155Supported = false

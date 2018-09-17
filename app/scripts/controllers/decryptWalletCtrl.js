@@ -165,8 +165,10 @@ var decryptWalletCtrl = function ($scope, $sce, walletService) {
         } catch (e) {
             $scope.notifier.danger(globalFuncs.errorMsgs[6] + e)
         }
-        if ($scope.wallet != null) $scope.notifier.info(globalFuncs.successMsgs[1])
-        $scope.wallet.type = 'default'
+        if ($scope.wallet != null) {
+            $scope.notifier.info(globalFuncs.successMsgs[1])
+            $scope.wallet.type = 'default'
+        }
     }
     $scope.decryptAddressOnly = function () {
         if ($scope.Validator.isValidAddress($scope.addressOnly)) {
@@ -178,7 +180,7 @@ var decryptWalletCtrl = function ($scope, $sce, walletService) {
                     return this.address
                 },
                 getChecksumAddressString: function () {
-                    return wanUtil.toChecksumAddress(this.getAddressString())
+                    return ethUtil.toChecksumAddress(this.getAddressString())
                 },
                 setBalance: tempWallet.setBalance,
                 setTokens: tempWallet.setTokens,
