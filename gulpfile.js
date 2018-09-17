@@ -24,6 +24,7 @@ const injectVersion = require('gulp-inject-version')
 
 const app = './app/'
 const dist = './dist/'
+const browserSync = require('browser-sync').create();
 
 
 // Error / Success Handling
@@ -122,9 +123,10 @@ function bundleJSDebug (bundler) {
 }
 
 
-gulp.task('js', function () {
+gulp.task('js', function (done) {
     const bundler = browserify(jsSrcFile).transform(babelify).transform(html2js)
     bundleJS(bundler)
+    done()
 })
 
 gulp.task('js-production', function (done) {
@@ -133,9 +135,10 @@ gulp.task('js-production', function (done) {
     done()
 })
 
-gulp.task('js-debug', function () {
+gulp.task('js-debug', function (done) {
     const bundler = browserify(jsSrcFile, browseOpts).transform(babelify, babelOpts).transform(html2js)
     bundleJSDebug(bundler)
+    done()
 })
 
 
@@ -356,16 +359,24 @@ gulp.task('pushlive', gulp.series('getVersion', function () {
 // git push --tags
 // gulp pushlive ( git subtree push --prefix dist origin gh-pages )
 
-gulp.task('watchJS', function () { gulp.watch(jsWatchFolder, ['js']) })
-gulp.task('watchJSDebug', function () { gulp.watch(jsWatchFolder, ['js-debug']) })
-gulp.task('watchJSProd', function () { gulp.watch(jsWatchFolder, ['js-production']) })
-gulp.task('watchLess', function () { gulp.watch(lessWatchFolder, ['styles']) })
-gulp.task('watchPAGES', function () { gulp.watch(htmlFiles, ['html']) })
-gulp.task('watchTPL', function () { gulp.watch(tplFiles, ['html']) })
+gulp.task('watchJS', function () { return gulp.watch(jsWatchFolder, gulp.series('js')).on('change', browserSync.reload) })
+gulp.task('watchJSDebug', function () { gulp.watch(jsWatchFolder, gulp.series('js-debug')) })
+gulp.task('watchJSProd', function () { gulp.watch(jsWatchFolder, gulp.series('js-production')) })
+gulp.task('watchLess', function () { gulp.watch(lessWatchFolder, gulp.series('styles')) })
+gulp.task('watchPAGES', function () { gulp.watch(htmlFiles, gulp.series('html')) })
+gulp.task('watchTPL', function () { gulp.watch(tplFiles, gulp.series('html')) })
 
 gulp.task('bump-major', function (done) { return bumpFunc(done, 'major') })
 gulp.task('bump-minor', function (done) { return bumpFunc(done, 'minor') })
 gulp.task('bump', function (done) { return bumpFunc(done, 'patch') })
+
+gulp.task('browserSync', function() {
+    browserSync.init({
+        server: {
+            baseDir: 'dist'
+        },
+    })
+})
 
 gulp.task('archive', function () { return archive() })
 
@@ -375,10 +386,10 @@ gulp.task('zipit', gulp.series('clean', 'zip'))
 
 gulp.task('commit', gulp.series('add', 'commitV', 'tag'))
 
-gulp.task('watch', gulp.series('watchJS', 'watchLess', 'watchPAGES', 'watchTPL'))
-gulp.task('watchProd', gulp.series('watchJSProd', 'watchLess', 'watchPAGES', 'watchTPL'))
+gulp.task('watch', gulp.series('browserSync', 'watchJS', 'watchLess', 'watchPAGES', 'watchTPL', function (done) { done() }))
+gulp.task('watchProd', gulp.series('watchJSProd', 'watchLess', 'watchPAGES', 'watchTPL', function (done) { done() }))
 
-gulp.task('build', gulp.series('js', 'html', 'styles', 'copy'))
+gulp.task('build', gulp.series('js', 'html', 'styles', 'copy'), function (done) { done() })
 gulp.task('build-debug', gulp.series('js-debug', 'html', 'styles', 'watchJSDebug', 'watchLess', 'watchPAGES', 'watchTPL'))
 
-gulp.task('default', gulp.series('build', 'watch'))
+gulp.task('default', gulp.series('build', 'watch'), function (done) { done() })
