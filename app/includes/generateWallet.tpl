@@ -86,16 +86,16 @@
         <li>
           <p>
             <strong>
-              MetaMask
+              WanMask
             </strong>
             <span>
               Connect via your
             </span>
             <a ng-click="globalService.currentTab=globalService.tabs.sendTransaction.id">
-              MetaMask Extension
+              WanMask Extension
             </a>.
             <span translate="GEN_Help_MetaMask">
-              So easy! Keys stay in MetaMask, not on a phishing site! Try it today.
+              So easy! Keys stay in WanMask, not on a phishing site! Try it today.
             </span>
           </p>
         </li>

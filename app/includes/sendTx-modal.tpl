@@ -101,7 +101,7 @@
             </tr>
             <tr>
               <td class="small text-right">Max TX Fee:</td>
-              <td class="small text-left mono"> {{parsedSignedTx.txFee.eth}} ETH <small>({{parsedSignedTx.txFee.gwei}} GWEI)</small></td>
+              <td class="small text-left mono"> {{parsedSignedTx.txFee.eth}} WAN <small>({{parsedSignedTx.txFee.gwei}} GWEI)</small></td>
             </tr>
             <tr>
               <td class="small text-right">Nonce:</td>
