@@ -54,6 +54,7 @@ describe('MyWanWallet', function () {
     describe('Startup', function () {
 
         it('remove startup alert', async () => {
+            await delay(100)
             await clickElement('/html/body/section[1]/div[2]/div/i')
             await delay(500)
         })
