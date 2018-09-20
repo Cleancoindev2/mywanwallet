@@ -2974,7 +2974,13 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
     };
     $scope.addCustomNodeToList = function (nodeInfo) {
         var tempObj = null;
-        if (nodeInfo.options === 'wan') tempObj = JSON.parse(JSON.stringify(nodes.nodeList.wan_mew));else if (nodeInfo.options === 'cus') {
+        if (nodeInfo.options === 'wan') {
+            tempObj = JSON.parse(JSON.stringify(nodes.nodeList.wan_mew));
+        }
+        if (nodeInfo.options === 'testnet') {
+            tempObj = JSON.parse(JSON.stringify(nodes.nodeList.wan_mew_testnet));
+        }
+        if (nodeInfo.options === 'cus') {
             tempObj = JSON.parse(JSON.stringify(nodes.customNodeObj));
             tempObj.eip155 = nodeInfo.eip155;
             tempObj.chainId = parseInt(nodeInfo.chainId);
@@ -7680,6 +7686,18 @@ nodes.nodeList = {
         'abiList': require('./abiDefinitions/wanAbi.json'),
         'service': 'mywanwallet.nl',
         'lib': new nodes.customNode('https://mywanwallet.nl/api', '')
+    },
+    'wan_mew_testnet': {
+        'name': 'Testnet',
+        'blockExplorerTX': 'http://47.104.61.26/block/trans/[[txHash]]',
+        'blockExplorerAddr': 'http://47.104.61.26/block/addr/[[address]]',
+        'type': nodes.nodeTypes.WAN,
+        'eip155': true,
+        'chainId': 3,
+        'tokenList': require('./tokens/wanTokens.json'),
+        'abiList': require('./abiDefinitions/wanAbi.json'),
+        'service': 'mywanwallet.nl',
+        'lib': new nodes.customNode('https://mywanwallet.nl/testnet', '')
     }
 };
 

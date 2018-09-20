@@ -33,6 +33,18 @@ nodes.nodeList = {
         'service': 'mywanwallet.nl',
         'lib': new nodes.customNode('https://mywanwallet.nl/api', ''),
     },
+    'wan_mew_testnet': {
+        'name': 'Testnet',
+        'blockExplorerTX': 'http://47.104.61.26/block/trans/[[txHash]]',
+        'blockExplorerAddr': 'http://47.104.61.26/block/addr/[[address]]',
+        'type': nodes.nodeTypes.WAN,
+        'eip155': true,
+        'chainId': 3,
+        'tokenList': require('./tokens/wanTokens.json'),
+        'abiList': require('./abiDefinitions/wanAbi.json'),
+        'service': 'mywanwallet.nl',
+        'lib': new nodes.customNode('https://mywanwallet.nl/testnet', ''),
+    },
 }
 
 
