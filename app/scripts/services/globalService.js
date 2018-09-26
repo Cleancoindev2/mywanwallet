@@ -84,6 +84,13 @@ var globalService = function ($http, $httpParamSerializerJQLike) {
     mew: true,
     cx: false,
   },
+  signMessage: {
+    id: 11,
+    name: 'NAV_SignMsg',
+    url: 'sign-message',
+    mew: true,
+    cx: false,
+  },
   }
 
   var currentTab = 3

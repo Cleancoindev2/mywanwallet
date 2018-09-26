@@ -20,10 +20,12 @@
 <link href="https://mywanwallet.nl" rel="canonical">
 <meta content="https://mywanwallet.nl" property="og:url">
 <meta content="https://mywanwallet.nl" name="twitter:url">
+<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,700" rel="stylesheet">
 <link rel="stylesheet" href="css/etherwallet-master.min.css">
 <script type="text/javascript" src="js/trezor-connect.js"></script>
-<script type="text/javascript" src="js/etherwallet-static.min.js?version=v1.0.6"></script>
-<script type="text/javascript" src="js/etherwallet-master.js?version=v1.0.6"></script>
+<script type="text/javascript" src="js/etherwallet-static.min.js?version=v1.0.7"></script>
+<script type="text/javascript" src="js/etherwallet-master.js?version=v1.0.7"></script>
 <meta name="description" content="MyWanWallet (MEW) is a free, open-source, client-side interface for generating Wanchain wallets & more. Interact with the Wanchain blockchain easily & securely.">
 <meta property="og:description"  content="Free, open-source, client-side Wanchain wallet. Enabling you to interact with the blockchain easily & securely.">
 <meta name="twitter:description" content="Free, open-source, client-side Wanchain wallet. Enabling you to interact with the blockchain easily & securely.">
@@ -136,7 +138,7 @@
           <p class="small" style="white-space:normal;font-weight:300;margin: 2rem 0 0;" translate="GAS_PRICE_Desc"></p>
           <a class="small"
              translate="x_ReadMore"
-             href="https://mywanwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html"
+             href="https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html"
              target="_blank"
              rel="noopener noreferrer"></a>
         </div>
@@ -198,14 +200,7 @@
       
       
       <li class="nav-item help">
-        <a href="/signmsg.html">
-          <span translate="NAV_SignMsg">
-            Sign Message
-          </span>
-        </a>
-      </li>
-      <li class="nav-item help">
-        <a href="https://mywanwallet.github.io/knowledge-base/" target="_blank" rel="noopener noreferrer">
+        <a href="https://myetherwallet.github.io/knowledge-base/" target="_blank" rel="noopener noreferrer">
           <span translate="NAV_Help">
             Help
           </span>
@@ -504,7 +499,7 @@
       </h2>
       <ul>
         <li translate="GEN_Help_12">
-          Use it to unlock your wallet via MyEtherWallet (or Mist, Geth, Parity &amp; other wallet clients.)
+          Use it to unlock your wallet via MyWanWallet (or Mist, Geth, Parity &amp; other wallet clients.)
         </li>
       </ul>
 
@@ -845,7 +840,7 @@
              target="_blank"
              rel="noopener noreferrer"
              translate="X_HelpfulLinks_4">
-                Migrating to/from MyEtherWallet
+                Migrating to/from MyWanWallet
           </a>
         </li>
       </ul>
@@ -4405,6 +4400,109 @@
 </main>
 
 
+        <main class="tab-pane active" ng-if="globalService.currentTab==globalService.tabs.signMessage.id" ng-controller='signMsgCtrl' ng-cloak>
+
+    <!-- Title -->
+    <div class="block text-center">
+    <h1>
+      <a translate="NAV_SignMsg"
+         ng-class="{ 'isActive': visibility=='signView'}"
+         ng-click="setVisibility('signView')">
+           Sign Message
+      </a>
+      or
+      <a translate="MSG_verify"
+         ng-class="{ 'isActive': visibility=='verifyView'}"
+         ng-click="setVisibility('verifyView')">
+          Verify Message
+      </a>
+    </h1>
+    </div>
+    <!-- / Title -->
+
+    <article class="row block" ng-show="visibility=='signView'">
+
+        <section class="block">
+
+        <h4 translate="MSG_message">
+          Message
+        </h4>
+
+        <textarea class="form-control"
+                  ng-model="signMsg.message"
+                  placeholder="This is a sweet message that you are signing to prove that you own the address you say you own."
+                  rows="5"
+                  ng-disabled="signMsg.signedMsg">
+        </textarea>
+
+        <p class="small">
+          <em translate="MSG_info2">
+            Include your nickname and where you use the nickname so someone else cannot use it.
+          </em>
+          <em translate="MSG_info3">
+            Include a specific reason for the message so it cannot be reused for a different purpose.
+          </em>
+        </p>
+
+        <br />
+
+        <a class="btn btn-info btn-block"
+           ng-click="generateSignedMsg()"
+           translate="NAV_SignMsg"
+           ng-show="wallet!=null">
+             Sign Message
+        </a>
+
+        <div ng-show="signMsg.signedMsg">
+          <h4 translate="MSG_signature">
+            Signature
+          </h4>
+          <textarea class="form-control"
+                    rows="8"
+                    style="word-break: break-all;"
+                    readonly
+                    title="Signature">{{ signMsg.signedMsg }}</textarea>
+        </div>
+        </section>
+    </article>
+
+    <article class="row block" ng-show="visibility=='verifyView'">
+        <section class="block">
+
+        <h5 translate="MSG_signature">
+          Signature
+        </h5>
+        <textarea class="form-control"
+                  ng-model="verifyMsg.signedMsg"
+                  rows="8"
+                  placeholder='{"address":"0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8","msg":"asdfasdfasdf","sig":"0x4771d78f13ba8abf608457f12471f427ca8f2fb046c1acb3f5969eefdfe452a10c9154136449f595a654b44b3b0163e86dd099beaca83bfd52d64c21da2221bb1c","version":"mew_v2"}'>
+        </textarea>
+
+        <a class="btn btn-info btn-block"
+           ng-click="verifySignedMessage()"
+           translate="MSG_verify"
+           ng-show="verifyMsg.signedMsg!=''">
+              Verify Message
+        </a>
+
+        <p class="alert alert-success"
+           ng-show="verifiedMsg.address!=null">
+            <strong>{{ verifiedMsg.address }}</strong> did sign the message <strong>{{ verifiedMsg.msg }}</strong>.
+        </p>
+
+        </section>
+
+    </article>
+
+    <div class="clearfix col-xs-12" ng-show="visibility=='signView' && wallet==null">
+        <wallet-decrypt-drtv></wallet-decrypt-drtv>
+    </div>
+
+
+</main>
+
+
+
         <main class="tab-pane block--container active" ng-if="globalService.currentTab==globalService.tabs.txStatus.id" ng-controller='txStatusCtrl' role="main" ng-cloak>
 
   <!-- Section 1 -->
@@ -4684,7 +4782,7 @@
              target="_blank"
              rel="noopener noreferrer"
              translate="X_HelpfulLinks_4">
-                Migrating to/from MyEtherWallet
+                Migrating to/from MyWanWallet
           </a>
         </li>
       </ul>
@@ -5458,7 +5556,7 @@
 
         <p class="small"><strong>We are not responsible for any loss: </strong> Wanchain, MyWanWallet.nl and some of the underlying Javascript libraries we use are under active development. While we have thoroughly tested &amp; tens of thousands of wallets have been successfully created by people all over the globe, there is always the possibility something unexpected happens that causes your funds to be lost. Please do not invest more than you are willing to lose, and please be careful.</p>
 
-        <p class="small"><strong>MIT License</strong> Copyright &copy; 2015-2017 MyEtherWallet LLC</p>
+        <p class="small"><strong>MIT License</strong> Original Copyright &copy; 2015-2017 MyEtherWallet LLC</p>
 
         <p class="small"><strong>MIT License</strong> Copyright &copy; 2018 Tyrion70</p>
 

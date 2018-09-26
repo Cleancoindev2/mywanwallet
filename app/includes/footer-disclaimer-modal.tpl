@@ -15,7 +15,7 @@
 
         <p class="small"><strong>We are not responsible for any loss: </strong> Wanchain, MyWanWallet.nl and some of the underlying Javascript libraries we use are under active development. While we have thoroughly tested &amp; tens of thousands of wallets have been successfully created by people all over the globe, there is always the possibility something unexpected happens that causes your funds to be lost. Please do not invest more than you are willing to lose, and please be careful.</p>
 
-        <p class="small"><strong>MIT License</strong> Copyright &copy; 2015-2017 MyEtherWallet LLC</p>
+        <p class="small"><strong>MIT License</strong> Original Copyright &copy; 2015-2017 MyEtherWallet LLC</p>
 
         <p class="small"><strong>MIT License</strong> Copyright &copy; 2018 Tyrion70</p>
 

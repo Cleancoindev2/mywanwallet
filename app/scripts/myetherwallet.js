@@ -1,7 +1,10 @@
 'use strict'
-var Wallet = function (priv, pub, path, hwType, hwTransport) {
+var Wallet = function (priv, priv2, pub, path, hwType, hwTransport) {
     if (typeof priv !== 'undefined') {
         this.privKey = priv.length === 32 ? priv : Buffer(priv, 'hex')
+    }
+    if (typeof priv2 !== 'undefined') {
+        this.privKey2 = priv2.length === 32 ? priv2 : Buffer(priv2, 'hex')
     }
     this.pubKey = pub
     this.path = path
@@ -10,15 +13,8 @@ var Wallet = function (priv, pub, path, hwType, hwTransport) {
     this.type = 'default'
 }
 Wallet.generate = function (icapDirect) {
-    if (icapDirect) {
-        while (true) {
-            var privKey = ethUtil.crypto.randomBytes(32)
-            if (ethUtil.privateToAddress(privKey)[0] === 0) {
-                return new Wallet(privKey)
-            }
-        }
-    } else {
-        return new Wallet(ethUtil.crypto.randomBytes(32))
+    if (!icapDirect) {
+        return new Wallet(ethUtil.crypto.randomBytes(32), ethUtil.crypto.randomBytes(32))
     }
 }
 
@@ -184,19 +180,20 @@ Wallet.prototype.getAddressString = function () {
 Wallet.prototype.getChecksumAddressString = function () {
     return ethUtil.toChecksumAddress(this.getAddressString())
 }
-Wallet.fromPrivateKey = function (priv) {
-    return new Wallet(priv)
+Wallet.fromPrivateKey = function (priv, priv2 = null) {
+    return new Wallet(priv, priv2)
 }
 Wallet.fromParityPhrase = function (phrase) {
     var hash = ethUtil.sha3(new Buffer(phrase))
     for (var i = 0; i < 16384; i++) hash = ethUtil.sha3(hash)
     while (ethUtil.privateToAddress(hash)[0] !== 0) hash = ethUtil.sha3(hash)
-    return new Wallet(hash)
+    return new Wallet(hash, undefined)
 }
 Wallet.prototype.toV3 = function (password, opts) {
     opts = opts || {}
     var Crypto = []
     var privKeys = []
+    var privKey
 
     for (var i = 0; i < 2; i++) {
         var salt = opts.salt || ethUtil.crypto.randomBytes(32)
@@ -225,9 +222,15 @@ Wallet.prototype.toV3 = function (password, opts) {
             throw new Error('Unsupported cipher')
         }
 
-        privKeys.push(this.privKey)
 
-        var ciphertext = Buffer.concat([cipher.update(this.privKey), cipher.final()])
+        if (i === 0) {
+            privKey = this.privKey
+        } else {
+            privKey = this.privKey2
+        }
+        privKeys.push(privKey)
+
+        var ciphertext = Buffer.concat([cipher.update(privKey), cipher.final()])
         var mac = ethUtil.sha3(Buffer.concat([derivedKey.slice(16, 32), new Buffer(ciphertext, 'hex')]))
 
         Crypto.push(
@@ -242,8 +245,8 @@ Wallet.prototype.toV3 = function (password, opts) {
         )
     }
 
-    var waddress = ethUtil.generateWaddrFromPriv(privKeys[0], privKeys[1]).slice(2)
-    var address = ethUtil.privateToAddress(privKeys[0]).toString('hex')
+    var waddress = ethUtil.generateWaddrFromPriv(privKeys[0], privKeys[1]).slice(2).toLowerCase()
+    var address = ethUtil.toChecksumAddress(ethUtil.privateToAddress(privKeys[0]).toString('hex')).slice(2)
 
     return {
         version: 3,
@@ -263,7 +266,7 @@ Wallet.prototype.toJSON = function () {
         checksumAddress: this.getChecksumAddressString(),
         privKey: this.getPrivateKeyString(),
         pubKey: this.getPublicKeyString(),
-        publisher: 'MyEtherWallet',
+        publisher: 'MyWanWallet',
         encrypted: false,
         version: 2,
     }
@@ -293,7 +296,7 @@ Wallet.fromMyEtherWallet = function (input, password) {
         privKey = Wallet.decipherBuffer(decipher, new Buffer(cipher.ciphertext))
         privKey = new Buffer((privKey.toString()), 'hex')
     }
-    var wallet = new Wallet(privKey)
+    var wallet = new Wallet(privKey, undefined)
     if (wallet.getAddressString() !== json.address) {
         throw new Error('Invalid private key or address')
     }
@@ -305,7 +308,7 @@ Wallet.fromMyEtherWalletV2 = function (input) {
         throw new Error('Invalid private key length')
     };
     var privKey = new Buffer(json.privKey, 'hex')
-    return new Wallet(privKey)
+    return new Wallet(privKey, undefined)
 }
 Wallet.fromEthSale = function (input, password) {
     var json = (typeof input === 'object') ? input : JSON.parse(input)
@@ -313,7 +316,7 @@ Wallet.fromEthSale = function (input, password) {
     var derivedKey = ethUtil.crypto.pbkdf2Sync(Buffer(password), Buffer(password), 2000, 32, 'sha256').slice(0, 16)
     var decipher = ethUtil.crypto.createDecipheriv('aes-128-cbc', derivedKey, encseed.slice(0, 16))
     var seed = Wallet.decipherBuffer(decipher, encseed.slice(16))
-    var wallet = new Wallet(ethUtil.sha3(seed))
+    var wallet = new Wallet(ethUtil.sha3(seed), undefined)
     if (wallet.getAddress().toString('hex') !== json.ethaddr) {
         throw new Error('Decoded key mismatch - possibly wrong passphrase')
     }
@@ -329,9 +332,10 @@ Wallet.fromMyEtherWalletKey = function (input, password) {
     var decipher = ethUtil.crypto.createDecipheriv('aes-256-cbc', evp.key, evp.iv)
     var privKey = Wallet.decipherBuffer(decipher, new Buffer(cipher.ciphertext))
     privKey = new Buffer((privKey.toString()), 'hex')
-    return new Wallet(privKey)
+    return new Wallet(privKey, undefined)
 }
 Wallet.fromV3 = function (input, password, nonStrict) {
+    // TODO: get second key
     var json = (typeof input === 'object') ? input : JSON.parse(nonStrict ? input.toLowerCase() : input)
     if (json.version !== 3) {
         throw new Error('Not a V3 wallet')
@@ -361,7 +365,7 @@ Wallet.fromV3 = function (input, password, nonStrict) {
         var nullBuff = new Buffer([0x00])
         seed = Buffer.concat([nullBuff, seed])
     }
-    return new Wallet(seed)
+    return new Wallet(seed, undefined)
 }
 Wallet.prototype.toV3String = function (password, opts) {
     return JSON.stringify(this.toV3(password, opts))

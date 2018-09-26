@@ -4,10 +4,11 @@ nodes.customNode = require('./nodeHelpers/customNode')
 nodes.metamaskNode = require('./nodeHelpers/metamask')
 nodes.nodeTypes = {
     WAN: 'WAN',
-    Custom: 'CUSTOM ETH',
+    Testnet: 'WAN',
+    Custom: 'WAN',
 }
-nodes.ensNodeTypes = [nodes.nodeTypes.WAN]
-nodes.domainsaleNodeTypes = [nodes.nodeTypes.WAN]
+nodes.ensNodeTypes = [nodes.nodeTypes.WAN, nodes.nodeTypes.Testnet]
+nodes.domainsaleNodeTypes = [nodes.nodeTypes.WAN, nodes.nodeTypes.Testnet]
 nodes.customNodeObj = {
     'name': 'CUS',
     'blockExplorerTX': '',
@@ -22,7 +23,7 @@ nodes.customNodeObj = {
 }
 nodes.nodeList = {
     'wan_mew': {
-        'name': 'WAN',
+        'name': 'WAN Mainnet',
         'blockExplorerTX': 'https://wanscan.io/tx/[[txHash]]',
         'blockExplorerAddr': 'https://wanscan.io/addr/[[address]]',
         'type': nodes.nodeTypes.WAN,
@@ -34,14 +35,14 @@ nodes.nodeList = {
         'lib': new nodes.customNode('https://mywanwallet.nl/api', ''),
     },
     'wan_mew_testnet': {
-        'name': 'Testnet',
+        'name': 'WAN Testnet',
         'blockExplorerTX': 'http://47.104.61.26/block/trans/[[txHash]]',
         'blockExplorerAddr': 'http://47.104.61.26/block/addr/[[address]]',
-        'type': nodes.nodeTypes.WAN,
+        'type': nodes.nodeTypes.Testnet,
         'eip155': true,
         'chainId': 3,
-        'tokenList': require('./tokens/wanTokens.json'),
-        'abiList': require('./abiDefinitions/wanAbi.json'),
+        'tokenList': require('./tokens/wanTestnetTokens.json'),
+        'abiList': require('./abiDefinitions/wanTestnetAbi.json'),
         'service': 'mywanwallet.nl',
         'lib': new nodes.customNode('https://mywanwallet.nl/testnet', ''),
     },

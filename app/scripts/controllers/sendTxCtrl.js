@@ -295,7 +295,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
       $scope.parsedSignedTx.txFee.wei = new BigNumber(parseInt($scope.parsedSignedTx.gasLimit)).times(new BigNumber(parseInt($scope.parsedSignedTx.gasPrice.wei)))
       $scope.parsedSignedTx.txFee.gwei = new BigNumber($scope.parsedSignedTx.txFee.wei).div(etherUnits.getValueOfUnit('gwei')).toString()
       $scope.parsedSignedTx.txFee.eth = etherUnits.toEther(parseInt($scope.parsedSignedTx.txFee.wei), 'wei').toString()
-      $scope.parsedSignedTx.nonce = (txData.nonce === '0x' || txData.nonce === '' || txData.nonce == null) ? '0' : new BigNumber(ethFuncs.sanitizeHex(txData.nonce.toString('hex'))).toString()
+      $scope.parsedSignedTx.nonce = (txData.nonce === '0x' || txData.nonce === '' || txData.nonce == null || txData.nonce.toString('hex') === '') ? '0' : new BigNumber(ethFuncs.sanitizeHex(txData.nonce.toString('hex'))).toString()
       $scope.parsedSignedTx.data = (txData.data === '0x' || txData.data === '' || txData.data == null) ? '(none)' : ethFuncs.sanitizeHex(txData.data.toString('hex'))
 
 

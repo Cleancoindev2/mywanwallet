@@ -194,7 +194,7 @@
       </h2>
       <ul>
         <li translate="GEN_Help_12">
-          Use it to unlock your wallet via MyEtherWallet (or Mist, Geth, Parity &amp; other wallet clients.)
+          Use it to unlock your wallet via MyWanWallet (or Mist, Geth, Parity &amp; other wallet clients.)
         </li>
       </ul>
 

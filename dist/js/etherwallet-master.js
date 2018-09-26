@@ -32,6 +32,39 @@ module.exports=[{
 ]
 
 },{}],2:[function(require,module,exports){
+module.exports=[{
+  "name": "Select a contract...",
+  "address": "",
+  "abi": ""
+},
+{
+  "name": "WNS - Registry",
+  "address": "0xe85cfdf43a0db4aa0ec054a57451af7c73d4625b",
+  "abi": '[{"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "resolver", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "owner", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "label", "type": "bytes32"}, {"name": "owner", "type": "address"}], "name": "setSubnodeOwner", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "ttl", "type": "uint64"}], "name": "setTTL", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "ttl", "outputs": [{"name": "", "type": "uint64"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "resolver", "type": "address"}], "name": "setResolver", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "owner", "type": "address"}], "name": "setOwner", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": true, "name": "label", "type": "bytes32"}, {"indexed": false, "name": "owner", "type": "address"}], "name": "NewOwner", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "owner", "type": "address"}], "name": "Transfer", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "resolver", "type": "address"}], "name": "NewResolver", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "ttl", "type": "uint64"}], "name": "NewTTL", "type": "event"}]'
+},
+{
+  "name": "WNS - Public Resolver",
+  "address": "0x3f5ad0ab415d451bcec48cfcbd61aee126687cd4",
+  "abi": '[{"constant": true, "inputs": [{"name": "interfaceID", "type": "bytes4"}], "name": "supportsInterface", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "pure", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "key", "type": "string"}, {"name": "value", "type": "string"}], "name": "setText", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "contentTypes", "type": "uint256"}], "name": "ABI", "outputs": [{"name": "contentType", "type": "uint256"}, {"name": "data", "type": "bytes"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "x", "type": "bytes32"}, {"name": "y", "type": "bytes32"}], "name": "setPubkey", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "content", "outputs": [{"name": "", "type": "bytes32"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "addr", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "key", "type": "string"}], "name": "text", "outputs": [{"name": "", "type": "string"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "contentType", "type": "uint256"}, {"name": "data", "type": "bytes"}], "name": "setABI", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "name", "outputs": [{"name": "", "type": "string"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "name", "type": "string"}], "name": "setName", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "hash", "type": "bytes32"}], "name": "setContent", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "node", "type": "bytes32"}], "name": "pubkey", "outputs": [{"name": "x", "type": "bytes32"}, {"name": "y", "type": "bytes32"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "node", "type": "bytes32"}, {"name": "addr", "type": "address"}], "name": "setAddr", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"inputs": [{"name": "wnsAddr", "type": "address"}], "payable": false, "stateMutability": "nonpayable", "type": "constructor"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "a", "type": "address"}], "name": "AddrChanged", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "hash", "type": "bytes32"}], "name": "ContentChanged", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "name", "type": "string"}], "name": "NameChanged", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": true, "name": "contentType", "type": "uint256"}], "name": "ABIChanged", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "x", "type": "bytes32"}, {"indexed": false, "name": "y", "type": "bytes32"}], "name": "PubkeyChanged", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "node", "type": "bytes32"}, {"indexed": false, "name": "indexedKey", "type": "string"}, {"indexed": false, "name": "key", "type": "string"}], "name": "TextChanged", "type": "event"}]'
+},
+{
+  "name": "WNS - Registrar Auction",
+  "address": "0xEec6bC4D213bF5D7b247a578b9bF13D7443B5546",
+  "abi": '[{"constant": false, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "releaseDeed", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "getAllowedTime", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "unhashedName", "type": "string"}], "name": "invalidateName", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "hash", "type": "bytes32"}, {"name": "owner", "type": "address"}, {"name": "value", "type": "uint256"}, {"name": "salt", "type": "bytes32"}], "name": "shaBid", "outputs": [{"name": "", "type": "bytes32"}], "payable": false, "stateMutability": "pure", "type": "function"}, {"constant": false, "inputs": [{"name": "bidder", "type": "address"}, {"name": "seal", "type": "bytes32"}], "name": "cancelBid", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "entries", "outputs": [{"name": "", "type": "uint8"}, {"name": "", "type": "address"}, {"name": "", "type": "uint256"}, {"name": "", "type": "uint256"}, {"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "_hash", "type": "bytes32"}, {"name": "_value", "type": "uint256"}, {"name": "_salt", "type": "bytes32"}], "name": "unsealBid", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "transferRegistrars", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "", "type": "address"}, {"name": "", "type": "bytes32"}], "name": "sealedBids", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "state", "outputs": [{"name": "", "type": "uint8"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "_hash", "type": "bytes32"}, {"name": "newOwner", "type": "address"}], "name": "transfer", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [], "name": "wns", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_hash", "type": "bytes32"}, {"name": "_timestamp", "type": "uint256"}], "name": "isAllowed", "outputs": [{"name": "allowed", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "finalizeAuction", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [], "name": "registryStarted", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [], "name": "launchLength", "outputs": [{"name": "", "type": "uint32"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "sealedBid", "type": "bytes32"}], "name": "newBid", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function"}, {"constant": false, "inputs": [{"name": "labels", "type": "bytes32[]"}], "name": "eraseNode", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "_hashes", "type": "bytes32[]"}], "name": "startAuctions", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "hash", "type": "bytes32"}, {"name": "deed", "type": "address"}, {"name": "registrationDate", "type": "uint256"}], "name": "acceptRegistrarTransfer", "outputs": [], "payable": false, "stateMutability": "pure", "type": "function"}, {"constant": false, "inputs": [{"name": "_hash", "type": "bytes32"}], "name": "startAuction", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [], "name": "rootNode", "outputs": [{"name": "", "type": "bytes32"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "hashes", "type": "bytes32[]"}, {"name": "sealedBid", "type": "bytes32"}], "name": "startAuctionsAndBid", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function"}, {"inputs": [{"name": "_wns", "type": "address"}, {"name": "_rootNode", "type": "bytes32"}, {"name": "_startDate", "type": "uint256"}], "payable": false, "stateMutability": "nonpayable", "type": "constructor"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "hash", "type": "bytes32"}, {"indexed": false, "name": "registrationDate", "type": "uint256"}], "name": "AuctionStarted", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "hash", "type": "bytes32"}, {"indexed": true, "name": "bidder", "type": "address"}, {"indexed": false, "name": "deposit", "type": "uint256"}], "name": "NewBid", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "hash", "type": "bytes32"}, {"indexed": true, "name": "owner", "type": "address"}, {"indexed": false, "name": "value", "type": "uint256"}, {"indexed": false, "name": "status", "type": "uint8"}], "name": "BidRevealed", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "hash", "type": "bytes32"}, {"indexed": true, "name": "owner", "type": "address"}, {"indexed": false, "name": "value", "type": "uint256"}, {"indexed": false, "name": "registrationDate", "type": "uint256"}], "name": "HashRegistered", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "hash", "type": "bytes32"}, {"indexed": false, "name": "value", "type": "uint256"}], "name": "HashReleased", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "hash", "type": "bytes32"}, {"indexed": false, "name": "name", "type": "string"}, {"indexed": false, "name": "value", "type": "uint256"}, {"indexed": false, "name": "registrationDate", "type": "uint256"}], "name": "HashInvalidated", "type": "event"}]'
+},
+  {
+  "name": "WNS - Reverse Registrar",
+  "address": "0xdd69b4a40d7381f90927865ce8b4256713c92960",
+  "abi": '[{"constant":false,"inputs":[{"name":"owner","type":"address"},{"name":"resolver","type":"address"}],"name":"claimWithResolver","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"owner","type":"address"}],"name":"claim","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"defaultResolver","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"wns","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"addr","type":"address"}],"name":"node","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"name","type":"string"}],"name":"setName","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"wnsAddr","type":"address"},{"name":"resolverAddr","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]'
+},
+{
+  "name": "WNS - Test Registrar",
+  "address": "0xe625a14d187062f2d47877713737c94d8c60d4ce",
+  "abi": '[{"constant":true,"inputs":[],"name":"wns","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"expiryTimes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"subnode","type":"bytes32"},{"name":"owner","type":"address"}],"name":"register","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"rootNode","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"wnsAddr","type":"address"},{"name":"node","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]'
+}
+]
+
+},{}],3:[function(require,module,exports){
 'use strict';
 
 var ajaxReq = function ajaxReq() {};
@@ -40,7 +73,7 @@ ajaxReq.postSerializer = null;
 ajaxReq.getWANvalue = null;
 module.exports = ajaxReq;
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
 
 var addWalletCtrl = function addWalletCtrl($scope, $sce) {
@@ -318,7 +351,7 @@ var addWalletCtrl = function addWalletCtrl($scope, $sce) {
 };
 module.exports = addWalletCtrl;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 var cxDecryptWalletCtrl = function cxDecryptWalletCtrl($scope, $sce, walletService) {
@@ -375,7 +408,7 @@ var cxDecryptWalletCtrl = function cxDecryptWalletCtrl($scope, $sce, walletServi
 };
 module.exports = cxDecryptWalletCtrl;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 var mainPopCtrl = function mainPopCtrl($scope, $sce) {
@@ -411,7 +444,7 @@ var mainPopCtrl = function mainPopCtrl($scope, $sce) {
 };
 module.exports = mainPopCtrl;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 var myWalletsCtrl = function myWalletsCtrl($scope, $sce, walletService) {
@@ -576,7 +609,7 @@ var myWalletsCtrl = function myWalletsCtrl($scope, $sce, walletService) {
 };
 module.exports = myWalletsCtrl;
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 var quickSendCtrl = function quickSendCtrl($scope, $sce) {
@@ -681,7 +714,7 @@ var quickSendCtrl = function quickSendCtrl($scope, $sce) {
 };
 module.exports = quickSendCtrl;
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 var bulkGenCtrl = function bulkGenCtrl($scope) {
@@ -713,7 +746,7 @@ var bulkGenCtrl = function bulkGenCtrl($scope) {
 };
 module.exports = bulkGenCtrl;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
@@ -917,7 +950,7 @@ var contractsCtrl = function contractsCtrl($scope, $sce, walletService) {
 };
 module.exports = contractsCtrl;
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -1023,7 +1056,7 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
     $scope.setHDAddresses = function (start, limit) {
         $scope.HDWallet.wallets = [];
         for (var i = start; i < start + limit; i++) {
-            $scope.HDWallet.wallets.push(new Wallet($scope.HDWallet.hdk.derive($scope.HDWallet.dPath + '/' + i)._privateKey));
+            $scope.HDWallet.wallets.push(new Wallet($scope.HDWallet.hdk.derive($scope.HDWallet.dPath + '/' + i)._privateKey, undefined));
             $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].setBalance(false);
         }
         $scope.HDWallet.id = 0;
@@ -1034,11 +1067,11 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
         for (var i = start; i < start + limit; i++) {
             var derivedKey = $scope.HDWallet.hdk.derive('m/' + i);
             if ($scope.walletType === 'ledger') {
-                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType, $scope.ledger));
+                $scope.HDWallet.wallets.push(new Wallet(undefined, undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType, $scope.ledger));
             } else if ($scope.walletType === 'digitalBitbox') {
-                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType, $scope.digitalBitbox));
+                $scope.HDWallet.wallets.push(new Wallet(undefined, undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType, $scope.digitalBitbox));
             } else {
-                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType));
+                $scope.HDWallet.wallets.push(new Wallet(undefined, undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType));
             }
             $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].type = 'addressOnly';
             $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].setBalance(false);
@@ -1070,7 +1103,7 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
                     $scope.notifier.danger(globalFuncs.errorMsgs[37]);
                     return;
                 }
-                $scope.wallet = new Wallet(fixPkey($scope.manualprivkey));
+                $scope.wallet = new Wallet(fixPkey($scope.manualprivkey, undefined));
                 walletService.password = '';
             } else if ($scope.showFDecrypt) {
                 $scope.wallet = Wallet.getWalletFromPrivKeyFile($scope.fileContent, $scope.filePassword);
@@ -1206,7 +1239,7 @@ var decryptWalletCtrl = function decryptWalletCtrl($scope, $sce, walletService) 
 module.exports = decryptWalletCtrl;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155}],11:[function(require,module,exports){
+},{"buffer":158}],12:[function(require,module,exports){
 'use strict';
 
 var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
@@ -1561,7 +1594,7 @@ var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
 };
 module.exports = domainsaleCtrl;
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 var ensCtrl = function ensCtrl($scope, $sce, walletService) {
@@ -1898,7 +1931,7 @@ var ensCtrl = function ensCtrl($scope, $sce, walletService) {
 };
 module.exports = ensCtrl;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 var footerCtrl = function footerCtrl($scope, globalService) {
@@ -1936,7 +1969,7 @@ var footerCtrl = function footerCtrl($scope, globalService) {
 };
 module.exports = footerCtrl;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 var helpersCtrl = function helpersCtrl($scope) {
@@ -2101,7 +2134,7 @@ FINALIZE
 
 */
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
@@ -2285,7 +2318,7 @@ var offlineTxCtrl = function offlineTxCtrl($scope, $sce, walletService) {
 };
 module.exports = offlineTxCtrl;
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 var onboardingCtrl = function onboardingCtrl($scope, globalService, $translate, $sce) {
@@ -2326,7 +2359,7 @@ var onboardingCtrl = function onboardingCtrl($scope, globalService, $translate, 
 };
 module.exports = onboardingCtrl;
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
@@ -2626,13 +2659,13 @@ var sendTxCtrl = function sendTxCtrl($scope, $sce, walletService, $rootScope) {
         $scope.parsedSignedTx.txFee.wei = new BigNumber(parseInt($scope.parsedSignedTx.gasLimit)).times(new BigNumber(parseInt($scope.parsedSignedTx.gasPrice.wei)));
         $scope.parsedSignedTx.txFee.gwei = new BigNumber($scope.parsedSignedTx.txFee.wei).div(etherUnits.getValueOfUnit('gwei')).toString();
         $scope.parsedSignedTx.txFee.eth = etherUnits.toEther(parseInt($scope.parsedSignedTx.txFee.wei), 'wei').toString();
-        $scope.parsedSignedTx.nonce = txData.nonce === '0x' || txData.nonce === '' || txData.nonce == null ? '0' : new BigNumber(ethFuncs.sanitizeHex(txData.nonce.toString('hex'))).toString();
+        $scope.parsedSignedTx.nonce = txData.nonce === '0x' || txData.nonce === '' || txData.nonce == null || txData.nonce.toString('hex') === '' ? '0' : new BigNumber(ethFuncs.sanitizeHex(txData.nonce.toString('hex'))).toString();
         $scope.parsedSignedTx.data = txData.data === '0x' || txData.data === '' || txData.data == null ? '(none)' : ethFuncs.sanitizeHex(txData.data.toString('hex'));
     };
 };
 module.exports = sendTxCtrl;
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -2833,7 +2866,7 @@ var signMsgCtrl = function signMsgCtrl($scope, $sce, walletService) {
 module.exports = signMsgCtrl;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155}],19:[function(require,module,exports){
+},{"buffer":158}],20:[function(require,module,exports){
 'use strict';
 
 var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
@@ -3163,7 +3196,7 @@ var tabsCtrl = function tabsCtrl($scope, globalService, $translate, $sce) {
 };
 module.exports = tabsCtrl;
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 var txStatusCtrl = function txStatusCtrl($scope) {
@@ -3259,7 +3292,7 @@ var txStatusCtrl = function txStatusCtrl($scope) {
 };
 module.exports = txStatusCtrl;
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 var viewCtrl = function viewCtrl($scope, globalService, $sce) {
@@ -3270,7 +3303,7 @@ var viewCtrl = function viewCtrl($scope, globalService, $sce) {
 };
 module.exports = viewCtrl;
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 var viewWalletCtrl = function viewWalletCtrl($scope, walletService) {
@@ -3330,7 +3363,7 @@ var viewWalletCtrl = function viewWalletCtrl($scope, walletService) {
 };
 module.exports = viewWalletCtrl;
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 var walletBalanceCtrl = function walletBalanceCtrl($scope, $sce, $rootScope) {
@@ -3430,7 +3463,7 @@ var walletBalanceCtrl = function walletBalanceCtrl($scope, $sce, $rootScope) {
 
 module.exports = walletBalanceCtrl;
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
 var walletGenCtrl = function walletGenCtrl($scope) {
@@ -3488,7 +3521,7 @@ var walletGenCtrl = function walletGenCtrl($scope) {
 };
 module.exports = walletGenCtrl;
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 
 // For token sale holders:
@@ -3753,7 +3786,7 @@ module.exports = [{
   msg: 'COPYTRACK (CPY) Token Sale. Official sale website: https://copytrack.io'
 }];
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 var cxFuncs = function cxFuncs() {};
@@ -3841,7 +3874,7 @@ cxFuncs.editNickName = function (address, newNick, callback) {
 };
 module.exports = cxFuncs;
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
 
 var QRCodeDrtv = function QRCodeDrtv() {
@@ -3867,7 +3900,7 @@ var QRCodeDrtv = function QRCodeDrtv() {
 };
 module.exports = QRCodeDrtv;
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 
 var addressFieldDrtv = function addressFieldDrtv($compile) {
@@ -3930,9 +3963,9 @@ var addressFieldDrtv = function addressFieldDrtv($compile) {
 };
 module.exports = addressFieldDrtv;
 
-},{}],29:[function(require,module,exports){
-module.exports = "<aside ng-controller=\"walletBalanceCtrl\">\n\n\n\n\n\n  <!-- Account Address -->\n  <div class=\"block\">\n    <h5 translate=\"sidebar_AccountAddr\">Account Address</h5>\n    <ul class=\"account-info\">\n      <div class=\"addressIdenticon med float\" blockie-address=\"{{wallet.getAddressString()}}\" watch-var=\"wallet\"></div>\n      <span class=\"mono wrap\">{{wallet.getChecksumAddressString()}}</span>\n      <label class=\"ens-response\" ng-show=\"showEns()\">\n        ↳ <span class=\"mono ng-binding\"> {{ensAddress}} </span>\n      </label>\n    </ul>\n    <div ng-show=\"showDisplayOnTrezor()\">\n      <h5 translate=\"sidebar_DisplayOnTrezor\">Display address on TREZOR</h5>\n      <ul class=\"account-info\">\n        <li><a href=\"\" ng-click=\"displayOnTrezor()\" translate=\"sidebar_DisplayOnTrezor\">Display address on TREZOR</a></li>\n      </ul>\n    </div>\n    <div ng-show=\"showDisplayOnLedger()\">\n      <h5 translate=\"sidebar_DisplayOnLedger\">Display address on Ledger</h5>\n      <ul class=\"account-info\">\n        <li><a href=\"\" ng-click=\"displayOnLedger()\" translate=\"sidebar_DisplayOnLedger\">Display address on Ledger</a></li>\n      </ul>\n    </div>\n    <h5 translate=\"sidebar_AccountBal\">Account Balance</h5>\n    <ul class=\"account-info point\">\n      <li>\n        <span class=\"mono wrap\">{{wallet.balance}}</span> {{ajaxReq.type}}\n      </li>\n    </ul>\n    <h5 translate=\"sidebar_TransHistory\"> Transaction History</h5>\n    <ul class=\"account-info\">\n      <li ng-show=\"ajaxReq.type != 'CUS'\">\n        <a href=\"{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          {{ajaxReq.type}} ({{ajaxReq.blockExplorerTX.replace('/tx/[[txHash]]', '')}})\n        </a>\n      </li>\n      <li ng-show=\"ajaxReq.type == 'ETH'\">\n        <a href=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Tokens (Ethplorer.io)\n        </a>\n      </li>\n    </ul>\n  </div>\n\n\n\n\n\n\n  <!-- Slider Thingy -->\n  <!-- Hardware Wallets -->\n  <a href=\"https://myetherwallet.github.io/knowledge-base/getting-started/protecting-yourself-and-your-funds.html\"\n     ng-show=\"slide==1 || ajaxReq.type!=='ETH'\"\n     class=\"block swap--hw\"\n     target=\"_blank\" rel=\"noopener noreferrer\">\n    <div class=\"col-sm-7\">\n\n      <h5 class=\"swap__cta\" ng-show=\"wallet.balance<=1\">Learn more about protecting your funds.</h5>\n\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance<50 && wallet.balance>1\">Welcome back</h5>\n      <h5 class=\"swap__cta\" ng-show=\"wallet.balance<50 && wallet.balance>1\">Are you as secure as you can be?</h5>\n\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>=50\">Holy cow, look at you go!</p>\n      <h5 class=\"swap__cta\" ng-show=\"wallet.balance>=50\">Time to beef up your security?</h5>\n    </div>\n    <div class=\"col-sm-5\">\n      <img src=\"images/logo-ledger.svg\" width=\"80\" height=\"auto\" class=\"swap__logo\">\n      <br />\n      <img src=\"images/logo-trezor.svg\" width=\"80\" height=\"auto\" class=\"swap__logo\">\n    </div>\n  </a>\n\n  <!-- Bity -->\n  <a ng-click=\"globalService.currentTab=globalService.tabs.swap.id\"\n     ng-show=\"ajaxReq.type=='ETH' && slide==2\"\n     class=\"block swap--btc\"\n     target=\"_blank\" rel=\"noopener noreferrer\">\n    <div class=\"col-sm-7\">\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance<=0\">Aw...you don't have any ETH.</p>\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>0&&wallet.balance<50\">It's now easier to get more ETH</p>\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>50\">It's now easier to move between ETH &amp; BTC</p>\n      <h5 class=\"swap__cta\">Swap BTC <-> ETH</h5>\n    </div>\n    <div class=\"col-sm-5\">\n      <img src=\"images/logo-bity-white.svg\" width=\"60\" height=\"auto\" class=\"swap__logo\">\n      <p class=\"swap-flag--price\">1 ETH ≈ <br /> {{wallet.btcPrice}} BTC</p>\n    </div>\n  </a>\n\n  <!-- Coinbase\n  <a href=\"#\"\n     ng-show=\"ajaxReq.type=='ETH' && slide==2\"\n     class=\"block swap--usd\"\n     target=\"_blank\" rel=\"noopener noreferrer\">\n    <div class=\"col-sm-7\">\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance<=0\">Aw...you don't have any ETH</p>\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>0\">It's now easier to get more ETH</p>\n      <h5 class=\"swap__cta\">Buy ETH with USD</h5>\n    </div>\n    <div class=\"col-sm-5\">\n      <img src=\"images/logo-coinbase.svg\" width=\"64\" height=\"auto\" class=\"swap__logo\">\n      <p class=\"swap-flag--price\">1 ETH ≈ <br /> {{wallet.usdPrice}} USD</p>\n    </div>\n  </a>\n  -->\n\n  <div class=\"swap__nav\" ng-show=\"ajaxReq.type=='ETH'\">\n    <a ng-click=\"slide=1\"> &bull; </a>\n    <a ng-click=\"slide=2\"> &bull; </a>\n  </div>\n\n\n\n\n  <!-- Token Balances -->\n  <div class=\"block token-balances\">\n    <h5 translate=\"sidebar_TokenBal\">Token Balances</h5>\n\n    <!-- Load Token Balances\n    <a class=\"btn btn-warning btn-xs\"\n       ng-click=\"wallet.setTokens(); globalService.tokensLoaded=true\"\n       ng-hide=\"globalService.tokensLoaded\">\n      <img src=\"images/icon-load-tokens.svg\" style=\"height: 1em; width: auto; margin-right: 5px;\" />\n      Load Tokens\n    </a>\n     -->\n\n    <!-- you can your Balance on Blockchain Explorer -->\n\n\n    <h5 class=\"u__protip\">\n      <a href=\"https://myetherwallet.github.io/knowledge-base/send/adding-new-token-and-sending-custom-tokens.html\"\n         rel=\"noopener noreferrer\"\n         target=\"_blank\">\n         How to See Your Tokens\n      </a>\n    </h5>\n\n    <p>\n      You can also view your Balances on\n      <a ng-show=\"ajaxReq.type != 'CUS'\"\n         href=\"{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n          {{ajaxReq.blockExplorerTX.replace('/tx/[[txHash]]', '')}}\n      </a>\n      <span ng-show=\"ajaxReq.type == 'ETH'\"> or\n        <a href=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\"\n           target=\"_blank\"\n           rel=\"noopener noreferrer\">\n             ethplorer.io\n        </a>\n      </span>\n    </p>\n\n    <!-- Buttons -->\n    <a class=\"btn btn-warning btn-xs\" ng-click=\"showAllTokens=true\" ng-show=\"showAllTokens==false\">\n      Show All Tokens\n    </a>\n    <a class=\"btn btn-warning btn-xs\" ng-click=\"showAllTokens=false\" ng-show=\"showAllTokens==true\">\n      Only Show Balances\n    </a>\n    <a class=\"btn btn-default btn-xs\" ng-click=\"customTokenField=!customTokenField\">\n      <span translate=\"SEND_custom\">Add Custom Token</span>\n    </a>\n\n    <br ng-show=\"customTokenField\" />\n\n    <!-- Add Custom Token -->\n    <div class=\"custom-token-fields\" ng-show=\"customTokenField\">\n      <div class=\"row\">\n        <address-field\n          placeholder=\"{{ ajaxReq.type=='ETH' ? 'mewsupport.eth' : '0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8' }}\"\n          var-name=\"localToken.contractAdd\"\n          labelTranslated=\"TOKEN_Addr\">\n        </address-field>\n      </div>\n\n      <label translate=\"TOKEN_Symbol\"> Token Symbol: </label>\n      <input class=\"form-control input-sm\"\n             type=\"text\"\n             ng-model=\"localToken.symbol\"\n             ng-class=\"localToken.symbol!='' ? 'is-valid' : 'is-invalid'\" />\n\n      <label translate=\"TOKEN_Dec\"> Decimals: </label>\n      <input class=\"form-control input-sm\"\n             type=\"text\"\n             ng-model=\"localToken.decimals\"\n             ng-class=\"Validator.isPositiveNumber(localToken.decimals) ? 'is-valid' : 'is-invalid'\" />\n\n      <button class=\"btn btn-primary btn-xs\" ng-click=\"saveTokenToLocal()\" translate=\"x_Save\">Save</button>\n    </div>\n\n    <br />\n    <br />\n\n    <!-- Balances -->\n    <table class=\"account-info\">\n      <tr ng-class=\"token.type!=='default' ? 'custom-token' : ''\"\n          ng-repeat=\"token in wallet.tokenObjs track by $index\"\n          ng-hide=\"(token.balance==0 || token.balance=='Click to Load') && showAllTokens==false\">\n        <td class=\"mono wrap point\">\n          <img src=\"images/icon-remove.svg\"\n               class=\"token-remove\"\n               title=\"Remove Token\"\n               ng-click=\"removeTokenFromLocal(token.symbol)\"\n               ng-show=\"token.type!=='default'\" />\n          <span ng-click=\"setAndVerifyBalance(token)\">\n            {{ token.getBalance() }}\n          </span>\n        </td>\n        <td>\n          {{ token.getSymbol() }}\n        </td>\n      </tr>\n    </table>\n\n  </div>\n\n\n\n  <!-- Equivalent Balances -->\n  <div class=\"block\" ng-show=\"ajaxReq.type=='ETH'\">\n    <h5 translate=\"sidebar_Equiv\">Equivalent Values:</h5>\n    <div class=\"row\">\n      <ul class=\"account-info col-xs-6\">\n        <li>BTC: <span class=\"mono wrap\">{{wallet.btcBalance | number}}</span></li>\n        <li>USD: <span class=\"mono wrap\">{{wallet.usdBalance | currency:\"$\"}}</span></li>\n        <li>CHF: <span class=\"mono wrap\">{{wallet.chfBalance | currency:\" \"}}</span></li>\n      </ul>\n      <ul class=\"account-info col-xs-6\">\n        <li>REP: <span class=\"mono wrap\">{{wallet.repBalance | number}}</span></li>\n        <li>EUR: <span class=\"mono wrap\">{{wallet.eurBalance | currency:\"€\"}}</span></li>\n        <li>GBP: <span class=\"mono wrap\">{{wallet.gbpBalance | currency:\"£\"}}</span></li>\n      </ul>\n    </div>\n    <p><small> These are only the equivalent values for ETH, not tokens. Sorry! </small></p>\n  </div>\n\n</aside>\n";
 },{}],30:[function(require,module,exports){
+module.exports = "<aside ng-controller=\"walletBalanceCtrl\">\n\n\n\n\n\n  <!-- Account Address -->\n  <div class=\"block\">\n    <h5 translate=\"sidebar_AccountAddr\">Account Address</h5>\n    <ul class=\"account-info\">\n      <div class=\"addressIdenticon med float\" blockie-address=\"{{wallet.getAddressString()}}\" watch-var=\"wallet\"></div>\n      <span class=\"mono wrap\">{{wallet.getChecksumAddressString()}}</span>\n      <label class=\"ens-response\" ng-show=\"showEns()\">\n        ↳ <span class=\"mono ng-binding\"> {{ensAddress}} </span>\n      </label>\n    </ul>\n    <div ng-show=\"showDisplayOnTrezor()\">\n      <h5 translate=\"sidebar_DisplayOnTrezor\">Display address on TREZOR</h5>\n      <ul class=\"account-info\">\n        <li><a href=\"\" ng-click=\"displayOnTrezor()\" translate=\"sidebar_DisplayOnTrezor\">Display address on TREZOR</a></li>\n      </ul>\n    </div>\n    <div ng-show=\"showDisplayOnLedger()\">\n      <h5 translate=\"sidebar_DisplayOnLedger\">Display address on Ledger</h5>\n      <ul class=\"account-info\">\n        <li><a href=\"\" ng-click=\"displayOnLedger()\" translate=\"sidebar_DisplayOnLedger\">Display address on Ledger</a></li>\n      </ul>\n    </div>\n    <h5 translate=\"sidebar_AccountBal\">Account Balance</h5>\n    <ul class=\"account-info point\">\n      <li>\n        <span class=\"mono wrap\">{{wallet.balance}}</span> {{ajaxReq.type}}\n      </li>\n    </ul>\n    <h5 translate=\"sidebar_TransHistory\"> Transaction History</h5>\n    <ul class=\"account-info\">\n      <li ng-show=\"ajaxReq.type != 'CUS'\">\n        <a href=\"{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          {{ajaxReq.type}} ({{ajaxReq.blockExplorerTX.replace('/tx/[[txHash]]', '')}})\n        </a>\n      </li>\n      <li ng-show=\"ajaxReq.type == 'ETH'\">\n        <a href=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Tokens (Ethplorer.io)\n        </a>\n      </li>\n    </ul>\n  </div>\n\n\n\n\n\n\n  <!-- Slider Thingy -->\n  <!-- Hardware Wallets -->\n  <a href=\"https://myetherwallet.github.io/knowledge-base/getting-started/protecting-yourself-and-your-funds.html\"\n     ng-show=\"slide==1 || ajaxReq.type!=='ETH'\"\n     class=\"block swap--hw\"\n     target=\"_blank\" rel=\"noopener noreferrer\">\n    <div class=\"col-sm-7\">\n\n      <h5 class=\"swap__cta\" ng-show=\"wallet.balance<=1\">Learn more about protecting your funds.</h5>\n\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance<50 && wallet.balance>1\">Welcome back</h5>\n      <h5 class=\"swap__cta\" ng-show=\"wallet.balance<50 && wallet.balance>1\">Are you as secure as you can be?</h5>\n\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>=50\">Holy cow, look at you go!</p>\n      <h5 class=\"swap__cta\" ng-show=\"wallet.balance>=50\">Time to beef up your security?</h5>\n    </div>\n    <div class=\"col-sm-5\">\n      <img src=\"images/logo-ledger.svg\" width=\"80\" height=\"auto\" class=\"swap__logo\">\n      <br />\n      <img src=\"images/logo-trezor.svg\" width=\"80\" height=\"auto\" class=\"swap__logo\">\n    </div>\n  </a>\n\n  <!-- Bity -->\n  <a ng-click=\"globalService.currentTab=globalService.tabs.swap.id\"\n     ng-show=\"ajaxReq.type=='ETH' && slide==2\"\n     class=\"block swap--btc\"\n     target=\"_blank\" rel=\"noopener noreferrer\">\n    <div class=\"col-sm-7\">\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance<=0\">Aw...you don't have any ETH.</p>\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>0&&wallet.balance<50\">It's now easier to get more ETH</p>\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>50\">It's now easier to move between ETH &amp; BTC</p>\n      <h5 class=\"swap__cta\">Swap BTC <-> ETH</h5>\n    </div>\n    <div class=\"col-sm-5\">\n      <img src=\"images/logo-bity-white.svg\" width=\"60\" height=\"auto\" class=\"swap__logo\">\n      <p class=\"swap-flag--price\">1 ETH ≈ <br /> {{wallet.btcPrice}} BTC</p>\n    </div>\n  </a>\n\n  <!-- Coinbase\n  <a href=\"#\"\n     ng-show=\"ajaxReq.type=='ETH' && slide==2\"\n     class=\"block swap--usd\"\n     target=\"_blank\" rel=\"noopener noreferrer\">\n    <div class=\"col-sm-7\">\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance<=0\">Aw...you don't have any ETH</p>\n      <p class=\"swap__subhead\" ng-show=\"wallet.balance>0\">It's now easier to get more ETH</p>\n      <h5 class=\"swap__cta\">Buy ETH with USD</h5>\n    </div>\n    <div class=\"col-sm-5\">\n      <img src=\"images/logo-coinbase.svg\" width=\"64\" height=\"auto\" class=\"swap__logo\">\n      <p class=\"swap-flag--price\">1 ETH ≈ <br /> {{wallet.usdPrice}} USD</p>\n    </div>\n  </a>\n  -->\n\n  <div class=\"swap__nav\" ng-show=\"ajaxReq.type=='ETH'\">\n    <a ng-click=\"slide=1\"> &bull; </a>\n    <a ng-click=\"slide=2\"> &bull; </a>\n  </div>\n\n\n\n\n  <!-- Token Balances -->\n  <div class=\"block token-balances\">\n    <h5 translate=\"sidebar_TokenBal\">Token Balances</h5>\n\n    <!-- Load Token Balances\n    <a class=\"btn btn-warning btn-xs\"\n       ng-click=\"wallet.setTokens(); globalService.tokensLoaded=true\"\n       ng-hide=\"globalService.tokensLoaded\">\n      <img src=\"images/icon-load-tokens.svg\" style=\"height: 1em; width: auto; margin-right: 5px;\" />\n      Load Tokens\n    </a>\n     -->\n\n    <!-- you can your Balance on Blockchain Explorer -->\n\n\n    <h5 class=\"u__protip\">\n      <a href=\"https://myetherwallet.github.io/knowledge-base/send/adding-new-token-and-sending-custom-tokens.html\"\n         rel=\"noopener noreferrer\"\n         target=\"_blank\">\n         How to See Your Tokens\n      </a>\n    </h5>\n\n    <p>\n      You can also view your Balances on\n      <a ng-show=\"ajaxReq.type != 'CUS'\"\n         href=\"{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n          {{ajaxReq.blockExplorerTX.replace('/tx/[[txHash]]', '')}}\n      </a>\n      <span ng-show=\"ajaxReq.type == 'ETH'\"> or\n        <a href=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\"\n           target=\"_blank\"\n           rel=\"noopener noreferrer\">\n             ethplorer.io\n        </a>\n      </span>\n    </p>\n\n    <!-- Buttons -->\n    <a class=\"btn btn-warning btn-xs\" ng-click=\"showAllTokens=true\" ng-show=\"showAllTokens==false\">\n      Show All Tokens\n    </a>\n    <a class=\"btn btn-warning btn-xs\" ng-click=\"showAllTokens=false\" ng-show=\"showAllTokens==true\">\n      Only Show Balances\n    </a>\n    <a class=\"btn btn-default btn-xs\" ng-click=\"customTokenField=!customTokenField\">\n      <span translate=\"SEND_custom\">Add Custom Token</span>\n    </a>\n\n    <br ng-show=\"customTokenField\" />\n\n    <!-- Add Custom Token -->\n    <div class=\"custom-token-fields\" ng-show=\"customTokenField\">\n      <div class=\"row\">\n        <address-field\n          placeholder=\"{{ ajaxReq.type=='ETH' ? 'mewsupport.eth' : '0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8' }}\"\n          var-name=\"localToken.contractAdd\"\n          labelTranslated=\"TOKEN_Addr\">\n        </address-field>\n      </div>\n\n      <label translate=\"TOKEN_Symbol\"> Token Symbol: </label>\n      <input class=\"form-control input-sm\"\n             type=\"text\"\n             ng-model=\"localToken.symbol\"\n             ng-class=\"localToken.symbol!='' ? 'is-valid' : 'is-invalid'\" />\n\n      <label translate=\"TOKEN_Dec\"> Decimals: </label>\n      <input class=\"form-control input-sm\"\n             type=\"text\"\n             ng-model=\"localToken.decimals\"\n             ng-class=\"Validator.isPositiveNumber(localToken.decimals) ? 'is-valid' : 'is-invalid'\" />\n\n      <button class=\"btn btn-primary btn-xs\" ng-click=\"saveTokenToLocal()\" translate=\"x_Save\">Save</button>\n    </div>\n\n    <br />\n    <br />\n\n    <!-- Balances -->\n    <table class=\"account-info\">\n      <tr ng-class=\"token.type!=='default' ? 'custom-token' : ''\"\n          ng-repeat=\"token in wallet.tokenObjs track by $index\"\n          ng-hide=\"(token.balance==0 || token.balance=='Click to Load') && showAllTokens==false\">\n        <td class=\"mono wrap point\">\n          <img src=\"images/icon-remove.svg\"\n               class=\"token-remove\"\n               title=\"Remove Token\"\n               ng-click=\"removeTokenFromLocal(token.symbol)\"\n               ng-show=\"token.type!=='default'\" />\n          <span ng-click=\"setAndVerifyBalance(token)\">\n            {{ token.getBalance() }}\n          </span>\n        </td>\n        <td>\n          {{ token.getSymbol() }}\n        </td>\n      </tr>\n    </table>\n\n  </div>\n\n\n\n  <!-- Equivalent Balances -->\n  <div class=\"block\" ng-show=\"ajaxReq.type=='ETH'\">\n    <h5 translate=\"sidebar_Equiv\">Equivalent Values:</h5>\n    <div class=\"row\">\n      <ul class=\"account-info col-xs-6\">\n        <li>BTC: <span class=\"mono wrap\">{{wallet.btcBalance | number}}</span></li>\n        <li>USD: <span class=\"mono wrap\">{{wallet.usdBalance | currency:\"$\"}}</span></li>\n        <li>CHF: <span class=\"mono wrap\">{{wallet.chfBalance | currency:\" \"}}</span></li>\n      </ul>\n      <ul class=\"account-info col-xs-6\">\n        <li>REP: <span class=\"mono wrap\">{{wallet.repBalance | number}}</span></li>\n        <li>EUR: <span class=\"mono wrap\">{{wallet.eurBalance | currency:\"€\"}}</span></li>\n        <li>GBP: <span class=\"mono wrap\">{{wallet.gbpBalance | currency:\"£\"}}</span></li>\n      </ul>\n    </div>\n    <p><small> These are only the equivalent values for ETH, not tokens. Sorry! </small></p>\n  </div>\n\n</aside>\n";
+},{}],31:[function(require,module,exports){
 'use strict';
 
 var balanceDrtv = function balanceDrtv() {
@@ -3943,7 +3976,7 @@ var balanceDrtv = function balanceDrtv() {
 };
 module.exports = balanceDrtv;
 
-},{"./balanceDrtv.html":29}],31:[function(require,module,exports){
+},{"./balanceDrtv.html":30}],32:[function(require,module,exports){
 'use strict';
 
 var blockiesDrtv = function blockiesDrtv() {
@@ -3960,7 +3993,7 @@ var blockiesDrtv = function blockiesDrtv() {
 };
 module.exports = blockiesDrtv;
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 'use strict';
 
 var cxWalletDecryptDrtv = function cxWalletDecryptDrtv() {
@@ -3986,7 +4019,7 @@ var cxWalletDecryptDrtv = function cxWalletDecryptDrtv() {
 };
 module.exports = cxWalletDecryptDrtv;
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 'use strict';
 
 var fileReaderDrtv = function fileReaderDrtv($parse) {
@@ -4011,9 +4044,9 @@ var fileReaderDrtv = function fileReaderDrtv($parse) {
 };
 module.exports = fileReaderDrtv;
 
-},{}],34:[function(require,module,exports){
-module.exports = "<article class=\"block decrypt-drtv clearfix\" ng-controller='decryptWalletCtrl as $crtl'>\n\n  <!-- Column 1 - Select Type of Key -->\n  <section class=\"col-md-4 col-sm-6\">\n\n    <h4 translate=\"decrypt_Access\">\n      How would you like to access your wallet?\n    </h4>\n\n    <!-- View Balance Only -->\n    <label aria-flowto=\"aria1\"\n           class=\"radio\"\n           ng-show=\"globalService.currentTab==globalService.tabs.sendTransaction.id || globalService.currentTab==globalService.tabs.viewWalletInfo.id\">\n      <input aria-flowto=\"aria1\"\n             aria-label=\"address\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"addressOnly\" />\n        View w/ Address Only\n    </label>\n\n    <!-- MetaMask -->\n    <label aria-flowto=\"aria2\"\n           class=\"radio\">\n      <input aria-flowto=\"aria2\"\n             type=\"radio\"\n             aria-label=\"MetaMask / Mist\"\n             ng-model=\"walletType\"\n             value=\"metamask\"/>\n      <span translate=\"x_MetaMask\">\n        WanMask\n      </span>\n    </label>\n\n    <!-- Ledger -->\n    <label aria-flowto=\"aria3\"\n           class=\"radio\"\n           ng-show=\"ajaxReq.type=='WAN'\">\n      <input aria-flowto=\"aria3\"\n             type=\"radio\"\n             aria-label=\"Ledger Hardware Wallet\"\n             ng-model=\"walletType\"\n             value=\"ledger\"/>\n      Ledger Wallet\n    </label>\n\n    <!-- TREZOR -->\n    <label class=\"radio\"\n           aria-flowto=\"aria4\"\n           ng-show=\"ajaxReq.type=='WAN'\">\n      <input aria-flowto=\"aria4\"\n             type=\"radio\"\n             aria-label=\"Trezor Hardware Wallet\"\n             ng-model=\"walletType\"\n             value=\"trezor\"/>\n      TREZOR\n    </label>\n\n\n    <!-- Keystore / JSON File -->\n    <label aria-flowto=\"aria6\"\n           class=\"radio\">\n      <input aria-flowto=\"aria6\"\n             aria-label=\"Keystore JSON file\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"fileupload\" />\n      Keystore / JSON File\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n    <!-- Mnemonic Phrase -->\n    <label aria-flowto=\"aria7\"\n           class=\"radio\">\n      <input aria-flowto=\"aria7\"\n             aria-label=\"mnemonic phrase\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"pastemnemonic\" />\n      <span translate=\"x_Mnemonic\">\n        Mnemonic Phrase\n      </span>\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n    <!-- Private -->\n    <label aria-flowto=\"aria8\"\n           class=\"radio\">\n      <input aria-flowto=\"aria8\"\n             aria-label=\"private key\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"pasteprivkey\" />\n      <span translate=\"x_PrivKey2\">\n        Private Key\n      </span>\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n  </section>\n  <!-- / Column 1 - Select Type of Key -->\n\n\n  <!-- Column 2 - Unlock That Key -->\n  <section class=\"col-md-8 col-sm-6\">\n\n    <!-- View Only -->\n    <div id=\"selectedTypeKey\" ng-if=\"walletType=='addressOnly'\">\n      <h4 translate=\"x_Address\">\n        Your Address\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to view your balance.\n      </h5>\n      <p>\n          You can only view your balance via this option.\n          Please use another option in order to send.\n      </p>\n      <div class=\"form-group\">\n        <textarea rows=\"4\"\n                  id=\"aria8\"\n                  class=\"form-control\"\n                  ng-change=\"onAddressChange()\"\n                  ng-class=\"Validator.isValidAddress($parent.$parent.addressOnly) ? 'is-valid' : 'is-invalid'\"\n                  ng-model=\"$parent.$parent.addressOnly\"\n                  placeholder=\"{{ 'x_Address' | translate }}\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\">\n        <a class=\"btn btn-primary\"\n           ng-click=\"decryptAddressOnly()\"\n           ng-show=\"showAOnly\"\n           role=\"button\"\n           tabindex=\"0\">\n             View Balance\n        </a>\n      </div>\n    </div>\n    <!-- /View Only -->\n\n\n    <!--  MetaMask -->\n    <div id=\"selectedTypeMetamask\"\n         ng-if=\"walletType=='metamask'\">\n      <h4 translate=\"x_MetaMask\">\n        WanMask\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"45\" fill=\"red\"/><g fill=\"white\"><path d=\"M 42,20 58,20 55,55 45,55 z\" stroke-linejoin=\"round\" stroke=\"white\" stroke-width=\"5\"/><circle cx=\"50\" cy=\"75\" r=\"8\"/></g></svg>\n        Only use if you have WanMask installed! To make WanMask run smoothly you need to temporarily disable MetaMask (and other apps that insert a web3 object) while using it.\n        <img width=\"300px\" src=\"images/disable-metamask.png\" title=\"Disable MetaMask\"  />\n      </div>\n      <div class=\"form-group\">\n        WanMask is a browser extension that allows you to access your wallet quickly, safely &amp; easily. It is more secure because you <u>never enter your private key on a website</u>. It protects you from phishing &amp; malicious websites.\n      </div>\n      <ul>\n        <li class=\"u__download\">\n          <a tabindex=\"0\"\n             href=\"https://chrome.google.com/webstore/detail/omnkcjdohbnjfjmlaiboojplahajnenj\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Download WanMask for Chrome\n          </a>\n        </li>\n        <li class=\"u__download\">\n          <a tabindex=\"0\"\n             href=\"https://wanmask.io/\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Download WanMask for Other Browsers\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\"\n           ng-hide=\"isSSL\">\n        <span class=\"text-danger\"\n              translate=\"ADD_Ledger_0a\" >\n            Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.\n        </span>\n      </div>\n      <div class=\"form-group\">\n        <a id=\"aria3\"\n           class=\"btn btn-primary\"\n           ng-click=\"scanMetamask()\"\n           ng-show=\"walletType=='metamask'\"\n           tabindex=\"0\" role=\"button\"\n           translate=\"ADD_MetaMask\">\n             Connect to WanMask\n        </a>\n      </div>\n    </div>\n    <!-- / MetaMask -->\n\n\n    <!--  Ledger-->\n    <div id=\"selectedTypeLedger\" ng-if=\"walletType=='ledger'\">\n      <h4>\n        Ledger Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"45\" fill=\"red\"/><g fill=\"white\"><path d=\"M 42,20 58,20 55,55 45,55 z\" stroke-linejoin=\"round\" stroke=\"white\" stroke-width=\"5\"/><circle cx=\"50\" cy=\"75\" r=\"8\"/></g></svg>\n        Make sure to close your Wan Wallet GUI before using your Ledger on MyWanWallet!\n      </h5>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://ledger.zendesk.com/hc/en-us/articles/115005200009-How-to-use-MyEtherWallet-with-Ledger\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n          How to use MyEtherWallet with your Ledger Hardware Wallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://www.ledger.com/products/ledger-nano-s?r=651b52292b63\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a Ledger? Get one today.\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        <a class=\"btn btn-primary\"\n           ng-click=\"scanLedger()\"\n           ng-show=\"walletType=='ledger'\"\n           role=\"button\"\n           tabindex=\"0\"\n           translate=\"ADD_Ledger_scan\">\n            SCAN\n        </a>\n      </div>\n      <div role=\"alert\" ng-show=\"ledgerError\">\n        <p class=\"strong text-danger\">\n          {{ledgerErrorString}}\n        </p>\n        <ul>\n          <li ng-hide=\"isSSL\"\n              translate=\"ADD_Ledger_0a\" >\n                Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.\n          </li>\n          <li>\n            <span translate=\"ADD_Ledger_2\" ng-if=\"ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'\">\n              Open the Ethereum application (or a contract application)\n            </span>\n            <span translate=\"ADD_Ledger_2_Exp\" ng-if=\"ajaxReq.type=='EXP'\">\n              Open the Expanse application (or a contract application)\n            </span>\n            <span translate=\"ADD_Ledger_2_Ubq\" ng-if=\"ajaxReq.type=='UBQ'\">\n              Open the Ubiq application (or a contract application)\n            </span>\n          </li>\n          <li>\n            <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/ledger-hardware-wallet-unable-to-connect-on-myetherwallet.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Still not working? More Troubleshooting Tips\n            </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <!-- / Ledger-->\n\n\n    <!--  TREZOR-->\n    <div id=\"selectedTypeTrezor\" ng-if=\"walletType=='trezor'\">\n      <h4>\n        TREZOR Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"45\" fill=\"red\"/><g fill=\"white\"><path d=\"M 42,20 58,20 55,55 45,55 z\" stroke-linejoin=\"round\" stroke=\"white\" stroke-width=\"5\"/><circle cx=\"50\" cy=\"75\" r=\"8\"/></g></svg>\n        Make sure to close your Wan Wallet GUI before using your Trezor on MyWanWallet!\n      </h5>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://blog.trezor.io/trezor-integration-with-myetherwallet-3e217a652e08#.n5fddxmdg\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n               How to use TREZOR with MyEtherWallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://shop.trezor.io?a=mywanwallet.nl\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a TREZOR? Get one now.\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        <a id=\"aria7\"\n           class=\"btn btn-primary\"\n           ng-click=\"scanTrezor()\"\n           ng-show=\"walletType=='trezor'\"\n           tabindex=\"0\" role=\"button\"\n           translate=\"ADD_Trezor_scan\">\n            Connect to TREZOR\n        </a>\n      </div>\n      <div role=\"alert\" ng-show=\"trezorError\">\n        <p class=\"strong text-danger\">\n          {{trezorErrorString}}\n        </p>\n        <ul>\n          <li ng-hide=\"isSSL\"\n              translate=\"ADD_Ledger_0a\" >\n                Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.\n          </li>\n          <li>\n                Ensure you are not blocking pop-ups on this site.\n          </li>\n          <li>\n            <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Still not working? More Troubleshooting Tips\n            </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <!-- / TREZOR-->\n\n\n    <!--  Digital Bitbox-->\n    <div id=\"selectedTypeDigitalBitbox\" ng-if=\"walletType=='digitalBitbox'\">\n      <h4>\n        Digital Bitbox Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://digitalbitbox.com/ethereum\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n               How to use Digital Bitbox with MyEtherWallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://digitalbitbox.com/?ref=mew\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a Digital Bitbox? Get one now.\n          </a>\n        </li>\n      </ul>\n      <input class=\"form-control\"\n             aria-label=\"Enter the Digital Bitbox password\"\n             aria-describedby=\"selectedTypeDigitalBitbox\"\n             type=\"password\"\n             placeholder=\"Digital Bitbox password\"\n             spellcheck=\"false\"\n             value=\"\"\n             ng-model=\"HDWallet.digitalBitboxSecret\" />\n      <div class=\"form-group\">\n        <a tabindex=\"0\" role=\"button\" class=\"btn btn-primary\" ng-click=\"scanDigitalBitbox()\" translate=\"ADD_DigitalBitbox_scan\">\n          Connect your Digital Bitbox\n        </a>\n      </div>\n    </div>\n    <!-- / Digital Bitbox-->\n\n\n    <!-- Keystore -->\n    <div ng-if=\"walletType=='fileupload'\">\n      <h4 translate=\"ADD_Radio_2_alt\">Select your wallet file</h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <input style=\"display:none;\" type=\"file\" on-read-file=\"showContent($fileContent)\" id=\"fselector\" />\n        <a class=\"btn-file marg-v-sm\"\n           ng-click=\"openFileDialog()\"\n           translate=\"ADD_Radio_2_short\"\n           id=\"aria1\"\n           tabindex=\"0\"\n           role=\"button\">SELECT WALLET FILE... </a>\n      </div>\n      <div class=\"form-group\" ng-if=\"requireFPass\">\n        <p translate=\"ADD_Label_3\">\n          Your file is encrypted. Please enter the password:\n        </p>\n        <input class=\"form-control\"\n               ng-change=\"onFilePassChange()\"\n               ng-class=\"Validator.isPasswordLenValid($parent.$parent.filePassword,0) ? 'is-valid' : 'is-invalid'\"\n               ng-model=\"$parent.$parent.filePassword\"\n               placeholder=\"{{ 'x_Password' | translate }}\"\n               type=\"password\" />\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Keystore -->\n\n\n    <!--  Mnemonic -->\n    <div id=\"selectedTypeMnemonic\" ng-if=\"walletType=='pastemnemonic'\">\n      <h4 translate=\"ADD_Radio_5\"> Paste your mnemonic: </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <textarea id=\"aria4\"\n                  class=\"form-control\"\n                  ng-change=\"onMnemonicChange()\"\n                  ng-class=\"Validator.isValidMnemonic($parent.$parent.manualmnemonic) ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.manualmnemonic\"\n                  placeholder=\"{{ 'x_Mnemonic' | translate}}\"\n                  rows=\"4\"></textarea>\n      </div>\n      <div class=\"form-group\">\n        <p translate=\"ADD_Label_8\">\n          Password (optional):\n        </p>\n        <div>\n          <input class=\"form-control\"\n                 id=\"aria5\"\n                 ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                 ng-model=\"$parent.$parent.mnemonicPassword\"\n                 placeholder=\"{{ 'x_Password' | translate }}\"\n                 type=\"password\" />\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Mnemonic -->\n\n\n    <!--  Private Key -->\n    <div id=\"selectedTypeKey\" ng-if=\"walletType=='pasteprivkey'\">\n      <h4 translate=\"ADD_Radio_3\">\n        Paste your private key:\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <textarea id=\"aria6\"\n                  class=\"form-control\"\n                  ng-change=\"onPrivKeyChange()\"\n                  ng-class=\"Validator.isValidPrivKey($parent.$parent.manualprivkey.length) ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.manualprivkey\"\n                  placeholder=\"{{ 'x_PrivKey2' | translate }}\"\n                  rows=\"4\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\" ng-if=\"requirePPass\">\n        <p translate=\"ADD_Label_3\">\n          Your file is encrypted. Please enter the password:\n        </p>\n        <input class=\"form-control\"\n               ng-change=\"onPrivKeyPassChange()\"\n               ng-class=\"Validator.isPasswordLenValid($parent.$parent.privPassword,0) ? 'is-valid' : 'is-invalid'\"\n               ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n               ng-model=\"$parent.$parent.privPassword\"\n               placeholder=\"{{ 'x_Password' | translate }}\"\n               type=\"password\" />\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Private Key -->\n\n\n    <!-- Parity Phrase -->\n    <div id=\"selectedTypeMnemonic\" ng-if=\"walletType=='parityBWallet'\">\n      <h4 translate=\"ADD_Radio_5\"> Paste your mnemonic: </h4>\n      <div class=\"form-group\">\n        <textarea rows=\"4\"\n                  id=\"aria9\"\n                  class=\"form-control\"\n                  ng-change=\"onParityPhraseChange()\"\n                  ng-class=\"$parent.$parent.parityPhrase != '' ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.parityPhrase\"\n                  placeholder=\"{{ 'x_ParityPhrase' | translate}}\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Parity Phrase -->\n\n  </section>\n  <!-- / Column 2 - Unlock That Key -->\n\n\n  <!-- MODAL -->\n  <article class=\"modal fade\" id=\"mnemonicModel\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"Mnemonic Phrase Modal\">\n\n    <section class=\"modal-dialog\">\n\n      <section class=\"modal-content\">\n\n        <div class=\"modal-body\" role=\"document\">\n\n          <button aria-label=\"Close\" type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n\n          <!-- Select HD Path -->\n          <h4 id=\"modalTitle\" class=\"modal-title\" translate=\"ADD_Radio_5_Path\" style=\"margin-bottom: .25rem\">\n            Select HD derivation path:\n          </h4>\n\n          <p class=\"alert alert-danger\"\n             ng-hide=\"ajaxReq.type=='WAN'\">\n                We do not know the correct path for this network.\n                <a href=\"https://github.com/C3Devs/mywanwallet/issues\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\">\n                      Please open a github issue\n                </a>\n                so we can discuss / be enlightened.\n          </p>\n\n          <section class=\"row\">\n\n            <div class=\"col-sm-4\">\n              <label class=\"radio small\">\n                <input aria-describedby=\"Path: Trezor WAN - {{HDWallet.trezorWanPath}}\"\n                       ng-change=\"onHDDPathChange()\"\n                       ng-model=\"HDWallet.dPath\"\n                       type=\"radio\"\n                      value=\"{{HDWallet.trezorWanPath}}\"/>\n                <span ng-bind=\"HDWallet.trezorWanPath\"></span>\n                <p class=\"small\">\n                  TREZOR (WAN)\n                </p>\n              </label>\n            </div>\n\n            <div class=\"col-sm-4\">\n              <label class=\"radio small\">\n                <input aria-describedby=\"Path: Ledger WAN {{HDWallet.ledgerWanPath}}\"\n                       ng-change=\"onHDDPathChange()\"\n                       ng-model=\"HDWallet.dPath\"\n                       type=\"radio\"\n                      value=\"{{HDWallet.ledgerWanPath}}\"/>\n                <span ng-bind=\"HDWallet.ledgerWanPath\"></span>\n                <p class=\"small\">\n                  Ledger (WAN)\n                </p>\n              </label>\n\n          </section>\n\n          <section class=\"row\">\n\n              <div class=\"col-sm-4\">\n                <label class=\"radio small\">\n                  <input aria-describedby=\"Path: Trezor ETH - {{HDWallet.trezorEthPath}}\"\n                         ng-change=\"onHDDPathChange()\"\n                         ng-model=\"HDWallet.dPath\"\n                         type=\"radio\"\n                         value=\"{{HDWallet.trezorEthPath}}\"/>\n                  <span ng-bind=\"HDWallet.trezorEthPath\"></span>\n                  <p class=\"small\">\n                    TREZOR (ETH)\n                  </p>\n                </label>\n              </div>\n\n              <div class=\"col-sm-4\">\n                <label class=\"radio small\">\n                  <input aria-describedby=\"Path: Ledger ETH {{HDWallet.ledgerEthPath}}\"\n                         ng-change=\"onHDDPathChange()\"\n                         ng-model=\"HDWallet.dPath\"\n                         type=\"radio\"\n                         value=\"{{HDWallet.ledgerEthPath}}\"/>\n                  <span ng-bind=\"HDWallet.ledgerEthPath\"></span>\n                  <p class=\"small\">\n                    Ledger (ETH)\n                  </p>\n                </label>\n\n          </section>\n\n\n          <h4 id=\"modalTitle2\" class=\"modal-title\" translate=\"MNEM_1\" style=\"margin: .5rem 0\">\n            Please select the address you would like to interact with.\n          </h4>\n\n          <table class=\"small table table-striped table-mnemonic\">\n            <tr>\n              <th translate=\"x_Address\">\n                Address\n              </th>\n              <th translate=\"MYWAL_Bal\">\n                Balance\n              </th>\n              <th translate=\"sidebar_TokenBal\" class=\"text-center\">\n                Token<br>Balances\n              </th>\n            </tr>\n            <tr ng-repeat=\"wallet in HDWallet.wallets track by $index\">\n              <td>\n                <label>\n                  <input aria-describedby=\"modalTitle2\"\n                         aria-label=\"Unlock wallet with {{wallet.getBalance()}} {{ajaxReq.type}}. Address: {{wallet.getChecksumAddressString()}}\"\n                         name=\"addressSelect\"\n                         ng-model=\"HDWallet.id\"\n                         type=\"radio\"\n                         value=\"{{$index}}\" />\n                    <span class=\"small\">\n                      {{wallet.getChecksumAddressString()}}\n                    </span>\n                </label>\n              </td>\n\n              <td>\n                <a href=\"{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\">\n                  {{wallet.getBalance()}} {{ajaxReq.type}}\n                </a>\n              </td>\n\n              <td class=\"text-center\">\n                <a href=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\" title=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\">\n                  <img src=\"images/icon-external-link.svg\" title=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\" ng-click=\"removeTokenFromLocal(token.symbol)\" ng-show=\"token.type!=='default'\" />\n                </a>\n              </td>\n\n            </tr>\n\n            <tr class=\"m-addresses\">\n\n              <td>\n                <a ng-click=\"AddRemoveHDAddresses(false)\"\n                   ng-show=\"HDWallet.numWallets > 5\"\n                   role=\"link\"\n                   tabindex=\"0\"\n                   translate=\"MNEM_prev\">\n                Previous Addresses\n                </a>\n              </td>\n\n              <td></td>\n\n              <td>\n                <a ng-click=\"AddRemoveHDAddresses(true)\"\n                   role=\"link\"\n                   tabindex=\"0\"\n                   translate=\"MNEM_more\">\n                More Addresses\n                </a>\n              </td>\n\n            </tr>\n          </table>\n\n          <div class=\"clearfix button-group\">\n            <button aria-label=\"Unlock this Wallet\"\n                    class=\"btn btn-primary pull-right\"\n                    style=\"margin: 0 .1rem\"\n                    ng-click=\"setHDWallet()\"\n                    role=\"button\"\n                    tabindex=\"0\"\n                    translate=\"ADD_Label_6\">\n              Access Wallet\n            </button>\n\n            <button aria-label=\"Cancel - Will close dialog\"\n                    class=\"btn btn-default pull-right\"\n                    style=\"margin: 0 .1rem\"\n                    data-dismiss=\"modal\"\n                    role=\"button\"\n                    tabindex=\"0\"\n                    translate=\"x_Cancel\">\n              Cancel\n            </button>\n          </div>\n\n        </div>\n\n      </section>\n\n    </section>\n\n  </article>\n\n</article>\n";
 },{}],35:[function(require,module,exports){
+module.exports = "<article class=\"block decrypt-drtv clearfix\" ng-controller='decryptWalletCtrl as $crtl'>\n\n  <!-- Column 1 - Select Type of Key -->\n  <section class=\"col-md-4 col-sm-6\">\n\n    <h4 translate=\"decrypt_Access\">\n      How would you like to access your wallet?\n    </h4>\n\n    <!-- View Balance Only -->\n    <label aria-flowto=\"aria1\"\n           class=\"radio\"\n           ng-show=\"globalService.currentTab==globalService.tabs.sendTransaction.id || globalService.currentTab==globalService.tabs.viewWalletInfo.id\">\n      <input aria-flowto=\"aria1\"\n             aria-label=\"address\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"addressOnly\" />\n        View w/ Address Only\n    </label>\n\n    <!-- MetaMask -->\n    <label aria-flowto=\"aria2\"\n           class=\"radio\">\n      <input aria-flowto=\"aria2\"\n             type=\"radio\"\n             aria-label=\"MetaMask / Mist\"\n             ng-model=\"walletType\"\n             value=\"metamask\"/>\n      <span translate=\"x_MetaMask\">\n        WanMask\n      </span>\n    </label>\n\n    <!-- Ledger -->\n    <label aria-flowto=\"aria3\"\n           class=\"radio\"\n           ng-show=\"ajaxReq.type=='WAN'\">\n      <input aria-flowto=\"aria3\"\n             type=\"radio\"\n             aria-label=\"Ledger Hardware Wallet\"\n             ng-model=\"walletType\"\n             value=\"ledger\"/>\n      Ledger Wallet\n    </label>\n\n    <!-- TREZOR -->\n    <label class=\"radio\"\n           aria-flowto=\"aria4\"\n           ng-show=\"ajaxReq.type=='WAN'\">\n      <input aria-flowto=\"aria4\"\n             type=\"radio\"\n             aria-label=\"Trezor Hardware Wallet\"\n             ng-model=\"walletType\"\n             value=\"trezor\"/>\n      TREZOR\n    </label>\n\n\n    <!-- Keystore / JSON File -->\n    <label aria-flowto=\"aria6\"\n           class=\"radio\">\n      <input aria-flowto=\"aria6\"\n             aria-label=\"Keystore JSON file\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"fileupload\" />\n      Keystore / JSON File\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n    <!-- Mnemonic Phrase -->\n    <label aria-flowto=\"aria7\"\n           class=\"radio\">\n      <input aria-flowto=\"aria7\"\n             aria-label=\"mnemonic phrase\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"pastemnemonic\" />\n      <span translate=\"x_Mnemonic\">\n        Mnemonic Phrase\n      </span>\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n    <!-- Private -->\n    <label aria-flowto=\"aria8\"\n           class=\"radio\">\n      <input aria-flowto=\"aria8\"\n             aria-label=\"private key\"\n             type=\"radio\"\n             ng-model=\"walletType\"\n             value=\"pasteprivkey\" />\n      <span translate=\"x_PrivKey2\">\n        Private Key\n      </span>\n      <a href=\"https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html\"\n         target=\"_blank\"\n         rel=\"noopener noreferrer\">\n        <img src=\"images/icon-help-3.svg\" width=\"16px\" height=\"16px\" style=\"margin: 0 5px 5px\">\n      </a>\n    </label>\n\n  </section>\n  <!-- / Column 1 - Select Type of Key -->\n\n\n  <!-- Column 2 - Unlock That Key -->\n  <section class=\"col-md-8 col-sm-6\">\n\n    <!-- View Only -->\n    <div id=\"selectedTypeKey\" ng-if=\"walletType=='addressOnly'\">\n      <h4 translate=\"x_Address\">\n        Your Address\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to view your balance.\n      </h5>\n      <p>\n          You can only view your balance via this option.\n          Please use another option in order to send.\n      </p>\n      <div class=\"form-group\">\n        <textarea rows=\"4\"\n                  id=\"aria8\"\n                  class=\"form-control\"\n                  ng-change=\"onAddressChange()\"\n                  ng-class=\"Validator.isValidAddress($parent.$parent.addressOnly) ? 'is-valid' : 'is-invalid'\"\n                  ng-model=\"$parent.$parent.addressOnly\"\n                  placeholder=\"{{ 'x_Address' | translate }}\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\">\n        <a class=\"btn btn-primary\"\n           ng-click=\"decryptAddressOnly()\"\n           ng-show=\"showAOnly\"\n           role=\"button\"\n           tabindex=\"0\">\n             View Balance\n        </a>\n      </div>\n    </div>\n    <!-- /View Only -->\n\n\n    <!--  MetaMask -->\n    <div id=\"selectedTypeMetamask\"\n         ng-if=\"walletType=='metamask'\">\n      <h4 translate=\"x_MetaMask\">\n        WanMask\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"45\" fill=\"red\"/><g fill=\"white\"><path d=\"M 42,20 58,20 55,55 45,55 z\" stroke-linejoin=\"round\" stroke=\"white\" stroke-width=\"5\"/><circle cx=\"50\" cy=\"75\" r=\"8\"/></g></svg>\n        Only use if you have WanMask installed! To make WanMask run smoothly you need to temporarily disable MetaMask (and other apps that insert a web3 object) while using it.\n        <img width=\"300px\" src=\"images/disable-metamask.png\" title=\"Disable MetaMask\"  />\n      </div>\n      <div class=\"form-group\">\n        WanMask is a browser extension that allows you to access your wallet quickly, safely &amp; easily. It is more secure because you <u>never enter your private key on a website</u>. It protects you from phishing &amp; malicious websites.\n      </div>\n      <ul>\n        <li class=\"u__download\">\n          <a tabindex=\"0\"\n             href=\"https://chrome.google.com/webstore/detail/omnkcjdohbnjfjmlaiboojplahajnenj\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Download WanMask for Chrome\n          </a>\n        </li>\n        <li class=\"u__download\">\n          <a tabindex=\"0\"\n             href=\"https://wanmask.io/\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Download WanMask for Other Browsers\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\"\n           ng-hide=\"isSSL\">\n        <span class=\"text-danger\"\n              translate=\"ADD_Ledger_0a\" >\n            Please use MyWanWallet on a secure (SSL / HTTPS) connection to connect.\n        </span>\n      </div>\n      <div class=\"form-group\">\n        <a id=\"aria3\"\n           class=\"btn btn-primary\"\n           ng-click=\"scanMetamask()\"\n           ng-show=\"walletType=='metamask'\"\n           tabindex=\"0\" role=\"button\"\n           translate=\"ADD_MetaMask\">\n             Connect to WanMask\n        </a>\n      </div>\n    </div>\n    <!-- / MetaMask -->\n\n\n    <!--  Ledger-->\n    <div id=\"selectedTypeLedger\" ng-if=\"walletType=='ledger'\">\n      <h4>\n        Ledger Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"45\" fill=\"red\"/><g fill=\"white\"><path d=\"M 42,20 58,20 55,55 45,55 z\" stroke-linejoin=\"round\" stroke=\"white\" stroke-width=\"5\"/><circle cx=\"50\" cy=\"75\" r=\"8\"/></g></svg>\n        Make sure to close your Wan Wallet GUI before using your Ledger on MyWanWallet!\n      </h5>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://ledger.zendesk.com/hc/en-us/articles/115005200009-How-to-use-MyEtherWallet-with-Ledger\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n          How to use MyWanWallet with your Ledger Hardware Wallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://www.ledger.com/products/ledger-nano-s?r=651b52292b63\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a Ledger? Get one today.\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        <a class=\"btn btn-primary\"\n           ng-click=\"scanLedger()\"\n           ng-show=\"walletType=='ledger'\"\n           role=\"button\"\n           tabindex=\"0\"\n           translate=\"ADD_Ledger_scan\">\n            SCAN\n        </a>\n      </div>\n      <div role=\"alert\" ng-show=\"ledgerError\">\n        <p class=\"strong text-danger\">\n          {{ledgerErrorString}}\n        </p>\n        <ul>\n          <li ng-hide=\"isSSL\"\n              translate=\"ADD_Ledger_0a\" >\n                Please use MyWanWallet on a secure (SSL / HTTPS) connection to connect.\n          </li>\n          <li>\n            <span translate=\"ADD_Ledger_2\" ng-if=\"ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'\">\n              Open the Ethereum application (or a contract application)\n            </span>\n            <span translate=\"ADD_Ledger_2_Exp\" ng-if=\"ajaxReq.type=='EXP'\">\n              Open the Expanse application (or a contract application)\n            </span>\n            <span translate=\"ADD_Ledger_2_Ubq\" ng-if=\"ajaxReq.type=='UBQ'\">\n              Open the Ubiq application (or a contract application)\n            </span>\n          </li>\n          <li>\n            <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/ledger-hardware-wallet-unable-to-connect-on-myetherwallet.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Still not working? More Troubleshooting Tips\n            </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <!-- / Ledger-->\n\n\n    <!--  TREZOR-->\n    <div id=\"selectedTypeTrezor\" ng-if=\"walletType=='trezor'\">\n      <h4>\n        TREZOR Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"45\" fill=\"red\"/><g fill=\"white\"><path d=\"M 42,20 58,20 55,55 45,55 z\" stroke-linejoin=\"round\" stroke=\"white\" stroke-width=\"5\"/><circle cx=\"50\" cy=\"75\" r=\"8\"/></g></svg>\n        Make sure to close your Wan Wallet GUI before using your Trezor on MyWanWallet!\n      </h5>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://blog.trezor.io/trezor-integration-with-myetherwallet-3e217a652e08#.n5fddxmdg\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n               How to use TREZOR with MyWanWallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://shop.trezor.io?a=mywanwallet.nl\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a TREZOR? Get one now.\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        <a id=\"aria7\"\n           class=\"btn btn-primary\"\n           ng-click=\"scanTrezor()\"\n           ng-show=\"walletType=='trezor'\"\n           tabindex=\"0\" role=\"button\"\n           translate=\"ADD_Trezor_scan\">\n            Connect to TREZOR\n        </a>\n      </div>\n      <div role=\"alert\" ng-show=\"trezorError\">\n        <p class=\"strong text-danger\">\n          {{trezorErrorString}}\n        </p>\n        <ul>\n          <li ng-hide=\"isSSL\"\n              translate=\"ADD_Ledger_0a\" >\n                Please use MyWanWallet on a secure (SSL / HTTPS) connection to connect.\n          </li>\n          <li>\n                Ensure you are not blocking pop-ups on this site.\n          </li>\n          <li>\n            <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Still not working? More Troubleshooting Tips\n            </a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <!-- / TREZOR-->\n\n\n    <!--  Digital Bitbox-->\n    <div id=\"selectedTypeDigitalBitbox\" ng-if=\"walletType=='digitalBitbox'\">\n      <h4>\n        Digital Bitbox Hardware Wallet\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 79.536 79.536\"><path fill=\"#5dba5a\" d=\"M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z\"/></svg>\n        This is a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp; easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects you from phishing, malware, and more.\n      </div>\n      <ul>\n        <li class=\"u__protip\">\n          <a href=\"https://digitalbitbox.com/ethereum\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n               How to use Digital Bitbox with MyWanWallet\n          </a>\n        </li>\n        <li class=\"u__protip\">\n          <a href=\"https://digitalbitbox.com/?ref=mew\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n                Don't have a Digital Bitbox? Get one now.\n          </a>\n        </li>\n      </ul>\n      <input class=\"form-control\"\n             aria-label=\"Enter the Digital Bitbox password\"\n             aria-describedby=\"selectedTypeDigitalBitbox\"\n             type=\"password\"\n             placeholder=\"Digital Bitbox password\"\n             spellcheck=\"false\"\n             value=\"\"\n             ng-model=\"HDWallet.digitalBitboxSecret\" />\n      <div class=\"form-group\">\n        <a tabindex=\"0\" role=\"button\" class=\"btn btn-primary\" ng-click=\"scanDigitalBitbox()\" translate=\"ADD_DigitalBitbox_scan\">\n          Connect your Digital Bitbox\n        </a>\n      </div>\n    </div>\n    <!-- / Digital Bitbox-->\n\n\n    <!-- Keystore -->\n    <div ng-if=\"walletType=='fileupload'\">\n      <h4 translate=\"ADD_Radio_2_alt\">Select your wallet file</h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <input style=\"display:none;\" type=\"file\" on-read-file=\"showContent($fileContent)\" id=\"fselector\" />\n        <a class=\"btn-file marg-v-sm\"\n           ng-click=\"openFileDialog()\"\n           translate=\"ADD_Radio_2_short\"\n           id=\"aria1\"\n           tabindex=\"0\"\n           role=\"button\">SELECT WALLET FILE... </a>\n      </div>\n      <div class=\"form-group\" ng-if=\"requireFPass\">\n        <p translate=\"ADD_Label_3\">\n          Your file is encrypted. Please enter the password:\n        </p>\n        <input class=\"form-control\"\n               ng-change=\"onFilePassChange()\"\n               ng-class=\"Validator.isPasswordLenValid($parent.$parent.filePassword,0) ? 'is-valid' : 'is-invalid'\"\n               ng-model=\"$parent.$parent.filePassword\"\n               placeholder=\"{{ 'x_Password' | translate }}\"\n               type=\"password\" />\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Keystore -->\n\n\n    <!--  Mnemonic -->\n    <div id=\"selectedTypeMnemonic\" ng-if=\"walletType=='pastemnemonic'\">\n      <h4 translate=\"ADD_Radio_5\"> Paste your mnemonic: </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <textarea id=\"aria4\"\n                  class=\"form-control\"\n                  ng-change=\"onMnemonicChange()\"\n                  ng-class=\"Validator.isValidMnemonic($parent.$parent.manualmnemonic) ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.manualmnemonic\"\n                  placeholder=\"{{ 'x_Mnemonic' | translate}}\"\n                  rows=\"4\"></textarea>\n      </div>\n      <div class=\"form-group\">\n        <p translate=\"ADD_Label_8\">\n          Password (optional):\n        </p>\n        <div>\n          <input class=\"form-control\"\n                 id=\"aria5\"\n                 ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                 ng-model=\"$parent.$parent.mnemonicPassword\"\n                 placeholder=\"{{ 'x_Password' | translate }}\"\n                 type=\"password\" />\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Mnemonic -->\n\n\n    <!--  Private Key -->\n    <div id=\"selectedTypeKey\" ng-if=\"walletType=='pasteprivkey'\">\n      <h4 translate=\"ADD_Radio_3\">\n        Paste your private key:\n      </h4>\n      <h5>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 512 512\"><path fill=\"#d9534f\" d=\"M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z\"/></svg>\n        This is <u>not</u> a recommended way to access your wallet.\n      </h5>\n      <div class=\"form-group\">\n        Entering your private key on a website dangerous. If our website is compromised or you accidentally visit a different website, your funds will be stolen. Please consider:\n      </div>\n      <ul>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/migration/moving-from-private-key-to-metamask.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              MetaMask\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/hardware-wallets/hardware-wallet-recommendations.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              A Hardware Wallet\n          </a>\n          or\n          <a href=\"https://myetherwallet.github.io/knowledge-base/offline/running-myetherwallet-locally.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Running MEW Offline &amp; Locally\n          </a>\n        </li>\n        <li>\n          <a href=\"https://myetherwallet.github.io/knowledge-base/security/securing-your-ethereum.html\"\n             target=\"_blank\"\n             rel=\"noopener noreferrer\">\n              Learning How to Protect Yourself and Your Funds\n          </a>\n        </li>\n      </ul>\n      <div class=\"form-group\">\n        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://mywanwallet.nl</code>  in your URL bar.\n      </div>\n      <br />\n      <div class=\"form-group\">\n        <textarea id=\"aria6\"\n                  class=\"form-control\"\n                  ng-change=\"onPrivKeyChange()\"\n                  ng-class=\"Validator.isValidPrivKey($parent.$parent.manualprivkey.length) ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.manualprivkey\"\n                  placeholder=\"{{ 'x_PrivKey2' | translate }}\"\n                  rows=\"4\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\" ng-if=\"requirePPass\">\n        <p translate=\"ADD_Label_3\">\n          Your file is encrypted. Please enter the password:\n        </p>\n        <input class=\"form-control\"\n               ng-change=\"onPrivKeyPassChange()\"\n               ng-class=\"Validator.isPasswordLenValid($parent.$parent.privPassword,0) ? 'is-valid' : 'is-invalid'\"\n               ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n               ng-model=\"$parent.$parent.privPassword\"\n               placeholder=\"{{ 'x_Password' | translate }}\"\n               type=\"password\" />\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Private Key -->\n\n\n    <!-- Parity Phrase -->\n    <div id=\"selectedTypeMnemonic\" ng-if=\"walletType=='parityBWallet'\">\n      <h4 translate=\"ADD_Radio_5\"> Paste your mnemonic: </h4>\n      <div class=\"form-group\">\n        <textarea rows=\"4\"\n                  id=\"aria9\"\n                  class=\"form-control\"\n                  ng-change=\"onParityPhraseChange()\"\n                  ng-class=\"$parent.$parent.parityPhrase != '' ? 'is-valid' : 'is-invalid'\"\n                  ng-keyup=\"$event.keyCode == 13 && decryptWallet()\"\n                  ng-model=\"$parent.$parent.parityPhrase\"\n                  placeholder=\"{{ 'x_ParityPhrase' | translate}}\"\n        ></textarea>\n      </div>\n      <div class=\"form-group\">\n        <a tabindex=\"0\"\n           role=\"button\"\n           class=\"btn btn-primary\"\n           ng-show=\"showFDecrypt||showPDecrypt||showMDecrypt||showParityDecrypt\"\n           ng-click=\"decryptWallet()\"\n           translate=\"ADD_Label_6_short\">\n             UNLOCK\n         </a>\n      </div>\n    </div>\n    <!-- / Parity Phrase -->\n\n  </section>\n  <!-- / Column 2 - Unlock That Key -->\n\n\n  <!-- MODAL -->\n  <article class=\"modal fade\" id=\"mnemonicModel\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"Mnemonic Phrase Modal\">\n\n    <section class=\"modal-dialog\">\n\n      <section class=\"modal-content\">\n\n        <div class=\"modal-body\" role=\"document\">\n\n          <button aria-label=\"Close\" type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n\n          <!-- Select HD Path -->\n          <h4 id=\"modalTitle\" class=\"modal-title\" translate=\"ADD_Radio_5_Path\" style=\"margin-bottom: .25rem\">\n            Select HD derivation path:\n          </h4>\n\n          <p class=\"alert alert-danger\"\n             ng-hide=\"ajaxReq.type=='WAN'\">\n                We do not know the correct path for this network.\n                <a href=\"https://github.com/C3Devs/mywanwallet/issues\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\">\n                      Please open a github issue\n                </a>\n                so we can discuss / be enlightened.\n          </p>\n\n          <section class=\"row\">\n\n            <div class=\"col-sm-4\">\n              <label class=\"radio small\">\n                <input aria-describedby=\"Path: Trezor WAN - {{HDWallet.trezorWanPath}}\"\n                       ng-change=\"onHDDPathChange()\"\n                       ng-model=\"HDWallet.dPath\"\n                       type=\"radio\"\n                      value=\"{{HDWallet.trezorWanPath}}\"/>\n                <span ng-bind=\"HDWallet.trezorWanPath\"></span>\n                <p class=\"small\">\n                  TREZOR (WAN)\n                </p>\n              </label>\n            </div>\n\n            <div class=\"col-sm-4\">\n              <label class=\"radio small\">\n                <input aria-describedby=\"Path: Ledger WAN {{HDWallet.ledgerWanPath}}\"\n                       ng-change=\"onHDDPathChange()\"\n                       ng-model=\"HDWallet.dPath\"\n                       type=\"radio\"\n                      value=\"{{HDWallet.ledgerWanPath}}\"/>\n                <span ng-bind=\"HDWallet.ledgerWanPath\"></span>\n                <p class=\"small\">\n                  Ledger (WAN)\n                </p>\n              </label>\n\n          </section>\n\n          <section class=\"row\">\n\n              <div class=\"col-sm-4\">\n                <label class=\"radio small\">\n                  <input aria-describedby=\"Path: Trezor ETH - {{HDWallet.trezorEthPath}}\"\n                         ng-change=\"onHDDPathChange()\"\n                         ng-model=\"HDWallet.dPath\"\n                         type=\"radio\"\n                         value=\"{{HDWallet.trezorEthPath}}\"/>\n                  <span ng-bind=\"HDWallet.trezorEthPath\"></span>\n                  <p class=\"small\">\n                    TREZOR (ETH)\n                  </p>\n                </label>\n              </div>\n\n              <div class=\"col-sm-4\">\n                <label class=\"radio small\">\n                  <input aria-describedby=\"Path: Ledger ETH {{HDWallet.ledgerEthPath}}\"\n                         ng-change=\"onHDDPathChange()\"\n                         ng-model=\"HDWallet.dPath\"\n                         type=\"radio\"\n                         value=\"{{HDWallet.ledgerEthPath}}\"/>\n                  <span ng-bind=\"HDWallet.ledgerEthPath\"></span>\n                  <p class=\"small\">\n                    Ledger (ETH)\n                  </p>\n                </label>\n\n          </section>\n\n\n          <h4 id=\"modalTitle2\" class=\"modal-title\" translate=\"MNEM_1\" style=\"margin: .5rem 0\">\n            Please select the address you would like to interact with.\n          </h4>\n\n          <table class=\"small table table-striped table-mnemonic\">\n            <tr>\n              <th translate=\"x_Address\">\n                Address\n              </th>\n              <th translate=\"MYWAL_Bal\">\n                Balance\n              </th>\n              <th translate=\"sidebar_TokenBal\" class=\"text-center\">\n                Token<br>Balances\n              </th>\n            </tr>\n            <tr ng-repeat=\"wallet in HDWallet.wallets track by $index\">\n              <td>\n                <label>\n                  <input aria-describedby=\"modalTitle2\"\n                         aria-label=\"Unlock wallet with {{wallet.getBalance()}} {{ajaxReq.type}}. Address: {{wallet.getChecksumAddressString()}}\"\n                         name=\"addressSelect\"\n                         ng-model=\"HDWallet.id\"\n                         type=\"radio\"\n                         value=\"{{$index}}\" />\n                    <span class=\"small\">\n                      {{wallet.getChecksumAddressString()}}\n                    </span>\n                </label>\n              </td>\n\n              <td>\n                <a href=\"{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\">\n                  {{wallet.getBalance()}} {{ajaxReq.type}}\n                </a>\n              </td>\n\n              <td class=\"text-center\">\n                <a href=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\"\n                   target=\"_blank\"\n                   rel=\"noopener noreferrer\" title=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\">\n                  <img src=\"images/icon-external-link.svg\" title=\"https://ethplorer.io/address/{{wallet.getAddressString()}}\" ng-click=\"removeTokenFromLocal(token.symbol)\" ng-show=\"token.type!=='default'\" />\n                </a>\n              </td>\n\n            </tr>\n\n            <tr class=\"m-addresses\">\n\n              <td>\n                <a ng-click=\"AddRemoveHDAddresses(false)\"\n                   ng-show=\"HDWallet.numWallets > 5\"\n                   role=\"link\"\n                   tabindex=\"0\"\n                   translate=\"MNEM_prev\">\n                Previous Addresses\n                </a>\n              </td>\n\n              <td></td>\n\n              <td>\n                <a ng-click=\"AddRemoveHDAddresses(true)\"\n                   role=\"link\"\n                   tabindex=\"0\"\n                   translate=\"MNEM_more\">\n                More Addresses\n                </a>\n              </td>\n\n            </tr>\n          </table>\n\n          <div class=\"clearfix button-group\">\n            <button aria-label=\"Unlock this Wallet\"\n                    class=\"btn btn-primary pull-right\"\n                    style=\"margin: 0 .1rem\"\n                    ng-click=\"setHDWallet()\"\n                    role=\"button\"\n                    tabindex=\"0\"\n                    translate=\"ADD_Label_6\">\n              Access Wallet\n            </button>\n\n            <button aria-label=\"Cancel - Will close dialog\"\n                    class=\"btn btn-default pull-right\"\n                    style=\"margin: 0 .1rem\"\n                    data-dismiss=\"modal\"\n                    role=\"button\"\n                    tabindex=\"0\"\n                    translate=\"x_Cancel\">\n              Cancel\n            </button>\n          </div>\n\n        </div>\n\n      </section>\n\n    </section>\n\n  </article>\n\n</article>\n";
+},{}],36:[function(require,module,exports){
 'use strict';
 
 var walletDecryptDrtv = function walletDecryptDrtv() {
@@ -4024,7 +4057,7 @@ var walletDecryptDrtv = function walletDecryptDrtv() {
 };
 module.exports = walletDecryptDrtv;
 
-},{"./walletDecryptDrtv.html":34}],36:[function(require,module,exports){
+},{"./walletDecryptDrtv.html":35}],37:[function(require,module,exports){
 'use strict';
 
 var ens = require('./ens');
@@ -4036,14 +4069,11 @@ var domainsale = function domainsale() {
     for (var i in domainsaleInterface) {
         this.domainsaleABI[domainsaleInterface[i].name] = domainsaleInterface[i];
     }switch (ajaxReq.type) {
-        case nodes.nodeTypes.ETH:
-            _this.setContractAddress('0xc67247454E720328714C4e17bEC7640572657bEE');
-            break;
-        case nodes.nodeTypes.Rinkeby:
+        case nodes.nodeTypes.WAN:
             _this.setContractAddress('0x00');
             break;
-        case nodes.nodeTypes.Ropsten:
-            _this.setContractAddress('0xe8E98228Ca36591952Efdf6F645C5B229E6Cf688');
+        case nodes.nodeTypes.Testnet:
+            _this.setContractAddress('0x00');
             break;
         default:
             _this.setContractAddress('0x00');
@@ -4187,7 +4217,7 @@ domainsale.transactions = {
 };
 module.exports = domainsale;
 
-},{"./domainsaleConfigs/domainsaleABI.json":37,"./ens":38}],37:[function(require,module,exports){
+},{"./domainsaleConfigs/domainsaleABI.json":38,"./ens":39}],38:[function(require,module,exports){
 module.exports=[
   {
     "constant": true,
@@ -4606,7 +4636,7 @@ module.exports=[
   }
 ]
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -4633,12 +4663,16 @@ var ens = function ens() {
         case nodes.nodeTypes.WAN:
             _this.setCurrentRegistry(ens.registry.WAN);
             break;
+        case nodes.nodeTypes.Testnet:
+            _this.setCurrentRegistry(ens.registry.Testnet);
+            break;
         default:
             _this.setCurrentRegistry(ens.registry.NULL);
     }
 };
 ens.registry = {
     WAN: require('./ensConfigs/WANConfig.json'),
+    Testnet: require('./ensConfigs/WANConfigTestnet.json'),
     NULL: {}
 };
 ens.normalise = function (name) {
@@ -4861,7 +4895,7 @@ ens.prototype.getDataString = function (func, inputs) {
 module.exports = ens;
 
 }).call(this,require("buffer").Buffer)
-},{"./ensConfigs/WANConfig.json":39,"./ensConfigs/auctionABI.json":40,"./ensConfigs/deedABI.json":41,"./ensConfigs/registryABI.json":42,"./ensConfigs/resolverABI.json":43,"buffer":155,"idna-uts46":213}],39:[function(require,module,exports){
+},{"./ensConfigs/WANConfig.json":40,"./ensConfigs/WANConfigTestnet.json":41,"./ensConfigs/auctionABI.json":42,"./ensConfigs/deedABI.json":43,"./ensConfigs/registryABI.json":44,"./ensConfigs/resolverABI.json":45,"buffer":158,"idna-uts46":216}],40:[function(require,module,exports){
 module.exports={
     "public": {
         "resolver": "0x330b6f07f6ace581fc4321ce7f401aa8edb5bfad",
@@ -4871,7 +4905,17 @@ module.exports={
     "registry": "0xee8d418fd33e69782015ea4313dfd8eb7b1b91ce"
 }
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
+module.exports={
+    "public": {
+        "resolver": "0x3f5ad0ab415d451bcec48cfcbd61aee126687cd4",
+        "reverse": "0xdd69b4a40d7381f90927865ce8b4256713c92960",
+        "ethAuction": "0xEec6bC4D213bF5D7b247a578b9bF13D7443B5546",
+    },
+    "registry": "0xe85cfdf43a0db4aa0ec054a57451af7c73d4625b"
+}
+
+},{}],42:[function(require,module,exports){
 module.exports=[
   {
     "constant": false,
@@ -5446,7 +5490,7 @@ module.exports=[
     "type": "event"
   }
 ]
-},{}],41:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 module.exports=[
   {
     "constant": true,
@@ -5617,7 +5661,7 @@ module.exports=[
     "type": "event"
   }
 ]
-},{}],42:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 module.exports=[
   {
     "constant": true,
@@ -5832,7 +5876,7 @@ module.exports=[
     "type": "event"
   }
 ]
-},{}],43:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 module.exports=[
   {
     "constant": true,
@@ -6227,7 +6271,7 @@ module.exports=[
     "type": "event"
   }
 ]
-},{}],44:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 'use strict';
 
 var ethFuncs = function ethFuncs() {};
@@ -6326,7 +6370,7 @@ ethFuncs.estimateGas = function (dataObj, callback) {
 };
 module.exports = ethFuncs;
 
-},{"wanchainjs-util":317}],45:[function(require,module,exports){
+},{"wanchainjs-util":320}],47:[function(require,module,exports){
 'use strict';
 
 var etherUnits = function etherUnits() {};
@@ -6391,7 +6435,7 @@ etherUnits.unitToUnit = function (number, from, to) {
 
 module.exports = etherUnits;
 
-},{}],46:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -6540,7 +6584,7 @@ globalFuncs.postDelay = 300;
 globalFuncs.kdf = 'scrypt';
 globalFuncs.defaultTxGasLimit = 21000;
 globalFuncs.defaultTokenGasLimit = 200000;
-globalFuncs.donateAddress = '0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8';
+globalFuncs.donateAddress = '0x664949908413517B993c6784b44428d080D1a1Fa';
 globalFuncs.isNumeric = function (n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
@@ -6779,7 +6823,7 @@ globalFuncs.localStorage = {
 
 module.exports = globalFuncs;
 
-},{"./nodes":53,"./tokens/ethTokens.json":76,"./tokens/wanTokens.json":77}],47:[function(require,module,exports){
+},{"./nodes":55,"./tokens/ethTokens.json":78,"./tokens/wanTokens.json":80}],49:[function(require,module,exports){
 'use strict';
 
 function storageAvailable(type) {
@@ -6884,7 +6928,7 @@ if (!storageAvailable('localStorage')) {
 
 module.exports = null;
 
-},{}],48:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 'use strict';
 
 require('./localStoragePolyfill');
@@ -7033,15 +7077,18 @@ if (IS_CX) {
   app.controller('cxDecryptWalletCtrl', ['$scope', '$sce', 'walletService', cxDecryptWalletCtrl]);
 }
 
-},{"./ajaxReq":2,"./controllers/CX/addWalletCtrl":3,"./controllers/CX/cxDecryptWalletCtrl":4,"./controllers/CX/mainPopCtrl":5,"./controllers/CX/myWalletsCtrl":6,"./controllers/CX/quickSendCtrl":7,"./controllers/bulkGenCtrl":8,"./controllers/contractsCtrl":9,"./controllers/decryptWalletCtrl":10,"./controllers/domainsaleCtrl":11,"./controllers/ensCtrl":12,"./controllers/footerCtrl":13,"./controllers/helpersCtrl":14,"./controllers/offlineTxCtrl":15,"./controllers/onboardingCtrl":16,"./controllers/sendTxCtrl":17,"./controllers/signMsgCtrl":18,"./controllers/tabsCtrl":19,"./controllers/txStatusCtrl":20,"./controllers/viewCtrl":21,"./controllers/viewWalletCtrl":22,"./controllers/walletBalanceCtrl":23,"./controllers/walletGenCtrl":24,"./customGas.js":25,"./cxFuncs":26,"./directives/QRCodeDrtv":27,"./directives/addressFieldDrtv":28,"./directives/balanceDrtv":30,"./directives/blockiesDrtv":31,"./directives/cxWalletDecryptDrtv":32,"./directives/fileReaderDrtv":33,"./directives/walletDecryptDrtv":35,"./domainsale":36,"./ens":38,"./ethFuncs":44,"./etherUnits":45,"./globalFuncs":46,"./localStoragePolyfill":47,"./myetherwallet":49,"./nodes":53,"./services/globalService":54,"./services/walletService":55,"./solidity/coder":59,"./solidity/utils":70,"./staticJS/customMarked":71,"./staticJS/ledger-eth":72,"./staticJS/ledger3":73,"./staticJS/u2f-api":74,"./tokenlib":75,"./translations/translate.js":79,"./uiFuncs":80,"./validator":81,"./web3Wallet":82,"angular":90,"angular-animate":84,"angular-sanitize":86,"angular-translate":88,"angular-translate-handler-log":87,"bignumber.js":111,"bip39":112,"crypto":164,"detect-browser":171,"hdkey":210,"raven-js":256,"raven-js/plugins/angular":252,"scryptsy":264,"string-format":295,"uuid":301,"wallet-address-validator":314,"wanchainjs-tx":316,"wanchainjs-util":317}],49:[function(require,module,exports){
+},{"./ajaxReq":3,"./controllers/CX/addWalletCtrl":4,"./controllers/CX/cxDecryptWalletCtrl":5,"./controllers/CX/mainPopCtrl":6,"./controllers/CX/myWalletsCtrl":7,"./controllers/CX/quickSendCtrl":8,"./controllers/bulkGenCtrl":9,"./controllers/contractsCtrl":10,"./controllers/decryptWalletCtrl":11,"./controllers/domainsaleCtrl":12,"./controllers/ensCtrl":13,"./controllers/footerCtrl":14,"./controllers/helpersCtrl":15,"./controllers/offlineTxCtrl":16,"./controllers/onboardingCtrl":17,"./controllers/sendTxCtrl":18,"./controllers/signMsgCtrl":19,"./controllers/tabsCtrl":20,"./controllers/txStatusCtrl":21,"./controllers/viewCtrl":22,"./controllers/viewWalletCtrl":23,"./controllers/walletBalanceCtrl":24,"./controllers/walletGenCtrl":25,"./customGas.js":26,"./cxFuncs":27,"./directives/QRCodeDrtv":28,"./directives/addressFieldDrtv":29,"./directives/balanceDrtv":31,"./directives/blockiesDrtv":32,"./directives/cxWalletDecryptDrtv":33,"./directives/fileReaderDrtv":34,"./directives/walletDecryptDrtv":36,"./domainsale":37,"./ens":39,"./ethFuncs":46,"./etherUnits":47,"./globalFuncs":48,"./localStoragePolyfill":49,"./myetherwallet":51,"./nodes":55,"./services/globalService":56,"./services/walletService":57,"./solidity/coder":61,"./solidity/utils":72,"./staticJS/customMarked":73,"./staticJS/ledger-eth":74,"./staticJS/ledger3":75,"./staticJS/u2f-api":76,"./tokenlib":77,"./translations/translate.js":82,"./uiFuncs":83,"./validator":84,"./web3Wallet":85,"angular":93,"angular-animate":87,"angular-sanitize":89,"angular-translate":91,"angular-translate-handler-log":90,"bignumber.js":114,"bip39":115,"crypto":167,"detect-browser":174,"hdkey":213,"raven-js":259,"raven-js/plugins/angular":255,"scryptsy":267,"string-format":298,"uuid":304,"wallet-address-validator":317,"wanchainjs-tx":319,"wanchainjs-util":320}],51:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var Wallet = function Wallet(priv, pub, path, hwType, hwTransport) {
+var Wallet = function Wallet(priv, priv2, pub, path, hwType, hwTransport) {
     if (typeof priv !== 'undefined') {
         this.privKey = priv.length === 32 ? priv : Buffer(priv, 'hex');
+    }
+    if (typeof priv2 !== 'undefined') {
+        this.privKey2 = priv2.length === 32 ? priv2 : Buffer(priv2, 'hex');
     }
     this.pubKey = pub;
     this.path = path;
@@ -7050,15 +7097,8 @@ var Wallet = function Wallet(priv, pub, path, hwType, hwTransport) {
     this.type = 'default';
 };
 Wallet.generate = function (icapDirect) {
-    if (icapDirect) {
-        while (true) {
-            var privKey = ethUtil.crypto.randomBytes(32);
-            if (ethUtil.privateToAddress(privKey)[0] === 0) {
-                return new Wallet(privKey);
-            }
-        }
-    } else {
-        return new Wallet(ethUtil.crypto.randomBytes(32));
+    if (!icapDirect) {
+        return new Wallet(ethUtil.crypto.randomBytes(32), ethUtil.crypto.randomBytes(32));
     }
 };
 
@@ -7208,7 +7248,9 @@ Wallet.prototype.getChecksumAddressString = function () {
     return ethUtil.toChecksumAddress(this.getAddressString());
 };
 Wallet.fromPrivateKey = function (priv) {
-    return new Wallet(priv);
+    var priv2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+    return new Wallet(priv.priv2);
 };
 Wallet.fromParityPhrase = function (phrase) {
     var hash = ethUtil.sha3(new Buffer(phrase));
@@ -7216,7 +7258,7 @@ Wallet.fromParityPhrase = function (phrase) {
         hash = ethUtil.sha3(hash);
     }while (ethUtil.privateToAddress(hash)[0] !== 0) {
         hash = ethUtil.sha3(hash);
-    }return new Wallet(hash);
+    }return new Wallet(hash, undefined);
 };
 Wallet.prototype.toV3 = function (password, opts) {
     opts = opts || {};
@@ -7250,9 +7292,14 @@ Wallet.prototype.toV3 = function (password, opts) {
             throw new Error('Unsupported cipher');
         }
 
-        privKeys.push(this.privKey);
+        if (i == 0) {
+            var privKey = this.privKey;
+        } else {
+            var privKey = this.privKey2;
+        }
+        privKeys.push(privKey);
 
-        var ciphertext = Buffer.concat([cipher.update(this.privKey), cipher.final()]);
+        var ciphertext = Buffer.concat([cipher.update(privKey), cipher.final()]);
         var mac = ethUtil.sha3(Buffer.concat([derivedKey.slice(16, 32), new Buffer(ciphertext, 'hex')]));
 
         Crypto.push({
@@ -7265,8 +7312,8 @@ Wallet.prototype.toV3 = function (password, opts) {
         });
     }
 
-    var waddress = ethUtil.generateWaddrFromPriv(privKeys[0], privKeys[1]).slice(2);
-    var address = ethUtil.privateToAddress(privKeys[0]).toString('hex');
+    var waddress = ethUtil.generateWaddrFromPriv(privKeys[0], privKeys[1]).slice(2).toLowerCase();
+    var address = ethUtil.toChecksumAddress(ethUtil.privateToAddress(privKeys[0]).toString('hex')).slice(2);
 
     return {
         version: 3,
@@ -7286,7 +7333,7 @@ Wallet.prototype.toJSON = function () {
         checksumAddress: this.getChecksumAddressString(),
         privKey: this.getPrivateKeyString(),
         pubKey: this.getPublicKeyString(),
-        publisher: 'MyEtherWallet',
+        publisher: 'MyWanWallet',
         encrypted: false,
         version: 2
     };
@@ -7316,7 +7363,7 @@ Wallet.fromMyEtherWallet = function (input, password) {
         privKey = Wallet.decipherBuffer(decipher, new Buffer(cipher.ciphertext));
         privKey = new Buffer(privKey.toString(), 'hex');
     }
-    var wallet = new Wallet(privKey);
+    var wallet = new Wallet(privKey, undefined);
     if (wallet.getAddressString() !== json.address) {
         throw new Error('Invalid private key or address');
     }
@@ -7328,7 +7375,7 @@ Wallet.fromMyEtherWalletV2 = function (input) {
         throw new Error('Invalid private key length');
     };
     var privKey = new Buffer(json.privKey, 'hex');
-    return new Wallet(privKey);
+    return new Wallet(privKey, undefined);
 };
 Wallet.fromEthSale = function (input, password) {
     var json = (typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object' ? input : JSON.parse(input);
@@ -7336,7 +7383,7 @@ Wallet.fromEthSale = function (input, password) {
     var derivedKey = ethUtil.crypto.pbkdf2Sync(Buffer(password), Buffer(password), 2000, 32, 'sha256').slice(0, 16);
     var decipher = ethUtil.crypto.createDecipheriv('aes-128-cbc', derivedKey, encseed.slice(0, 16));
     var seed = Wallet.decipherBuffer(decipher, encseed.slice(16));
-    var wallet = new Wallet(ethUtil.sha3(seed));
+    var wallet = new Wallet(ethUtil.sha3(seed), undefined);
     if (wallet.getAddress().toString('hex') !== json.ethaddr) {
         throw new Error('Decoded key mismatch - possibly wrong passphrase');
     }
@@ -7352,9 +7399,10 @@ Wallet.fromMyEtherWalletKey = function (input, password) {
     var decipher = ethUtil.crypto.createDecipheriv('aes-256-cbc', evp.key, evp.iv);
     var privKey = Wallet.decipherBuffer(decipher, new Buffer(cipher.ciphertext));
     privKey = new Buffer(privKey.toString(), 'hex');
-    return new Wallet(privKey);
+    return new Wallet(privKey, undefined);
 };
 Wallet.fromV3 = function (input, password, nonStrict) {
+    // TODO: get second key
     var json = (typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object' ? input : JSON.parse(nonStrict ? input.toLowerCase() : input);
     if (json.version !== 3) {
         throw new Error('Not a V3 wallet');
@@ -7384,7 +7432,7 @@ Wallet.fromV3 = function (input, password, nonStrict) {
         var nullBuff = new Buffer([0x00]);
         seed = Buffer.concat([nullBuff, seed]);
     }
-    return new Wallet(seed);
+    return new Wallet(seed, undefined);
 };
 Wallet.prototype.toV3String = function (password, opts) {
     return JSON.stringify(this.toV3(password, opts));
@@ -7459,7 +7507,7 @@ Wallet.getWalletFromPrivKeyFile = function (strjson, password) {
 module.exports = Wallet;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155}],50:[function(require,module,exports){
+},{"buffer":158}],52:[function(require,module,exports){
 'use strict';
 
 var customNode = function customNode(srvrUrl, port, httpBasicAuthentication) {
@@ -7586,7 +7634,7 @@ customNode.prototype.post = function (data, callback) {
 };
 module.exports = customNode;
 
-},{}],51:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 'use strict';
 
 var customNode = require('./customNode');
@@ -7629,7 +7677,7 @@ function forEachPayload(maybeArray, fn) {
   array.forEach(fn);
 }
 
-},{"./customNode":50}],52:[function(require,module,exports){
+},{"./customNode":52}],54:[function(require,module,exports){
 'use strict';
 
 var wanPrice = function wanPrice() {};
@@ -7650,7 +7698,7 @@ wanPrice.getWANvalue = function (callback) {
 };
 module.exports = wanPrice;
 
-},{}],53:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 'use strict';
 
 var nodes = function nodes() {};
@@ -7658,10 +7706,11 @@ nodes.customNode = require('./nodeHelpers/customNode');
 nodes.metamaskNode = require('./nodeHelpers/metamask');
 nodes.nodeTypes = {
     WAN: 'WAN',
-    Custom: 'CUSTOM ETH'
+    Testnet: 'WAN',
+    Custom: 'WAN'
 };
-nodes.ensNodeTypes = [nodes.nodeTypes.WAN];
-nodes.domainsaleNodeTypes = [nodes.nodeTypes.WAN];
+nodes.ensNodeTypes = [nodes.nodeTypes.WAN, nodes.nodeTypes.Testnet];
+nodes.domainsaleNodeTypes = [nodes.nodeTypes.WAN, nodes.nodeTypes.Testnet];
 nodes.customNodeObj = {
     'name': 'CUS',
     'blockExplorerTX': '',
@@ -7676,7 +7725,7 @@ nodes.customNodeObj = {
 };
 nodes.nodeList = {
     'wan_mew': {
-        'name': 'WAN',
+        'name': 'WAN Mainnet',
         'blockExplorerTX': 'https://wanscan.io/tx/[[txHash]]',
         'blockExplorerAddr': 'https://wanscan.io/addr/[[address]]',
         'type': nodes.nodeTypes.WAN,
@@ -7688,14 +7737,14 @@ nodes.nodeList = {
         'lib': new nodes.customNode('https://mywanwallet.nl/api', '')
     },
     'wan_mew_testnet': {
-        'name': 'Testnet',
+        'name': 'WAN Testnet',
         'blockExplorerTX': 'http://47.104.61.26/block/trans/[[txHash]]',
         'blockExplorerAddr': 'http://47.104.61.26/block/addr/[[address]]',
-        'type': nodes.nodeTypes.WAN,
+        'type': nodes.nodeTypes.Testnet,
         'eip155': true,
         'chainId': 3,
-        'tokenList': require('./tokens/wanTokens.json'),
-        'abiList': require('./abiDefinitions/wanAbi.json'),
+        'tokenList': require('./tokens/wanTestnetTokens.json'),
+        'abiList': require('./abiDefinitions/wanTestnetAbi.json'),
         'service': 'mywanwallet.nl',
         'lib': new nodes.customNode('https://mywanwallet.nl/testnet', '')
     }
@@ -7704,7 +7753,7 @@ nodes.nodeList = {
 nodes.wanPrice = require('./nodeHelpers/wanPrice');
 module.exports = nodes;
 
-},{"./abiDefinitions/wanAbi.json":1,"./nodeHelpers/customNode":50,"./nodeHelpers/metamask":51,"./nodeHelpers/wanPrice":52,"./tokens/wanTokens.json":77}],54:[function(require,module,exports){
+},{"./abiDefinitions/wanAbi.json":1,"./abiDefinitions/wanTestnetAbi.json":2,"./nodeHelpers/customNode":52,"./nodeHelpers/metamask":53,"./nodeHelpers/wanPrice":54,"./tokens/wanTestnetTokens.json":79,"./tokens/wanTokens.json":80}],56:[function(require,module,exports){
 'use strict';
 
 var globalService = function globalService($http, $httpParamSerializerJQLike) {
@@ -7791,6 +7840,13 @@ var globalService = function globalService($http, $httpParamSerializerJQLike) {
       url: 'view-wallet-info',
       mew: true,
       cx: false
+    },
+    signMessage: {
+      id: 11,
+      name: 'NAV_SignMsg',
+      url: 'sign-message',
+      mew: true,
+      cx: false
     }
   };
 
@@ -7806,7 +7862,7 @@ var globalService = function globalService($http, $httpParamSerializerJQLike) {
 
 module.exports = globalService;
 
-},{}],55:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 'use strict';
 
 var walletService = function walletService() {
@@ -7817,7 +7873,7 @@ var walletService = function walletService() {
 };
 module.exports = walletService;
 
-},{}],56:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -7847,7 +7903,7 @@ SolidityTypeAddress.prototype.isType = function (name) {
 
 module.exports = SolidityTypeAddress;
 
-},{"./formatters":62,"./type":67}],57:[function(require,module,exports){
+},{"./formatters":64,"./type":69}],59:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -7877,7 +7933,7 @@ SolidityTypeBool.prototype.isType = function (name) {
 
 module.exports = SolidityTypeBool;
 
-},{"./formatters":62,"./type":67}],58:[function(require,module,exports){
+},{"./formatters":64,"./type":69}],60:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -7910,7 +7966,7 @@ SolidityTypeBytes.prototype.isType = function (name) {
 
 module.exports = SolidityTypeBytes;
 
-},{"./formatters":62,"./type":67}],59:[function(require,module,exports){
+},{"./formatters":64,"./type":69}],61:[function(require,module,exports){
 'use strict';
 
 /*
@@ -8162,7 +8218,7 @@ var coder = new SolidityCoder([new SolidityTypeAddress(), new SolidityTypeBool()
 
 module.exports = coder;
 
-},{"./address":56,"./bool":57,"./bytes":58,"./dynamicbytes":61,"./formatters":62,"./int":63,"./real":65,"./string":66,"./uint":68,"./ureal":69}],60:[function(require,module,exports){
+},{"./address":58,"./bool":59,"./bytes":60,"./dynamicbytes":63,"./formatters":64,"./int":65,"./real":67,"./string":68,"./uint":70,"./ureal":71}],62:[function(require,module,exports){
 'use strict';
 
 /*
@@ -8215,7 +8271,7 @@ module.exports = {
     defaultAccount: undefined
 };
 
-},{"bignumber.js":111}],61:[function(require,module,exports){
+},{"bignumber.js":114}],63:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -8239,7 +8295,7 @@ SolidityTypeDynamicBytes.prototype.isDynamicType = function () {
 
 module.exports = SolidityTypeDynamicBytes;
 
-},{"./formatters":62,"./type":67}],62:[function(require,module,exports){
+},{"./formatters":64,"./type":69}],64:[function(require,module,exports){
 'use strict';
 
 /*
@@ -8494,7 +8550,7 @@ module.exports = {
     formatOutputAddress: formatOutputAddress
 };
 
-},{"./config":60,"./param":64,"./utils":70,"bignumber.js":111}],63:[function(require,module,exports){
+},{"./config":62,"./param":66,"./utils":72,"bignumber.js":114}],65:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -8530,7 +8586,7 @@ SolidityTypeInt.prototype.isType = function (name) {
 
 module.exports = SolidityTypeInt;
 
-},{"./formatters":62,"./type":67}],64:[function(require,module,exports){
+},{"./formatters":64,"./type":69}],66:[function(require,module,exports){
 'use strict';
 
 /*
@@ -8683,7 +8739,7 @@ SolidityParam.encodeList = function (params) {
 
 module.exports = SolidityParam;
 
-},{"./utils":70}],65:[function(require,module,exports){
+},{"./utils":72}],67:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -8719,7 +8775,7 @@ SolidityTypeReal.prototype.isType = function (name) {
 
 module.exports = SolidityTypeReal;
 
-},{"./formatters":62,"./type":67}],66:[function(require,module,exports){
+},{"./formatters":64,"./type":69}],68:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -8743,7 +8799,7 @@ SolidityTypeString.prototype.isDynamicType = function () {
 
 module.exports = SolidityTypeString;
 
-},{"./formatters":62,"./type":67}],67:[function(require,module,exports){
+},{"./formatters":64,"./type":69}],69:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -8997,7 +9053,7 @@ SolidityType.prototype.decode = function (bytes, offset, name) {
 
 module.exports = SolidityType;
 
-},{"./formatters":62,"./param":64}],68:[function(require,module,exports){
+},{"./formatters":64,"./param":66}],70:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -9033,7 +9089,7 @@ SolidityTypeUInt.prototype.isType = function (name) {
 
 module.exports = SolidityTypeUInt;
 
-},{"./formatters":62,"./type":67}],69:[function(require,module,exports){
+},{"./formatters":64,"./type":69}],71:[function(require,module,exports){
 'use strict';
 
 var f = require('./formatters');
@@ -9069,7 +9125,7 @@ SolidityTypeUReal.prototype.isType = function (name) {
 
 module.exports = SolidityTypeUReal;
 
-},{"./formatters":62,"./type":67}],70:[function(require,module,exports){
+},{"./formatters":64,"./type":69}],72:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -9673,7 +9729,7 @@ module.exports = {
     isJson: isJson
 };
 
-},{"bignumber.js":111,"utf8":299,"wanchainjs-util":317}],71:[function(require,module,exports){
+},{"bignumber.js":114,"utf8":302,"wanchainjs-util":320}],73:[function(require,module,exports){
 'use strict';
 
 var marked = require('marked');
@@ -9704,7 +9760,7 @@ marked.setOptions({
 });
 module.exports = marked;
 
-},{"marked":226}],72:[function(require,module,exports){
+},{"marked":229}],74:[function(require,module,exports){
 (function (Buffer){
 /********************************************************************************
 *   Ledger Communication toolkit
@@ -9919,7 +9975,7 @@ LedgerEth.prototype.signPersonalMessage_async = function (path, messageHex, call
 module.exports = LedgerEth;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155}],73:[function(require,module,exports){
+},{"buffer":158}],75:[function(require,module,exports){
 (function (Buffer){
 /********************************************************************************
 *   Ledger Communication toolkit
@@ -9990,7 +10046,7 @@ Ledger3.prototype.exchange = function (apduHex, callback) {
 module.exports = Ledger3;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155}],74:[function(require,module,exports){
+},{"buffer":158}],76:[function(require,module,exports){
 //Copyright 2014-2015 Google Inc. All rights reserved.
 
 //Use of this source code is governed by a BSD-style
@@ -10714,7 +10770,7 @@ u2f.getApiVersion = function (callback, opt_timeoutSeconds) {
 };
 module.exports = u2f;
 
-},{}],75:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 'use strict';
 
 var Token = function Token(contractAddress, userAddress, symbol, decimal, type) {
@@ -10798,10 +10854,20 @@ Token.prototype.getData = function (toAdd, value) {
 };
 module.exports = Token;
 
-},{}],76:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 module.exports=[]
 
-},{}],77:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
+module.exports=[
+  {
+    "address": "0x46397994a7e1e926ea0de95557a4806d38f10b0d",
+    "symbol": "WETH",
+    "decimal": 18,
+    "type": "default"
+  },
+]
+
+},{}],80:[function(require,module,exports){
 module.exports=[
   {
     "address": "0x28362cd634646620ef2290058744f9244bb90ed9",
@@ -10809,8 +10875,15 @@ module.exports=[
     "decimal": 18,
     "type": "default"
   },
+  {
+    "address": "0x6cbf35f1ab7beb07ebfe8818045f379a1212a10b",
+    "symbol": "TYR",
+    "decimal": 18,
+    "type": "default"
+  },
 ]
-},{}],78:[function(require,module,exports){
+
+},{}],81:[function(require,module,exports){
 // English
 'use strict';
 
@@ -11235,6 +11308,7 @@ en.data = {
   NAV_SendEther: 'Send Wancoins & Tokens',
   NAV_SendTokens: 'Send Tokens',
   NAV_SignMsg: 'Sign Message',
+  NAV_SignMessage: 'Sign Message',
   NAV_Swap: 'Swap',
   NAV_TxStatus: 'TX Status',
   NAV_ViewWallet: 'View Wallet Info',
@@ -11399,7 +11473,7 @@ en.data = {
   x_Mnemonic: 'Mnemonic Phrase',
   x_ParityPhrase: 'Parity Phrase',
   x_Password: 'Password',
-  x_PasswordDesc: 'This password * encrypts * your private key. This does not act as a seed to generate your keys. **You will need this password + your private key to unlock your wallet.**',
+  x_PasswordDesc: 'This password * encrypts * your private key. This does not act as a seed to generate your keys. **You will need this password + your private key to unlock your wallet.** To import this key in WanWalletGUI, use the Import Accounts menu item in the gui. Do not put this json directly in your keystore directory!',
   x_Print: 'Print Paper Wallet',
   x_PrintDesc: 'ProTip: If you cannot print this right now, click "Print" and save it as a PDF until you are able to get it printed. Remove it from your computer afterwards!',
   x_PrintShort: 'Print',
@@ -11614,7 +11688,7 @@ en.data = {
 
 module.exports = en;
 
-},{}],79:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 'use strict';
 
 var en = require('./en');
@@ -11634,7 +11708,7 @@ translate.marked = function (data) {
 };
 module.exports = translate;
 
-},{"./en":78}],80:[function(require,module,exports){
+},{"./en":81}],83:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -11967,7 +12041,7 @@ uiFuncs.notifier = {
 module.exports = uiFuncs;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155}],81:[function(require,module,exports){
+},{"buffer":158}],84:[function(require,module,exports){
 'use strict';
 
 var validator = function validator() {};
@@ -12039,7 +12113,7 @@ validator.isValidURL = function (str) {
 };
 module.exports = validator;
 
-},{}],82:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 'use strict';
 
 var Wallet = require('./myetherwallet.js');
@@ -12095,7 +12169,7 @@ Web3Wallet.prototype.getV3Filename = function (timestamp) {
 
 module.exports = Web3Wallet;
 
-},{"./myetherwallet.js":49}],83:[function(require,module,exports){
+},{"./myetherwallet.js":51}],86:[function(require,module,exports){
 'use strict';
 
 /**
@@ -16301,13 +16375,13 @@ module.exports = Web3Wallet;
   }).info({ angularVersion: '1.7.4' }).directive('ngAnimateSwap', ngAnimateSwapDirective).directive('ngAnimateChildren', $$AnimateChildrenDirective).factory('$$rAFScheduler', $$rAFSchedulerFactory).provider('$$animateQueue', $$AnimateQueueProvider).provider('$$animateCache', $$AnimateCacheProvider).provider('$$animation', $$AnimationProvider).provider('$animateCss', $AnimateCssProvider).provider('$$animateCssDriver', $$AnimateCssDriverProvider).provider('$$animateJs', $$AnimateJsProvider).provider('$$animateJsDriver', $$AnimateJsDriverProvider);
 })(window, window.angular);
 
-},{}],84:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 'use strict';
 
 require('./angular-animate');
 module.exports = 'ngAnimate';
 
-},{"./angular-animate":83}],85:[function(require,module,exports){
+},{"./angular-animate":86}],88:[function(require,module,exports){
 'use strict';
 
 /**
@@ -17175,13 +17249,13 @@ module.exports = 'ngAnimate';
   }]);
 })(window, window.angular);
 
-},{}],86:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 'use strict';
 
 require('./angular-sanitize');
 module.exports = 'ngSanitize';
 
-},{"./angular-sanitize":85}],87:[function(require,module,exports){
+},{"./angular-sanitize":88}],90:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -17236,7 +17310,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   return 'pascalprecht.translate';
 });
 
-},{}],88:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -21004,7 +21078,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   return 'pascalprecht.translate';
 });
 
-},{}],89:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -56556,13 +56630,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
-},{}],90:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 'use strict';
 
 require('./angular');
 module.exports = angular;
 
-},{"./angular":89}],91:[function(require,module,exports){
+},{"./angular":92}],94:[function(require,module,exports){
 'use strict';
 
 var asn1 = exports;
@@ -56575,7 +56649,7 @@ asn1.constants = require('./asn1/constants');
 asn1.decoders = require('./asn1/decoders');
 asn1.encoders = require('./asn1/encoders');
 
-},{"./asn1/api":92,"./asn1/base":94,"./asn1/constants":98,"./asn1/decoders":100,"./asn1/encoders":103,"bn.js":122}],92:[function(require,module,exports){
+},{"./asn1/api":95,"./asn1/base":97,"./asn1/constants":101,"./asn1/decoders":103,"./asn1/encoders":106,"bn.js":125}],95:[function(require,module,exports){
 'use strict';
 
 var asn1 = require('../asn1');
@@ -56634,7 +56708,7 @@ Entity.prototype.encode = function encode(data, enc, /* internal */reporter) {
   return this._getEncoder(enc).encode(data, reporter);
 };
 
-},{"../asn1":91,"inherits":216,"vm":306}],93:[function(require,module,exports){
+},{"../asn1":94,"inherits":219,"vm":309}],96:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -56742,7 +56816,7 @@ EncoderBuffer.prototype.join = function join(out, offset) {
   return out;
 };
 
-},{"../base":94,"buffer":155,"inherits":216}],94:[function(require,module,exports){
+},{"../base":97,"buffer":158,"inherits":219}],97:[function(require,module,exports){
 'use strict';
 
 var base = exports;
@@ -56752,7 +56826,7 @@ base.DecoderBuffer = require('./buffer').DecoderBuffer;
 base.EncoderBuffer = require('./buffer').EncoderBuffer;
 base.Node = require('./node');
 
-},{"./buffer":93,"./node":95,"./reporter":96}],95:[function(require,module,exports){
+},{"./buffer":96,"./node":98,"./reporter":99}],98:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -57281,7 +57355,7 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
   );
 };
 
-},{"../base":94,"minimalistic-assert":229}],96:[function(require,module,exports){
+},{"../base":97,"minimalistic-assert":232}],99:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -57401,7 +57475,7 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
   return this;
 };
 
-},{"inherits":216}],97:[function(require,module,exports){
+},{"inherits":219}],100:[function(require,module,exports){
 'use strict';
 
 var constants = require('../constants');
@@ -57447,7 +57521,7 @@ exports.tag = {
 };
 exports.tagByName = constants._reverse(exports.tag);
 
-},{"../constants":98}],98:[function(require,module,exports){
+},{"../constants":101}],101:[function(require,module,exports){
 'use strict';
 
 var constants = exports;
@@ -57469,7 +57543,7 @@ constants._reverse = function reverse(map) {
 
 constants.der = require('./der');
 
-},{"./der":97}],99:[function(require,module,exports){
+},{"./der":100}],102:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -57747,7 +57821,7 @@ function derDecodeLen(buf, primitive, fail) {
   return len;
 }
 
-},{"../../asn1":91,"inherits":216}],100:[function(require,module,exports){
+},{"../../asn1":94,"inherits":219}],103:[function(require,module,exports){
 'use strict';
 
 var decoders = exports;
@@ -57755,7 +57829,7 @@ var decoders = exports;
 decoders.der = require('./der');
 decoders.pem = require('./pem');
 
-},{"./der":99,"./pem":101}],101:[function(require,module,exports){
+},{"./der":102,"./pem":104}],104:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -57803,7 +57877,7 @@ PEMDecoder.prototype.decode = function decode(data, options) {
   return DERDecoder.prototype.decode.call(this, input, options);
 };
 
-},{"./der":99,"buffer":155,"inherits":216}],102:[function(require,module,exports){
+},{"./der":102,"buffer":158,"inherits":219}],105:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -58048,7 +58122,7 @@ function encodeTag(tag, primitive, cls, reporter) {
   return res;
 }
 
-},{"../../asn1":91,"buffer":155,"inherits":216}],103:[function(require,module,exports){
+},{"../../asn1":94,"buffer":158,"inherits":219}],106:[function(require,module,exports){
 'use strict';
 
 var encoders = exports;
@@ -58056,7 +58130,7 @@ var encoders = exports;
 encoders.der = require('./der');
 encoders.pem = require('./pem');
 
-},{"./der":102,"./pem":104}],104:[function(require,module,exports){
+},{"./der":105,"./pem":107}],107:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -58081,7 +58155,7 @@ PEMEncoder.prototype.encode = function encode(data, options) {
   return out.join('\n');
 };
 
-},{"./der":102,"inherits":216}],105:[function(require,module,exports){
+},{"./der":105,"inherits":219}],108:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -58556,7 +58630,7 @@ var objectKeys = Object.keys || function (obj) {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"util/":108}],106:[function(require,module,exports){
+},{"util/":111}],109:[function(require,module,exports){
 'use strict';
 
 if (typeof Object.create === 'function') {
@@ -58583,7 +58657,7 @@ if (typeof Object.create === 'function') {
   };
 }
 
-},{}],107:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -58592,7 +58666,7 @@ module.exports = function isBuffer(arg) {
   return arg && (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && typeof arg.copy === 'function' && typeof arg.fill === 'function' && typeof arg.readUInt8 === 'function';
 };
 
-},{}],108:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 (function (process,global){
 'use strict';
 
@@ -59144,7 +59218,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":107,"_process":242,"inherits":106}],109:[function(require,module,exports){
+},{"./support/isBuffer":110,"_process":245,"inherits":109}],112:[function(require,module,exports){
 'use strict';
 
 // base-x encoding
@@ -59241,7 +59315,7 @@ module.exports = function base(ALPHABET) {
   };
 };
 
-},{"safe-buffer":263}],110:[function(require,module,exports){
+},{"safe-buffer":266}],113:[function(require,module,exports){
 'use strict';
 
 exports.byteLength = byteLength;
@@ -59364,7 +59438,7 @@ function fromByteArray(uint8) {
   return parts.join('');
 }
 
-},{}],111:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -62095,7 +62169,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
 })(undefined);
 
-},{}],112:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -62253,7 +62327,7 @@ module.exports = {
   }
 };
 
-},{"./wordlists/chinese_simplified.json":113,"./wordlists/chinese_traditional.json":114,"./wordlists/english.json":115,"./wordlists/french.json":116,"./wordlists/italian.json":117,"./wordlists/japanese.json":118,"./wordlists/korean.json":119,"./wordlists/spanish.json":120,"create-hash":160,"pbkdf2":236,"randombytes":250,"safe-buffer":263,"unorm":298}],113:[function(require,module,exports){
+},{"./wordlists/chinese_simplified.json":116,"./wordlists/chinese_traditional.json":117,"./wordlists/english.json":118,"./wordlists/french.json":119,"./wordlists/italian.json":120,"./wordlists/japanese.json":121,"./wordlists/korean.json":122,"./wordlists/spanish.json":123,"create-hash":163,"pbkdf2":239,"randombytes":253,"safe-buffer":266,"unorm":301}],116:[function(require,module,exports){
 module.exports=[
   "的",
   "一",
@@ -64305,7 +64379,7 @@ module.exports=[
   "歇"
 ]
 
-},{}],114:[function(require,module,exports){
+},{}],117:[function(require,module,exports){
 module.exports=[
   "的",
   "一",
@@ -66357,7 +66431,7 @@ module.exports=[
   "歇"
 ]
 
-},{}],115:[function(require,module,exports){
+},{}],118:[function(require,module,exports){
 module.exports=[
   "abandon",
   "ability",
@@ -68409,7 +68483,7 @@ module.exports=[
   "zoo"
 ]
 
-},{}],116:[function(require,module,exports){
+},{}],119:[function(require,module,exports){
 module.exports=[
   "abaisser",
   "abandon",
@@ -70461,7 +70535,7 @@ module.exports=[
   "zoologie"
 ]
 
-},{}],117:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 module.exports=[
   "abaco",
   "abbaglio",
@@ -72513,7 +72587,7 @@ module.exports=[
   "zuppa"
 ]
 
-},{}],118:[function(require,module,exports){
+},{}],121:[function(require,module,exports){
 module.exports=[
   "あいこくしん",
   "あいさつ",
@@ -74565,7 +74639,7 @@ module.exports=[
   "われる"
 ]
 
-},{}],119:[function(require,module,exports){
+},{}],122:[function(require,module,exports){
 module.exports=[
   "가격",
   "가끔",
@@ -76617,7 +76691,7 @@ module.exports=[
   "힘껏"
 ]
 
-},{}],120:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 module.exports=[
   "ábaco",
   "abdomen",
@@ -78669,7 +78743,7 @@ module.exports=[
   "zurdo"
 ]
 
-},{}],121:[function(require,module,exports){
+},{}],124:[function(require,module,exports){
 'use strict';
 
 // Reference https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
@@ -78786,7 +78860,7 @@ module.exports = {
   encode: encode
 };
 
-},{"safe-buffer":263}],122:[function(require,module,exports){
+},{"safe-buffer":266}],125:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82151,7 +82225,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   };
 })(typeof module === 'undefined' || module, undefined);
 
-},{"buffer":124}],123:[function(require,module,exports){
+},{"buffer":127}],126:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -82218,10 +82292,10 @@ if ((typeof self === 'undefined' ? 'undefined' : _typeof(self)) === 'object') {
   } catch (e) {}
 }
 
-},{"crypto":124}],124:[function(require,module,exports){
+},{"crypto":127}],127:[function(require,module,exports){
 "use strict";
 
-},{}],125:[function(require,module,exports){
+},{}],128:[function(require,module,exports){
 'use strict';
 
 // based on the aes implimentation in triple sec
@@ -82441,7 +82515,7 @@ AES.prototype.scrub = function () {
 
 module.exports.AES = AES;
 
-},{"safe-buffer":263}],126:[function(require,module,exports){
+},{"safe-buffer":266}],129:[function(require,module,exports){
 'use strict';
 
 var aes = require('./aes');
@@ -82562,7 +82636,7 @@ StreamCipher.prototype.setAAD = function setAAD(buf) {
 
 module.exports = StreamCipher;
 
-},{"./aes":125,"./ghash":130,"./incr32":131,"buffer-xor":154,"cipher-base":156,"inherits":216,"safe-buffer":263}],127:[function(require,module,exports){
+},{"./aes":128,"./ghash":133,"./incr32":134,"buffer-xor":157,"cipher-base":159,"inherits":219,"safe-buffer":266}],130:[function(require,module,exports){
 'use strict';
 
 var ciphers = require('./encrypter');
@@ -82579,7 +82653,7 @@ exports.createDecipher = exports.Decipher = deciphers.createDecipher;
 exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv;
 exports.listCiphers = exports.getCiphers = getCiphers;
 
-},{"./decrypter":128,"./encrypter":129,"./modes/list.json":139}],128:[function(require,module,exports){
+},{"./decrypter":131,"./encrypter":132,"./modes/list.json":142}],131:[function(require,module,exports){
 'use strict';
 
 var AuthCipher = require('./authCipher');
@@ -82707,7 +82781,7 @@ function createDecipher(suite, password) {
 exports.createDecipher = createDecipher;
 exports.createDecipheriv = createDecipheriv;
 
-},{"./aes":125,"./authCipher":126,"./modes":138,"./streamCipher":141,"cipher-base":156,"evp_bytestokey":196,"inherits":216,"safe-buffer":263}],129:[function(require,module,exports){
+},{"./aes":128,"./authCipher":129,"./modes":141,"./streamCipher":144,"cipher-base":159,"evp_bytestokey":199,"inherits":219,"safe-buffer":266}],132:[function(require,module,exports){
 'use strict';
 
 var MODES = require('./modes');
@@ -82825,7 +82899,7 @@ function createCipher(suite, password) {
 exports.createCipheriv = createCipheriv;
 exports.createCipher = createCipher;
 
-},{"./aes":125,"./authCipher":126,"./modes":138,"./streamCipher":141,"cipher-base":156,"evp_bytestokey":196,"inherits":216,"safe-buffer":263}],130:[function(require,module,exports){
+},{"./aes":128,"./authCipher":129,"./modes":141,"./streamCipher":144,"cipher-base":159,"evp_bytestokey":199,"inherits":219,"safe-buffer":266}],133:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -82913,7 +82987,7 @@ GHASH.prototype.final = function (abl, bl) {
 
 module.exports = GHASH;
 
-},{"safe-buffer":263}],131:[function(require,module,exports){
+},{"safe-buffer":266}],134:[function(require,module,exports){
 "use strict";
 
 function incr32(iv) {
@@ -82932,7 +83006,7 @@ function incr32(iv) {
 }
 module.exports = incr32;
 
-},{}],132:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 'use strict';
 
 var xor = require('buffer-xor');
@@ -82953,7 +83027,7 @@ exports.decrypt = function (self, block) {
   return xor(out, pad);
 };
 
-},{"buffer-xor":154}],133:[function(require,module,exports){
+},{"buffer-xor":157}],136:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -82990,7 +83064,7 @@ exports.encrypt = function (self, data, decrypt) {
   return out;
 };
 
-},{"buffer-xor":154,"safe-buffer":263}],134:[function(require,module,exports){
+},{"buffer-xor":157,"safe-buffer":266}],137:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -83036,7 +83110,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out;
 };
 
-},{"safe-buffer":263}],135:[function(require,module,exports){
+},{"safe-buffer":266}],138:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -83062,7 +83136,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out;
 };
 
-},{"safe-buffer":263}],136:[function(require,module,exports){
+},{"safe-buffer":266}],139:[function(require,module,exports){
 'use strict';
 
 var xor = require('buffer-xor');
@@ -83093,7 +83167,7 @@ exports.encrypt = function (self, chunk) {
   return xor(chunk, pad);
 };
 
-},{"../incr32":131,"buffer-xor":154,"safe-buffer":263}],137:[function(require,module,exports){
+},{"../incr32":134,"buffer-xor":157,"safe-buffer":266}],140:[function(require,module,exports){
 "use strict";
 
 exports.encrypt = function (self, block) {
@@ -83104,7 +83178,7 @@ exports.decrypt = function (self, block) {
   return self._cipher.decryptBlock(block);
 };
 
-},{}],138:[function(require,module,exports){
+},{}],141:[function(require,module,exports){
 'use strict';
 
 var modeModules = {
@@ -83126,7 +83200,7 @@ for (var key in modes) {
 
 module.exports = modes;
 
-},{"./cbc":132,"./cfb":133,"./cfb1":134,"./cfb8":135,"./ctr":136,"./ecb":137,"./list.json":139,"./ofb":140}],139:[function(require,module,exports){
+},{"./cbc":135,"./cfb":136,"./cfb1":137,"./cfb8":138,"./ctr":139,"./ecb":140,"./list.json":142,"./ofb":143}],142:[function(require,module,exports){
 module.exports={
   "aes-128-ecb": {
     "cipher": "AES",
@@ -83319,7 +83393,7 @@ module.exports={
   }
 }
 
-},{}],140:[function(require,module,exports){
+},{}],143:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -83341,7 +83415,7 @@ exports.encrypt = function (self, chunk) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155,"buffer-xor":154}],141:[function(require,module,exports){
+},{"buffer":158,"buffer-xor":157}],144:[function(require,module,exports){
 'use strict';
 
 var aes = require('./aes');
@@ -83372,7 +83446,7 @@ StreamCipher.prototype._final = function () {
 
 module.exports = StreamCipher;
 
-},{"./aes":125,"cipher-base":156,"inherits":216,"safe-buffer":263}],142:[function(require,module,exports){
+},{"./aes":128,"cipher-base":159,"inherits":219,"safe-buffer":266}],145:[function(require,module,exports){
 'use strict';
 
 var DES = require('browserify-des');
@@ -83443,7 +83517,7 @@ exports.createDecipher = exports.Decipher = createDecipher;
 exports.createDecipheriv = exports.Decipheriv = createDecipheriv;
 exports.listCiphers = exports.getCiphers = getCiphers;
 
-},{"browserify-aes/browser":127,"browserify-aes/modes":138,"browserify-des":143,"browserify-des/modes":144,"evp_bytestokey":196}],143:[function(require,module,exports){
+},{"browserify-aes/browser":130,"browserify-aes/modes":141,"browserify-des":146,"browserify-des/modes":147,"evp_bytestokey":199}],146:[function(require,module,exports){
 'use strict';
 
 var CipherBase = require('cipher-base');
@@ -83497,7 +83571,7 @@ DES.prototype._final = function () {
   return Buffer.from(this._des.final());
 };
 
-},{"cipher-base":156,"des.js":165,"inherits":216,"safe-buffer":263}],144:[function(require,module,exports){
+},{"cipher-base":159,"des.js":168,"inherits":219,"safe-buffer":266}],147:[function(require,module,exports){
 'use strict';
 
 exports['des-ecb'] = {
@@ -83525,7 +83599,7 @@ exports['des-ede'] = {
   iv: 0
 };
 
-},{}],145:[function(require,module,exports){
+},{}],148:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -83570,12 +83644,12 @@ function getr(priv) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":122,"buffer":155,"randombytes":250}],146:[function(require,module,exports){
+},{"bn.js":125,"buffer":158,"randombytes":253}],149:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./browser/algorithms.json');
 
-},{"./browser/algorithms.json":147}],147:[function(require,module,exports){
+},{"./browser/algorithms.json":150}],150:[function(require,module,exports){
 module.exports={
   "sha224WithRSAEncryption": {
     "sign": "rsa",
@@ -83729,7 +83803,7 @@ module.exports={
   }
 }
 
-},{}],148:[function(require,module,exports){
+},{}],151:[function(require,module,exports){
 module.exports={
   "1.3.132.0.10": "secp256k1",
   "1.3.132.0.33": "p224",
@@ -83739,7 +83813,7 @@ module.exports={
   "1.3.132.0.35": "p521"
 }
 
-},{}],149:[function(require,module,exports){
+},{}],152:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -83836,7 +83910,7 @@ module.exports = {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"./algorithms.json":147,"./sign":150,"./verify":151,"buffer":155,"create-hash":160,"inherits":216,"stream":279}],150:[function(require,module,exports){
+},{"./algorithms.json":150,"./sign":153,"./verify":154,"buffer":158,"create-hash":163,"inherits":219,"stream":282}],153:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -83988,7 +84062,7 @@ module.exports.getKey = getKey;
 module.exports.makeKey = makeKey;
 
 }).call(this,require("buffer").Buffer)
-},{"./curves.json":148,"bn.js":122,"browserify-rsa":145,"buffer":155,"create-hmac":162,"elliptic":178,"parse-asn1":235}],151:[function(require,module,exports){
+},{"./curves.json":151,"bn.js":125,"browserify-rsa":148,"buffer":158,"create-hmac":165,"elliptic":181,"parse-asn1":238}],154:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -84073,7 +84147,7 @@ function checkValue(b, q) {
 module.exports = verify;
 
 }).call(this,require("buffer").Buffer)
-},{"./curves.json":148,"bn.js":122,"buffer":155,"elliptic":178,"parse-asn1":235}],152:[function(require,module,exports){
+},{"./curves.json":151,"bn.js":125,"buffer":158,"elliptic":181,"parse-asn1":238}],155:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -84347,7 +84421,7 @@ function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
 
-},{"safe-buffer":263}],153:[function(require,module,exports){
+},{"safe-buffer":266}],156:[function(require,module,exports){
 'use strict';
 
 // Base58 encoding/decoding
@@ -84441,7 +84515,7 @@ module.exports = {
   decode: decode
 };
 
-},{}],154:[function(require,module,exports){
+},{}],157:[function(require,module,exports){
 (function (Buffer){
 "use strict";
 
@@ -84457,7 +84531,7 @@ module.exports = function xor(a, b) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155}],155:[function(require,module,exports){
+},{"buffer":158}],158:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -86165,7 +86239,7 @@ function numberIsNaN(obj) {
   return obj !== obj; // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":110,"ieee754":214}],156:[function(require,module,exports){
+},{"base64-js":113,"ieee754":217}],159:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -86268,7 +86342,7 @@ CipherBase.prototype._toString = function (value, enc, fin) {
 
 module.exports = CipherBase;
 
-},{"inherits":216,"safe-buffer":263,"stream":279,"string_decoder":152}],157:[function(require,module,exports){
+},{"inherits":219,"safe-buffer":266,"stream":282,"string_decoder":155}],160:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -86367,7 +86441,7 @@ module.exports = {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"bs58":153,"buffer":155,"create-hash":160}],158:[function(require,module,exports){
+},{"bs58":156,"buffer":158,"create-hash":163}],161:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -86478,7 +86552,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":217}],159:[function(require,module,exports){
+},{"../../is-buffer/index.js":220}],162:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -86608,7 +86682,7 @@ function formatReturnValue(bn, enc, len) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":122,"buffer":155,"elliptic":178}],160:[function(require,module,exports){
+},{"bn.js":125,"buffer":158,"elliptic":181}],163:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -86641,7 +86715,7 @@ module.exports = function createHash(alg) {
   return new Hash(sha(alg));
 };
 
-},{"cipher-base":156,"inherits":216,"md5.js":227,"ripemd160":261,"sha.js":272}],161:[function(require,module,exports){
+},{"cipher-base":159,"inherits":219,"md5.js":230,"ripemd160":264,"sha.js":275}],164:[function(require,module,exports){
 'use strict';
 
 var MD5 = require('md5.js');
@@ -86650,7 +86724,7 @@ module.exports = function (buffer) {
   return new MD5().update(buffer).digest();
 };
 
-},{"md5.js":227}],162:[function(require,module,exports){
+},{"md5.js":230}],165:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -86715,7 +86789,7 @@ module.exports = function createHmac(alg, key) {
   return new Hmac(alg, key);
 };
 
-},{"./legacy":163,"cipher-base":156,"create-hash/md5":161,"inherits":216,"ripemd160":261,"safe-buffer":263,"sha.js":272}],163:[function(require,module,exports){
+},{"./legacy":166,"cipher-base":159,"create-hash/md5":164,"inherits":219,"ripemd160":264,"safe-buffer":266,"sha.js":275}],166:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -86764,7 +86838,7 @@ Hmac.prototype._final = function () {
 };
 module.exports = Hmac;
 
-},{"cipher-base":156,"inherits":216,"safe-buffer":263}],164:[function(require,module,exports){
+},{"cipher-base":159,"inherits":219,"safe-buffer":266}],167:[function(require,module,exports){
 'use strict';
 
 exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = require('randombytes');
@@ -86859,7 +86933,7 @@ exports.constants = {
   'POINT_CONVERSION_HYBRID': 6
 };
 
-},{"browserify-cipher":142,"browserify-sign":149,"browserify-sign/algos":146,"create-ecdh":159,"create-hash":160,"create-hmac":162,"diffie-hellman":174,"pbkdf2":236,"public-encrypt":243,"randombytes":250,"randomfill":251}],165:[function(require,module,exports){
+},{"browserify-cipher":145,"browserify-sign":152,"browserify-sign/algos":149,"create-ecdh":162,"create-hash":163,"create-hmac":165,"diffie-hellman":177,"pbkdf2":239,"public-encrypt":246,"randombytes":253,"randomfill":254}],168:[function(require,module,exports){
 'use strict';
 
 exports.utils = require('./des/utils');
@@ -86868,7 +86942,7 @@ exports.DES = require('./des/des');
 exports.CBC = require('./des/cbc');
 exports.EDE = require('./des/ede');
 
-},{"./des/cbc":166,"./des/cipher":167,"./des/des":168,"./des/ede":169,"./des/utils":170}],166:[function(require,module,exports){
+},{"./des/cbc":169,"./des/cipher":170,"./des/des":171,"./des/ede":172,"./des/utils":173}],169:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -86936,7 +87010,7 @@ proto._update = function _update(inp, inOff, out, outOff) {
   }
 };
 
-},{"inherits":216,"minimalistic-assert":229}],167:[function(require,module,exports){
+},{"inherits":219,"minimalistic-assert":232}],170:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -87063,7 +87137,7 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
   return this._unpad(out);
 };
 
-},{"minimalistic-assert":229}],168:[function(require,module,exports){
+},{"minimalistic-assert":232}],171:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -87200,7 +87274,7 @@ DES.prototype._decrypt = function _decrypt(state, lStart, rStart, out, off) {
   utils.rip(l, r, out, off);
 };
 
-},{"../des":165,"inherits":216,"minimalistic-assert":229}],169:[function(require,module,exports){
+},{"../des":168,"inherits":219,"minimalistic-assert":232}],172:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -87249,7 +87323,7 @@ EDE.prototype._update = function _update(inp, inOff, out, outOff) {
 EDE.prototype._pad = DES.prototype._pad;
 EDE.prototype._unpad = DES.prototype._unpad;
 
-},{"../des":165,"inherits":216,"minimalistic-assert":229}],170:[function(require,module,exports){
+},{"../des":168,"inherits":219,"minimalistic-assert":232}],173:[function(require,module,exports){
 'use strict';
 
 exports.readUInt32BE = function readUInt32BE(bytes, off) {
@@ -87455,7 +87529,7 @@ exports.padSplit = function padSplit(num, size, group) {
   }return out.join(' ');
 };
 
-},{}],171:[function(require,module,exports){
+},{}],174:[function(require,module,exports){
 'use strict';
 
 var detectBrowser = require('./lib/detectBrowser');
@@ -87468,7 +87542,7 @@ if (typeof navigator !== 'undefined' && navigator) {
 
 module.exports = detectBrowser(agent);
 
-},{"./lib/detectBrowser":172}],172:[function(require,module,exports){
+},{"./lib/detectBrowser":175}],175:[function(require,module,exports){
 'use strict';
 
 var detectOS = require('./detectOS.js');
@@ -87496,7 +87570,7 @@ module.exports = function detectBrowser(userAgentString) {
     }).filter(Boolean).shift();
 };
 
-},{"./detectOS.js":173}],173:[function(require,module,exports){
+},{"./detectOS.js":176}],176:[function(require,module,exports){
 'use strict';
 
 module.exports = function detectOS(userAgentString) {
@@ -87586,7 +87660,7 @@ module.exports = function detectOS(userAgentString) {
   return detected && detected[0] ? detected[0].name : null;
 };
 
-},{}],174:[function(require,module,exports){
+},{}],177:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -87634,7 +87708,7 @@ exports.DiffieHellmanGroup = exports.createDiffieHellmanGroup = exports.getDiffi
 exports.createDiffieHellman = exports.DiffieHellman = createDiffieHellman;
 
 }).call(this,require("buffer").Buffer)
-},{"./lib/dh":175,"./lib/generatePrime":176,"./lib/primes.json":177,"buffer":155}],175:[function(require,module,exports){
+},{"./lib/dh":178,"./lib/generatePrime":179,"./lib/primes.json":180,"buffer":158}],178:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -87801,7 +87875,7 @@ function formatReturnValue(bn, enc) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./generatePrime":176,"bn.js":122,"buffer":155,"miller-rabin":228,"randombytes":250}],176:[function(require,module,exports){
+},{"./generatePrime":179,"bn.js":125,"buffer":158,"miller-rabin":231,"randombytes":253}],179:[function(require,module,exports){
 'use strict';
 
 var randomBytes = require('randombytes');
@@ -87902,7 +87976,7 @@ function findPrime(bits, gen) {
   }
 }
 
-},{"bn.js":122,"miller-rabin":228,"randombytes":250}],177:[function(require,module,exports){
+},{"bn.js":125,"miller-rabin":231,"randombytes":253}],180:[function(require,module,exports){
 module.exports={
     "modp1": {
         "gen": "02",
@@ -87937,7 +88011,7 @@ module.exports={
         "prime": "ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c93402849236c3fab4d27c7026c1d4dcb2602646dec9751e763dba37bdf8ff9406ad9e530ee5db382f413001aeb06a53ed9027d831179727b0865a8918da3edbebcf9b14ed44ce6cbaced4bb1bdb7f1447e6cc254b332051512bd7af426fb8f401378cd2bf5983ca01c64b92ecf032ea15d1721d03f482d7ce6e74fef6d55e702f46980c82b5a84031900b1c9e59e7c97fbec7e8f323a97a7e36cc88be0f1d45b7ff585ac54bd407b22b4154aacc8f6d7ebf48e1d814cc5ed20f8037e0a79715eef29be32806a1d58bb7c5da76f550aa3d8a1fbff0eb19ccb1a313d55cda56c9ec2ef29632387fe8d76e3c0468043e8f663f4860ee12bf2d5b0b7474d6e694f91e6dbe115974a3926f12fee5e438777cb6a932df8cd8bec4d073b931ba3bc832b68d9dd300741fa7bf8afc47ed2576f6936ba424663aab639c5ae4f5683423b4742bf1c978238f16cbe39d652de3fdb8befc848ad922222e04a4037c0713eb57a81a23f0c73473fc646cea306b4bcbc8862f8385ddfa9d4b7fa2c087e879683303ed5bdd3a062b3cf5b3a278a66d2a13f83f44f82ddf310ee074ab6a364597e899a0255dc164f31cc50846851df9ab48195ded7ea1b1d510bd7ee74d73faf36bc31ecfa268359046f4eb879f924009438b481c6cd7889a002ed5ee382bc9190da6fc026e479558e4475677e9aa9e3050e2765694dfc81f56e880b96e7160c980dd98edd3dfffffffffffffffff"
     }
 }
-},{}],178:[function(require,module,exports){
+},{}],181:[function(require,module,exports){
 'use strict';
 
 var elliptic = exports;
@@ -87952,7 +88026,7 @@ elliptic.curves = require('./elliptic/curves');
 elliptic.ec = require('./elliptic/ec');
 elliptic.eddsa = require('./elliptic/eddsa');
 
-},{"../package.json":193,"./elliptic/curve":181,"./elliptic/curves":184,"./elliptic/ec":185,"./elliptic/eddsa":188,"./elliptic/utils":192,"brorand":123}],179:[function(require,module,exports){
+},{"../package.json":196,"./elliptic/curve":184,"./elliptic/curves":187,"./elliptic/ec":188,"./elliptic/eddsa":191,"./elliptic/utils":195,"brorand":126}],182:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -88284,7 +88358,7 @@ BasePoint.prototype.dblp = function dblp(k) {
   }return r;
 };
 
-},{"../../elliptic":178,"bn.js":122}],180:[function(require,module,exports){
+},{"../../elliptic":181,"bn.js":125}],183:[function(require,module,exports){
 'use strict';
 
 var curve = require('../curve');
@@ -88671,7 +88745,7 @@ Point.prototype.eqXToP = function eqXToP(x) {
 Point.prototype.toP = Point.prototype.normalize;
 Point.prototype.mixedAdd = Point.prototype.add;
 
-},{"../../elliptic":178,"../curve":181,"bn.js":122,"inherits":216}],181:[function(require,module,exports){
+},{"../../elliptic":181,"../curve":184,"bn.js":125,"inherits":219}],184:[function(require,module,exports){
 'use strict';
 
 var curve = exports;
@@ -88681,7 +88755,7 @@ curve.short = require('./short');
 curve.mont = require('./mont');
 curve.edwards = require('./edwards');
 
-},{"./base":179,"./edwards":180,"./mont":182,"./short":183}],182:[function(require,module,exports){
+},{"./base":182,"./edwards":183,"./mont":185,"./short":186}],185:[function(require,module,exports){
 'use strict';
 
 var curve = require('../curve');
@@ -88858,7 +88932,7 @@ Point.prototype.getX = function getX() {
   return this.x.fromRed();
 };
 
-},{"../../elliptic":178,"../curve":181,"bn.js":122,"inherits":216}],183:[function(require,module,exports){
+},{"../../elliptic":181,"../curve":184,"bn.js":125,"inherits":219}],186:[function(require,module,exports){
 'use strict';
 
 var curve = require('../curve');
@@ -89722,7 +89796,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
   return this.z.cmpn(0) === 0;
 };
 
-},{"../../elliptic":178,"../curve":181,"bn.js":122,"inherits":216}],184:[function(require,module,exports){
+},{"../../elliptic":181,"../curve":184,"bn.js":125,"inherits":219}],187:[function(require,module,exports){
 'use strict';
 
 var curves = exports;
@@ -89880,7 +89954,7 @@ defineCurve('secp256k1', {
   g: ['79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798', '483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', pre]
 });
 
-},{"../elliptic":178,"./precomputed/secp256k1":191,"hash.js":198}],185:[function(require,module,exports){
+},{"../elliptic":181,"./precomputed/secp256k1":194,"hash.js":201}],188:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -90098,7 +90172,7 @@ EC.prototype.getKeyRecoveryParam = function (e, signature, Q, enc) {
   throw new Error('Unable to find valid recovery factor');
 };
 
-},{"../../elliptic":178,"./key":186,"./signature":187,"bn.js":122,"hmac-drbg":211}],186:[function(require,module,exports){
+},{"../../elliptic":181,"./key":189,"./signature":190,"bn.js":125,"hmac-drbg":214}],189:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -90205,7 +90279,7 @@ KeyPair.prototype.inspect = function inspect() {
   return '<Key priv: ' + (this.priv && this.priv.toString(16, 2)) + ' pub: ' + (this.pub && this.pub.inspect()) + ' >';
 };
 
-},{"../../elliptic":178,"bn.js":122}],187:[function(require,module,exports){
+},{"../../elliptic":181,"bn.js":125}],190:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -90335,7 +90409,7 @@ Signature.prototype.toDER = function toDER(enc) {
   return utils.encode(res, enc);
 };
 
-},{"../../elliptic":178,"bn.js":122}],188:[function(require,module,exports){
+},{"../../elliptic":181,"bn.js":125}],191:[function(require,module,exports){
 'use strict';
 
 var hash = require('hash.js');
@@ -90452,7 +90526,7 @@ EDDSA.prototype.isPoint = function isPoint(val) {
   return val instanceof this.pointClass;
 };
 
-},{"../../elliptic":178,"./key":189,"./signature":190,"hash.js":198}],189:[function(require,module,exports){
+},{"../../elliptic":181,"./key":192,"./signature":193,"hash.js":201}],192:[function(require,module,exports){
 'use strict';
 
 var elliptic = require('../../elliptic');
@@ -90544,7 +90618,7 @@ KeyPair.prototype.getPublic = function getPublic(enc) {
 
 module.exports = KeyPair;
 
-},{"../../elliptic":178}],190:[function(require,module,exports){
+},{"../../elliptic":181}],193:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -90611,7 +90685,7 @@ Signature.prototype.toHex = function toHex() {
 
 module.exports = Signature;
 
-},{"../../elliptic":178,"bn.js":122}],191:[function(require,module,exports){
+},{"../../elliptic":181,"bn.js":125}],194:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -90625,7 +90699,7 @@ module.exports = {
   }
 };
 
-},{}],192:[function(require,module,exports){
+},{}],195:[function(require,module,exports){
 'use strict';
 
 var utils = exports;
@@ -90728,7 +90802,7 @@ function intFromLE(bytes) {
 }
 utils.intFromLE = intFromLE;
 
-},{"bn.js":122,"minimalistic-assert":229,"minimalistic-crypto-utils":230}],193:[function(require,module,exports){
+},{"bn.js":125,"minimalistic-assert":232,"minimalistic-crypto-utils":233}],196:[function(require,module,exports){
 module.exports={
   "_from": "elliptic@^6.0.0",
   "_id": "elliptic@6.4.1",
@@ -90820,7 +90894,7 @@ module.exports={
   "version": "6.4.1"
 }
 
-},{}],194:[function(require,module,exports){
+},{}],197:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -91046,7 +91120,7 @@ module.exports = {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155,"is-hex-prefixed":218,"strip-hex-prefix":296}],195:[function(require,module,exports){
+},{"buffer":158,"is-hex-prefixed":221,"strip-hex-prefix":299}],198:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -91321,7 +91395,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],196:[function(require,module,exports){
+},{}],199:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -91370,7 +91444,7 @@ function EVP_BytesToKey(password, salt, keyBits, ivLen) {
 
 module.exports = EVP_BytesToKey;
 
-},{"md5.js":227,"safe-buffer":263}],197:[function(require,module,exports){
+},{"md5.js":230,"safe-buffer":266}],200:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -91469,7 +91543,7 @@ HashBase.prototype._digest = function () {
 
 module.exports = HashBase;
 
-},{"inherits":216,"safe-buffer":263,"stream":279}],198:[function(require,module,exports){
+},{"inherits":219,"safe-buffer":266,"stream":282}],201:[function(require,module,exports){
 'use strict';
 
 var hash = exports;
@@ -91488,7 +91562,7 @@ hash.sha384 = hash.sha.sha384;
 hash.sha512 = hash.sha.sha512;
 hash.ripemd160 = hash.ripemd.ripemd160;
 
-},{"./hash/common":199,"./hash/hmac":200,"./hash/ripemd":201,"./hash/sha":202,"./hash/utils":209}],199:[function(require,module,exports){
+},{"./hash/common":202,"./hash/hmac":203,"./hash/ripemd":204,"./hash/sha":205,"./hash/utils":212}],202:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -91578,7 +91652,7 @@ BlockHash.prototype._pad = function pad() {
   return res;
 };
 
-},{"./utils":209,"minimalistic-assert":229}],200:[function(require,module,exports){
+},{"./utils":212,"minimalistic-assert":232}],203:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -91624,7 +91698,7 @@ Hmac.prototype.digest = function digest(enc) {
   return this.outer.digest(enc);
 };
 
-},{"./utils":209,"minimalistic-assert":229}],201:[function(require,module,exports){
+},{"./utils":212,"minimalistic-assert":232}],204:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -91709,7 +91783,7 @@ var s = [11, 14, 15, 12, 5, 8, 7, 9, 11, 13, 14, 15, 6, 7, 9, 8, 7, 6, 8, 13, 11
 
 var sh = [8, 9, 9, 11, 13, 15, 15, 5, 7, 7, 8, 11, 14, 14, 12, 6, 9, 13, 15, 7, 12, 8, 9, 11, 7, 7, 12, 7, 6, 15, 13, 11, 9, 7, 15, 11, 8, 6, 6, 14, 12, 13, 5, 14, 13, 13, 7, 5, 15, 5, 8, 11, 14, 14, 6, 14, 6, 9, 12, 9, 12, 5, 15, 8, 8, 5, 12, 9, 12, 5, 14, 6, 8, 13, 6, 5, 15, 13, 11, 11];
 
-},{"./common":199,"./utils":209}],202:[function(require,module,exports){
+},{"./common":202,"./utils":212}],205:[function(require,module,exports){
 'use strict';
 
 exports.sha1 = require('./sha/1');
@@ -91718,7 +91792,7 @@ exports.sha256 = require('./sha/256');
 exports.sha384 = require('./sha/384');
 exports.sha512 = require('./sha/512');
 
-},{"./sha/1":203,"./sha/224":204,"./sha/256":205,"./sha/384":206,"./sha/512":207}],203:[function(require,module,exports){
+},{"./sha/1":206,"./sha/224":207,"./sha/256":208,"./sha/384":209,"./sha/512":210}],206:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -91783,7 +91857,7 @@ SHA1.prototype._digest = function digest(enc) {
   if (enc === 'hex') return utils.toHex32(this.h, 'big');else return utils.split32(this.h, 'big');
 };
 
-},{"../common":199,"../utils":209,"./common":208}],204:[function(require,module,exports){
+},{"../common":202,"../utils":212,"./common":211}],207:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -91808,7 +91882,7 @@ SHA224.prototype._digest = function digest(enc) {
   if (enc === 'hex') return utils.toHex32(this.h.slice(0, 7), 'big');else return utils.split32(this.h.slice(0, 7), 'big');
 };
 
-},{"../utils":209,"./256":205}],205:[function(require,module,exports){
+},{"../utils":212,"./256":208}],208:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -91890,7 +91964,7 @@ SHA256.prototype._digest = function digest(enc) {
   if (enc === 'hex') return utils.toHex32(this.h, 'big');else return utils.split32(this.h, 'big');
 };
 
-},{"../common":199,"../utils":209,"./common":208,"minimalistic-assert":229}],206:[function(require,module,exports){
+},{"../common":202,"../utils":212,"./common":211,"minimalistic-assert":232}],209:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -91915,7 +91989,7 @@ SHA384.prototype._digest = function digest(enc) {
   if (enc === 'hex') return utils.toHex32(this.h.slice(0, 12), 'big');else return utils.split32(this.h.slice(0, 12), 'big');
 };
 
-},{"../utils":209,"./512":207}],207:[function(require,module,exports){
+},{"../utils":212,"./512":210}],210:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -92164,7 +92238,7 @@ function g1_512_lo(xh, xl) {
   return r;
 }
 
-},{"../common":199,"../utils":209,"minimalistic-assert":229}],208:[function(require,module,exports){
+},{"../common":202,"../utils":212,"minimalistic-assert":232}],211:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -92212,7 +92286,7 @@ function g1_256(x) {
 }
 exports.g1_256 = g1_256;
 
-},{"../utils":209}],209:[function(require,module,exports){
+},{"../utils":212}],212:[function(require,module,exports){
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -92438,7 +92512,7 @@ function shr64_lo(ah, al, num) {
 }
 exports.shr64_lo = shr64_lo;
 
-},{"inherits":216,"minimalistic-assert":229}],210:[function(require,module,exports){
+},{"inherits":219,"minimalistic-assert":232}],213:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -92679,7 +92753,7 @@ HDKey.HARDENED_OFFSET = HARDENED_OFFSET;
 module.exports = HDKey;
 
 }).call(this,require("buffer").Buffer)
-},{"assert":105,"buffer":155,"coinstring":157,"crypto":164,"secp256k1":265}],211:[function(require,module,exports){
+},{"assert":108,"buffer":158,"coinstring":160,"crypto":167,"secp256k1":268}],214:[function(require,module,exports){
 'use strict';
 
 var hash = require('hash.js');
@@ -92782,7 +92856,7 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
   return utils.encode(res, enc);
 };
 
-},{"hash.js":198,"minimalistic-assert":229,"minimalistic-crypto-utils":230}],212:[function(require,module,exports){
+},{"hash.js":201,"minimalistic-assert":232,"minimalistic-crypto-utils":233}],215:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -92822,7 +92896,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   };
 });
 
-},{}],213:[function(require,module,exports){
+},{}],216:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -92979,7 +93053,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   };
 });
 
-},{"./idna-map":212,"punycode":249}],214:[function(require,module,exports){
+},{"./idna-map":215,"punycode":252}],217:[function(require,module,exports){
 "use strict";
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -93067,7 +93141,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128;
 };
 
-},{}],215:[function(require,module,exports){
+},{}],218:[function(require,module,exports){
 "use strict";
 
 var indexOf = [].indexOf;
@@ -93080,9 +93154,9 @@ module.exports = function (arr, obj) {
   return -1;
 };
 
-},{}],216:[function(require,module,exports){
-arguments[4][106][0].apply(exports,arguments)
-},{"dup":106}],217:[function(require,module,exports){
+},{}],219:[function(require,module,exports){
+arguments[4][109][0].apply(exports,arguments)
+},{"dup":109}],220:[function(require,module,exports){
 'use strict';
 
 /*!
@@ -93107,7 +93181,7 @@ function isSlowBuffer(obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0));
 }
 
-},{}],218:[function(require,module,exports){
+},{}],221:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -93126,7 +93200,7 @@ module.exports = function isHexPrefixed(str) {
   return str.slice(0, 2) === '0x';
 };
 
-},{}],219:[function(require,module,exports){
+},{}],222:[function(require,module,exports){
 /*
  A JavaScript implementation of the SHA family of hashes, as
  defined in FIPS PUB 180-4 and FIPS PUB 202, as well as the corresponding
@@ -93396,12 +93470,12 @@ module.exports = function isHexPrefixed(str) {
   }) : "undefined" !== typeof exports ? ("undefined" !== typeof module && module.exports && (module.exports = w), exports = w) : I.jsSHA = w;
 })(undefined);
 
-},{}],220:[function(require,module,exports){
+},{}],223:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/api')(require('./lib/keccak'));
 
-},{"./lib/api":221,"./lib/keccak":225}],221:[function(require,module,exports){
+},{"./lib/api":224,"./lib/keccak":228}],224:[function(require,module,exports){
 'use strict';
 
 var createKeccak = require('./keccak');
@@ -93443,7 +93517,7 @@ module.exports = function (KeccakState) {
   };
 };
 
-},{"./keccak":222,"./shake":223}],222:[function(require,module,exports){
+},{"./keccak":225,"./shake":226}],225:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -93530,7 +93604,7 @@ module.exports = function (KeccakState) {
   return Keccak;
 };
 
-},{"inherits":216,"safe-buffer":263,"stream":279}],223:[function(require,module,exports){
+},{"inherits":219,"safe-buffer":266,"stream":282}],226:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -93608,7 +93682,7 @@ module.exports = function (KeccakState) {
   return Shake;
 };
 
-},{"inherits":216,"safe-buffer":263,"stream":279}],224:[function(require,module,exports){
+},{"inherits":219,"safe-buffer":266,"stream":282}],227:[function(require,module,exports){
 'use strict';
 
 var P1600_ROUND_CONSTANTS = [1, 0, 32898, 0, 32906, 2147483648, 2147516416, 2147483648, 32907, 0, 2147483649, 0, 2147516545, 2147483648, 32777, 2147483648, 138, 0, 136, 0, 2147516425, 0, 2147483658, 0, 2147516555, 0, 139, 2147483648, 32905, 2147483648, 32771, 2147483648, 32770, 2147483648, 128, 2147483648, 32778, 0, 2147483658, 2147483648, 2147516545, 2147483648, 32896, 2147483648, 2147483649, 0, 2147516424, 2147483648];
@@ -93798,7 +93872,7 @@ exports.p1600 = function (s) {
   }
 };
 
-},{}],225:[function(require,module,exports){
+},{}],228:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -93867,7 +93941,7 @@ Keccak.prototype.copy = function (dest) {
 
 module.exports = Keccak;
 
-},{"./keccak-state-unroll":224,"safe-buffer":263}],226:[function(require,module,exports){
+},{"./keccak-state-unroll":227,"safe-buffer":266}],229:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -95139,7 +95213,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 })(undefined || (typeof window !== 'undefined' ? window : global));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],227:[function(require,module,exports){
+},{}],230:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -95289,7 +95363,7 @@ function fnI(a, b, c, d, m, k, s) {
 module.exports = MD5;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155,"hash-base":197,"inherits":216}],228:[function(require,module,exports){
+},{"buffer":158,"hash-base":200,"inherits":219}],231:[function(require,module,exports){
 'use strict';
 
 var bn = require('bn.js');
@@ -95397,7 +95471,7 @@ MillerRabin.prototype.getDivisor = function getDivisor(n, k) {
   return false;
 };
 
-},{"bn.js":122,"brorand":123}],229:[function(require,module,exports){
+},{"bn.js":125,"brorand":126}],232:[function(require,module,exports){
 'use strict';
 
 module.exports = assert;
@@ -95410,7 +95484,7 @@ assert.equal = function assertEqual(l, r, msg) {
   if (l != r) throw new Error(msg || 'Assertion failed: ' + l + ' != ' + r);
 };
 
-},{}],230:[function(require,module,exports){
+},{}],233:[function(require,module,exports){
 'use strict';
 
 var utils = exports;
@@ -95459,7 +95533,7 @@ utils.encode = function encode(arr, enc) {
   if (enc === 'hex') return toHex(arr);else return arr;
 };
 
-},{}],231:[function(require,module,exports){
+},{}],234:[function(require,module,exports){
 module.exports={"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.2": "aes-128-cbc",
 "2.16.840.1.101.3.4.1.3": "aes-128-ofb",
@@ -95473,7 +95547,7 @@ module.exports={"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.43": "aes-256-ofb",
 "2.16.840.1.101.3.4.1.44": "aes-256-cfb"
 }
-},{}],232:[function(require,module,exports){
+},{}],235:[function(require,module,exports){
 // from https://github.com/indutny/self-signed/blob/gh-pages/lib/asn1.js
 // Fedor, you are amazing.
 'use strict';
@@ -95535,7 +95609,7 @@ exports.signature = asn1.define('signature', function () {
   this.seq().obj(this.key('r').int(), this.key('s').int());
 });
 
-},{"./certificate":233,"asn1.js":91}],233:[function(require,module,exports){
+},{"./certificate":236,"asn1.js":94}],236:[function(require,module,exports){
 // from https://github.com/Rantanen/node-dtls/blob/25a7dc861bda38cfeac93a723500eea4f0ac2e86/Certificate.js
 // thanks to @Rantanen
 
@@ -95594,7 +95668,7 @@ var X509Certificate = asn.define('X509Certificate', function () {
 
 module.exports = X509Certificate;
 
-},{"asn1.js":91}],234:[function(require,module,exports){
+},{"asn1.js":94}],237:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -95630,7 +95704,7 @@ module.exports = function (okey, password) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"browserify-aes":127,"buffer":155,"evp_bytestokey":196}],235:[function(require,module,exports){
+},{"browserify-aes":130,"buffer":158,"evp_bytestokey":199}],238:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -95747,13 +95821,13 @@ function decrypt(data, password) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./aesid.json":231,"./asn1":232,"./fixProc":234,"browserify-aes":127,"buffer":155,"pbkdf2":236}],236:[function(require,module,exports){
+},{"./aesid.json":234,"./asn1":235,"./fixProc":237,"browserify-aes":130,"buffer":158,"pbkdf2":239}],239:[function(require,module,exports){
 'use strict';
 
 exports.pbkdf2 = require('./lib/async');
 exports.pbkdf2Sync = require('./lib/sync');
 
-},{"./lib/async":237,"./lib/sync":240}],237:[function(require,module,exports){
+},{"./lib/async":240,"./lib/sync":243}],240:[function(require,module,exports){
 (function (process,global){
 'use strict';
 
@@ -95856,7 +95930,7 @@ module.exports = function (password, salt, iterations, keylen, digest, callback)
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./default-encoding":238,"./precondition":239,"./sync":240,"_process":242,"safe-buffer":263}],238:[function(require,module,exports){
+},{"./default-encoding":241,"./precondition":242,"./sync":243,"_process":245,"safe-buffer":266}],241:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -95872,7 +95946,7 @@ if (process.browser) {
 module.exports = defaultEncoding;
 
 }).call(this,require('_process'))
-},{"_process":242}],239:[function(require,module,exports){
+},{"_process":245}],242:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -95907,7 +95981,7 @@ module.exports = function (password, salt, iterations, keylen) {
 };
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":217}],240:[function(require,module,exports){
+},{"../../is-buffer/index.js":220}],243:[function(require,module,exports){
 'use strict';
 
 var md5 = require('create-hash/md5');
@@ -96014,7 +96088,7 @@ function pbkdf2(password, salt, iterations, keylen, digest) {
 
 module.exports = pbkdf2;
 
-},{"./default-encoding":238,"./precondition":239,"create-hash/md5":161,"ripemd160":261,"safe-buffer":263,"sha.js":272}],241:[function(require,module,exports){
+},{"./default-encoding":241,"./precondition":242,"create-hash/md5":164,"ripemd160":264,"safe-buffer":266,"sha.js":275}],244:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -96059,7 +96133,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 }
 
 }).call(this,require('_process'))
-},{"_process":242}],242:[function(require,module,exports){
+},{"_process":245}],245:[function(require,module,exports){
 'use strict';
 
 // shim for using process in browser
@@ -96248,7 +96322,7 @@ process.umask = function () {
     return 0;
 };
 
-},{}],243:[function(require,module,exports){
+},{}],246:[function(require,module,exports){
 'use strict';
 
 exports.publicEncrypt = require('./publicEncrypt');
@@ -96262,7 +96336,7 @@ exports.publicDecrypt = function publicDecrypt(key, buf) {
   return exports.privateDecrypt(key, buf, true);
 };
 
-},{"./privateDecrypt":245,"./publicEncrypt":246}],244:[function(require,module,exports){
+},{"./privateDecrypt":248,"./publicEncrypt":249}],247:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -96285,7 +96359,7 @@ function i2ops(c) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155,"create-hash":160}],245:[function(require,module,exports){
+},{"buffer":158,"create-hash":163}],248:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -96399,7 +96473,7 @@ function compare(a, b) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./mgf":244,"./withPublic":247,"./xor":248,"bn.js":122,"browserify-rsa":145,"buffer":155,"create-hash":160,"parse-asn1":235}],246:[function(require,module,exports){
+},{"./mgf":247,"./withPublic":250,"./xor":251,"bn.js":125,"browserify-rsa":148,"buffer":158,"create-hash":163,"parse-asn1":238}],249:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -96500,7 +96574,7 @@ function nonZero(len, crypto) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"./mgf":244,"./withPublic":247,"./xor":248,"bn.js":122,"browserify-rsa":145,"buffer":155,"create-hash":160,"parse-asn1":235,"randombytes":250}],247:[function(require,module,exports){
+},{"./mgf":247,"./withPublic":250,"./xor":251,"bn.js":125,"browserify-rsa":148,"buffer":158,"create-hash":163,"parse-asn1":238,"randombytes":253}],250:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -96512,7 +96586,7 @@ function withPublic(paddedMsg, key) {
 module.exports = withPublic;
 
 }).call(this,require("buffer").Buffer)
-},{"bn.js":122,"buffer":155}],248:[function(require,module,exports){
+},{"bn.js":125,"buffer":158}],251:[function(require,module,exports){
 "use strict";
 
 module.exports = function xor(a, b) {
@@ -96524,7 +96598,7 @@ module.exports = function xor(a, b) {
   return a;
 };
 
-},{}],249:[function(require,module,exports){
+},{}],252:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -97057,7 +97131,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 })(undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],250:[function(require,module,exports){
+},{}],253:[function(require,module,exports){
 (function (process,global){
 'use strict';
 
@@ -97100,7 +97174,7 @@ function randomBytes(size, cb) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":242,"safe-buffer":263}],251:[function(require,module,exports){
+},{"_process":245,"safe-buffer":266}],254:[function(require,module,exports){
 (function (process,global){
 'use strict';
 
@@ -97214,7 +97288,7 @@ function randomFillSync(buf, offset, size) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":242,"randombytes":250,"safe-buffer":263}],252:[function(require,module,exports){
+},{"_process":245,"randombytes":253,"safe-buffer":266}],255:[function(require,module,exports){
 'use strict';
 
 /**
@@ -97284,7 +97358,7 @@ angularPlugin.moduleName = moduleName;
 
 module.exports = angularPlugin;
 
-},{"../src/utils":257}],253:[function(require,module,exports){
+},{"../src/utils":260}],256:[function(require,module,exports){
 'use strict';
 
 function RavenConfigError(message) {
@@ -97296,7 +97370,7 @@ RavenConfigError.prototype.constructor = RavenConfigError;
 
 module.exports = RavenConfigError;
 
-},{}],254:[function(require,module,exports){
+},{}],257:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -97341,7 +97415,7 @@ module.exports = {
   wrapMethod: wrapMethod
 };
 
-},{"./utils":257}],255:[function(require,module,exports){
+},{"./utils":260}],258:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -99418,7 +99492,7 @@ Raven.prototype.setReleaseContext = Raven.prototype.setRelease;
 module.exports = Raven;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../vendor/TraceKit/tracekit":258,"../vendor/json-stringify-safe/stringify":259,"../vendor/md5/md5":260,"./configError":253,"./console":254,"./utils":257}],256:[function(require,module,exports){
+},{"../vendor/TraceKit/tracekit":261,"../vendor/json-stringify-safe/stringify":262,"../vendor/md5/md5":263,"./configError":256,"./console":257,"./utils":260}],259:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -99488,7 +99562,7 @@ module.exports = Raven;
 module.exports.Client = RavenConstructor;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./raven":255}],257:[function(require,module,exports){
+},{"./raven":258}],260:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -100117,7 +100191,7 @@ module.exports = {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../vendor/json-stringify-safe/stringify":259}],258:[function(require,module,exports){
+},{"../vendor/json-stringify-safe/stringify":262}],261:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -100780,7 +100854,7 @@ TraceKit.computeStackTrace = function computeStackTraceWrapper() {
 module.exports = TraceKit;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../src/utils":257}],259:[function(require,module,exports){
+},{"../../src/utils":260}],262:[function(require,module,exports){
 'use strict';
 
 /*
@@ -100856,7 +100930,7 @@ function serializer(replacer, cycleReplacer) {
   };
 }
 
-},{}],260:[function(require,module,exports){
+},{}],263:[function(require,module,exports){
 'use strict';
 
 /*
@@ -101126,7 +101200,7 @@ function md5(string, key, raw) {
 
 module.exports = md5;
 
-},{}],261:[function(require,module,exports){
+},{}],264:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('buffer').Buffer;
@@ -101269,7 +101343,7 @@ function fn5(a, b, c, d, e, m, k, s) {
 
 module.exports = RIPEMD160;
 
-},{"buffer":155,"hash-base":197,"inherits":216}],262:[function(require,module,exports){
+},{"buffer":158,"hash-base":200,"inherits":219}],265:[function(require,module,exports){
 'use strict';
 
 var assert = require('assert');
@@ -101503,7 +101577,7 @@ function toBuffer(v) {
   return v;
 }
 
-},{"assert":105,"safe-buffer":263}],263:[function(require,module,exports){
+},{"assert":108,"safe-buffer":266}],266:[function(require,module,exports){
 'use strict';
 
 /* eslint-disable node/no-deprecated-api */
@@ -101569,7 +101643,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size);
 };
 
-},{"buffer":155}],264:[function(require,module,exports){
+},{"buffer":158}],267:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -101755,12 +101829,12 @@ function arraycopy(src, srcPos, dest, destPos, length) {
 module.exports = scrypt;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155,"crypto":164}],265:[function(require,module,exports){
+},{"buffer":158,"crypto":167}],268:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib')(require('./lib/elliptic'));
 
-},{"./lib":269,"./lib/elliptic":268}],266:[function(require,module,exports){
+},{"./lib":272,"./lib/elliptic":271}],269:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -101809,7 +101883,7 @@ exports.isNumberInInterval = function (number, x, y, message) {
 };
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":217}],267:[function(require,module,exports){
+},{"../../is-buffer/index.js":220}],270:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -101975,7 +102049,7 @@ exports.signatureImportLax = function (sig) {
   return { r: r, s: s };
 };
 
-},{"bip66":121,"safe-buffer":263}],268:[function(require,module,exports){
+},{"bip66":124,"safe-buffer":266}],271:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -102233,7 +102307,7 @@ exports.ecdhUnsafe = function (publicKey, privateKey, compressed) {
   return Buffer.from(pair.pub.mul(scalar).encode(true, compressed));
 };
 
-},{"../messages.json":270,"bn.js":122,"create-hash":160,"elliptic":178,"safe-buffer":263}],269:[function(require,module,exports){
+},{"../messages.json":273,"bn.js":125,"create-hash":163,"elliptic":181,"safe-buffer":266}],272:[function(require,module,exports){
 'use strict';
 
 var assert = require('./assert');
@@ -102481,7 +102555,7 @@ module.exports = function (secp256k1) {
   };
 };
 
-},{"./assert":266,"./der":267,"./messages.json":270}],270:[function(require,module,exports){
+},{"./assert":269,"./der":270,"./messages.json":273}],273:[function(require,module,exports){
 module.exports={
   "COMPRESSED_TYPE_INVALID": "compressed should be a boolean",
   "EC_PRIVATE_KEY_TYPE_INVALID": "private key should be a Buffer",
@@ -102520,7 +102594,7 @@ module.exports={
   "TWEAK_LENGTH_INVALID": "tweak length is invalid"
 }
 
-},{}],271:[function(require,module,exports){
+},{}],274:[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -102605,7 +102679,7 @@ Hash.prototype._update = function () {
 
 module.exports = Hash;
 
-},{"safe-buffer":263}],272:[function(require,module,exports){
+},{"safe-buffer":266}],275:[function(require,module,exports){
 'use strict';
 
 var _exports = module.exports = function SHA(algorithm) {
@@ -102624,7 +102698,7 @@ _exports.sha256 = require('./sha256');
 _exports.sha384 = require('./sha384');
 _exports.sha512 = require('./sha512');
 
-},{"./sha":273,"./sha1":274,"./sha224":275,"./sha256":276,"./sha384":277,"./sha512":278}],273:[function(require,module,exports){
+},{"./sha":276,"./sha1":277,"./sha224":278,"./sha256":279,"./sha384":280,"./sha512":281}],276:[function(require,module,exports){
 'use strict';
 
 /*
@@ -102721,7 +102795,7 @@ Sha.prototype._hash = function () {
 
 module.exports = Sha;
 
-},{"./hash":271,"inherits":216,"safe-buffer":263}],274:[function(require,module,exports){
+},{"./hash":274,"inherits":219,"safe-buffer":266}],277:[function(require,module,exports){
 'use strict';
 
 /*
@@ -102823,7 +102897,7 @@ Sha1.prototype._hash = function () {
 
 module.exports = Sha1;
 
-},{"./hash":271,"inherits":216,"safe-buffer":263}],275:[function(require,module,exports){
+},{"./hash":274,"inherits":219,"safe-buffer":266}],278:[function(require,module,exports){
 'use strict';
 
 /**
@@ -102880,7 +102954,7 @@ Sha224.prototype._hash = function () {
 
 module.exports = Sha224;
 
-},{"./hash":271,"./sha256":276,"inherits":216,"safe-buffer":263}],276:[function(require,module,exports){
+},{"./hash":274,"./sha256":279,"inherits":219,"safe-buffer":266}],279:[function(require,module,exports){
 'use strict';
 
 /**
@@ -103003,7 +103077,7 @@ Sha256.prototype._hash = function () {
 
 module.exports = Sha256;
 
-},{"./hash":271,"inherits":216,"safe-buffer":263}],277:[function(require,module,exports){
+},{"./hash":274,"inherits":219,"safe-buffer":266}],280:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -103064,7 +103138,7 @@ Sha384.prototype._hash = function () {
 
 module.exports = Sha384;
 
-},{"./hash":271,"./sha512":278,"inherits":216,"safe-buffer":263}],278:[function(require,module,exports){
+},{"./hash":274,"./sha512":281,"inherits":219,"safe-buffer":266}],281:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -103287,7 +103361,7 @@ Sha512.prototype._hash = function () {
 
 module.exports = Sha512;
 
-},{"./hash":271,"inherits":216,"safe-buffer":263}],279:[function(require,module,exports){
+},{"./hash":274,"inherits":219,"safe-buffer":266}],282:[function(require,module,exports){
 'use strict';
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -103415,7 +103489,7 @@ Stream.prototype.pipe = function (dest, options) {
   return dest;
 };
 
-},{"events":195,"inherits":216,"readable-stream/duplex.js":281,"readable-stream/passthrough.js":290,"readable-stream/readable.js":291,"readable-stream/transform.js":292,"readable-stream/writable.js":293}],280:[function(require,module,exports){
+},{"events":198,"inherits":219,"readable-stream/duplex.js":284,"readable-stream/passthrough.js":293,"readable-stream/readable.js":294,"readable-stream/transform.js":295,"readable-stream/writable.js":296}],283:[function(require,module,exports){
 'use strict';
 
 var toString = {}.toString;
@@ -103424,12 +103498,12 @@ module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],281:[function(require,module,exports){
+},{}],284:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/_stream_duplex.js');
 
-},{"./lib/_stream_duplex.js":282}],282:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":285}],285:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -103562,7 +103636,7 @@ Duplex.prototype._destroy = function (err, cb) {
   pna.nextTick(cb, err);
 };
 
-},{"./_stream_readable":284,"./_stream_writable":286,"core-util-is":158,"inherits":216,"process-nextick-args":241}],283:[function(require,module,exports){
+},{"./_stream_readable":287,"./_stream_writable":289,"core-util-is":161,"inherits":219,"process-nextick-args":244}],286:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -103611,7 +103685,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
 
-},{"./_stream_transform":285,"core-util-is":158,"inherits":216}],284:[function(require,module,exports){
+},{"./_stream_transform":288,"core-util-is":161,"inherits":219}],287:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -104634,7 +104708,7 @@ function indexOf(xs, x) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":282,"./internal/streams/BufferList":287,"./internal/streams/destroy":288,"./internal/streams/stream":289,"_process":242,"core-util-is":158,"events":195,"inherits":216,"isarray":280,"process-nextick-args":241,"safe-buffer":263,"string_decoder/":294,"util":124}],285:[function(require,module,exports){
+},{"./_stream_duplex":285,"./internal/streams/BufferList":290,"./internal/streams/destroy":291,"./internal/streams/stream":292,"_process":245,"core-util-is":161,"events":198,"inherits":219,"isarray":283,"process-nextick-args":244,"safe-buffer":266,"string_decoder/":297,"util":127}],288:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -104850,7 +104924,7 @@ function done(stream, er, data) {
   return stream.push(null);
 }
 
-},{"./_stream_duplex":282,"core-util-is":158,"inherits":216}],286:[function(require,module,exports){
+},{"./_stream_duplex":285,"core-util-is":161,"inherits":219}],289:[function(require,module,exports){
 (function (process,global,setImmediate){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -105541,7 +105615,7 @@ Writable.prototype._destroy = function (err, cb) {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("timers").setImmediate)
-},{"./_stream_duplex":282,"./internal/streams/destroy":288,"./internal/streams/stream":289,"_process":242,"core-util-is":158,"inherits":216,"process-nextick-args":241,"safe-buffer":263,"timers":297,"util-deprecate":300}],287:[function(require,module,exports){
+},{"./_stream_duplex":285,"./internal/streams/destroy":291,"./internal/streams/stream":292,"_process":245,"core-util-is":161,"inherits":219,"process-nextick-args":244,"safe-buffer":266,"timers":300,"util-deprecate":303}],290:[function(require,module,exports){
 'use strict';
 
 function _classCallCheck(instance, Constructor) {
@@ -105626,7 +105700,7 @@ if (util && util.inspect && util.inspect.custom) {
   };
 }
 
-},{"safe-buffer":263,"util":124}],288:[function(require,module,exports){
+},{"safe-buffer":266,"util":127}],291:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -105702,17 +105776,17 @@ module.exports = {
   undestroy: undestroy
 };
 
-},{"process-nextick-args":241}],289:[function(require,module,exports){
+},{"process-nextick-args":244}],292:[function(require,module,exports){
 'use strict';
 
 module.exports = require('events').EventEmitter;
 
-},{"events":195}],290:[function(require,module,exports){
+},{"events":198}],293:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./readable').PassThrough;
 
-},{"./readable":291}],291:[function(require,module,exports){
+},{"./readable":294}],294:[function(require,module,exports){
 'use strict';
 
 exports = module.exports = require('./lib/_stream_readable.js');
@@ -105723,17 +105797,17 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":282,"./lib/_stream_passthrough.js":283,"./lib/_stream_readable.js":284,"./lib/_stream_transform.js":285,"./lib/_stream_writable.js":286}],292:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":285,"./lib/_stream_passthrough.js":286,"./lib/_stream_readable.js":287,"./lib/_stream_transform.js":288,"./lib/_stream_writable.js":289}],295:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./readable').Transform;
 
-},{"./readable":291}],293:[function(require,module,exports){
+},{"./readable":294}],296:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/_stream_writable.js');
 
-},{"./lib/_stream_writable.js":286}],294:[function(require,module,exports){
+},{"./lib/_stream_writable.js":289}],297:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -106031,7 +106105,7 @@ function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
 
-},{"safe-buffer":263}],295:[function(require,module,exports){
+},{"safe-buffer":266}],298:[function(require,module,exports){
 'use strict';
 
 // Generated by CoffeeScript 1.8.0
@@ -106149,7 +106223,7 @@ function simpleEnd(buf) {
   }
 }).call(undefined);
 
-},{}],296:[function(require,module,exports){
+},{}],299:[function(require,module,exports){
 'use strict';
 
 var isHexPrefixed = require('is-hex-prefixed');
@@ -106167,7 +106241,7 @@ module.exports = function stripHexPrefix(str) {
   return isHexPrefixed(str) ? str.slice(2) : str;
 };
 
-},{"is-hex-prefixed":218}],297:[function(require,module,exports){
+},{"is-hex-prefixed":221}],300:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 "use strict";
 
@@ -106249,7 +106323,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
 };
 
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":242,"timers":297}],298:[function(require,module,exports){
+},{"process/browser.js":245,"timers":300}],301:[function(require,module,exports){
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -106699,7 +106773,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    }
 })(undefined);
 
-},{}],299:[function(require,module,exports){
+},{}],302:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -106947,7 +107021,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 })(undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],300:[function(require,module,exports){
+},{}],303:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -107019,7 +107093,7 @@ function config(name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],301:[function(require,module,exports){
+},{}],304:[function(require,module,exports){
 'use strict';
 
 var v1 = require('./v1');
@@ -107031,7 +107105,7 @@ uuid.v4 = v4;
 
 module.exports = uuid;
 
-},{"./v1":304,"./v4":305}],302:[function(require,module,exports){
+},{"./v1":307,"./v4":308}],305:[function(require,module,exports){
 'use strict';
 
 /**
@@ -107052,7 +107126,7 @@ function bytesToUuid(buf, offset) {
 
 module.exports = bytesToUuid;
 
-},{}],303:[function(require,module,exports){
+},{}],306:[function(require,module,exports){
 'use strict';
 
 // Unique ID creation requires a high quality random # generator.  In the
@@ -107089,7 +107163,7 @@ if (getRandomValues) {
   };
 }
 
-},{}],304:[function(require,module,exports){
+},{}],307:[function(require,module,exports){
 'use strict';
 
 var rng = require('./lib/rng');
@@ -107199,7 +107273,7 @@ function v1(options, buf, offset) {
 
 module.exports = v1;
 
-},{"./lib/bytesToUuid":302,"./lib/rng":303}],305:[function(require,module,exports){
+},{"./lib/bytesToUuid":305,"./lib/rng":306}],308:[function(require,module,exports){
 'use strict';
 
 var rng = require('./lib/rng');
@@ -107232,7 +107306,7 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
-},{"./lib/bytesToUuid":302,"./lib/rng":303}],306:[function(require,module,exports){
+},{"./lib/bytesToUuid":305,"./lib/rng":306}],309:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -107372,7 +107446,7 @@ exports.createContext = Script.createContext = function (context) {
     return copy;
 };
 
-},{"indexof":215}],307:[function(require,module,exports){
+},{"indexof":218}],310:[function(require,module,exports){
 'use strict';
 
 // Base58 encoding/decoding
@@ -107425,7 +107499,7 @@ module.exports = {
     }
 };
 
-},{}],308:[function(require,module,exports){
+},{}],311:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -107592,7 +107666,7 @@ Blake256.prototype.digest = function (encoding) {
 module.exports = Blake256;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155}],309:[function(require,module,exports){
+},{"buffer":158}],312:[function(require,module,exports){
 (function (process,global){
 /**
  * [js-sha3]{@link https://github.com/emn178/js-sha3}
@@ -108251,7 +108325,7 @@ var f = function f(s) {
 module.exports = methods;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":242}],310:[function(require,module,exports){
+},{"_process":245}],313:[function(require,module,exports){
 'use strict';
 
 var jsSHA = require('jssha/src/sha256');
@@ -108293,7 +108367,7 @@ module.exports = {
     }
 };
 
-},{"./blake256":308,"./sha3":309,"jssha/src/sha256":219}],311:[function(require,module,exports){
+},{"./blake256":311,"./sha3":312,"jssha/src/sha256":222}],314:[function(require,module,exports){
 'use strict';
 
 var XRPValidator = require('./ripple_validator');
@@ -108469,7 +108543,7 @@ module.exports = {
     }
 };
 
-},{"./ethereum_validator":312,"./ripple_validator":313}],312:[function(require,module,exports){
+},{"./ethereum_validator":315,"./ripple_validator":316}],315:[function(require,module,exports){
 'use strict';
 
 var cryptoUtils = require('./crypto/utils');
@@ -108506,7 +108580,7 @@ module.exports = {
     }
 };
 
-},{"./crypto/utils":310}],313:[function(require,module,exports){
+},{"./crypto/utils":313}],316:[function(require,module,exports){
 'use strict';
 
 var cryptoUtils = require('./crypto/utils');
@@ -108538,7 +108612,7 @@ module.exports = {
     }
 };
 
-},{"./crypto/utils":310,"base-x":109}],314:[function(require,module,exports){
+},{"./crypto/utils":313,"base-x":112}],317:[function(require,module,exports){
 'use strict';
 
 var base58 = require('./crypto/base58');
@@ -108624,7 +108698,7 @@ module.exports = {
     validate: validate
 };
 
-},{"./crypto/base58":307,"./crypto/utils":310,"./currencies":311}],315:[function(require,module,exports){
+},{"./crypto/base58":310,"./crypto/utils":313,"./currencies":314}],318:[function(require,module,exports){
 module.exports={
   "genesisGasLimit": {
     "v": 3141592,
@@ -108873,7 +108947,7 @@ module.exports={
   }
 }
 
-},{}],316:[function(require,module,exports){
+},{}],319:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -109224,7 +109298,7 @@ var Transaction = function () {
 module.exports = Transaction;
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":155,"wanchain-common/params.json":315,"wanchainjs-util":317}],317:[function(require,module,exports){
+},{"buffer":158,"wanchain-common/params.json":318,"wanchainjs-util":320}],320:[function(require,module,exports){
 'use strict';
 
 var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -110294,4 +110368,4 @@ exports.stampSCAbi = [{ 'constant': false, 'type': 'function', 'stateMutability'
 exports.contractCoinAddress = '0x0000000000000000000000000000000000000064';
 exports.contractStampAddress = '0x00000000000000000000000000000000000000c8';
 
-},{"assert":105,"bn.js":122,"create-hash":160,"ethjs-util":194,"keccak":220,"rlp":262,"safe-buffer":263,"secp256k1":265}]},{},[48]);
+},{"assert":108,"bn.js":125,"create-hash":163,"ethjs-util":197,"keccak":223,"rlp":265,"safe-buffer":266,"secp256k1":268}]},{},[50]);

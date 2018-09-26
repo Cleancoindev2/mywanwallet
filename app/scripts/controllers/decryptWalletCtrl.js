@@ -100,7 +100,7 @@ var decryptWalletCtrl = function ($scope, $sce, walletService) {
     $scope.setHDAddresses = function (start, limit) {
         $scope.HDWallet.wallets = []
         for (var i = start; i < start + limit; i++) {
-            $scope.HDWallet.wallets.push(new Wallet($scope.HDWallet.hdk.derive($scope.HDWallet.dPath + '/' + i)._privateKey))
+            $scope.HDWallet.wallets.push(new Wallet($scope.HDWallet.hdk.derive($scope.HDWallet.dPath + '/' + i)._privateKey, undefined))
             $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].setBalance(false)
         }
         $scope.HDWallet.id = 0
@@ -111,11 +111,11 @@ var decryptWalletCtrl = function ($scope, $sce, walletService) {
         for (var i = start; i < start + limit; i++) {
             var derivedKey = $scope.HDWallet.hdk.derive('m/' + i)
             if ($scope.walletType === 'ledger') {
-                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType, $scope.ledger))
+                $scope.HDWallet.wallets.push(new Wallet(undefined, undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType, $scope.ledger))
             } else if ($scope.walletType === 'digitalBitbox') {
-                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType, $scope.digitalBitbox))
+                $scope.HDWallet.wallets.push(new Wallet(undefined, undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType, $scope.digitalBitbox))
             } else {
-                $scope.HDWallet.wallets.push(new Wallet(undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType))
+                $scope.HDWallet.wallets.push(new Wallet(undefined, undefined, derivedKey.publicKey, $scope.HDWallet.dPath + '/' + i, $scope.walletType))
             }
             $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].type = 'addressOnly'
             $scope.HDWallet.wallets[$scope.HDWallet.wallets.length - 1].setBalance(false)
@@ -149,7 +149,7 @@ var decryptWalletCtrl = function ($scope, $sce, walletService) {
                     $scope.notifier.danger(globalFuncs.errorMsgs[37])
                     return
                 }
-                $scope.wallet = new Wallet(fixPkey($scope.manualprivkey))
+                $scope.wallet = new Wallet(fixPkey($scope.manualprivkey, undefined))
                 walletService.password = ''
             } else if ($scope.showFDecrypt) {
                 $scope.wallet = Wallet.getWalletFromPrivKeyFile($scope.fileContent, $scope.filePassword)
