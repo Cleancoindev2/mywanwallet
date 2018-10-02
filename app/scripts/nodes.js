@@ -4,7 +4,7 @@ nodes.customNode = require('./nodeHelpers/customNode')
 nodes.metamaskNode = require('./nodeHelpers/metamask')
 nodes.nodeTypes = {
     WAN: 'WAN',
-    Testnet: 'WAN',
+    Testnet: 'Testnet WAN',
     Custom: 'WAN',
 }
 nodes.ensNodeTypes = [nodes.nodeTypes.WAN, nodes.nodeTypes.Testnet]

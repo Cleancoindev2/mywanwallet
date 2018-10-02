@@ -5,9 +5,9 @@ const { delay, setupBrowserAndExtension, verboseReportOnFailure } = require('./f
 const ethUtil = require('wanchainjs-util')
 
 const phrase = 'phrase upgrade clock rough situate wedding elder clever doctor stamp excess tent'
-// const accounts = ['0xe18035bf8712672935fdb4e5e431b1a0183d2dfc',
-//    '0x2f318c334780961fb129d2a6c30d0763d9a5c970',
-//    '0x7a46ce51fbbb29c34aea1fe9833c27b5d2781925']
+const accounts = ['0xe18035bf8712672935fdb4e5e431b1a0183d2dfc',
+    '0x2f318c334780961fb129d2a6c30d0763d9a5c970',
+    '0x7a46ce51fbbb29c34aea1fe9833c27b5d2781925']
 const privkeys = ['0x4cfd3e90fc78b0f86bf7524722150bb8da9c60cd532564d7ff43f5716514f553',
     '0xa75b25c0f3d5970efb7b1a713515dc910f6d92f5e6278de74c5428aeb83cd5dd',
     '0x14abe6f4aab7f9f626fe981c864d0adeb5685f289ac9270c27b8fd790b4235d6']
@@ -210,8 +210,8 @@ describe('MyWanWallet', function () {
             })
 
             it('Send 50 wan to second address', async () => {
-                // send 50 to 0x2f318c334780961fb129d2a6c30d0763d9a5c970
-                await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article[2]/div[1]/address-field/div[1]/input', '0x2f318c334780961fb129d2a6c30d0763d9a5c970', true)
+                // send 50 to accounts[1]
+                await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article[2]/div[1]/address-field/div[1]/input', accounts[1], true)
                 await delay(500)
                 await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article[2]/section[1]/div[2]/div/input', '50', true)
                 await delay(500)
@@ -252,7 +252,7 @@ describe('MyWanWallet', function () {
 
             it('Send 50 wan to third address', async () => {
                 // send 50 to 0x7a46ce51fbbb29c34aea1fe9833c27b5d2781925
-                await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article[2]/div[1]/address-field/div[1]/input', '0x7a46ce51fbbb29c34aea1fe9833c27b5d2781925', true)
+                await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article[2]/div[1]/address-field/div[1]/input', accounts[2], true)
                 await delay(500)
                 await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article[2]/section[1]/div[2]/div/input', '50', true)
                 await delay(500)
@@ -269,7 +269,7 @@ describe('MyWanWallet', function () {
             })
         })
     })
-
+    
     describe('Test signing message', () => {
 
     })
@@ -283,11 +283,21 @@ describe('MyWanWallet', function () {
 
     })
     describe('Test offline tx', () => {
+        it('generates the right data', async () => {
+            await clickElement('/html/body/header/nav/div/ul/li[6]/a')
+            await delay(500)
+            await enterTextInElement('/html/body/section[1]/div/main/article[1]/section[1]/input', accounts[2], true)
+            await delay(500)
+            await clickElement('/html/body/section[1]/div/main/article[1]/section[3]/a')
+            await delay(500)
+            await validateValue('/html/body/section[1]/div/main/article[1]/section[4]/div[1]/input', '182000000000')
+            await validateValue('/html/body/section[1]/div/main/article[1]/section[4]/div[2]/input', '0')
+            await delay(500)
 
+        })
     })
 
     async function clickElement (xpath) {
-        console.log(xpath)
         const element = await driver.findElement(By.xpath(xpath))
         await driver.executeScript('arguments[0].scrollIntoView(true)', element)
         await delay(200)
@@ -306,8 +316,8 @@ describe('MyWanWallet', function () {
     async function validateValue (xpath, text, assertText) {
         const element = await driver.findElement(By.xpath(xpath))
         await driver.executeScript('arguments[0].scrollIntoView(true)', element)
-        await delay(200)
         const value = await element.getText()
+        console.error('value', value)
         assert.strictEqual(value, text, assertText)
     }
 

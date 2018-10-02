@@ -28,8 +28,16 @@ module.exports=[{
   "name": "WNS - Reverse Public Resolver",
   "address": "0x76425ed5f5a9f474be167f432841ca50dde40088",
   "abi": '[{"constant":true,"inputs":[{"name":"interfaceID","type":"bytes4"}],"name":"supportsInterface","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"key","type":"string"},{"name":"value","type":"string"}],"name":"setText","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"},{"name":"contentTypes","type":"uint256"}],"name":"ABI","outputs":[{"name":"contentType","type":"uint256"},{"name":"data","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"x","type":"bytes32"},{"name":"y","type":"bytes32"}],"name":"setPubkey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"content","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"addr","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"},{"name":"key","type":"string"}],"name":"text","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"contentType","type":"uint256"},{"name":"data","type":"bytes"}],"name":"setABI","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"name","type":"string"}],"name":"setName","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"hash","type":"bytes32"}],"name":"setContent","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"pubkey","outputs":[{"name":"x","type":"bytes32"},{"name":"y","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"addr","type":"address"}],"name":"setAddr","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"wnsAddr","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"a","type":"address"}],"name":"AddrChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"hash","type":"bytes32"}],"name":"ContentChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"name","type":"string"}],"name":"NameChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":true,"name":"contentType","type":"uint256"}],"name":"ABIChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"x","type":"bytes32"},{"indexed":false,"name":"y","type":"bytes32"}],"name":"PubkeyChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"indexedKey","type":"string"},{"indexed":false,"name":"key","type":"string"}],"name":"TextChanged","type":"event"}]'
+},
+{
+  "name": "Domainsale ",
+  "address": "0xbea86febb799cbf3518a478344588a73e0ddf8db",
+  "abi": '[{"constant": true, "inputs": [], "name": "registrar", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "addr", "type": "address"}, {"name": "permission", "type": "bytes32"}, {"name": "allowed", "type": "bool"}], "name": "setPermission", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [], "name": "unpause", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [], "name": "paused", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [], "name": "pause", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "addr", "type": "address"}, {"name": "permission", "type": "bytes32"}], "name": "isPermitted", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "seller", "type": "address"}, {"indexed": false, "name": "name", "type": "string"}, {"indexed": false, "name": "price", "type": "uint256"}, {"indexed": false, "name": "reserve", "type": "uint256"}], "name": "Offer", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "bidder", "type": "address"}, {"indexed": false, "name": "name", "type": "string"}, {"indexed": false, "name": "bid", "type": "uint256"}], "name": "Bid", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "seller", "type": "address"}, {"indexed": true, "name": "buyer", "type": "address"}, {"indexed": false, "name": "name", "type": "string"}, {"indexed": false, "name": "value", "type": "uint256"}], "name": "Transfer", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": false, "name": "name", "type": "string"}], "name": "Cancel", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "recipient", "type": "address"}, {"indexed": false, "name": "amount", "type": "uint256"}], "name": "Withdraw", "type": "event"}, {"anonymous": false, "inputs": [], "name": "Pause", "type": "event"}, {"anonymous": false, "inputs": [], "name": "Unpause", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "account", "type": "address"}, {"indexed": true, "name": "permission", "type": "bytes32"}, {"indexed": false, "name": "value", "type": "bool"}], "name": "PermissionChanged", "type": "event"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "sale", "outputs": [{"name": "", "type": "uint256"}, {"name": "", "type": "uint256"}, {"name": "", "type": "uint256"}, {"name": "", "type": "address"}, {"name": "", "type": "uint256"}, {"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "isAuction", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "isBuyable", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "auctionStarted", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "auctionEnds", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "minimumBid", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "price", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "addr", "type": "address"}], "name": "balance", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "_name", "type": "string"}, {"name": "_price", "type": "uint256"}, {"name": "reserve", "type": "uint256"}, {"name": "referrer", "type": "address"}], "name": "offer", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "_name", "type": "string"}], "name": "cancel", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "_name", "type": "string"}, {"name": "bidReferrer", "type": "address"}], "name": "buy", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function"}, {"constant": false, "inputs": [{"name": "_name", "type": "string"}, {"name": "bidReferrer", "type": "address"}], "name": "bid", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function"}, {"constant": false, "inputs": [{"name": "_name", "type": "string"}], "name": "finish", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [], "name": "withdraw", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "_name", "type": "string"}], "name": "invalidate", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}]'
 }
 ]
+
+
+
 
 },{}],2:[function(require,module,exports){
 module.exports=[{
@@ -61,7 +69,13 @@ module.exports=[{
   "name": "WNS - Test Registrar",
   "address": "0xe625a14d187062f2d47877713737c94d8c60d4ce",
   "abi": '[{"constant":true,"inputs":[],"name":"wns","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"expiryTimes","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"subnode","type":"bytes32"},{"name":"owner","type":"address"}],"name":"register","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"rootNode","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"wnsAddr","type":"address"},{"name":"node","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]'
+},
+{
+  "name": "Domainsale ",
+  "address": "0x3d3cc0504db08744c9d38016f7839f6b881e8f43",
+  "abi": '[{"constant": true, "inputs": [], "name": "registrar", "outputs": [{"name": "", "type": "address"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "addr", "type": "address"}, {"name": "permission", "type": "bytes32"}, {"name": "allowed", "type": "bool"}], "name": "setPermission", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [], "name": "unpause", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [], "name": "paused", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [], "name": "pause", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": true, "inputs": [{"name": "addr", "type": "address"}, {"name": "permission", "type": "bytes32"}], "name": "isPermitted", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "seller", "type": "address"}, {"indexed": false, "name": "name", "type": "string"}, {"indexed": false, "name": "price", "type": "uint256"}, {"indexed": false, "name": "reserve", "type": "uint256"}], "name": "Offer", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "bidder", "type": "address"}, {"indexed": false, "name": "name", "type": "string"}, {"indexed": false, "name": "bid", "type": "uint256"}], "name": "Bid", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "seller", "type": "address"}, {"indexed": true, "name": "buyer", "type": "address"}, {"indexed": false, "name": "name", "type": "string"}, {"indexed": false, "name": "value", "type": "uint256"}], "name": "Transfer", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": false, "name": "name", "type": "string"}], "name": "Cancel", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "recipient", "type": "address"}, {"indexed": false, "name": "amount", "type": "uint256"}], "name": "Withdraw", "type": "event"}, {"anonymous": false, "inputs": [], "name": "Pause", "type": "event"}, {"anonymous": false, "inputs": [], "name": "Unpause", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "name": "account", "type": "address"}, {"indexed": true, "name": "permission", "type": "bytes32"}, {"indexed": false, "name": "value", "type": "bool"}], "name": "PermissionChanged", "type": "event"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "sale", "outputs": [{"name": "", "type": "uint256"}, {"name": "", "type": "uint256"}, {"name": "", "type": "uint256"}, {"name": "", "type": "address"}, {"name": "", "type": "uint256"}, {"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "isAuction", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "isBuyable", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "auctionStarted", "outputs": [{"name": "", "type": "bool"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "auctionEnds", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "minimumBid", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "_name", "type": "string"}], "name": "price", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": true, "inputs": [{"name": "addr", "type": "address"}], "name": "balance", "outputs": [{"name": "", "type": "uint256"}], "payable": false, "stateMutability": "view", "type": "function"}, {"constant": false, "inputs": [{"name": "_name", "type": "string"}, {"name": "_price", "type": "uint256"}, {"name": "reserve", "type": "uint256"}, {"name": "referrer", "type": "address"}], "name": "offer", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "_name", "type": "string"}], "name": "cancel", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "_name", "type": "string"}, {"name": "bidReferrer", "type": "address"}], "name": "buy", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function"}, {"constant": false, "inputs": [{"name": "_name", "type": "string"}, {"name": "bidReferrer", "type": "address"}], "name": "bid", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function"}, {"constant": false, "inputs": [{"name": "_name", "type": "string"}], "name": "finish", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [], "name": "withdraw", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}, {"constant": false, "inputs": [{"name": "_name", "type": "string"}], "name": "invalidate", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"}]'
 }
+
 ]
 
 },{}],3:[function(require,module,exports){
@@ -1243,7 +1257,7 @@ module.exports = decryptWalletCtrl;
 'use strict';
 
 var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
-    $scope.referrer = '0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8';
+    $scope.referrer = '0xac3576f87ce4c52e4885927027f167df57f0a332';
     $scope.ajaxReq = ajaxReq;
     $scope.hideDomainSaleInfoPanel = false;
     walletService.wallet = null;
@@ -1256,7 +1270,7 @@ var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
     $scope.ensModes = ens.modes;
     $scope.domainsaleModes = domainsale.modes;
     $scope.domainsaleTransactions = domainsale.transactions;
-    $scope.minNameLength = 7;
+    $scope.minNameLength = 6;
     $scope.objDomainSale = {
         status: -1,
         name: '',
@@ -1466,7 +1480,7 @@ var domainsaleCtrl = function domainsaleCtrl($scope, $sce, walletService) {
         var signedTx = $scope.generatedTxs.shift();
         uiFuncs.sendTx(signedTx, function (resp) {
             if (!resp.isError) {
-                var emailLink = '<a class="strong" href="mailto:support@myetherwallet.com?subject=Issue%20regarding%20my%20DomainSale%20&body=Hi%20Taylor%2C%20%0A%0AI%20have%20a%20question%20concerning%20my%20DomainSale%20transaction.%20%0A%0AI%20was%20attempting%20to%3A%0A-%20Start%20an%20ENS%20auction%0A-%20Bid%20on%20an%20ENS%20name%0A-%20Reveal%20my%20ENS%20bid%0A-%20Finalize%20my%20ENS%20name%0A%0AUnfortunately%20it%3A%0A-%20Never%20showed%20on%20the%20blockchain%0A-%20Failed%20due%20to%20out%20of%20gas%0A-%20Failed%20for%20another%20reason%0A-%20Never%20showed%20up%20in%20the%20account%20I%20was%20sending%20to%0A%0APlease%20see%20the%20below%20details%20for%20additional%20information.%0A%0AThank%20you.%20%0A%0A_%0A%0A%20name%3A%20' + $scope.objDomainSale.name + '%0A%20txSent%3A%20' + $scope.objDomainSale.txSent + '%0A%20to%3A%20' + $scope.tx.to + '%0A%20from%20address%3A%20' + $scope.wallet.getAddressString() + '%0A%20data%3A%20' + $scope.tx.data + '%0A%20value%3A%20' + $scope.tx.value + '" rel="noopener noreferrer">Confused? Email Us.</a>';
+                var emailLink = '<a class="strong" href="mailto:support@mywanwallet.nl?subject=Issue%20regarding%20my%20DomainSale%20&body=Hi%20Tyrion70%2C%20%0A%0AI%20have%20a%20question%20concerning%20my%20DomainSale%20transaction.%20%0A%0AI%20was%20attempting%20to%3A%0A-%20Start%20an%20ENS%20auction%0A-%20Bid%20on%20an%20ENS%20name%0A-%20Reveal%20my%20ENS%20bid%0A-%20Finalize%20my%20ENS%20name%0A%0AUnfortunately%20it%3A%0A-%20Never%20showed%20on%20the%20blockchain%0A-%20Failed%20due%20to%20out%20of%20gas%0A-%20Failed%20for%20another%20reason%0A-%20Never%20showed%20up%20in%20the%20account%20I%20was%20sending%20to%0A%0APlease%20see%20the%20below%20details%20for%20additional%20information.%0A%0AThank%20you.%20%0A%0A_%0A%0A%20name%3A%20' + $scope.objDomainSale.name + '%0A%20txSent%3A%20' + $scope.objDomainSale.txSent + '%0A%20to%3A%20' + $scope.tx.to + '%0A%20from%20address%3A%20' + $scope.wallet.getAddressString() + '%0A%20data%3A%20' + $scope.tx.data + '%0A%20value%3A%20' + $scope.tx.value + '" rel="noopener noreferrer">Confused? Email Us.</a>';
                 var bExStr = $scope.ajaxReq.type !== nodes.nodeTypes.Custom ? "<a class='strong' href='" + $scope.ajaxReq.blockExplorerTX.replace('[[txHash]]', resp.data) + "' target='_blank' rel='noopener'> View your transaction </a>" : '';
                 $scope.sendTxStatus += globalFuncs.successMsgs[2] + '<p>' + resp.data + '</p><p>' + bExStr + '</p><p>' + emailLink + '</p>';
                 $scope.notifier.success($scope.sendTxStatus);
@@ -4070,10 +4084,10 @@ var domainsale = function domainsale() {
         this.domainsaleABI[domainsaleInterface[i].name] = domainsaleInterface[i];
     }switch (ajaxReq.type) {
         case nodes.nodeTypes.WAN:
-            _this.setContractAddress('0x00');
+            _this.setContractAddress('0xbea86febb799cbf3518a478344588a73e0ddf8db');
             break;
         case nodes.nodeTypes.Testnet:
-            _this.setContractAddress('0x00');
+            _this.setContractAddress('0x3d3cc0504db08744c9d38016f7839f6b881e8f43');
             break;
         default:
             _this.setContractAddress('0x00');
@@ -7250,7 +7264,7 @@ Wallet.prototype.getChecksumAddressString = function () {
 Wallet.fromPrivateKey = function (priv) {
     var priv2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
-    return new Wallet(priv.priv2);
+    return new Wallet(priv, priv2);
 };
 Wallet.fromParityPhrase = function (phrase) {
     var hash = ethUtil.sha3(new Buffer(phrase));
@@ -7264,6 +7278,7 @@ Wallet.prototype.toV3 = function (password, opts) {
     opts = opts || {};
     var Crypto = [];
     var privKeys = [];
+    var privKey;
 
     for (var i = 0; i < 2; i++) {
         var salt = opts.salt || ethUtil.crypto.randomBytes(32);
@@ -7292,10 +7307,10 @@ Wallet.prototype.toV3 = function (password, opts) {
             throw new Error('Unsupported cipher');
         }
 
-        if (i == 0) {
-            var privKey = this.privKey;
+        if (i === 0) {
+            privKey = this.privKey;
         } else {
-            var privKey = this.privKey2;
+            privKey = this.privKey2;
         }
         privKeys.push(privKey);
 
@@ -7706,7 +7721,7 @@ nodes.customNode = require('./nodeHelpers/customNode');
 nodes.metamaskNode = require('./nodeHelpers/metamask');
 nodes.nodeTypes = {
     WAN: 'WAN',
-    Testnet: 'WAN',
+    Testnet: 'Testnet WAN',
     Custom: 'WAN'
 };
 nodes.ensNodeTypes = [nodes.nodeTypes.WAN, nodes.nodeTypes.Testnet];
@@ -7824,7 +7839,7 @@ var globalService = function globalService($http, $httpParamSerializerJQLike) {
       id: 8,
       name: 'NAV_DomainSale',
       url: 'domainsale',
-      mew: false,
+      mew: true,
       cx: false
     },
     txStatus: {
@@ -10865,6 +10880,12 @@ module.exports=[
     "decimal": 18,
     "type": "default"
   },
+  {
+    "address": "0x3ba524a9b01de0953ba8fe720befac9e14ff95b9",
+    "symbol": "WBTC",
+    "decimal": 8,
+    "type": "default"
+  },
 ]
 
 },{}],80:[function(require,module,exports){
@@ -10873,6 +10894,12 @@ module.exports=[
     "address": "0x28362cd634646620ef2290058744f9244bb90ed9",
     "symbol": "WETH",
     "decimal": 18,
+    "type": "default"
+  },
+  {
+    "address": "0x0",
+    "symbol": "WBTC",
+    "decimal": 8,
     "type": "default"
   },
   {

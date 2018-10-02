@@ -6,6 +6,12 @@
     "type": "default"
   },
   {
+    "address": "0x0",
+    "symbol": "WBTC",
+    "decimal": 8,
+    "type": "default"
+  },
+  {
     "address": "0x6cbf35f1ab7beb07ebfe8818045f379a1212a10b",
     "symbol": "TYR",
     "decimal": 18,

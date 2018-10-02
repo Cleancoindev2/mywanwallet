@@ -82,8 +82,7 @@
         More Information
       </h6>
       <ul ng-show="domainsaleMore">
-         <li> Details on the DomainSale process for both buyers and sellers are available in <a href="https://medium.com/@jgm.orinoco/domainsale-an-on-chain-secondary-ens-market-b3330f6e5dda" target="_blank" rel="noopener noreferrer">the introductory post</a>.</li>
-         <li> The <a href="https://github.com/wealdtech/domainsale/" target="_blank" rel="noopener noreferrer">DomainSale contract</a> is open source and freely available.</li>
+         <li> The <a href="https://github.com/C3Devs/domainsalewan/" target="_blank" rel="noopener noreferrer">DomainSale contract</a> is open source and freely available.</li>
 
   </div>
 
