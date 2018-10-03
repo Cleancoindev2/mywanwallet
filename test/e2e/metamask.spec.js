@@ -269,7 +269,7 @@ describe('MyWanWallet', function () {
             })
         })
     })
-    
+
     describe('Test signing message', () => {
 
     })
@@ -283,6 +283,7 @@ describe('MyWanWallet', function () {
 
     })
     describe('Test offline tx', () => {
+        /*
         it('generates the right data', async () => {
             await clickElement('/html/body/header/nav/div/ul/li[6]/a')
             await delay(500)
@@ -295,6 +296,7 @@ describe('MyWanWallet', function () {
             await delay(500)
 
         })
+        */
     })
 
     async function clickElement (xpath) {
