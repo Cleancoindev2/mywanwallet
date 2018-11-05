@@ -27,15 +27,15 @@ var signMsgCtrl = function ($scope, $sce, walletService) {
             var hwType = $scope.wallet.getHWType()
 
             // Sign via MetaMask
-            if ((typeof hwType !== 'undefined') && (hwType === 'web3')) {
+            if ((typeof hwType !== 'undefined') && (hwType === 'wan3')) {
 
                 msg = ethUtil.bufferToHex(new Buffer(thisMessage, 'utf8'))
-                signingAddr = web3.eth.accounts[0]
+                signingAddr = wan3.eth.accounts[0]
                 var params = [msg, signingAddr]
                 var method = 'personal_sign'
                 $scope.notifier.info('Sent message for signing via MetaMask / Mist.')
 
-                web3.currentProvider.sendAsync({
+                wan3.currentProvider.sendAsync({
                     method,
                     params,
                     signingAddr,

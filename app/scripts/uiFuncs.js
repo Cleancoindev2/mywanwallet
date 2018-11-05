@@ -174,8 +174,8 @@ uiFuncs.generateTx = function (txData, callback) {
                 app.getAppConfiguration(localCallback)
             } else if ((typeof txData.hwType !== 'undefined') && (txData.hwType === 'trezor')) {
                 uiFuncs.signTxTrezor(rawTx, txData, callback)
-            } else if ((typeof txData.hwType !== 'undefined') && (txData.hwType === 'web3')) {
-              // for web3, we dont actually sign it here
+            } else if ((typeof txData.hwType !== 'undefined') && (txData.hwType === 'wan3')) {
+              // for wan3, we dont actually sign it here
               // instead we put the final params in the "signedTx" field and
               // wait for the confirmation dialogue / sendTx method
               var txParams = Object.assign({ from: txData.from }, rawTx)
@@ -224,10 +224,10 @@ uiFuncs.generateTx = function (txData, callback) {
     }
 }
 uiFuncs.sendTx = function (signedTx, callback) {
-  // check for web3 late signed tx
+  // check for wan3 late signed tx
     if (signedTx.slice(0, 2) !== '0x') {
       var txParams = JSON.parse(signedTx)
-      window.web3.eth.sendTransaction(txParams, function (err, txHash) {
+      window.wan3.eth.sendTransaction(txParams, function (err, txHash) {
         if (err) {
           return callback({
             isError: true,

@@ -17,4 +17,10 @@
     "decimal": 18,
     "type": "default"
   },
+  {
+    "address": "0x3BEB80170272f07aCA12987AF86A59888255A807",
+    "symbol": "CURV",
+    "decimal": 18,
+    "type": "default"
+  },
 ]

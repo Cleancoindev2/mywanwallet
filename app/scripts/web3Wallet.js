@@ -4,8 +4,8 @@ var Wallet = require('./myetherwallet.js')
 var Web3Wallet = function (addressBuffer) {
     Wallet.call(this)
     this.addressBuffer = addressBuffer
-    this.type = 'web3'
-    this.hwType = 'web3'
+    this.type = 'wan3'
+    this.hwType = 'wan3'
 }
 // subclass Wallet
 Web3Wallet.super_ = Wallet
