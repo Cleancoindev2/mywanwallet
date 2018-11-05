@@ -1,5 +1,7 @@
 MIT License
 
+Copyright (C) 2018 Tyrion70
+
 Copyright (C) 2015-2017 MyEtherWallet LLC
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

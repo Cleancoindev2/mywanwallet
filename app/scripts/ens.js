@@ -17,12 +17,16 @@ var ens = function () {
         case nodes.nodeTypes.WAN:
             _this.setCurrentRegistry(ens.registry.WAN)
             break
+        case nodes.nodeTypes.Testnet:
+            _this.setCurrentRegistry(ens.registry.Testnet)
+            break
         default:
             _this.setCurrentRegistry(ens.registry.NULL)
     }
 }
 ens.registry = {
     WAN: require('./ensConfigs/WANConfig.json'),
+    Testnet: require('./ensConfigs/WANConfigTestnet.json'),
     NULL: {},
 }
 ens.normalise = function (name) {

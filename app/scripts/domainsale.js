@@ -6,14 +6,11 @@ var domainsale = function () {
     this.domainsaleABI = {}
     for (var i in domainsaleInterface) this.domainsaleABI[domainsaleInterface[i].name] = domainsaleInterface[i]
     switch (ajaxReq.type) {
-        case nodes.nodeTypes.ETH:
-            _this.setContractAddress('0xc67247454E720328714C4e17bEC7640572657bEE')
+        case nodes.nodeTypes.WAN:
+            _this.setContractAddress('0xbea86febb799cbf3518a478344588a73e0ddf8db')
             break
-        case nodes.nodeTypes.Rinkeby:
-            _this.setContractAddress('0x00')
-            break
-        case nodes.nodeTypes.Ropsten:
-            _this.setContractAddress('0xe8E98228Ca36591952Efdf6F645C5B229E6Cf688')
+        case nodes.nodeTypes.Testnet:
+            _this.setContractAddress('0x3d3cc0504db08744c9d38016f7839f6b881e8f43')
             break
         default:
             _this.setContractAddress('0x00')

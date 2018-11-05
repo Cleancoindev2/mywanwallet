@@ -5,9 +5,9 @@ const { delay, setupBrowserAndExtension, verboseReportOnFailure } = require('./f
 const ethUtil = require('wanchainjs-util')
 
 const phrase = 'phrase upgrade clock rough situate wedding elder clever doctor stamp excess tent'
-// const accounts = ['0xe18035bf8712672935fdb4e5e431b1a0183d2dfc',
-//    '0x2f318c334780961fb129d2a6c30d0763d9a5c970',
-//    '0x7a46ce51fbbb29c34aea1fe9833c27b5d2781925']
+const accounts = ['0xe18035bf8712672935fdb4e5e431b1a0183d2dfc',
+    '0x2f318c334780961fb129d2a6c30d0763d9a5c970',
+    '0x7a46ce51fbbb29c34aea1fe9833c27b5d2781925']
 const privkeys = ['0x4cfd3e90fc78b0f86bf7524722150bb8da9c60cd532564d7ff43f5716514f553',
     '0xa75b25c0f3d5970efb7b1a713515dc910f6d92f5e6278de74c5428aeb83cd5dd',
     '0x14abe6f4aab7f9f626fe981c864d0adeb5685f289ac9270c27b8fd790b4235d6']
@@ -130,7 +130,7 @@ describe('MyWanWallet', function () {
         })
     })
 
-    describe('Setup', function () {
+    describe('Setup Custom node', function () {
 
         it('Goto Send Menu', async () => {
             await clickElement('/html/body/header/nav/div/ul/li[4]/a')
@@ -143,7 +143,7 @@ describe('MyWanWallet', function () {
         })
 
         it('Click add custom node button', async function () {
-            await clickElement('/html/body/header/section/section/div/span[3]/ul/li[2]/a')
+            await clickElement('/html/body/header/section/section/div/span[3]/ul/li[3]/a')
             await delay(500)
         })
 
@@ -152,9 +152,9 @@ describe('MyWanWallet', function () {
             await enterTextInElement('//*[@id="customNodeModal"]/section/section/div[1]/section/div[2]/input', 'http://localhost')
             await enterTextInElement('//*[@id="customNodeModal"]/section/section/div[1]/section/div[3]/input', '8545')
             await delay(500)
-            await clickElement('//*[@id="customNodeModal"]/section/section/div[1]/section/div[7]/label[2]/input')
-            await delay(500)
             await clickElement('//*[@id="customNodeModal"]/section/section/div[1]/section/div[7]/label[1]/input')
+            await delay(500)
+            await clickElement('//*[@id="customNodeModal"]/section/section/div[1]/section/div[7]/label[4]/input')
             await delay(500)
             await enterTextInElement('//*[@id="customNodeModal"]/section/section/div[1]/section/div[8]/input', '1')
             await delay(500)
@@ -165,88 +165,170 @@ describe('MyWanWallet', function () {
         })
     })
 
-    describe('Use Mnemonic', () => {
+    describe('Test sending coins', () => {
 
-        it('Check the page title', async () => {
-            const title = await driver.getTitle()
-            assert.equal(title, 'MyWanWallet.nl', 'title matches WanMask')
-            await delay(500)
+        describe('Use Mnemonic to send coins', () => {
+
+            it('Click send Wancoins', async () => {
+                await clickElement('/html/body/header/nav/div/ul/li[4]/a')
+                await delay(500)
+            })
+
+            it('Check the page title', async () => {
+                const title = await driver.getTitle()
+                assert.equal(title, 'MyWanWallet.nl', 'title matches WanMask')
+                await delay(500)
+            })
+
+            it('Enter mnemonic phrase', async () => {
+                await clickElement('/html/body/section[1]/div/main/article[1]/div[2]/wallet-decrypt-drtv/article/section[1]/label[6]/input')
+                await delay(500)
+                await validateValue('//*[@id="selectedTypeMnemonic"]/h4', 'Paste Your Mnemonic', 'show mnemonic field')
+                await enterTextInElement('//*[@id="aria4"]', phrase)
+                await delay(500)
+                await clickElement('//*[@id="selectedTypeMnemonic"]/div[5]/a')
+                await delay(500)
+            })
+
+            it('Use Trezor derivation path', async () => {
+                await clickElement('//*[@id="mnemonicModel"]/section/section/div/section[2]/div[1]/label/input')
+                await delay(1000)
+            })
+
+            it('Select first account', async () => {
+                await clickElement('//*[@id="mnemonicModel"]/section/section/div/table/tbody/tr[2]/td[1]/label/input')
+                await delay(1000)
+            })
+
+            it('Check balance of first address', async () => {
+                await validateValue('//*[@id="mnemonicModel"]/section/section/div/table/tbody/tr[2]/td[2]/a', '100 WAN', 'Balance is 100 WAN')
+            })
+
+            it('Unlock first address', async () => {
+                await clickElement('//*[@id="mnemonicModel"]/section/section/div/div/button[1]')
+                await delay(500)
+            })
+
+            it('Send 50 wan to second address', async () => {
+                // send 50 to accounts[1]
+                await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article[2]/div[1]/address-field/div[1]/input', accounts[1], true)
+                await delay(500)
+                await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article[2]/section[1]/div[2]/div/input', '50', true)
+                await delay(500)
+                await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article[2]/section[2]/div/input', '21484', true)
+                await delay(500)
+                await clickElement('/html/body/section[1]/div/main/article[2]/div/article[2]/div[4]/div/a')
+                await delay(500)
+                await validateValueTextArea('/html/body/section[1]/div/main/article[2]/div/article[2]/div[5]/div[1]/textarea', '{"Txtype":"0x01","nonce":"0x00","gasPrice":"0x2a600b9c00","gas":"0x53ec","to":"0x2f318c334780961fb129d2a6c30d0763d9a5c970","value":"0x02b5e3af16b1880000","data":"","chainId":1}')
+                await delay(500)
+                await clickElement('/html/body/section[1]/div/main/article[2]/div/article[2]/div[6]/a')
+                await delay(500)
+                await clickElement('//*[@id="sendTransaction"]/section/section/div[2]/button[2]')
+                await delay(500)
+
+            })
         })
 
-        it('Enter mnemonic phrase', async () => {
-            await clickElement('/html/body/section[1]/div/main/article[1]/div[2]/wallet-decrypt-drtv/article/section[1]/label[6]/input')
-            await delay(500)
-            await validateValue('//*[@id="selectedTypeMnemonic"]/h4', 'Paste Your Mnemonic', 'show mnemonic field')
-            await enterTextInElement('//*[@id="aria4"]', phrase)
-            await delay(500)
-            await clickElement('//*[@id="selectedTypeMnemonic"]/div[5]/a')
-            await delay(500)
-        })
+        describe('Use Privkey to send coins', () => {
 
-        it('Use Trezor derivation path', async () => {
-            await clickElement('//*[@id="mnemonicModel"]/section/section/div/section[2]/div[1]/label/input')
-            await delay(1000)
-        })
+            it('Reopen the account selection screen', async () => {
+                await clickElement('/html/body/section[1]/div/main/article[1]/div[1]/a/span[1]')
+                await delay(500)
+            })
 
-        it('Select first account', async () => {
-            await clickElement('//*[@id="mnemonicModel"]/section/section/div/table/tbody/tr[2]/td[1]/label/input')
-            await delay(1000)
-        })
+            it('Enter private key', async () => {
+                await clickElement('/html/body/section[1]/div/main/article[1]/div[2]/wallet-decrypt-drtv/article/section[1]/label[7]/input')
+                await delay(500)
+                await validateValue('//*[@id="selectedTypeKey"]/h4', 'Paste Your Private Key', 'show private key field')
+                await enterTextInElement('//*[@id="aria6"]', privkeys[1])
+                await delay(500)
+                await clickElement('//*[@id="selectedTypeKey"]/div[4]/a')
+                await delay(300)
+            })
 
-        it('Check balance of first address', async () => {
-            await validateValue('//*[@id="mnemonicModel"]/section/section/div/table/tbody/tr[2]/td[2]/a', '100 WAN', 'Balance is 100 WAN')
-        })
+            it('Check balance of address', async () => {
+                await validateValue('/html/body/section[1]/div/main/article[2]/section/wallet-balance-drtv/aside/div[1]/ul[2]/li/span', '150', 'Balance is 150 WAN')
+            })
 
-        it('Unlock first address', async () => {
-            await clickElement('//*[@id="mnemonicModel"]/section/section/div/div/button[1]')
-            await delay(500)
+            it('Send 50 wan to third address', async () => {
+                // send 50 to 0x7a46ce51fbbb29c34aea1fe9833c27b5d2781925
+                await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article[2]/div[1]/address-field/div[1]/input', accounts[2], true)
+                await delay(500)
+                await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article[2]/section[1]/div[2]/div/input', '50', true)
+                await delay(500)
+                await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article[2]/section[2]/div/input', '21484', true)
+                await delay(500)
+                await clickElement('/html/body/section[1]/div/main/article[2]/div/article[2]/div[4]/div/a')
+                await delay(500)
+                await validateValueTextArea('/html/body/section[1]/div/main/article[2]/div/article[2]/div[5]/div[1]/textarea', '{"Txtype":"0x01","nonce":"0x00","gasPrice":"0x2a600b9c00","gas":"0x53ec","to":"0x7a46ce51fbbb29c34aea1fe9833c27b5d2781925","value":"0x02b5e3af16b1880000","data":"","chainId":1}')
+                await delay(500)
+                await clickElement('/html/body/section[1]/div/main/article[2]/div/article[2]/div[6]/a')
+                await delay(500)
+                await clickElement('//*[@id="sendTransaction"]/section/section/div[2]/button[2]')
+                await delay(500)
+            })
         })
-
     })
 
-    describe('Use Privkey', () => {
+    describe('Test signing message', () => {
 
-        it('Reopen the account selection screen', async () => {
-            await clickElement('/html/body/section[1]/div/main/article[1]/div[1]/a/span[1]')
+    })
+    describe('Test WNS on testnet message', () => {
+
+    })
+    describe('Test view wallet info', () => {
+
+    })
+    describe('Test Contracts on testnet message', () => {
+
+    })
+    describe('Test offline tx', () => {
+        /*
+        it('generates the right data', async () => {
+            await clickElement('/html/body/header/nav/div/ul/li[6]/a')
             await delay(500)
-        })
-
-        it('Enter private key', async () => {
-            await clickElement('/html/body/section[1]/div/main/article[1]/div[2]/wallet-decrypt-drtv/article/section[1]/label[7]/input')
+            await enterTextInElement('/html/body/section[1]/div/main/article[1]/section[1]/input', accounts[2], true)
             await delay(500)
-            await validateValue('//*[@id="selectedTypeKey"]/h4', 'Paste Your Private Key', 'show private key field')
-            await enterTextInElement('//*[@id="aria6"]', privkeys[0])
+            await clickElement('/html/body/section[1]/div/main/article[1]/section[3]/a')
             await delay(500)
-            await clickElement('//*[@id="selectedTypeKey"]/div[4]/a')
-            await delay(300)
-        })
-
-        it('Close the account selection screen', async () => {
-            await clickElement('/html/body/section[1]/div/main/article[1]/div[1]/a/span[2]')
+            await validateValue('/html/body/section[1]/div/main/article[1]/section[4]/div[1]/input', '182000000000')
+            await validateValue('/html/body/section[1]/div/main/article[1]/section[4]/div[2]/input', '0')
             await delay(500)
-        })
 
-        it('Check balance of address', async () => {
-            await validateValue('/html/body/section[1]/div/main/article[2]/section/wallet-balance-drtv/aside/div[1]/ul[2]/li/span', '100', 'Balance is 100 WAN')
         })
-
+        */
     })
 
     async function clickElement (xpath) {
         const element = await driver.findElement(By.xpath(xpath))
         await driver.executeScript('arguments[0].scrollIntoView(true)', element)
+        await delay(200)
         element.click()
     }
 
-    async function enterTextInElement (xpath, text) {
+    async function enterTextInElement (xpath, text, clear = false) {
         const element = await driver.findElement(By.xpath(xpath))
         await driver.executeScript('arguments[0].scrollIntoView(true)', element)
+        await delay(200)
+        if (clear) element.clear()
+        await delay(200)
         element.sendKeys(text)
     }
 
     async function validateValue (xpath, text, assertText) {
-        const header = await driver.findElement(By.xpath(xpath)).getText()
-        assert.strictEqual(header, text, assertText)
+        const element = await driver.findElement(By.xpath(xpath))
+        await driver.executeScript('arguments[0].scrollIntoView(true)', element)
+        const value = await element.getText()
+        console.error('value', value)
+        assert.strictEqual(value, text, assertText)
+    }
+
+    async function validateValueTextArea (xpath, text, assertText) {
+        const element = await driver.findElement(By.xpath(xpath))
+        await driver.executeScript('arguments[0].scrollIntoView(true)', element)
+        await delay(200)
+        const value = await element.getAttribute('textContent')
+        assert.strictEqual(value, text, assertText)
     }
 
     async function checkBrowserForConsoleErrors () {

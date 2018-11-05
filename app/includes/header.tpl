@@ -20,6 +20,8 @@
 <link href="https://mywanwallet.nl" rel="canonical">
 <meta content="https://mywanwallet.nl" property="og:url">
 <meta content="https://mywanwallet.nl" name="twitter:url">
+<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,700" rel="stylesheet">
 <link rel="stylesheet" href="css/etherwallet-master.min.css">
 <script type="text/javascript" src="js/trezor-connect.js"></script>
 <script type="text/javascript" src="js/etherwallet-static.min.js?version=%%GULP_INJECT_VERSION%%"></script>
@@ -136,7 +138,7 @@
           <p class="small" style="white-space:normal;font-weight:300;margin: 2rem 0 0;" translate="GAS_PRICE_Desc"></p>
           <a class="small"
              translate="x_ReadMore"
-             href="https://mywanwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html"
+             href="https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html"
              target="_blank"
              rel="noopener noreferrer"></a>
         </div>
@@ -206,14 +208,7 @@
       </li>
       }
       <li class="nav-item help">
-        <a href="/signmsg.html">
-          <span translate="NAV_SignMsg">
-            Sign Message
-          </span>
-        </a>
-      </li>
-      <li class="nav-item help">
-        <a href="https://mywanwallet.github.io/knowledge-base/" target="_blank" rel="noopener noreferrer">
+        <a href="https://myetherwallet.github.io/knowledge-base/" target="_blank" rel="noopener noreferrer">
           <span translate="NAV_Help">
             Help
           </span>
