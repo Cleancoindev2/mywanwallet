@@ -7721,7 +7721,7 @@ nodes.customNode = require('./nodeHelpers/customNode');
 nodes.metamaskNode = require('./nodeHelpers/metamask');
 nodes.nodeTypes = {
     WAN: 'WAN',
-    Testnet: 'Testnet WAN',
+    Testnet: 'WAN',
     Custom: 'WAN'
 };
 nodes.ensNodeTypes = [nodes.nodeTypes.WAN, nodes.nodeTypes.Testnet];
