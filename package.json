@@ -108,6 +108,7 @@
     "wanchainjs-util": "^5.2.1"
   },
   "dependencies": {
+    "event-stream": "^4.0.1",
     "hoek": "^4.2.1",
     "javascript-precommit": "0.0.8",
     "npm": "^6.4.0",

@@ -98,6 +98,12 @@
       </p>
 
       <p>
+        <a aria-label="Download Offline" href="https://mywanwallet.nl/wanwallet-latest.zip" target="_blank" rel="noopener noreferrer" role="link" tabindex="0">
+          Download Offline
+        </a>
+      </p>
+
+      <p>
         <a aria-label="Anti-Phishing chrome extension" href="https://chrome.google.com/webstore/detail/etheraddresslookup/pdknmigbbbhmllnmgdfalmedcmcefdfn" target="_blank" rel="noopener noreferrer" role="link" tabindex="0">
           EAL "Don't Get Phish'd" Chrome Extension
         </a>
