@@ -5,6 +5,7 @@ nodes.metamaskNode = require('./nodeHelpers/metamask')
 nodes.nodeTypes = {
     WAN: 'WAN',
     Testnet: 'WAN',
+    Pluto: 'WAN',
     Custom: 'WAN',
 }
 nodes.ensNodeTypes = [nodes.nodeTypes.WAN, nodes.nodeTypes.Testnet]
@@ -45,6 +46,18 @@ nodes.nodeList = {
         'abiList': require('./abiDefinitions/wanTestnetAbi.json'),
         'service': 'mywanwallet.nl',
         'lib': new nodes.customNode('https://mywanwallet.nl/testnet', ''),
+    },
+    'wan_mew_pluto': {
+        'name': 'WAN Pluto',
+        'blockExplorerTX': 'http://47.104.61.26/block/trans/[[txHash]]',
+        'blockExplorerAddr': 'http://47.104.61.26/block/addr/[[address]]',
+        'type': nodes.nodeTypes.Pluto,
+        'eip155': true,
+        'chainId': 6,
+        'tokenList': require('./tokens/wanPlutoTokens.json'),
+        'abiList': require('./abiDefinitions/wanPlutoAbi.json'),
+        'service': 'mywanwallet.nl',
+        'lib': new nodes.customNode('https://mywanwallet.nl/pluto', ''),
     },
 }
 
