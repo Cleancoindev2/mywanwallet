@@ -38,7 +38,7 @@
     <section class="footer--cent">
         <h5><i aria-hidden="true">💝</i> Other Wanchain sites!</h5>
         <p>
-          <a aria-label="wan scan" href="https://wanscan.io" target="_blank" rel="noopener noreferrer" role="link" tabindex="0">
+          <a aria-label="wan scan" href="https://wanscan.org" target="_blank" rel="noopener noreferrer" role="link" tabindex="0">
             WanScan.io
           </a>
         </p>
@@ -67,7 +67,7 @@
         <p>
           WAN:
           <span class="mono wrap">
-            <a title="See this address on the blockchain explorer" href="https://wanscan.io/addr/0x664949908413517B993c6784b44428d080D1a1Fa" class="ext-etheraddresslookup-link" target="_blank">
+            <a title="See this address on the blockchain explorer" href="https://wanscan.org/address/0x664949908413517B993c6784b44428d080D1a1Fa" class="ext-etheraddresslookup-link" target="_blank">
               0x664949908413517B993c6784b44428d080D1a1Fa
             </a>
           </span>

@@ -34,7 +34,7 @@
 
     <div class="cont-md" ng-show="txInfo.status == txStatus.mined">
       <h3 class="text-success" translate="tx_FoundOnChain"> Transaction Found </h3>
-      <h5> <a href="https://wanscan.io/tx/{{ tx.hash }}" target="_blank" rel="noopener noreferrer"> {{ tx.hash }} </a> </h5>
+      <h5> <a href="{{ajaxReq.blockExplorerTX.replace('[[txHash]]', tx.hash)}}" target="_blank" rel="noopener noreferrer"> {{ tx.hash }} </a> </h5>
       <p><strong translate="tx_FoundOnChain_1"></strong></p>
       <ul>
         <li translate="tx_FoundOnChain_2"></li>
@@ -75,11 +75,20 @@
       <table class="table table-striped txstatus__2 cont-md"> <!-- ng-show="tx.status=='foundOnChain' || foundInPending'"-->
         <tbody>
           <tr>
+            <td translate="OFFLINE_Step2_Label_9">
+              Data
+            </td>
+            <td>
+              <strong ng-show="txInfo.realStatus=='0x0'">Failed</strong>
+              <strong ng-show="txInfo.realStatus=='0x1'">OK</strong>
+            </td>
+          </tr>
+          <tr>
             <td translate="x_TxHash">
               TX Hash
             </td>
             <td>
-              <a href="https://wanscan.io/tx/{{ txInfo.hash }}" target="_blank" rel="noopener noreferrer">
+              <a href="{{ajaxReq.blockExplorerTX.replace('[[txHash]]', txInfo.hash)}}" target="_blank" rel="noopener noreferrer">
                 {{ txInfo.hash }}
               </a>
             </td>
@@ -89,7 +98,7 @@
               From Address
             </td>
             <td>
-              <a href="https://wanscan.io/addr/{{ txInfo.from }}" target="_blank" rel="noopener noreferrer">
+              <a href="{{ajaxReq.blockExplorerAddr.replace('[[address]]', txInfo.from)}}" target="_blank" rel="noopener noreferrer">
                 {{ txInfo.from }}
               </a>
             </td>
@@ -99,7 +108,7 @@
               To Address
             </td>
             <td>
-              <a href="https://wanscan.io/addr/{{ txInfo.to }}" target="_blank" rel="noopener noreferrer">
+              <a href="{{ajaxReq.blockExplorerAddr.replace('[[address]]', txInfo.to)}}" target="_blank" rel="noopener noreferrer">
                 {{ txInfo.to }}
               </a>
             </td>
@@ -197,7 +206,15 @@
               Data
             </td>
             <td>
-              {{ txInfo.data }}
+              <span>{{ txInfo.data }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td translate="OFFLINE_Step2_Label_8">
+              Data
+            </td>
+            <td>
+              {{ txInfo.gasUsed }} <span translate="tx_OUT_OF_GAS" ng-show="txInfo.gasUsed == txInfo.gasLimit"></span>
             </td>
           </tr>
         </tbody>

@@ -331,13 +331,13 @@
 <section class="col-sm-4">
 
   <div class="block block--danger"
-       ng-show="wallet!=null && globalService.currentTab==globalService.tabs.swap.id && !hasEnoughBalance()">
+       ng-show="wallet!=null && globalService.currentTab==globalService.tabs.sendTransaction.id && !hasEnoughBalance()">
 
-    <h5 translate="SWAP_Warning_1">
-      Warning! You do not have enough funds to complete this swap.
+    <h5 translate="SEND_Warning_1">
+      Warning! You do not have enough funds to complete this transaction.
     </h5>
 
-    <p translate="SWAP_Warning_2">
+    <p translate="SEND_Warning_2">
       Please add more funds to your wallet or access a different wallet.
     </p>
 

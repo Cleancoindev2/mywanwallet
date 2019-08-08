@@ -72,7 +72,7 @@ var quickSendCtrl = function ($scope, $sce) {
 				if (!rawTx.isError) {
 					uiFuncs.sendTx(rawTx.signedTx, function (resp) {
 						if (!resp.isError) {
-							$scope.sendTxStatus = $sce.trustAsHtml(globalFuncs.getSuccessText(globalFuncs.successMsgs[2] + '<br />' + resp.data + "<br /><a href='http://wanscan.io/tx/" + resp.data + "' target='_blank' rel='noopener'> WAN TX via Wanscan.io </a>"))
+							$scope.sendTxStatus = $sce.trustAsHtml(globalFuncs.getSuccessText(globalFuncs.successMsgs[2] + '<br />' + resp.data + "<br /><a href='{{ajaxReq.blockExplorerTX.replace('[[txHash]]', resp.data)}}" + "' target='_blank' rel='noopener'> WAN TX via Wanscan.io </a>"))
 							$scope.setBalance()
 						} else {
 							$scope.sendTxStatus = $sce.trustAsHtml(globalFuncs.getDangerText(resp.error))

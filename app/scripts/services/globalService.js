@@ -21,11 +21,11 @@ var globalService = function ($http, $httpParamSerializerJQLike) {
     mew: false,
     cx: true,
   },
-  addWallet: {
+  staking: {
     id: 2,
-    name: 'NAV_AddWallet',
-    url: 'add-wallet',
-    mew: false,
+    name: 'NAV_Staking',
+    url: 'staking',
+    mew: true,
     cx: true,
   },
   sendTransaction: {

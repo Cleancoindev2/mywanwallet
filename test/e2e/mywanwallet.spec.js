@@ -143,7 +143,7 @@ describe('MyWanWallet', function () {
         })
 
         it('Click add custom node button', async function () {
-            await clickElement('/html/body/header/section/section/div/span[3]/ul/li[3]/a')
+            await clickElement('/html/body/header/section/section/div/span[3]/ul/li[4]/a')
             await delay(500)
         })
 

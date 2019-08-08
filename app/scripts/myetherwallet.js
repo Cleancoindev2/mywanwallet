@@ -153,6 +153,16 @@ Wallet.prototype.getPrivateKeyString = function () {
         return ''
     }
 }
+Wallet.prototype.getPrivateKey2 = function () {
+    return this.privKey2
+}
+Wallet.prototype.getPrivateKeyString2 = function () {
+    if (typeof this.privKey2 !== 'undefined') {
+        return this.getPrivateKey2().toString('hex')
+    } else {
+        return ''
+    }
+}
 Wallet.prototype.getPublicKey = function () {
     if (typeof this.pubKey === 'undefined') {
         return ethUtil.privateToPublic(this.privKey)
@@ -167,6 +177,20 @@ Wallet.prototype.getPublicKeyString = function () {
         return '0x' + this.pubKey.toString('hex')
     }
 }
+Wallet.prototype.getPublicKey2 = function () {
+    if (typeof this.pubKey2 === 'undefined') {
+        return ethUtil.privateToPublic(this.privKey2)
+    } else {
+        return this.pubKey2
+    }
+}
+Wallet.prototype.getPublicKeyString = function () {
+    if (typeof this.pubKey2 === 'undefined') {
+        return '0x' + this.getPublicKey2().toString('hex')
+    } else {
+        return '0x' + this.pubKey2.toString('hex')
+    }
+}
 Wallet.prototype.getAddress = function () {
     if (typeof this.pubKey === 'undefined') {
         return ethUtil.privateToAddress(this.privKey)
@@ -176,6 +200,16 @@ Wallet.prototype.getAddress = function () {
 }
 Wallet.prototype.getAddressString = function () {
     return '0x' + this.getAddress().toString('hex')
+}
+Wallet.prototype.getWAddress = function () {
+    if (typeof this.privKey2 !== 'undefined') {
+        return ethUtil.generateWaddrFromPriv(this.privKey, this.privKey2).slice(2).toLowerCase()
+    } else {
+        return ''
+    }
+}
+Wallet.prototype.getWAddressString = function () {
+    return '0x' + this.getWAddress().toString('hex')
 }
 Wallet.prototype.getChecksumAddressString = function () {
     return ethUtil.toChecksumAddress(this.getAddressString())
@@ -340,6 +374,7 @@ Wallet.fromV3 = function (input, password, nonStrict) {
     if (json.version !== 3) {
         throw new Error('Not a V3 wallet')
     }
+    // Crypto 1
     var derivedKey
     var kdfparams
     if (json.crypto.kdf === 'scrypt') {
@@ -365,7 +400,34 @@ Wallet.fromV3 = function (input, password, nonStrict) {
         var nullBuff = new Buffer([0x00])
         seed = Buffer.concat([nullBuff, seed])
     }
-    return new Wallet(seed, undefined)
+
+    // Crypto 1
+    var derivedKey2
+    var kdfparams2
+    if (json.crypto2.kdf === 'scrypt') {
+        kdfparams2 = json.crypto2.kdfparams
+        derivedKey2 = ethUtil.scrypt(new Buffer(password), new Buffer(kdfparams2.salt, 'hex'), kdfparams2.n, kdfparams2.r, kdfparams2.p, kdfparams2.dklen)
+    } else if (json.crypto2.kdf === 'pbkdf2') {
+        kdfparams2 = json.crypto2.kdfparams
+        if (kdfparams2.prf !== 'hmac-sha256') {
+            throw new Error('Unsupported parameters to PBKDF2')
+        }
+        derivedKey2 = ethUtil.crypto.pbkdf2Sync(new Buffer(password), new Buffer(kdfparams2.salt, 'hex'), kdfparams2.c, kdfparams2.dklen, 'sha256')
+    } else {
+        throw new Error('Unsupported key derivation scheme')
+    }
+    var ciphertext2 = new Buffer(json.crypto2.ciphertext, 'hex')
+    var mac2 = ethUtil.sha3(Buffer.concat([derivedKey2.slice(16, 32), ciphertext2]))
+    if (mac2.toString('hex') !== json.crypto2.mac) {
+        throw new Error('Key derivation failed - possibly wrong passphrase')
+    }
+    var decipher2 = ethUtil.crypto.createDecipheriv(json.crypto2.cipher, derivedKey2.slice(0, 16), new Buffer(json.crypto2.cipherparams.iv, 'hex'))
+    var seed2 = Wallet.decipherBuffer(decipher2, ciphertext2, 'hex')
+    while (seed2.length < 32) {
+        var nullBuff2 = new Buffer([0x00])
+        seed2 = Buffer.concat([nullBuff2, seed2])
+    }
+    return new Wallet(seed, seed2)
 }
 Wallet.prototype.toV3String = function (password, opts) {
     return JSON.stringify(this.toV3(password, opts))

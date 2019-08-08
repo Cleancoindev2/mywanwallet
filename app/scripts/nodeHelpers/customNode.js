@@ -37,9 +37,27 @@ customNode.prototype.getBalance = function (addr, callback) {
         else callback({ error: false, msg: '', data: { address: addr, balance: new BigNumber(data.result).toString() } })
     })
 }
+customNode.prototype.getValidators = function (blocknumber, callback) {
+    this.post({
+        method: 'pos_getStakerInfo',
+        params: [blocknumber],
+    }, function (data) {
+        if (data.error) callback({ error: true, msg: data.error.message, data: '' })
+        else callback({ error: false, msg: '', data: data.result })
+    })
+}
 customNode.prototype.getTransaction = function (txHash, callback) {
     this.post({
         method: 'eth_getTransactionByHash',
+        params: [txHash],
+    }, function (data) {
+        if (data.error) callback({ error: true, msg: data.error.message, data: '' })
+        else callback({ error: false, msg: '', data: data.result })
+    })
+}
+customNode.prototype.getTransactionReceipt = function (txHash, callback) {
+    this.post({
+        method: 'eth_getTransactionReceipt',
         params: [txHash],
     }, function (data) {
         if (data.error) callback({ error: true, msg: data.error.message, data: '' })

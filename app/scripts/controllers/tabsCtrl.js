@@ -89,6 +89,7 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
         }
         globalFuncs.localStorage.setItem('curNode', JSON.stringify({
             key: key,
+            chainId: $scope.curNode.chainId,
         }))
         ajaxReq.getCurrentBlock(function (data) {
             if (data.error) {

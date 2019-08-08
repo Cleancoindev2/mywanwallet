@@ -30,8 +30,8 @@ TrezorConnect.manifest({
     appUrl: 'https://mywanwallet.nl'
 })
 </script>
-<script type="text/javascript" src="js/etherwallet-static.min.js?version=v2.0.1"></script>
-<script type="text/javascript" src="js/etherwallet-master.js?version=v2.0.1"></script>
+<script type="text/javascript" src="js/etherwallet-static.min.js?version=v2.0.0"></script>
+<script type="text/javascript" src="js/etherwallet-master.js?version=v2.0.0"></script>
 <meta name="description" content="MyWanWallet (MEW) is a free, open-source, client-side interface for generating Wanchain wallets & more. Interact with the Wanchain blockchain easily & securely.">
 <meta property="og:description"  content="Free, open-source, client-side Wanchain wallet. Enabling you to interact with the blockchain easily & securely.">
 <meta name="twitter:description" content="Free, open-source, client-side Wanchain wallet. Enabling you to interact with the blockchain easily & securely.">
@@ -538,7 +538,7 @@ TrezorConnect.manifest({
 
       <br />
 
-      <h1 translate="GEN_Label_5"> Save your Private Key</h1>
+      <h1 translate="GEN_Label_5"> Save your Private Keys</h1>
       <textarea aria-label="{{'x_PrivKey'|translate}}"
              aria-describedby="{{'x_PrivKeyDesc'|translate}}"
              class="form-control"
@@ -546,6 +546,14 @@ TrezorConnect.manifest({
              rows="3"
              style="max-width: 50rem;margin: auto;"
       >{{wallet.getPrivateKeyString()}}</textarea>
+      <br />
+      <textarea aria-label="{{'x_PrivKey2'|translate}}"
+             aria-describedby="{{'x_PrivKeyDesc'|translate}}"
+             class="form-control"
+             readonly="readonly"
+             rows="3"
+             style="max-width: 50rem;margin: auto;"
+      >{{wallet.getPrivateKeyString2()}}</textarea>
       <br />
 
       <a tabindex="0"
@@ -642,7 +650,7 @@ TrezorConnect.manifest({
       <div class="account-help-icon">
         <img src="images/icon-help.svg" class="help-icon" />
         <p class="account-help-text" translate="x_AddessDesc">
-          You may know this as your "Account #" or your "Public Key". It's what you send people so they can send you ETH. That icon is an easy way to recognize your address.
+          You may know this as your "Account #" or your "Public Key". It's what you send people so they can send you WAN. That icon is an easy way to recognize your address.
         </p>
         <h5 translate="x_Address">
           Your Address:
@@ -650,16 +658,32 @@ TrezorConnect.manifest({
       </div>
       <input class="form-control"
              type="text"
-             ng-value="wallet.getChecksumAddressString()"
+             ng-value="ChecksumAddressString"
              readonly="readonly">
     </div>
 
     <div class="col-xs-1 address-identicon-container">
       <div class="addressIdenticon"
            title="Address Indenticon"
-           blockie-address="{{wallet.getAddressString()}}"
+           blockie-address="{{AddressString}}"
            watch-var="wallet">
       </div>
+    </div>
+
+    <div class="col-xs-12" ng-show="WAddressString!='0x'">
+      <div class="account-help-icon">
+        <img src="images/icon-help.svg" class="help-icon" />
+        <p class="account-help-text" translate="x_AddessDesc">
+          You may know this as your "Private Address" (Not private key!). It's what you send people so they can send you WAN Privately. That icon is an easy way to recognize your address.
+        </p>
+        <h5 translate="x_WAddress">
+          Your Private Address:
+        </h5>
+      </div>
+      <input class="form-control"
+             type="text"
+             ng-value="WAddressString"
+             readonly="readonly">
     </div>
 
     <div class="col-xs-12" ng-show='showEnc'>
@@ -677,7 +701,7 @@ TrezorConnect.manifest({
       </a>
     </div>
 
-    <div class="col-xs-12" ng-show="wallet.type=='default'">
+    <div class="col-xs-12" ng-show="wallet.type=='default' && wallet.hwType!='wan3'">
       <div class="account-help-icon">
         <img src="images/icon-help.svg" class="help-icon" />
         <p class="account-help-text" translate="x_PrivKeyDesc">
@@ -692,7 +716,7 @@ TrezorConnect.manifest({
       <div class="input-group">
         <input class="form-control no-animate"
                type="{{pkeyVisible ? 'text' : 'password'}}"
-               ng-value="wallet.getPrivateKeyString()"
+               ng-value="privatekeystring"
                readonly="readonly">
         <span tabindex="0"
               aria-label="make private key visible"
@@ -702,8 +726,32 @@ TrezorConnect.manifest({
       </div>
     </div>
 
+    <div class="col-xs-12" ng-show="WAddressString!='0x'">
+      <div class="account-help-icon">
+        <img src="images/icon-help.svg" class="help-icon" />
+        <p class="account-help-text" translate="x_PrivKeyDesc2">
+          This is the unencrypted text version of your second private key, meaning no password is necessary. If someone were to find your unencrypted private key, they could access your wallet without a password. For this reason, encrypted versions are typically recommended.
+        </p>
+        <h5>
+          <span translate="x_PrivKey2">
+            Private Key 2 (unencrypted)
+          </span>
+        </h5>
+      </div>
+      <div class="input-group">
+        <input class="form-control no-animate"
+               type="{{pkeyVisible2 ? 'text' : 'password'}}"
+               ng-value="privatekeystring2"
+               readonly="readonly">
+        <span tabindex="0"
+              aria-label="make private key 2 visible"
+              role="button"
+              class="input-group-addon eye"
+              ng-click="showHidePkey2()"></span>
+      </div>
+    </div>
 
-    <div class="col-xs-12" ng-show="wallet.type=='default'">
+    <div class="col-xs-12" ng-show="wallet.type=='default' && wallet.hwType!='wan3'">
       <div class="account-help-icon">
         <img src="images/icon-help.svg" class="help-icon" />
         <p class="account-help-text" translate="x_PrintDesc">
@@ -719,33 +767,32 @@ TrezorConnect.manifest({
     </div>
   </section>
 
-
   <section class="block">
 
     <div class="col-xs-6">
 
       <h5 translate="x_Address">
-        Your Address:
+        Your Public Address:
       </h5>
-      <div class="qr-code" qr-code="{{wallet.getChecksumAddressString()}}" watch-var="wallet" width="100%"></div>
+      <div class="qr-code" qr-code="{{ChecksumAddressString}}" watch-var="wallet" width="100%"></div>
 
     </div>
 
     <div class="col-xs-6">
 
-      <h5 ng-show="wallet.type=='default'">
+      <h5 ng-show="wallet.type=='default' && wallet.hwType!='wan3'">
         <span translate="x_PrivKey">
           Private Key (unencrypted)
         </span>
       </h5>
 
-      <div class="qr-pkey-container" ng-show="wallet.type=='default'">
+      <div class="qr-pkey-container" ng-show="wallet.type=='default' && wallet.hwType!='wan3'">
         <div class="qr-overlay" ng-show="!pkeyVisible"></div>
-        <div class="qr-code" qr-code="{{wallet.getPrivateKeyString()}}" watch-var="wallet" width="100%"></div>
+        <div class="qr-code" qr-code="{{privatekeystring}}" watch-var="wallet" width="100%"></div>
         <div class="input-group">
           <input class="form-control no-animate"
                  type="{{pkeyVisible ? 'text' : 'password'}}"
-                 ng-value="wallet.getPrivateKeyString()"
+                 ng-value="privatekeystring"
                  readonly="readonly"
                  style="display:none;width:0;height:0;padding:0">
           <span tabindex="0"
@@ -759,6 +806,42 @@ TrezorConnect.manifest({
 
   </section>
 
+  <section class="block" ng-show="WAddressString!='0x'">
+    <div class="col-xs-6">
+
+      <h5 translate="x_WAddress" >
+        Your Private Address:
+      </h5>
+      <div class="qr-code" qr-code="{{WAddressString}}" watch-var="wallet" width="100%"></div>
+
+    </div>
+    <div class="col-xs-6">
+
+      <h5 ng-show="WAddressString!='0x'">
+        <span translate="x_PrivKey2">
+          Private Key 2 (unencrypted)
+        </span>
+      </h5>
+
+      <div class="qr-pkey-container" ng-show="WAddressString!='0x'">
+        <div class="qr-overlay" ng-show="!pkeyVisible2"></div>
+        <div class="qr-code" qr-code="{{privatekeystring2}}" watch-var="wallet" width="100%"></div>
+        <div class="input-group">
+          <input class="form-control no-animate"
+                 type="{{pkeyVisible2 ? 'text' : 'password'}}"
+                 ng-value="privatekeystring2"
+                 readonly="readonly"
+                 style="display:none;width:0;height:0;padding:0">
+          <span tabindex="0"
+                aria-label="make private key visible"
+                role="button" class="input-group-addon eye"
+                ng-click="showHidePkey2()"></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
 
 </article>
 
@@ -770,6 +853,633 @@ TrezorConnect.manifest({
 
   </article>
 
+</main>
+
+
+        <main class="tab-pane active"
+      ng-if="globalService.currentTab==globalService.tabs.staking.id"
+      ng-controller='stakingCtrl'
+      ng-cloak >
+
+  <!-- Title -->
+  <div class="block text-center">
+    <h1>
+      <a translate="NAV_SendStake"
+         ng-class="{'isActive': visibility=='stakingView'}"
+         ng-click="setVisibility('stakingView')">
+          Stake to
+      </a>
+      or
+      <a translate="NAV_WithdrawStake"
+         ng-class="{'isActive': visibility=='withdrawView'}"
+         ng-click="setVisibility('withdrawView')">
+          Withdraw from
+      </a>
+      Validator
+    </h1>
+  </div>
+  <!-- / Title -->
+
+  <!-- Unlock Wallet -->
+  <article class="collapse-container">
+    <div ng-click="wd = !wd">
+      <a class="collapse-button"><span ng-show="wd">+</span><span ng-show="!wd">-</span></a>
+      <!-- h1 translate="NAV_StakeCoins">
+        Connect Wallet
+      </h1-->
+    </div>
+    <div ng-show="!wd">
+          <wallet-decrypt-drtv></wallet-decrypt-drtv>         
+    </div>
+  </article>
+
+  <!-- Send Validator Content -->
+  <article class="row" ng-show="wallet!=null && visibility=='stakingView'">
+     <!-- Content -->
+<div class="col-sm-8">
+
+  <!-- If unlocked with PK -->
+  <article class="block" ng-hide="wallet.type=='addressOnly'">
+    <p>
+      You can stake your Wancoin using MyWanWallet. Currently the names and logos of Validators are stored off-chain which means you need to double check the address yourself
+      on
+      <a href="http://testnet.wanscan.org/vlds" target="_blank" rel="noopener noreferrer" ng-show="ajaxReq.chainId==3">WanScan</a>
+      <a href="http://wanscan.org/vlds" target="_blank" rel="noopener noreferrer" ng-hide="ajaxReq.chainId==3">WanScan</a>.
+      Logo's and names will be added here manually on a regular basis.
+    </p>
+    <p>
+      The ChainLayer Validator is operated by the creator of MyWanWallet and WanMask: Tyrion70. You can find more info on ChainLayer <a href="https://chainlayer.io" target="_blank" rel="noopener noreferrer">here</a>
+    </p>
+
+    <!-- Validator Dropdown -->
+    <section class="row form-group">
+        <div class="col-sm-11 clearfix">
+            <label translate="STAKING_Title_2">
+                Select Validator
+            </label>
+
+            <div class="dropdown ">
+                <a class="btn btn-default dropdown-toggle"
+                   class="dropdown-toggle"
+                   ng-click="dropdownExistingValidators = !dropdownExistingValidators">
+                    <img class="validatorIcon" src="{{validator.logo}}" ng-show="validator.logo && validator.logo!=''"/>
+                    <img class="validatorIcon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII=" ng-hide="validator.logo && validator.logo!=''"/>
+                    {{selectedValidator.name}}
+                    <i class="caret"></i>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-left" ng-show="dropdownExistingValidators">
+                    <li ng-repeat="validator in ajaxReq.validatorList track by $index">
+                        <a ng-click="selectExistingValidator($index)">
+                            <img class="validatorIcon" src="{{validator.logo}}" ng-show="validator.logo && validator.logo!=''"/>
+                            <img class="validatorIcon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII=" ng-hide="validator.logo && validator.logo!=''"/>
+                            {{validator.name}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Validator Address -->
+    <section class="row form-group">
+        <address-field labeltranslated="STAKING_Title" var-name="validator.address">{{selectedValidator.address}}</address-field>
+    </section>
+
+    <!-- Amount to Send -->
+    <section class="row form-group">
+        <div class="col-sm-11 clearfix">
+            <a class="account-help-icon"
+                href="#">
+                <img src="images/icon-help.svg" class="help-icon" />
+                <p class="account-help-text" translate="STAKE_Amount_Desc"></p>
+            </a>
+            <label translate="STAKE_amount">
+                Amount to Stake:
+            </label>
+
+            <input type="text"
+                class="form-control"
+                placeholder="{{ 'SEND_amount_short' | translate }}"
+                ng-model="tx.value"
+                ng-disabled="tx.readOnly || checkTxReadOnly"
+                ng-class="Validator.isPositiveNumber(tx.value) ? 'is-valid' : 'is-invalid'"/>
+        </div>
+    </section>
+
+
+    <!-- Gas Limit -->
+    <section class="row form-group">
+        <div class="col-sm-11 clearfix">
+            <a class="account-help-icon"
+                href="#">
+                <img src="images/icon-help.svg" class="help-icon" />
+                <p class="account-help-text" translate="STAKE_GAS_LIMIT_Desc"></p>
+            </a>
+            <label translate="TRANS_gas">
+            Gas Limit:
+            </label>
+            <input type="text"
+                class="form-control"
+                placeholder="21000"
+                ng-model="tx.gasLimit"
+                ng-change="gasLimitChanged=true"
+                ng-disabled="tx.readOnly || checkTxReadOnly"
+                ng-class="Validator.isPositiveNumber(tx.gasLimit) ? 'is-valid' : 'is-invalid'" />
+        </div>
+    </section>
+
+
+    <div class="row form-group">
+      <div class="col-xs-12 clearfix">
+        <a class="btn btn-info btn-block"
+           ng-click="generateTx()"
+           translate="SEND_generate">
+              Generate Transaction
+        </a>
+      </div>
+    </div>
+
+    <div class="row form-group" ng-show="rootScopeShowRawTx">
+
+      <div class="col-sm-6">
+        <label translate="SEND_raw">
+          Raw Transaction
+        </label>
+        <textarea class="form-control" rows="4" readonly>{{rawTx}}</textarea>
+      </div>
+
+      <div class="col-sm-6">
+        <label translate="SEND_signed">
+          Signed Transaction
+        </label>
+        <textarea class="form-control" rows="4" readonly>{{signedTx}}</textarea>
+      </div>
+
+    </div>
+
+    <div class="clearfix form-group" ng-show="rootScopeShowRawTx">
+      <a class="btn btn-primary btn-block col-sm-11"
+         data-toggle="modal"
+         data-target="#sendTransaction"
+         translate="SEND_trans"
+         ng-click="parseSignedTx( signedTx )">
+             Send Transaction
+      </a>
+    </div>
+
+
+  </article>
+
+</div>
+<!-- / Content -->
+
+
+
+
+
+<!-- Sidebar -->
+<section class="col-sm-4">
+
+  <div class="block block--danger"
+       ng-show="wallet!=null && globalService.currentTab==globalService.tabs.staking.id && !hasEnoughBalance()">
+
+    <h5 translate="STAKING_Warning_1">
+      Warning! You do not have enough funds to complete this transaction.
+    </h5>
+
+    <p translate="STAKING_Warning_2">
+      Please add more funds to your wallet or access a different wallet.
+    </p>
+
+  </div>
+
+  <wallet-balance-drtv></wallet-balance-drtv>
+
+  <div ng-show="checkTxPage"
+       ng-click="checkTxReadOnly=!checkTxReadOnly"
+       class="small text-right text-gray-lighter">
+        <small translate="X_Advanced">
+          Advanced Users Only.
+        </small>
+  </div>
+
+</section>
+<!-- / Sidebar -->
+ 
+     <article class="modal fade" id="sendTransaction" tabindex="-1">
+  <section class="modal-dialog">
+    <section class="modal-content">
+
+      <div class="modal-body">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close Dialog">&times;</button>
+
+        <h2 class="modal-title text-center">
+          <span translate="STAKEModal_Content_1">You are about to stake</span>...
+        </h2>
+
+        <table class="table text-center">
+          <tbody>
+            <tr>
+              <td>
+                <div class="addressIdenticon med"
+                     title="Address Indenticon"
+                     blockie-address="{{wallet.getAddressString()}}"
+                     watch-var="wallet.getAddressString()">
+                </div>
+                <p>
+                  <strong class="send-modal__addr">
+                    {{wallet.getChecksumAddressString()}}
+                  </strong>
+                  <br />&nbsp;
+                </p>
+              </td>
+              <td class="mono">
+                ->
+                <br />
+                <h4 class="text-danger">
+                  {{tx.value}} {{unitReadable}}
+                </h4>
+              </td>
+              <td>
+                <div class="addressIdenticon med" title="Address Indenticon" blockie-address="{{validator.address}}" watch-var="validator.address"></div>
+                <p>
+                  <strong class="send-modal__addr">
+                    {{validator.address}}
+                  </strong>
+                  <br />
+                  <strong class="send-modal__addr">
+                    {{validator.name}}
+                  </strong>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <br />
+
+        <table class="table small table-condensed table-hover">
+          <tbody>
+            <tr>
+              <td class="small text-right">To Address:</td>
+              <td class="small text-left mono">{{parsedSignedTx.to}}
+                <br />
+                <em><small>When staking this is the staking contract address.</small></em>
+              </td>
+            </tr>
+            <tr>
+              <td class="small text-right">To Validator:</td>
+              <td class="small text-left mono">{{validator.name}}
+              </td>
+            </tr>
+            <tr>
+              <td class="small text-right">To Validator Address:</td>
+              <td class="small text-left mono">{{validator.address}}
+              </td>
+            </tr>
+            <tr>
+              <td class="small text-right">From Address:</td>
+              <td class="small text-left mono">{{parsedSignedTx.from}}</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Amount to Send:</td>
+              <td class="small text-left mono">{{parsedSignedTx.value}} WAN</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Account Balance:</td>
+              <td class="small text-left mono">{{parsedSignedTx.balance}}</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Coin:</td>
+              <td class="small text-left mono">{{unitReadable}}</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Network:</td>
+              <td class="small text-left mono">{{ajaxReq.type}} by {{ajaxReq.service}}</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Gas Limit:</td>
+              <td class="small text-left mono">{{parsedSignedTx.gasLimit}}</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Gas Price:</td>
+              <td class="small text-left mono">{{parsedSignedTx.gasPrice.gwei}} GWEI <small>({{parsedSignedTx.gasPrice.eth}} WAN)</small>
+              </td>
+            </tr>
+            <tr>
+              <td class="small text-right">Max TX Fee:</td>
+              <td class="small text-left mono"> {{parsedSignedTx.txFee.eth}} WAN <small>({{parsedSignedTx.txFee.gwei}} GWEI)</small></td>
+            </tr>
+            <tr>
+              <td class="small text-right">Nonce:</td>
+              <td class="small text-left mono">{{parsedSignedTx.nonce}}</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Data:</td>
+              <td class="small text-left mono">{{parsedSignedTx.data}}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <h4 class="text-center">
+          <span translate="STAKEModal_Content_1">You are about to send</span>
+          <strong class="mono">{{tx.value}} {{unitReadable}}</strong>
+          <span>to {{validator.name}}</span>
+          <strong class="mono">({{validator.address}}).</strong>
+        </h4>
+        <p translate="STAKEModal_Content_3">
+          Are you sure you want to do this?
+        </p>
+        <br />
+        <button class="btn btn-default" data-dismiss="modal" translate="STAKEModal_No">
+          No, get me out of here!
+        </button>
+        <button class="btn btn-primary" ng-click="sendTx()" translate="STAKEModal_Yes">
+          Yes, I am sure! Make transaction.
+        </button>
+      </div>
+    </section>
+  </section>
+</article>
+ 
+  </article>
+
+  <!-- Withdraw Validator Content -->
+  <article class="row" ng-show="wallet!=null  && visibility=='withdrawView'">
+     <!-- Content -->
+<div class="col-sm-8">
+
+  <!-- If unlocked with PK -->
+  <article class="block" ng-hide="wallet.type=='addressOnly'">
+
+    <!-- Validator Dropdown -->
+    <section class="row form-group">
+        <div class="col-sm-11 clearfix">
+            <label translate="STAKING_Title_2">
+                Select Validator
+            </label>
+
+            <div class="dropdown ">
+                <a class="btn btn-default dropdown-toggle"
+                   class="dropdown-toggle"
+                   ng-click="dropdownExistingValidators = !dropdownExistingValidators">
+                    <img class="validatorIcon" src="{{validator.logo}}" ng-show="validator.logo && validator.logo!=''"/>
+                    <img class="validatorIcon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII=" ng-hide="validator.logo && validator.logo!=''"/>
+                    {{selectedValidator.name}}
+                    <i class="caret"></i>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-left" ng-show="dropdownExistingValidators">
+                    <li ng-repeat="validator in ajaxReq.validatorList track by $index">
+                        <a ng-click="selectExistingValidator($index)">
+                            <img class="validatorIcon" src="{{validator.logo}}" ng-show="validator.logo && validator.logo!=''"/>
+                            <img class="validatorIcon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII=" ng-hide="validator.logo && validator.logo!=''"/>
+                            {{validator.name}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Validator Address -->
+    <section class="row form-group">
+        <address-field labeltranslated="STAKING_Title" var-name="validator.address">{{selectedValidator.address}}</address-field>
+    </section>
+
+
+    <!-- Gas Limit -->
+    <section class="row form-group">
+        <div class="col-sm-11 clearfix">
+            <a class="account-help-icon"
+                href="#">
+                <img src="images/icon-help.svg" class="help-icon" />
+                <p class="account-help-text" translate="STAKE_GAS_LIMIT_Desc"></p>
+            </a>
+            <label translate="TRANS_gas">
+            Gas Limit:
+            </label>
+            <input type="text"
+                class="form-control"
+                placeholder="21000"
+                ng-model="tx.gasLimit"
+                ng-change="gasLimitChanged=true"
+                ng-disabled="tx.readOnly || checkTxReadOnly"
+                ng-class="Validator.isPositiveNumber(tx.gasLimit) ? 'is-valid' : 'is-invalid'" />
+        </div>
+    </section>
+
+
+    <div class="row form-group">
+      <div class="col-xs-12 clearfix">
+        <a class="btn btn-info btn-block"
+           ng-click="generateTx()"
+           translate="SEND_generate">
+              Generate Transaction
+        </a>
+      </div>
+    </div>
+
+    <div class="row form-group" ng-show="rootScopeShowRawTx">
+
+      <div class="col-sm-6">
+        <label translate="SEND_raw">
+          Raw Transaction
+        </label>
+        <textarea class="form-control" rows="4" readonly>{{rawTx}}</textarea>
+      </div>
+
+      <div class="col-sm-6">
+        <label translate="SEND_signed">
+          Signed Transaction
+        </label>
+        <textarea class="form-control" rows="4" readonly>{{signedTx}}</textarea>
+      </div>
+
+    </div>
+
+    <div class="clearfix form-group" ng-show="rootScopeShowRawTx">
+      <a class="btn btn-primary btn-block col-sm-11"
+         data-toggle="modal"
+         data-target="#sendTransaction"
+         translate="SEND_trans"
+         ng-click="parseSignedTx( signedTx )">
+             Send Transaction
+      </a>
+    </div>
+
+
+  </article>
+
+</div>
+<!-- / Content -->
+
+
+
+
+
+<!-- Sidebar -->
+<section class="col-sm-4">
+
+  <wallet-balance-drtv></wallet-balance-drtv>
+
+  <div ng-show="checkTxPage"
+       ng-click="checkTxReadOnly=!checkTxReadOnly"
+       class="small text-right text-gray-lighter">
+        <small translate="X_Advanced">
+          Advanced Users Only.
+        </small>
+  </div>
+
+</section>
+<!-- / Sidebar -->
+ 
+     <article class="modal fade" id="sendTransaction" tabindex="-1">
+  <section class="modal-dialog">
+    <section class="modal-content">
+
+      <div class="modal-body">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close Dialog">&times;</button>
+
+        <h2 class="modal-title text-center">
+          <span translate="STAKEModal_Content_5">You are about to stake</span>...
+        </h2>
+
+        <table class="table text-center">
+          <tbody>
+            <tr>
+              <td>
+                <div class="addressIdenticon med"
+                     title="Address Indenticon"
+                     blockie-address="{{wallet.getAddressString()}}"
+                     watch-var="wallet.getAddressString()">
+                </div>
+                <p>
+                  <strong class="send-modal__addr">
+                    {{wallet.getChecksumAddressString()}}
+                  </strong>
+                  <br />&nbsp;
+                </p>
+              </td>
+              <td class="mono">
+                ->
+                <br />
+                <h4 class="text-danger">
+                  {{tx.value}} {{unitReadable}}
+                </h4>
+              </td>
+              <td>
+                <div class="addressIdenticon med" title="Address Indenticon" blockie-address="{{validator.address}}" watch-var="validator.address"></div>
+                <p>
+                  <strong class="send-modal__addr">
+                    {{validator.address}}
+                  </strong>
+                  <br />
+                  <strong class="send-modal__addr">
+                    {{validator.name}}
+                  </strong>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <br />
+
+        <table class="table small table-condensed table-hover">
+          <tbody>
+            <tr>
+              <td class="small text-right">To Address:</td>
+              <td class="small text-left mono">{{parsedSignedTx.to}}
+                <br />
+                <em><small>When staking this is the staking contract address.</small></em>
+              </td>
+            </tr>
+            <tr>
+              <td class="small text-right">To Validator:</td>
+              <td class="small text-left mono">{{validator.name}}
+              </td>
+            </tr>
+            <tr>
+              <td class="small text-right">To Validator Address:</td>
+              <td class="small text-left mono">{{validator.address}}
+              </td>
+            </tr>
+            <tr>
+              <td class="small text-right">From Address:</td>
+              <td class="small text-left mono">{{parsedSignedTx.from}}</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Amount to Send:</td>
+              <td class="small text-left mono">{{parsedSignedTx.value}} WAN</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Account Balance:</td>
+              <td class="small text-left mono">{{parsedSignedTx.balance}}</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Coin:</td>
+              <td class="small text-left mono">{{unitReadable}}</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Network:</td>
+              <td class="small text-left mono">{{ajaxReq.type}} by {{ajaxReq.service}}</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Gas Limit:</td>
+              <td class="small text-left mono">{{parsedSignedTx.gasLimit}}</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Gas Price:</td>
+              <td class="small text-left mono">{{parsedSignedTx.gasPrice.gwei}} GWEI <small>({{parsedSignedTx.gasPrice.eth}} WAN)</small>
+              </td>
+            </tr>
+            <tr>
+              <td class="small text-right">Max TX Fee:</td>
+              <td class="small text-left mono"> {{parsedSignedTx.txFee.eth}} WAN <small>({{parsedSignedTx.txFee.gwei}} GWEI)</small></td>
+            </tr>
+            <tr>
+              <td class="small text-right">Nonce:</td>
+              <td class="small text-left mono">{{parsedSignedTx.nonce}}</td>
+            </tr>
+            <tr>
+              <td class="small text-right">Data:</td>
+              <td class="small text-left mono">{{parsedSignedTx.data}}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <h4 class="text-center">
+          <span translate="STAKEModal_Content_1">You are about to send</span>
+          <strong class="mono">{{tx.value}} {{unitReadable}}</strong>
+          <span>to {{validator.name}}</span>
+          <strong class="mono">({{validator.address}}).</strong>
+        </h4>
+        <p translate="STAKEModal_Content_3">
+          Are you sure you want to do this?
+        </p>
+        <br />
+        <button class="btn btn-default" data-dismiss="modal" translate="STAKEModal_No">
+          No, get me out of here!
+        </button>
+        <button class="btn btn-primary" ng-click="sendTx()" translate="STAKEModal_Yes">
+          Yes, I am sure! Make transaction.
+        </button>
+      </div>
+    </section>
+  </section>
+</article>
+ 
+  </article>
 </main>
 
 
@@ -1136,13 +1846,13 @@ TrezorConnect.manifest({
 <section class="col-sm-4">
 
   <div class="block block--danger"
-       ng-show="wallet!=null && globalService.currentTab==globalService.tabs.swap.id && !hasEnoughBalance()">
+       ng-show="wallet!=null && globalService.currentTab==globalService.tabs.sendTransaction.id && !hasEnoughBalance()">
 
-    <h5 translate="SWAP_Warning_1">
-      Warning! You do not have enough funds to complete this swap.
+    <h5 translate="SEND_Warning_1">
+      Warning! You do not have enough funds to complete this transaction.
     </h5>
 
-    <p translate="SWAP_Warning_2">
+    <p translate="SEND_Warning_2">
       Please add more funds to your wallet or access a different wallet.
     </p>
 
@@ -3103,9 +3813,9 @@ TrezorConnect.manifest({
       <li>
         Generate and send this transaction &ndash; leave "Amount to Send" as <strong>0</strong>
       </li>
-      <!-- TODO: Example WNS Transaction wanscan
+      <!-- TODO: Example WNS Transaction wanscan.org
       <li>
-        <a href="https://wanscan.io/tx/0x60eec50b492375bce25684f806599873b7f682e1ba504c8bed7cc90c33368118"
+        <a href="{{ajaxReq.blockExplorerTX.replace('[[txHash]]', '0x60eec50b492375bce25684f806599873b7f682e1ba504c8bed7cc90c33368118')}}"
            target="_blank"
            rel="noopener noreferrer">
               TX should look like this.
@@ -3157,9 +3867,9 @@ TrezorConnect.manifest({
       <li>
         Generate and send this transaction &ndash; leave "Amount to Send" as <strong>0</strong>
       </li>
-      <!-- TODO: Example WNS Transaction wanscan
+      <!-- TODO: Example WNS Transaction wanscan.org
       <li>
-        <a href="https://wanscan.io/tx/0xe4b8cbbb9c30a9066e4d430e347e07442ccc99b927ed73280792aee718ecbd30"
+        <a href="{{ajaxReq.blockExplorerTX.replace('[[txHash]]', '0xe4b8cbbb9c30a9066e4d430e347e07442ccc99b927ed73280792aee718ecbd30')}}"
            target="_blank"
            rel="noopener noreferrer">
               TX should look like this.
@@ -4257,7 +4967,7 @@ TrezorConnect.manifest({
 
     <div ng-show="!wd">
       <p translate="VIEWWALLET_Subtitle">
-        This page allows you to download different versions of private keys and re-print your paper wallet. You may want to do this in order to [import your account into Geth/Mist](http://ethereum.stackexchange.com/questions/465/how-to-import-a-plain-private-key-into-geth/). If you want to check your balance, we recommend using a blockchain explorer like <a href="http://wanscan.io/" target="_blank" rel="noopener noreferrer">wanscan.io</a>.
+        This page allows you to download different versions of private keys and re-print your paper wallet. You may want to do this in order to [import your account into Geth/Mist](http://ethereum.stackexchange.com/questions/465/how-to-import-a-plain-private-key-into-geth/). If you want to check your balance, we recommend using a blockchain explorer like <a href="http://wanscan.org/" target="_blank" rel="noopener noreferrer">wanscan.org</a>.
       </p>
       <wallet-decrypt-drtv></wallet-decrypt-drtv>
     </div>
@@ -4275,7 +4985,7 @@ TrezorConnect.manifest({
       <div class="account-help-icon">
         <img src="images/icon-help.svg" class="help-icon" />
         <p class="account-help-text" translate="x_AddessDesc">
-          You may know this as your "Account #" or your "Public Key". It's what you send people so they can send you ETH. That icon is an easy way to recognize your address.
+          You may know this as your "Account #" or your "Public Key". It's what you send people so they can send you WAN. That icon is an easy way to recognize your address.
         </p>
         <h5 translate="x_Address">
           Your Address:
@@ -4283,16 +4993,32 @@ TrezorConnect.manifest({
       </div>
       <input class="form-control"
              type="text"
-             ng-value="wallet.getChecksumAddressString()"
+             ng-value="ChecksumAddressString"
              readonly="readonly">
     </div>
 
     <div class="col-xs-1 address-identicon-container">
       <div class="addressIdenticon"
            title="Address Indenticon"
-           blockie-address="{{wallet.getAddressString()}}"
+           blockie-address="{{AddressString}}"
            watch-var="wallet">
       </div>
+    </div>
+
+    <div class="col-xs-12" ng-show="WAddressString!='0x'">
+      <div class="account-help-icon">
+        <img src="images/icon-help.svg" class="help-icon" />
+        <p class="account-help-text" translate="x_AddessDesc">
+          You may know this as your "Private Address" (Not private key!). It's what you send people so they can send you WAN Privately. That icon is an easy way to recognize your address.
+        </p>
+        <h5 translate="x_WAddress">
+          Your Private Address:
+        </h5>
+      </div>
+      <input class="form-control"
+             type="text"
+             ng-value="WAddressString"
+             readonly="readonly">
     </div>
 
     <div class="col-xs-12" ng-show='showEnc'>
@@ -4310,7 +5036,7 @@ TrezorConnect.manifest({
       </a>
     </div>
 
-    <div class="col-xs-12" ng-show="wallet.type=='default'">
+    <div class="col-xs-12" ng-show="wallet.type=='default' && wallet.hwType!='wan3'">
       <div class="account-help-icon">
         <img src="images/icon-help.svg" class="help-icon" />
         <p class="account-help-text" translate="x_PrivKeyDesc">
@@ -4325,7 +5051,7 @@ TrezorConnect.manifest({
       <div class="input-group">
         <input class="form-control no-animate"
                type="{{pkeyVisible ? 'text' : 'password'}}"
-               ng-value="wallet.getPrivateKeyString()"
+               ng-value="privatekeystring"
                readonly="readonly">
         <span tabindex="0"
               aria-label="make private key visible"
@@ -4335,8 +5061,32 @@ TrezorConnect.manifest({
       </div>
     </div>
 
+    <div class="col-xs-12" ng-show="WAddressString!='0x'">
+      <div class="account-help-icon">
+        <img src="images/icon-help.svg" class="help-icon" />
+        <p class="account-help-text" translate="x_PrivKeyDesc2">
+          This is the unencrypted text version of your second private key, meaning no password is necessary. If someone were to find your unencrypted private key, they could access your wallet without a password. For this reason, encrypted versions are typically recommended.
+        </p>
+        <h5>
+          <span translate="x_PrivKey2">
+            Private Key 2 (unencrypted)
+          </span>
+        </h5>
+      </div>
+      <div class="input-group">
+        <input class="form-control no-animate"
+               type="{{pkeyVisible2 ? 'text' : 'password'}}"
+               ng-value="privatekeystring2"
+               readonly="readonly">
+        <span tabindex="0"
+              aria-label="make private key 2 visible"
+              role="button"
+              class="input-group-addon eye"
+              ng-click="showHidePkey2()"></span>
+      </div>
+    </div>
 
-    <div class="col-xs-12" ng-show="wallet.type=='default'">
+    <div class="col-xs-12" ng-show="wallet.type=='default' && wallet.hwType!='wan3'">
       <div class="account-help-icon">
         <img src="images/icon-help.svg" class="help-icon" />
         <p class="account-help-text" translate="x_PrintDesc">
@@ -4352,33 +5102,32 @@ TrezorConnect.manifest({
     </div>
   </section>
 
-
   <section class="block">
 
     <div class="col-xs-6">
 
       <h5 translate="x_Address">
-        Your Address:
+        Your Public Address:
       </h5>
-      <div class="qr-code" qr-code="{{wallet.getChecksumAddressString()}}" watch-var="wallet" width="100%"></div>
+      <div class="qr-code" qr-code="{{ChecksumAddressString}}" watch-var="wallet" width="100%"></div>
 
     </div>
 
     <div class="col-xs-6">
 
-      <h5 ng-show="wallet.type=='default'">
+      <h5 ng-show="wallet.type=='default' && wallet.hwType!='wan3'">
         <span translate="x_PrivKey">
           Private Key (unencrypted)
         </span>
       </h5>
 
-      <div class="qr-pkey-container" ng-show="wallet.type=='default'">
+      <div class="qr-pkey-container" ng-show="wallet.type=='default' && wallet.hwType!='wan3'">
         <div class="qr-overlay" ng-show="!pkeyVisible"></div>
-        <div class="qr-code" qr-code="{{wallet.getPrivateKeyString()}}" watch-var="wallet" width="100%"></div>
+        <div class="qr-code" qr-code="{{privatekeystring}}" watch-var="wallet" width="100%"></div>
         <div class="input-group">
           <input class="form-control no-animate"
                  type="{{pkeyVisible ? 'text' : 'password'}}"
-                 ng-value="wallet.getPrivateKeyString()"
+                 ng-value="privatekeystring"
                  readonly="readonly"
                  style="display:none;width:0;height:0;padding:0">
           <span tabindex="0"
@@ -4390,6 +5139,42 @@ TrezorConnect.manifest({
 
     </div>
 
+  </section>
+
+  <section class="block" ng-show="WAddressString!='0x'">
+    <div class="col-xs-6">
+
+      <h5 translate="x_WAddress" >
+        Your Private Address:
+      </h5>
+      <div class="qr-code" qr-code="{{WAddressString}}" watch-var="wallet" width="100%"></div>
+
+    </div>
+    <div class="col-xs-6">
+
+      <h5 ng-show="WAddressString!='0x'">
+        <span translate="x_PrivKey2">
+          Private Key 2 (unencrypted)
+        </span>
+      </h5>
+
+      <div class="qr-pkey-container" ng-show="WAddressString!='0x'">
+        <div class="qr-overlay" ng-show="!pkeyVisible2"></div>
+        <div class="qr-code" qr-code="{{privatekeystring2}}" watch-var="wallet" width="100%"></div>
+        <div class="input-group">
+          <input class="form-control no-animate"
+                 type="{{pkeyVisible2 ? 'text' : 'password'}}"
+                 ng-value="privatekeystring2"
+                 readonly="readonly"
+                 style="display:none;width:0;height:0;padding:0">
+          <span tabindex="0"
+                aria-label="make private key visible"
+                role="button" class="input-group-addon eye"
+                ng-click="showHidePkey2()"></span>
+        </div>
+      </div>
+
+    </div>
   </section>
 
 
@@ -4544,7 +5329,7 @@ TrezorConnect.manifest({
 
     <div class="cont-md" ng-show="txInfo.status == txStatus.mined">
       <h3 class="text-success" translate="tx_FoundOnChain"> Transaction Found </h3>
-      <h5> <a href="https://wanscan.io/tx/{{ tx.hash }}" target="_blank" rel="noopener noreferrer"> {{ tx.hash }} </a> </h5>
+      <h5> <a href="{{ajaxReq.blockExplorerTX.replace('[[txHash]]', tx.hash)}}" target="_blank" rel="noopener noreferrer"> {{ tx.hash }} </a> </h5>
       <p><strong translate="tx_FoundOnChain_1"></strong></p>
       <ul>
         <li translate="tx_FoundOnChain_2"></li>
@@ -4585,11 +5370,20 @@ TrezorConnect.manifest({
       <table class="table table-striped txstatus__2 cont-md"> <!-- ng-show="tx.status=='foundOnChain' || foundInPending'"-->
         <tbody>
           <tr>
+            <td translate="OFFLINE_Step2_Label_9">
+              Data
+            </td>
+            <td>
+              <strong ng-show="txInfo.realStatus=='0x0'">Failed</strong>
+              <strong ng-show="txInfo.realStatus=='0x1'">OK</strong>
+            </td>
+          </tr>
+          <tr>
             <td translate="x_TxHash">
               TX Hash
             </td>
             <td>
-              <a href="https://wanscan.io/tx/{{ txInfo.hash }}" target="_blank" rel="noopener noreferrer">
+              <a href="{{ajaxReq.blockExplorerTX.replace('[[txHash]]', txInfo.hash)}}" target="_blank" rel="noopener noreferrer">
                 {{ txInfo.hash }}
               </a>
             </td>
@@ -4599,7 +5393,7 @@ TrezorConnect.manifest({
               From Address
             </td>
             <td>
-              <a href="https://wanscan.io/addr/{{ txInfo.from }}" target="_blank" rel="noopener noreferrer">
+              <a href="{{ajaxReq.blockExplorerAddr.replace('[[address]]', txInfo.from)}}" target="_blank" rel="noopener noreferrer">
                 {{ txInfo.from }}
               </a>
             </td>
@@ -4609,7 +5403,7 @@ TrezorConnect.manifest({
               To Address
             </td>
             <td>
-              <a href="https://wanscan.io/addr/{{ txInfo.to }}" target="_blank" rel="noopener noreferrer">
+              <a href="{{ajaxReq.blockExplorerAddr.replace('[[address]]', txInfo.to)}}" target="_blank" rel="noopener noreferrer">
                 {{ txInfo.to }}
               </a>
             </td>
@@ -4707,7 +5501,15 @@ TrezorConnect.manifest({
               Data
             </td>
             <td>
-              {{ txInfo.data }}
+              <span>{{ txInfo.data }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td translate="OFFLINE_Step2_Label_8">
+              Data
+            </td>
+            <td>
+              {{ txInfo.gasUsed }} <span translate="tx_OUT_OF_GAS" ng-show="txInfo.gasUsed == txInfo.gasLimit"></span>
             </td>
           </tr>
         </tbody>
@@ -5077,13 +5879,13 @@ TrezorConnect.manifest({
 <section class="col-sm-4">
 
   <div class="block block--danger"
-       ng-show="wallet!=null && globalService.currentTab==globalService.tabs.swap.id && !hasEnoughBalance()">
+       ng-show="wallet!=null && globalService.currentTab==globalService.tabs.sendTransaction.id && !hasEnoughBalance()">
 
-    <h5 translate="SWAP_Warning_1">
-      Warning! You do not have enough funds to complete this swap.
+    <h5 translate="SEND_Warning_1">
+      Warning! You do not have enough funds to complete this transaction.
     </h5>
 
-    <p translate="SWAP_Warning_2">
+    <p translate="SEND_Warning_2">
       Please add more funds to your wallet or access a different wallet.
     </p>
 
@@ -5457,7 +6259,7 @@ TrezorConnect.manifest({
     <section class="footer--cent">
         <h5><i aria-hidden="true">💝</i> Other Wanchain sites!</h5>
         <p>
-          <a aria-label="wan scan" href="https://wanscan.io" target="_blank" rel="noopener noreferrer" role="link" tabindex="0">
+          <a aria-label="wan scan" href="https://wanscan.org" target="_blank" rel="noopener noreferrer" role="link" tabindex="0">
             WanScan.io
           </a>
         </p>
@@ -5486,7 +6288,7 @@ TrezorConnect.manifest({
         <p>
           WAN:
           <span class="mono wrap">
-            <a title="See this address on the blockchain explorer" href="https://wanscan.io/addr/0x664949908413517B993c6784b44428d080D1a1Fa" class="ext-etheraddresslookup-link" target="_blank">
+            <a title="See this address on the blockchain explorer" href="https://wanscan.org/address/0x664949908413517B993c6784b44428d080D1a1Fa" class="ext-etheraddresslookup-link" target="_blank">
               0x664949908413517B993c6784b44428d080D1a1Fa
             </a>
           </span>

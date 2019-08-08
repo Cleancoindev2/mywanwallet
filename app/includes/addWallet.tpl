@@ -351,10 +351,10 @@
       </h5>
       <ul class="account-info">
         <li>
-          <a href="https://wanscan.io/addr/{{wallet.getAddressString()}}"
+          <a href="{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}"
              target="_blank"
              rel="noopener noreferrer">
-               https://wanscan.io/addr/ {{wallet.getAddressString()}}
+               {{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}
           </a>
         </li>
       </ul>

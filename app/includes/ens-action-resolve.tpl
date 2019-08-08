@@ -77,9 +77,9 @@
       <li>
         Generate and send this transaction &ndash; leave "Amount to Send" as <strong>0</strong>
       </li>
-      <!-- TODO: Example WNS Transaction wanscan
+      <!-- TODO: Example WNS Transaction wanscan.org
       <li>
-        <a href="https://wanscan.io/tx/0x60eec50b492375bce25684f806599873b7f682e1ba504c8bed7cc90c33368118"
+        <a href="{{ajaxReq.blockExplorerTX.replace('[[txHash]]', '0x60eec50b492375bce25684f806599873b7f682e1ba504c8bed7cc90c33368118')}}"
            target="_blank"
            rel="noopener noreferrer">
               TX should look like this.
@@ -131,9 +131,9 @@
       <li>
         Generate and send this transaction &ndash; leave "Amount to Send" as <strong>0</strong>
       </li>
-      <!-- TODO: Example WNS Transaction wanscan
+      <!-- TODO: Example WNS Transaction wanscan.org
       <li>
-        <a href="https://wanscan.io/tx/0xe4b8cbbb9c30a9066e4d430e347e07442ccc99b927ed73280792aee718ecbd30"
+        <a href="{{ajaxReq.blockExplorerTX.replace('[[txHash]]', '0xe4b8cbbb9c30a9066e4d430e347e07442ccc99b927ed73280792aee718ecbd30')}}"
            target="_blank"
            rel="noopener noreferrer">
               TX should look like this.

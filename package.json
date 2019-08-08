@@ -1,6 +1,6 @@
 {
   "name": "mywanwallet",
-  "version": "2.0.1",
+  "version": "2.0.0",
   "description": "",
   "main": "gulpfile.js",
   "author": "Tyrion70",
@@ -20,8 +20,8 @@
     "bump": "gulp bump && gulp prep",
     "test:e2e:chrome": "shell-parallel -s 'npm run wanache:start' -x 'sleep 3 && npm run test:e2e:run:chrome'",
     "test:e2e:firefox": "shell-parallel -s 'npm run wanache:start' -x 'sleep 3 && npm run test:e2e:run:firefox'",
-    "test:e2e:run:chrome": "SELENIUM_BROWSER=chrome mocha test/e2e/metamask.spec --bail --recursive",
-    "test:e2e:run:firefox": "SELENIUM_BROWSER=firefox mocha test/e2e/metamask.spec --bail --recursive",
+    "test:e2e:run:chrome": "SELENIUM_BROWSER=chrome mocha test/e2e/mywanwallet.spec --bail --recursive",
+    "test:e2e:run:firefox": "SELENIUM_BROWSER=firefox mocha test/e2e/mywanwallet.spec --bail --recursive",
     "wanache:start": "ganache-cli --noVMErrorsOnRPCResponse -m 'phrase upgrade clock rough situate wedding elder clever doctor stamp excess tent'"
   },
   "devDependencies": {

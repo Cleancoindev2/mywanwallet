@@ -8,6 +8,8 @@ var decryptWalletCtrl = function ($scope, $sce, walletService) {
     $scope.isSSL = window.location.protocol === 'https:'
     $scope.ajaxReq = ajaxReq
     $scope.nodeType = $scope.ajaxReq.type
+    $scope.curNode = JSON.parse(globalFuncs.localStorage.getItem('curNode'))
+
     $scope.HDWallet = {
         numWallets: 0,
         walletsPerDialog: 5,

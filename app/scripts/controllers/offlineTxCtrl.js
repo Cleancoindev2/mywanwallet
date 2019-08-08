@@ -172,7 +172,7 @@ var offlineTxCtrl = function ($scope, $sce, walletService) {
             if (data.error) {
                 $scope.notifier.danger(data.msg)
             } else {
-                $scope.notifier.success(globalFuncs.successMsgs[2] + "<a href='https://wanscan.io/tx/" + data.data + "' target='_blank' rel='noopener'>" + data.data + '</a>')
+                $scope.notifier.success(globalFuncs.successMsgs[2] + "<a href='{{ajaxReq.blockExplorerTX.replace('[[txHash]]', data.data)}}" + "' target='_blank' rel='noopener'>" + data.data + '</a>')
             }
         })
     }

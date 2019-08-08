@@ -35,7 +35,7 @@
     <!-- Ledger -->
     <label aria-flowto="aria3"
            class="radio"
-           ng-show="ajaxReq.type=='WAN'">
+           ng-show="ajaxReq.type=='WAN' && curNode.chainId!=3">
       <input aria-flowto="aria3"
              type="radio"
              aria-label="Ledger Hardware Wallet"
@@ -99,7 +99,7 @@
              type="radio"
              ng-model="walletType"
              value="pasteprivkey" />
-      <span translate="x_PrivKey2">
+      <span translate="x_PrivKey">
         Private Key
       </span>
       <a href="https://myetherwallet.github.io/knowledge-base/private-keys-passwords/difference-beween-private-key-and-keystore-file.html"
@@ -602,7 +602,7 @@
                   ng-class="Validator.isValidPrivKey($parent.$parent.manualprivkey.length) ? 'is-valid' : 'is-invalid'"
                   ng-keyup="$event.keyCode == 13 && decryptWallet()"
                   ng-model="$parent.$parent.manualprivkey"
-                  placeholder="{{ 'x_PrivKey2' | translate }}"
+                  placeholder="{{ 'x_PrivKey' | translate }}"
                   rows="4"
         ></textarea>
       </div>

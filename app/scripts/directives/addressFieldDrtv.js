@@ -5,7 +5,7 @@ var addressFieldDrtv = function ($compile) {
         link: function (scope, element, attrs) {
             var varName = attrs.varName
             var varArr = varName.split('.')
-            var placeholder = attrs.placeholder === undefined ? 'mewtopia.eth or 0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8' : attrs.placeholder
+            var placeholder = attrs.placeholder === undefined ? 'tyrion70.wan or 0xad19fd52d860a7328cc59ee18db7f26793f0501d' : attrs.placeholder
             var labelTranslated = attrs.labeltranslated === undefined ? 'SEND_addr' : attrs.labeltranslated
             var setValue = function (value) {
                 var temp = scope

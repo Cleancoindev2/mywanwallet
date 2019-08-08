@@ -2,6 +2,7 @@
 
 var txStatusCtrl = function ($scope) {
     $scope.Validator = Validator
+    $scope.ajaxReq = ajaxReq
     $scope.checkTxPage = true
     $scope.checkTxReadOnly = true
     $scope.txStatus = {
@@ -75,6 +76,14 @@ var txStatusCtrl = function ($scope) {
             $scope.txInfo.status = txStatus.notFound
         }
     }
+    var txReceiptToObject = function (tx) {
+        if (tx) {
+            $scope.txInfo.realStatus = tx.status
+            $scope.txInfo.gasUsed = new BigNumber(tx.gasUsed).toString()
+        } else {
+            $scope.txInfo.status = txStatus.notFound
+        }
+    }
     $scope.checkTxStatus = function () {
         var txInfo = $scope.txInfo
         try {
@@ -83,6 +92,12 @@ var txStatusCtrl = function ($scope) {
                 if (data.error) $scope.notifier.danger(data.msg)
                 else {
                     txToObject(data.data)
+                    ajaxReq.getTransactionReceipt(txInfo.hash, function (data) {
+                        if (data.error) $scope.notifier.danger(data.msg)
+                        else {
+                            txReceiptToObject(data.data)
+                        }
+                    })
                 }
             })
         } catch (e) {
