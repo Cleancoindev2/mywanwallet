@@ -38,7 +38,6 @@ describe('MyWanWallet', function () {
                 const errorReports = errors.map(err => err.message)
                 const errorMessage = `Errors found in browser console:\n${errorReports.join('\n')}`
                 console.error(new Error(errorMessage))
-
             }
         }
         // gather extra data if test failed
@@ -270,6 +269,85 @@ describe('MyWanWallet', function () {
         })
     })
 
+    describe('Test staking', () => {
+        describe('Goto Testnet', function () {
+            it('Goto Staking Menu', async () => {
+                await clickElement('/html/body/header/nav/div/ul/li[3]/a')
+                await delay(500)
+            })
+
+            it('Open Provider menu', async () => {
+                await clickElement('/html/body/header/section/section/div/span[3]/a')
+                await delay(500)
+            })
+
+            it('Click testnet', async () => {
+                await clickElement('/html/body/header/section/section/div/span[3]/ul/li[2]/a')
+                await delay(500)
+                await clickElement('/html/body/section[1]/div[2]/div/i')
+                await delay(500)
+            })
+
+            it('Refresh page', async () => {
+                // Refresh page for staking
+                await driver.executeScript('location.reload()')
+                await delay(500)
+            })
+        })
+
+        describe('Test staking', function () {
+            it('Unlock with mnemnonic', async () => {
+                await clickElement('/html/body/section[1]/div/main/article[1]/div[2]/wallet-decrypt-drtv/article/section[1]/label[6]/input')
+                await delay(200)
+                await enterTextInElement('//*[@id="aria4"]', phrase)
+                await delay(200)
+                await clickElement('//*[@id="selectedTypeMnemonic"]/div[5]/a')
+                await delay(200)
+                // Select Trezor (WAN)
+                await clickElement('//*[@id="mnemonicModel"]/section/section/div/section[1]/div[1]/label/input')
+                await delay(200)
+                // Select first address
+                await clickElement('//*[@id="mnemonicModel"]/section/section/div/table/tbody/tr[2]/td[1]/label/input')
+                await delay(200)
+                // Click Unlock
+                await clickElement('//*[@id="mnemonicModel"]/section/section/div/div/button[1]')
+                await delay(1000)
+                await validateValue('/html/body/section[1]/div/main/article[2]/section/wallet-balance-drtv/aside/div[1]/ul[2]/li/span', '0', 'Balance is 0 WAN')
+                await validateValue('/html/body/section[1]/div/main/article[2]/section/wallet-balance-drtv/aside/div[1]/ul[1]/span', '0xf21310938ccfCA0aDBBDd370ad0f7B34AE26fD19', 'Address is 0xe18035bf8712672935fdb4E5E431B1A0183D2dfc')
+            })
+
+            it('Restart with privkey', async () => {
+                // Click + sign
+                await clickElement('/html/body/section[1]/div/main/article[1]/div[1]/a/span[1]')
+                await delay(200)
+                await clickElement('/html/body/section[1]/div/main/article[1]/div[2]/wallet-decrypt-drtv/article/section[1]/label[7]/input')
+                await delay(200)
+                await enterTextInElement('//*[@id="aria6"]', privkeys[0])
+                await delay(200)
+                await clickElement('//*[@id="selectedTypeKey"]/div[4]/a')
+                await delay(500)
+                await validateValue('/html/body/section[1]/div/main/article[2]/section/wallet-balance-drtv/aside/div[1]/ul[2]/li/span', '0', 'Balance is 0 WAN')
+                await validateValue('/html/body/section[1]/div/main/article[2]/section/wallet-balance-drtv/aside/div[1]/ul[1]/span', '0xe18035bf8712672935fdb4E5E431B1A0183D2dfc', 'Address is 0xe18035bf8712672935fdb4E5E431B1A0183D2dfc')
+            })
+
+            it('Enter amount < 100 for invalid tx and balance error', async () => {
+                // Enter 5 and check for error and -1
+                await delay(1000)
+                await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article/section[3]/div/input', 100, true)
+                await delay(1000)
+                await validateValueInput('/html/body/section[1]/div/main/article[2]/div/article/section[4]/div/input', '22680', 'Valid so 22680')
+            })
+
+            it('Enter amount < 100 for invalid tx and balance error', async () => {
+                // Enter 5 and check for error and -1
+                await enterTextInElement('/html/body/section[1]/div/main/article[2]/div/article/section[3]/div/input', 5, true)
+                await delay(1000)
+                await validateValueInput('/html/body/section[1]/div/main/article[2]/div/article/section[4]/div/input', '-1', 'Invalid so -1')
+                await validateValue('/html/body/section[1]/div/main/article[2]/section/div[1]/h5', 'Warning! You do not have enough funds to stake this much.', 'Shows warning')
+            })
+        })
+    })
+
     describe('Test signing message', () => {
 
     })
@@ -319,7 +397,7 @@ describe('MyWanWallet', function () {
         const element = await driver.findElement(By.xpath(xpath))
         await driver.executeScript('arguments[0].scrollIntoView(true)', element)
         const value = await element.getText()
-        console.error('value', value)
+        // console.error('value', value)
         assert.strictEqual(value, text, assertText)
     }
 
@@ -328,6 +406,14 @@ describe('MyWanWallet', function () {
         await driver.executeScript('arguments[0].scrollIntoView(true)', element)
         await delay(200)
         const value = await element.getAttribute('textContent')
+        assert.strictEqual(value, text, assertText)
+    }
+
+    async function validateValueInput (xpath, text, assertText) {
+        const element = await driver.findElement(By.xpath(xpath))
+        await driver.executeScript('arguments[0].scrollIntoView(true)', element)
+        await delay(200)
+        const value = await element.getAttribute('value')
         assert.strictEqual(value, text, assertText)
     }
 

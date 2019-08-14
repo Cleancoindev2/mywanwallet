@@ -106,7 +106,7 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
     switch (ajaxReq.chainId) {
         case 1:
-            $scope.contract.address = '0x00'
+            $scope.contract.address = '0x00000000000000000000000000000000000000da'
             break
         case 3:
             $scope.contract.address = '0x00000000000000000000000000000000000000da'
