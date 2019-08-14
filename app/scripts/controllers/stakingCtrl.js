@@ -35,15 +35,16 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
             }
 
-            // Select ChainLayer
-            $scope.selectExistingValidator(chainlayerid)
-
             // If no response from pos_stakeinfo the list is empty so we'll just add ChainLayer
-            if (ajaxReq.validatorList === '') {
+            if (ajaxReq.validatorList.length === 0) {
                 ajaxReq.validatorList = validatorstaticconfig
                 $scope.selectExistingValidator(0)
                 chainlayerid = 0
+            } else {
+                // Select ChainLayer
+                $scope.selectExistingValidator(chainlayerid)
             }
+
             // Now change the list in the right order (chainlayer on top, first named then unnamed validators)
             var newValidatorList = []
             // ChainLayer
