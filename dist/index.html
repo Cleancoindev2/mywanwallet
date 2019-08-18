@@ -30,8 +30,8 @@ TrezorConnect.manifest({
     appUrl: 'https://mywanwallet.nl'
 })
 </script>
-<script type="text/javascript" src="js/etherwallet-static.min.js?version=v2.0.5"></script>
-<script type="text/javascript" src="js/etherwallet-master.js?version=v2.0.5"></script>
+<script type="text/javascript" src="js/etherwallet-static.min.js?version=v2.0.10"></script>
+<script type="text/javascript" src="js/etherwallet-master.js?version=v2.0.10"></script>
 <meta name="description" content="MyWanWallet (MEW) is a free, open-source, client-side interface for generating Wanchain wallets & more. Interact with the Wanchain blockchain easily & securely.">
 <meta property="og:description"  content="Free, open-source, client-side Wanchain wallet. Enabling you to interact with the blockchain easily & securely.">
 <meta name="twitter:description" content="Free, open-source, client-side Wanchain wallet. Enabling you to interact with the blockchain easily & securely.">
@@ -869,14 +869,17 @@ TrezorConnect.manifest({
          ng-click="setVisibility('stakingView')">
           Stake to
       </a>
+      <!--
       or
       <a translate="NAV_WithdrawStake"
          ng-class="{'isActive': visibility=='withdrawView'}"
          ng-click="setVisibility('withdrawView')">
           Withdraw from
       </a>
+      -->
       Validator
     </h1>
+    <h3>(Withdrawl and insights coming soon!)</h3>
   </div>
   <!-- / Title -->
 
@@ -903,8 +906,8 @@ TrezorConnect.manifest({
     <p>
       You can stake your Wancoin using MyWanWallet. Currently the names and logos of Validators are stored off-chain which means you need to double check the address yourself
       on
-      <a href="http://testnet.wanscan.org/vlds" target="_blank" rel="noopener noreferrer" ng-show="ajaxReq.chainId==3">WanScan</a>
-      <a href="http://wanscan.org/vlds" target="_blank" rel="noopener noreferrer" ng-hide="ajaxReq.chainId==3">WanScan</a>.
+      <a href="https://testnet.wanscan.org/vlds" target="_blank" rel="noopener noreferrer" ng-show="ajaxReq.chainId==3">WanScan</a>
+      <a href="https://wanscan.org/vlds" target="_blank" rel="noopener noreferrer" ng-hide="ajaxReq.chainId==3">WanScan</a>.
       Logo's and names will be added here manually on a regular basis.
     </p>
     <p>

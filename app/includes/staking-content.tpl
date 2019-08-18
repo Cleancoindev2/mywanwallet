@@ -6,8 +6,8 @@
     <p>
       You can stake your Wancoin using MyWanWallet. Currently the names and logos of Validators are stored off-chain which means you need to double check the address yourself
       on
-      <a href="http://testnet.wanscan.org/vlds" target="_blank" rel="noopener noreferrer" ng-show="ajaxReq.chainId==3">WanScan</a>
-      <a href="http://wanscan.org/vlds" target="_blank" rel="noopener noreferrer" ng-hide="ajaxReq.chainId==3">WanScan</a>.
+      <a href="https://testnet.wanscan.org/vlds" target="_blank" rel="noopener noreferrer" ng-show="ajaxReq.chainId==3">WanScan</a>
+      <a href="https://wanscan.org/vlds" target="_blank" rel="noopener noreferrer" ng-hide="ajaxReq.chainId==3">WanScan</a>.
       Logo's and names will be added here manually on a regular basis.
     </p>
     <p>

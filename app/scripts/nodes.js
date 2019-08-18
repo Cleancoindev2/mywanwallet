@@ -32,7 +32,6 @@ nodes.nodeList = {
         'chainId': 1,
         'tokenList': require('./tokens/wanTokens.json'),
         'abiList': require('./abiDefinitions/wanAbi.json'),
-        'validatorList': require('./validators/wanMainnetValidators.json'),
         'service': 'mywanwallet.nl',
         'lib': new nodes.customNode('https://mywanwallet.nl/api', ''),
     },
@@ -45,10 +44,10 @@ nodes.nodeList = {
         'chainId': 3,
         'tokenList': require('./tokens/wanTestnetTokens.json'),
         'abiList': require('./abiDefinitions/wanTestnetAbi.json'),
-        'validatorList': require('./validators/wanTestnetValidators.json'),
         'service': 'mywanwallet.nl',
         'lib': new nodes.customNode('https://mywanwallet.nl/testnet', ''),
     },
+    /*
     'wan_mew_pluto': {
         'name': 'WAN Pluto',
         'blockExplorerTX': 'http://47.104.61.26/block/trans/[[txHash]]',
@@ -58,10 +57,10 @@ nodes.nodeList = {
         'chainId': 6,
         'tokenList': require('./tokens/wanPlutoTokens.json'),
         'abiList': require('./abiDefinitions/wanPlutoAbi.json'),
-        'validatorList': require('./validators/wanPlutoValidators.json'),
         'service': 'mywanwallet.nl',
         'lib': new nodes.customNode('https://mywanwallet.nl/pluto', ''),
     },
+     */
 }
 
 

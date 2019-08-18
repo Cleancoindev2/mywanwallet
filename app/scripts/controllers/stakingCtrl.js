@@ -4,82 +4,97 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
         address: '0x0',
         name: '',
     }
-    ajaxReq.getCurrentBlock(function (data) {
-        $scope.currentBlockNumber = data.data
-        ajaxReq.getValidators(parseInt($scope.currentBlockNumber), function (data) {
-            $scope.validators = data.data
+    ajaxReq.http.get('https://mywanwallet.nl/validators.json').then(function (data) {
+        data = data['data']
+        $scope.validatorstaticconfig = []
+        if (ajaxReq.chainId === 6) {
+            $scope.validatorstaticconfig = data['pluto']
+        }
+        if (ajaxReq.chainId === 3) {
+            $scope.validatorstaticconfig = data['testnet']
+        }
+        if (ajaxReq.chainId === 1) {
+            $scope.validatorstaticconfig = data['mainnet']
+        }
 
-            // Put our static data from the validators.json in a different variable
-            var validatorstaticconfig = ajaxReq.validatorList
+        ajaxReq.getCurrentBlock(function (data) {
+            $scope.currentBlockNumber = data.data
+            ajaxReq.getValidators(parseInt($scope.currentBlockNumber), function (data) {
+                $scope.validators = data.data
 
-            // Fill the validator list with the validators from the pos_stakeinfo call
-            ajaxReq.validatorList = $scope.validators
-            var chainlayerid = 0
-            var a = 0
-            var b = 0
-            $scope.addressDrtv.readOnly = true
+                // Put our static data from the validators.json in a different variable
+                // $scope.validatorstaticconfig = ajaxReq.validatorList
 
-            // Merge the manual info into the list
-            for (a in validatorstaticconfig) {
-                for (b in ajaxReq.validatorList) {
-                    if (validatorstaticconfig[a].address.toLowerCase() === ajaxReq.validatorList[b].address.toLowerCase()) {
-                        ajaxReq.validatorList[b].name = validatorstaticconfig[a].name
-                        ajaxReq.validatorList[b].logo = validatorstaticconfig[a].logo
-                        ajaxReq.validatorList[b].custom = validatorstaticconfig[a]
-                    }
-                    if (ajaxReq.validatorList[b].name === 'ChainLayer') {
-                        // Do the checksum here because we'll skip ChainLayer later :)
-                        ajaxReq.validatorList[b].address = ethUtil.toChecksumAddress(ajaxReq.validatorList[b].address)
-                        chainlayerid = b
+                // Fill the validator list with the validators from the pos_stakeinfo call
+                ajaxReq.validatorList = $scope.validators
+                var chainlayerid = 0
+                var a = 0
+                var b = 0
+                $scope.addressDrtv.readOnly = true
+
+                // Merge the manual info into the list
+                for (a in $scope.validatorstaticconfig) {
+                    for (b in ajaxReq.validatorList) {
+                        if ($scope.validatorstaticconfig[a].address.toLowerCase() === ajaxReq.validatorList[b].address.toLowerCase()) {
+                            ajaxReq.validatorList[b].name = $scope.validatorstaticconfig[a].name
+                            ajaxReq.validatorList[b].logo = $scope.validatorstaticconfig[a].logo
+                            ajaxReq.validatorList[b].custom = $scope.validatorstaticconfig[a]
+                        }
+                        if (ajaxReq.validatorList[b].name === 'ChainLayer') {
+                            // Do the checksum here because we'll skip ChainLayer later :)
+                            ajaxReq.validatorList[b].address = ethUtil.toChecksumAddress(ajaxReq.validatorList[b].address)
+                            chainlayerid = b
+                        }
                     }
                 }
-            }
 
-            // If no response from pos_stakeinfo the list is empty so we'll just add ChainLayer
-            if (ajaxReq.validatorList.length === 0) {
-                ajaxReq.validatorList = validatorstaticconfig
-                $scope.selectExistingValidator(0)
-                chainlayerid = 0
-            } else {
-                // Select ChainLayer
-                $scope.selectExistingValidator(chainlayerid)
-            }
+                // If no response from pos_stakeinfo the list is empty so we'll just add ChainLayer
+                if (ajaxReq.validatorList.length === 0) {
+                    ajaxReq.validatorList = $scope.validatorstaticconfig
+                    $scope.selectExistingValidator(0)
+                    chainlayerid = 0
+                } else {
+                    // Select ChainLayer
+                    $scope.selectExistingValidator(chainlayerid)
+                }
 
-            // Now change the list in the right order (chainlayer on top, first named then unnamed validators)
-            var newValidatorList = []
-            // ChainLayer
-            newValidatorList.push(ajaxReq.validatorList[chainlayerid])
+                // Now change the list in the right order (chainlayer on top, first named then unnamed validators)
+                var newValidatorList = []
+                // ChainLayer
+                newValidatorList.push(ajaxReq.validatorList[chainlayerid])
 
-            // Other validators with a name
-            for (a in ajaxReq.validatorList) {
-                if (ajaxReq.validatorList[a].name) {
-                    if (ajaxReq.validatorList[a].name !== 'ChainLayer') {
+                // Other validators with a name
+                for (a in ajaxReq.validatorList) {
+                    if (ajaxReq.validatorList[a].name) {
+                        if (ajaxReq.validatorList[a].name !== 'ChainLayer') {
+                            // Make address checksum
+                            ajaxReq.validatorList[a].address = ethUtil.toChecksumAddress(ajaxReq.validatorList[a].address)
+                            // Only add if Fee < 10000
+                            if (ajaxReq.validatorList[a].feeRate < 10000) {
+                                newValidatorList.push(ajaxReq.validatorList[a])
+                            }
+                        }
+                    }
+                }
+
+                // Validators without a name
+                for (a in ajaxReq.validatorList) {
+                    if (!ajaxReq.validatorList[a].name) {
                         // Make address checksum
                         ajaxReq.validatorList[a].address = ethUtil.toChecksumAddress(ajaxReq.validatorList[a].address)
+                        // Make name same as address
+                        ajaxReq.validatorList[a].name = ajaxReq.validatorList[a].address
                         // Only add if Fee < 10000
                         if (ajaxReq.validatorList[a].feeRate < 10000) {
                             newValidatorList.push(ajaxReq.validatorList[a])
                         }
                     }
                 }
-            }
-
-            // Validators without a name
-            for (a in ajaxReq.validatorList) {
-                if (!ajaxReq.validatorList[a].name) {
-                    // Make address checksum
-                    ajaxReq.validatorList[a].address = ethUtil.toChecksumAddress(ajaxReq.validatorList[a].address)
-                    // Make name same as address
-                    ajaxReq.validatorList[a].name = ajaxReq.validatorList[a].address
-                    // Only add if Fee < 10000
-                    if (ajaxReq.validatorList[a].feeRate < 10000) {
-                        newValidatorList.push(ajaxReq.validatorList[a])
-                    }
-                }
-            }
-            ajaxReq.validatorList = newValidatorList
+                ajaxReq.validatorList = newValidatorList
+            })
         })
     })
+
     $scope.visibility = 'stakingView'
     $scope.setVisibility = function (str) {
         $scope.visibility = str
@@ -100,6 +115,7 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
     })
+    // Staking contract ABI
     $scope.contract = {
         abi: '[{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"stakeAppend","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"addr","type":"address"},{"name":"lockEpochs","type":"uint256"}],"name":"stakeUpdate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"secPk","type":"bytes"},{"name":"bn256Pk","type":"bytes"},{"name":"lockEpochs","type":"uint256"},{"name":"feeRate","type":"uint256"}],"name":"stakeIn","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"secPk","type":"bytes"},{"name":"bn256Pk","type":"bytes"},{"name":"lockEpochs","type":"uint256"},{"name":"feeRate","type":"uint256"},{"name":"maxFeeRate","type":"uint256"}],"name":"stakeRegister","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"addr","type":"address"},{"name":"renewal","type":"bool"}],"name":"partnerIn","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"delegateAddress","type":"address"}],"name":"delegateIn","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"delegateAddress","type":"address"}],"name":"delegateOut","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"addr","type":"address"},{"name":"feeRate","type":"uint256"}],"name":"stakeUpdateFeeRate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"v","type":"uint256"},{"indexed":false,"name":"feeRate","type":"uint256"},{"indexed":false,"name":"lockEpoch","type":"uint256"},{"indexed":false,"name":"maxFeeRate","type":"uint256"}],"name":"stakeRegister","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"v","type":"uint256"},{"indexed":false,"name":"feeRate","type":"uint256"},{"indexed":false,"name":"lockEpoch","type":"uint256"}],"name":"stakeIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"v","type":"uint256"}],"name":"stakeAppend","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"lockEpoch","type":"uint256"}],"name":"stakeUpdate","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"v","type":"uint256"},{"indexed":false,"name":"renewal","type":"bool"}],"name":"partnerIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"v","type":"uint256"}],"name":"delegateIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"}],"name":"delegateOut","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"feeRate","type":"uint256"}],"name":"stakeUpdateFeeRate","type":"event"}]',
         functions: [],
@@ -123,6 +139,7 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.contract.functions.push(tAbi[i])
         }
     }
+    // Function number 5 is DelegateIn
     $scope.contract.selectedFunc = { name: $scope.contract.functions[5].name, index: 5 }
 
     $scope.getTxData = function () {

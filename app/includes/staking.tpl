@@ -11,14 +11,17 @@
          ng-click="setVisibility('stakingView')">
           Stake to
       </a>
+      <!--
       or
       <a translate="NAV_WithdrawStake"
          ng-class="{'isActive': visibility=='withdrawView'}"
          ng-click="setVisibility('withdrawView')">
           Withdraw from
       </a>
+      -->
       Validator
     </h1>
+    <h3>(Withdrawl and insights coming soon!)</h3>
   </div>
   <!-- / Title -->
 
