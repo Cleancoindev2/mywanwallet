@@ -769,9 +769,9 @@
               <th translate="MYWAL_Bal">
                 Balance
               </th>
-              <th translate="sidebar_TokenBal" class="text-center">
+              <!--th translate="sidebar_TokenBal" class="text-center">
                 Token<br>Balances
-              </th>
+              </th-->
             </tr>
             <tr ng-repeat="wallet in HDWallet.wallets track by $index">
               <td>
@@ -796,13 +796,13 @@
                 </a>
               </td>
 
-              <td class="text-center">
-                <a href="https://ethplorer.io/address/{{wallet.getAddressString()}}"
+              <!--td class="text-center">
+                <a href="{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}"
                    target="_blank"
-                   rel="noopener noreferrer" title="https://ethplorer.io/address/{{wallet.getAddressString()}}">
-                  <img src="images/icon-external-link.svg" title="https://ethplorer.io/address/{{wallet.getAddressString()}}" ng-click="removeTokenFromLocal(token.symbol)" ng-show="token.type!=='default'" />
+                   rel="noopener noreferrer" title="{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}">
+                  <img src="images/icon-external-link.svg" title="{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}" ng-click="removeTokenFromLocal(token.symbol)" ng-show="token.type!=='default'" />
                 </a>
-              </td>
+              </td-->
 
             </tr>
 
@@ -818,7 +818,7 @@
                 </a>
               </td>
 
-              <td></td>
+              <!--td></td-->
 
               <td>
                 <a ng-click="AddRemoveHDAddresses(true)"

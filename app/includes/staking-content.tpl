@@ -22,8 +22,9 @@
             </label>
 
             <div class="dropdown ">
-                <a class="btn btn-default dropdown-toggle"
+                <a class="btn btn-default dropdown-toggle "
                    class="dropdown-toggle"
+                   style="background-color: white;"
                    ng-click="dropdownExistingValidators = !dropdownExistingValidators">
                     <img class="validatorIcon" src="{{validator.logo}}" ng-show="validator.logo && validator.logo!=''"/>
                     <img class="validatorIcon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII=" ng-hide="validator.logo && validator.logo!=''"/>

@@ -39,9 +39,9 @@
           {{ajaxReq.type}} ({{ajaxReq.blockExplorerTX.replace('/tx/[[txHash]]', '')}})
         </a>
       </li>
-      <li ng-show="ajaxReq.type == 'ETH'">
-        <a href="https://ethplorer.io/address/{{wallet.getAddressString()}}" target="_blank" rel="noopener noreferrer">
-          Tokens (Ethplorer.io)
+      <!--li ng-show="ajaxReq.type == 'ETH'">
+        <a href="{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}" target="_blank" rel="noopener noreferrer">
+          Tokens (wanscan.org)
         </a>
       </li>
     </ul>
@@ -149,13 +149,13 @@
          rel="noopener noreferrer">
           {{ajaxReq.blockExplorerTX.replace('/tx/[[txHash]]', '')}}
       </a>
-      <span ng-show="ajaxReq.type == 'ETH'"> or
-        <a href="https://ethplorer.io/address/{{wallet.getAddressString()}}"
+      <!--span ng-show="ajaxReq.type == 'ETH'"> or
+        <a href="{{ajaxReq.blockExplorerAddr.replace('[[address]]', wallet.getAddressString())}}"
            target="_blank"
            rel="noopener noreferrer">
-             ethplorer.io
+             wanscan.org
         </a>
-      </span>
+      </span-->
     </p>
 
     <!-- Buttons -->
