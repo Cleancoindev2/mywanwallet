@@ -27,7 +27,7 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 // Fill the validator list with the validators from the pos_stakeinfo call
                 ajaxReq.validatorList = $scope.validators
-                var chainlayerid = 0
+                $scope.chainlayerid = 0
                 var a = 0
                 var b = 0
                 $scope.addressDrtv.readOnly = true
@@ -43,7 +43,7 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
                         if (ajaxReq.validatorList[b].name === 'ChainLayer') {
                             // Do the checksum here because we'll skip ChainLayer later :)
                             ajaxReq.validatorList[b].address = ethUtil.toChecksumAddress(ajaxReq.validatorList[b].address)
-                            chainlayerid = b
+                            $scope.chainlayerid = b
                         }
                     }
                 }
@@ -52,16 +52,16 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if (ajaxReq.validatorList.length === 0) {
                     ajaxReq.validatorList = $scope.validatorstaticconfig
                     $scope.selectExistingValidator(0)
-                    chainlayerid = 0
+                    $scope.chainlayerid = 0
                 } else {
                     // Select ChainLayer
-                    $scope.selectExistingValidator(chainlayerid)
+                    $scope.selectExistingValidator($scope.chainlayerid)
                 }
 
                 // Now change the list in the right order (chainlayer on top, first named then unnamed validators)
                 var newValidatorList = []
                 // ChainLayer
-                newValidatorList.push(ajaxReq.validatorList[chainlayerid])
+                newValidatorList.push(ajaxReq.validatorList[$scope.chainlayerid])
 
                 // Other validators with a name
                 for (a in ajaxReq.validatorList) {
@@ -98,6 +98,21 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.visibility = 'stakingView'
     $scope.setVisibility = function (str) {
         $scope.visibility = str
+        $scope.tx = {
+            // if there is no gasLimit or gas key in the URI, use the default value. Otherwise use value of gas or gasLimit. gasLimit wins over gas if both present
+            Txtype: '0x01',
+            gasLimit: '',
+            data: '',
+            to: $scope.contract.address,
+            unit: 'ether',
+            value: 0,
+            nonce: null,
+            gasPrice: null,
+            donate: false,
+        }
+        $scope.selectExistingValidator(0)
+        $scope.tx.data = $scope.getTxData()
+        $scope.estimateGasLimit()
     }
 
     $scope.$watch('validator.address', function (newValue, oldValue) {
@@ -115,11 +130,11 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
     })
+
     // Staking contract ABI
     $scope.contract = {
         abi: '[{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"stakeAppend","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"addr","type":"address"},{"name":"lockEpochs","type":"uint256"}],"name":"stakeUpdate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"secPk","type":"bytes"},{"name":"bn256Pk","type":"bytes"},{"name":"lockEpochs","type":"uint256"},{"name":"feeRate","type":"uint256"}],"name":"stakeIn","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"secPk","type":"bytes"},{"name":"bn256Pk","type":"bytes"},{"name":"lockEpochs","type":"uint256"},{"name":"feeRate","type":"uint256"},{"name":"maxFeeRate","type":"uint256"}],"name":"stakeRegister","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"addr","type":"address"},{"name":"renewal","type":"bool"}],"name":"partnerIn","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"delegateAddress","type":"address"}],"name":"delegateIn","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"delegateAddress","type":"address"}],"name":"delegateOut","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"addr","type":"address"},{"name":"feeRate","type":"uint256"}],"name":"stakeUpdateFeeRate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"v","type":"uint256"},{"indexed":false,"name":"feeRate","type":"uint256"},{"indexed":false,"name":"lockEpoch","type":"uint256"},{"indexed":false,"name":"maxFeeRate","type":"uint256"}],"name":"stakeRegister","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"v","type":"uint256"},{"indexed":false,"name":"feeRate","type":"uint256"},{"indexed":false,"name":"lockEpoch","type":"uint256"}],"name":"stakeIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"v","type":"uint256"}],"name":"stakeAppend","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"lockEpoch","type":"uint256"}],"name":"stakeUpdate","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"v","type":"uint256"},{"indexed":false,"name":"renewal","type":"bool"}],"name":"partnerIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"v","type":"uint256"}],"name":"delegateIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"}],"name":"delegateOut","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"posAddress","type":"address"},{"indexed":true,"name":"feeRate","type":"uint256"}],"name":"stakeUpdateFeeRate","type":"event"}]',
         functions: [],
-        selectedFunc: null,
     }
     switch (ajaxReq.chainId) {
         case 1:
@@ -140,10 +155,17 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
     }
     // Function number 5 is DelegateIn
-    $scope.contract.selectedFunc = { name: $scope.contract.functions[5].name, index: 5 }
+    $scope.contract.delegateFunc = { name: $scope.contract.functions[5].name, index: 5 }
+    $scope.contract.withdrawFunc = { name: $scope.contract.functions[6].name, index: 6 }
 
     $scope.getTxData = function () {
-        var curFunc = $scope.contract.functions[$scope.contract.selectedFunc.index]
+        var curFunc = null
+        if ($scope.visibility === 'stakingView') {
+            curFunc = $scope.contract.functions[$scope.contract.delegateFunc.index]
+        } else {
+            curFunc = $scope.contract.functions[$scope.contract.withdrawFunc.index]
+            $scope.tx.value = 0
+        }
         var fullFuncName = ethUtil.solidityUtils.transformToFullName(curFunc)
         var funcSig = ethFuncs.getFunctionSignature(fullFuncName)
         var data = '0x' + funcSig + ethUtil.solidityCoder.encodeParams(['address'], [$scope.validator.address])
@@ -156,7 +178,6 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.addressDrtv.ensAddressField = $scope.selectedValidator.address
         $scope.addressDrtv.showDerivedAddress = false
         $scope.dropdownExistingValidators = false
-        $scope.validator.selectedFunc = null
         $scope.dropdownValidators = false
 
         if ($scope.initValidatorTimer) clearTimeout($scope.initValidatorTimer)
@@ -178,6 +199,7 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.ajaxReq = ajaxReq
     $scope.unitReadable = ajaxReq.type
     $scope.sendTxModal = new Modal(document.getElementById('sendTransaction'))
+    $scope.withdrawTxModal = new Modal(document.getElementById('withdrawTransaction'))
     walletService.wallet = null
     walletService.password = ''
     $scope.showAdvance = $rootScope.rootScopeShowRawTx = false
@@ -318,7 +340,7 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
         var txData = uiFuncs.getTxData($scope)
         txData.gasPrice = $scope.tx.gasPrice ? '0x' + new BigNumber($scope.tx.gasPrice).toString(16) : null
         txData.nonce = $scope.tx.nonce ? '0x' + new BigNumber($scope.tx.nonce).toString(16) : null
-console.log(txData)
+        console.log(txData)
 
         // set to true for offline tab and txstatus tab
         // on sendtx tab, it pulls gas price from the gasprice slider & nonce
@@ -340,7 +362,11 @@ console.log(txData)
     }
 
     $scope.sendTx = function () {
-        $scope.sendTxModal.close()
+        if ($scope.visibility === 'stakingView') {
+            $scope.sendTxModal.close()
+        } else {
+            $scope.withdrawTxModal.close()
+        }
         uiFuncs.sendTx($scope.signedTx, function (resp) {
             if (!resp.isError) {
                 var checkTxLink = 'https://mywanwallet.nl?txHash=' + resp.data + '#check-tx-status'
@@ -380,7 +406,7 @@ console.log(txData)
       $scope.parsedSignedTx = {}
       var txData = new ethUtil.Tx(signedTx)
       // For HW Wallets and the likes where we don't have a signed tx yet to check, and gasLimit is called gas?!
-      if (txData.Txtype === 0) {
+      if (txData.Txtype.length === 0) {
           txData = JSON.parse($scope.signedTx)
           $scope.parsedSignedTx.gasLimit = new BigNumber(ethFuncs.sanitizeHex(txData.gas.toString('hex'))).toString()
       } else {

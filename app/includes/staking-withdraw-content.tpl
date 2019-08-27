@@ -93,7 +93,7 @@
     <div class="clearfix form-group" ng-show="rootScopeShowRawTx">
       <a class="btn btn-primary btn-block col-sm-11"
          data-toggle="modal"
-         data-target="#sendTransaction"
+         data-target="#withdrawTransaction"
          translate="SEND_trans"
          ng-click="parseSignedTx( signedTx )">
              Send Transaction

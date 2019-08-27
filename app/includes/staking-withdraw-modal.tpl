@@ -1,4 +1,4 @@
-<article class="modal fade" id="sendTransaction" tabindex="-1">
+<article class="modal fade" id="withdrawTransaction" tabindex="-1">
   <section class="modal-dialog">
     <section class="modal-content">
 
@@ -7,7 +7,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close Dialog">&times;</button>
 
         <h2 class="modal-title text-center">
-          <span translate="STAKEModal_Content_5">You are about to stake</span>...
+          <span translate="STAKEModal_Content_5">You are about to undelegate</span>...
         </h2>
 
         <table class="table text-center">
@@ -118,9 +118,7 @@
 
       <div class="modal-footer">
         <h4 class="text-center">
-          <span translate="STAKEModal_Content_1">You are about to send</span>
-          <strong class="mono">{{tx.value}} {{unitReadable}}</strong>
-          <span>to {{validator.name}}</span>
+          <span translate="STAKEModal_Content_5">You are about to undelegate</span> from {{validator.name}}
           <strong class="mono">({{validator.address}}).</strong>
         </h4>
         <p translate="STAKEModal_Content_3">

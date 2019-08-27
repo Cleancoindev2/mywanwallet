@@ -869,17 +869,14 @@ TrezorConnect.manifest({
          ng-click="setVisibility('stakingView')">
           Stake to
       </a>
-      <!--
       or
       <a translate="NAV_WithdrawStake"
          ng-class="{'isActive': visibility=='withdrawView'}"
          ng-click="setVisibility('withdrawView')">
           Withdraw from
       </a>
-      -->
       Validator
     </h1>
-    <h3>(Withdrawl and insights coming soon!)</h3>
   </div>
   <!-- / Title -->
 
@@ -1310,7 +1307,7 @@ TrezorConnect.manifest({
     <div class="clearfix form-group" ng-show="rootScopeShowRawTx">
       <a class="btn btn-primary btn-block col-sm-11"
          data-toggle="modal"
-         data-target="#sendTransaction"
+         data-target="#withdrawTransaction"
          translate="SEND_trans"
          ng-click="parseSignedTx( signedTx )">
              Send Transaction
@@ -1343,7 +1340,7 @@ TrezorConnect.manifest({
 </section>
 <!-- / Sidebar -->
  
-     <article class="modal fade" id="sendTransaction" tabindex="-1">
+     <article class="modal fade" id="withdrawTransaction" tabindex="-1">
   <section class="modal-dialog">
     <section class="modal-content">
 
@@ -1352,7 +1349,7 @@ TrezorConnect.manifest({
         <button type="button" class="close" data-dismiss="modal" aria-label="Close Dialog">&times;</button>
 
         <h2 class="modal-title text-center">
-          <span translate="STAKEModal_Content_5">You are about to stake</span>...
+          <span translate="STAKEModal_Content_5">You are about to undelegate</span>...
         </h2>
 
         <table class="table text-center">
@@ -1463,9 +1460,7 @@ TrezorConnect.manifest({
 
       <div class="modal-footer">
         <h4 class="text-center">
-          <span translate="STAKEModal_Content_1">You are about to send</span>
-          <strong class="mono">{{tx.value}} {{unitReadable}}</strong>
-          <span>to {{validator.name}}</span>
+          <span translate="STAKEModal_Content_5">You are about to undelegate</span>from {{validator.name}}
           <strong class="mono">({{validator.address}}).</strong>
         </h4>
         <p translate="STAKEModal_Content_3">
