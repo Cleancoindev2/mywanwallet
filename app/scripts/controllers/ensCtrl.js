@@ -42,6 +42,7 @@ var ensCtrl = function ($scope, $sce, walletService) {
         unit: 'ether',
         value: 0,
         gasPrice: null,
+        Txtype: '0x01',
     }
     $scope.showENS = function () {
         return nodes.ensNodeTypes.indexOf(ajaxReq.type) > -1
