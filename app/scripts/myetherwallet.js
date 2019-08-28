@@ -184,7 +184,7 @@ Wallet.prototype.getPublicKey2 = function () {
         return this.pubKey2
     }
 }
-Wallet.prototype.getPublicKeyString = function () {
+Wallet.prototype.getPublicKeyString2 = function () {
     if (typeof this.pubKey2 === 'undefined') {
         return '0x' + this.getPublicKey2().toString('hex')
     } else {

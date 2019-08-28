@@ -10,6 +10,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.showAdvance = $rootScope.rootScopeShowRawTx = false
     $scope.dropdownEnabled = true
     $scope.Validator = Validator
+    ga('send', {
+        hitType: 'pageview',
+        page: '/sendtx/',
+    })
     $scope.gasLimitChanged = false
     $scope.tx.readOnly = globalFuncs.urlGet('readOnly') != null
     // var currentTab = $scope.globalService.currentTab
@@ -244,6 +248,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.sendTx = function () {
         $scope.sendTxModal.close()
+        ga('send', {
+            hitType: 'event',
+            eventCategory: 'Transactions',
+            eventAction: 'Transaction',
+        })
         uiFuncs.sendTx($scope.signedTx, function (resp) {
             if (!resp.isError) {
                 var checkTxLink = 'https://mywanwallet.nl?txHash=' + resp.data + '#check-tx-status'

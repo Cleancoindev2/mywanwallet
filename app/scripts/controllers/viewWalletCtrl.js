@@ -8,6 +8,10 @@ var viewWalletCtrl = function ($scope, walletService) {
     $scope.tokenVisibility = 'hidden'
     $scope.pkeyVisible = false
     $scope.pkeyVisible2 = false
+    ga('send', {
+        hitType: 'pageview',
+        page: '/viewwallet/',
+    })
 
     walletService.wallet = null
     walletService.password = ''

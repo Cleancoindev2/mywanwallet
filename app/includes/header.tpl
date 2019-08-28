@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="mewApp">
 <head>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123889185-3"></script>
+<!--script async src="https://www.googletagmanager.com/gtag/js?id=UA-123889185-3"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'UA-123889185-3');
+</script-->
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-123889185-3', 'auto');
+// ga('send', 'pageview');
 </script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>MyWanWallet.nl</title>
@@ -102,13 +112,14 @@ TrezorConnect.manifest({
   <section class="container">
     @@if (site === 'mew' ) {
       <a class="brand" href="/" aria-label="Go to homepage">
-        <img src="images/logo-wanchain.png" width="245px" alt="MyWanWallet" />
-        <p class="small visible-xs">1.0.1</p>
+        <img src="images/logo-wanchain.png" width="250px" alt="MyWanWallet" />
+        <img src="images/logo-chainlayer.png" width="220px" alt="ChainLayer" />
+        <p class="small visible-xs">%%GULP_INJECT_VERSION%%</p>
       </a>
     }
     <div class="tagline">
 
-    <span class="hidden-xs">1.0.1</span>
+    <span class="hidden-xs">%%GULP_INJECT_VERSION%%</span>
 
     <!-- Disable Translations for now -->
     <!--span class="dropdown dropdown-lang" ng-cloak>
@@ -142,11 +153,11 @@ TrezorConnect.manifest({
           </p>
           <br />
           <p class="small" style="white-space:normal;font-weight:300;margin: 2rem 0 0;" translate="GAS_PRICE_Desc"></p>
-          <a class="small"
+          <!--a class="small"
              translate="x_ReadMore"
              href="https://myetherwallet.github.io/knowledge-base/gas/what-is-gas-ethereum.html"
              target="_blank"
-             rel="noopener noreferrer"></a>
+             rel="noopener noreferrer"></a-->
         </div>
       </ul>
       <p class="dropdown-gas__msg"

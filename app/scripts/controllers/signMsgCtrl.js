@@ -2,6 +2,11 @@
 var signMsgCtrl = function ($scope, $sce, walletService) {
     walletService.wallet = null
     $scope.visibility = 'signView'
+    ga('send', {
+        hitType: 'pageview',
+        page: '/sign/' + $scope.visibility,
+    })
+
     $scope.$watch(function () {
         if (walletService.wallet == null) return null
         return walletService.wallet.getAddressString()
@@ -194,6 +199,10 @@ callback({
 
     $scope.setVisibility = function (str) {
         $scope.visibility = str
+        ga('send', {
+            hitType: 'pageview',
+            page: '/sign/' + $scope.visibility,
+        })
     }
 
 }

@@ -1,5 +1,9 @@
 'use strict'
 var walletGenCtrl = function ($scope) {
+    ga('send', {
+        hitType: 'pageview',
+        page: '/walletgen/',
+    })
     $scope.password = ''
     $scope.wallet = null
     $scope.showWallet = false

@@ -15,7 +15,7 @@
                 <a class="btn btn-default dropdown-toggle"
                    class="dropdown-toggle"
                    ng-click="dropdownExistingValidators = !dropdownExistingValidators">
-                    <img class="validatorIcon" src="{{validator.logo}}" ng-show="validator.logo && validator.logo!=''"/>
+                    <img class="validatorIcon" ng-src="{{validator.logo}}" ng-show="validator.logo && validator.logo!=''"/>
                     <img class="validatorIcon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII=" ng-hide="validator.logo && validator.logo!=''"/>
                     {{selectedValidator.name}}
                     <i class="caret"></i>
@@ -24,7 +24,7 @@
                 <ul class="dropdown-menu dropdown-menu-left" ng-show="dropdownExistingValidators">
                     <li ng-repeat="validator in ajaxReq.validatorList track by $index">
                         <a ng-click="selectExistingValidator($index)">
-                            <img class="validatorIcon" src="{{validator.logo}}" ng-show="validator.logo && validator.logo!=''"/>
+                            <img class="validatorIcon" ng-src="{{validator.logo}}" ng-show="validator.logo && validator.logo!=''"/>
                             <img class="validatorIcon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII=" ng-hide="validator.logo && validator.logo!=''"/>
                             {{validator.name}}
                         </a>
@@ -48,8 +48,8 @@
                 <img src="images/icon-help.svg" class="help-icon" />
                 <p class="account-help-text" translate="STAKE_GAS_LIMIT_Desc"></p>
             </a>
-            <label translate="TRANS_gas">
-            Gas Limit:
+            <label translate="STAKE_gas2">
+            Gas Limit (-1 means you are not delegated to this validator)
             </label>
             <input type="text"
                 class="form-control"

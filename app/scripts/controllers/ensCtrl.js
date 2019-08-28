@@ -10,6 +10,10 @@ var ensCtrl = function ($scope, $sce, walletService) {
     $scope.haveNotAlreadyCheckedLength = true
     var ENS = new ens()
     var DomainSale = new domainsale()
+    ga('send', {
+        hitType: 'pageview',
+        page: '/wns',
+    })
     $scope.ensModes = ens.modes
     $scope.minNameLength = 6
     $scope.objDomainSale = {}
@@ -297,6 +301,11 @@ var ensCtrl = function ($scope, $sce, walletService) {
     }
     $scope.sendTxStatus = ''
     $scope.sendTx = function () {
+        ga('send', {
+            hitType: 'event',
+            eventCategory: 'Transactions',
+            eventAction: 'WNS',
+        })
         $scope.ensConfirmModalModal.close()
         $scope.ensFinalizeModal.close()
         var signedTx = $scope.generatedTxs.shift()

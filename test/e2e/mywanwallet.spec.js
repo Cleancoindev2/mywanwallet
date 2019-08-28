@@ -55,7 +55,7 @@ describe('MyWanWallet', function () {
         it('remove startup alert', async () => {
             await delay(100)
             await clickElement('/html/body/section[1]/div[2]/div/i')
-            await delay(500)
+            await delay(300)
         })
     })
 
@@ -142,7 +142,7 @@ describe('MyWanWallet', function () {
         })
 
         it('Click add custom node button', async function () {
-            await clickElement('/html/body/header/section/section/div/span[3]/ul/li[4]/a')
+            await clickElement('/html/body/header/section/section/div/span[3]/ul/li[3]/a')
             await delay(500)
         })
 
@@ -150,13 +150,13 @@ describe('MyWanWallet', function () {
             await enterTextInElement('//*[@id="customNodeModal"]/section/section/div[1]/section/div[1]/input', 'local')
             await enterTextInElement('//*[@id="customNodeModal"]/section/section/div[1]/section/div[2]/input', 'http://localhost')
             await enterTextInElement('//*[@id="customNodeModal"]/section/section/div[1]/section/div[3]/input', '8545')
-            await delay(500)
+            await delay(200)
             await clickElement('//*[@id="customNodeModal"]/section/section/div[1]/section/div[7]/label[1]/input')
-            await delay(500)
+            await delay(200)
             await clickElement('//*[@id="customNodeModal"]/section/section/div[1]/section/div[7]/label[4]/input')
-            await delay(500)
+            await delay(200)
             await enterTextInElement('//*[@id="customNodeModal"]/section/section/div[1]/section/div[8]/input', '1')
-            await delay(500)
+            await delay(200)
             await clickElement('//*[@id="customNodeModal"]/section/section/div[2]/button[2]')
             await delay(500)
             await clickElement('/html/body/section[1]/div[2]/div/i')

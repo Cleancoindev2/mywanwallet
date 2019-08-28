@@ -10,6 +10,10 @@ var domainsaleCtrl = function ($scope, $sce, walletService) {
     $scope.haveNotAlreadyCheckedLength = true
     var ENS = new ens()
     var DomainSale = new domainsale()
+    ga('send', {
+        hitType: 'pageview',
+        page: '/domainsale',
+    })
     $scope.ensModes = ens.modes
     $scope.domainsaleModes = domainsale.modes
     $scope.domainsaleTransactions = domainsale.transactions
@@ -213,6 +217,11 @@ var domainsaleCtrl = function ($scope, $sce, walletService) {
 
     $scope.sendTxStatus = ''
     $scope.sendTx = function () {
+        ga('send', {
+            hitType: 'event',
+            eventCategory: 'Transactions',
+            eventAction: 'domainSale',
+        })
         $scope.domainsaleConfirmModalModal.close()
         $scope.objDomainSale.status = -1
         var signedTx = $scope.generatedTxs.shift()

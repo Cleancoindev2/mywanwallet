@@ -1,6 +1,6 @@
 {
   "name": "mywanwallet",
-  "version": "2.0.13",
+  "version": "2.1.0",
   "description": "",
   "main": "gulpfile.js",
   "author": "Tyrion70",
@@ -18,6 +18,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "bump": "gulp bump && gulp prep",
+    "bump-minor": "gulp bump-minor && gulp prep",
+    "bump-major": "gulp bump-major && gulp prep",
     "test:e2e:chrome": "shell-parallel -s 'npm run wanache:start' -x 'sleep 3 && npm run test:e2e:run:chrome'",
     "test:e2e:firefox": "shell-parallel -s 'npm run wanache:start' -x 'sleep 3 && npm run test:e2e:run:firefox'",
     "test:e2e:run:chrome": "SELENIUM_BROWSER=chrome mocha test/e2e/mywanwallet.spec --bail --recursive",

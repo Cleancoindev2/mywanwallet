@@ -3,6 +3,7 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.validator = {
         address: '0x0',
         name: '',
+        logo: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII=',
     }
     ajaxReq.http.get('https://mywanwallet.nl/validators.json').then(function (data) {
         data = data['data']
@@ -16,17 +17,27 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (ajaxReq.chainId === 1) {
             $scope.validatorstaticconfig = data['mainnet']
         }
+        var sortByProperty = function (objArray, prop, direction) {
+            const clone = objArray.slice(0)
+            const direct = arguments.length > 2 ? arguments[2] : 1
+            const propPath = (prop.constructor === Array) ? prop : prop.split('.')
+            clone.sort(function (a, b) {
+                for (var p in propPath) {
+                    if (a[propPath[p]] && b[propPath[p]]) {
+                        a = a[propPath[p]]
+                        b = b[propPath[p]]
+                    }
+                }
+                return ((a < b) ? -1 * direct : ((a > b) ? 1 * direct : 0))
+            })
+            return clone
+        }
 
         ajaxReq.getCurrentBlock(function (data) {
             $scope.currentBlockNumber = data.data
             ajaxReq.getValidators(parseInt($scope.currentBlockNumber), function (data) {
-                $scope.validators = data.data
-
-                // Put our static data from the validators.json in a different variable
-                // $scope.validatorstaticconfig = ajaxReq.validatorList
-
                 // Fill the validator list with the validators from the pos_stakeinfo call
-                ajaxReq.validatorList = $scope.validators
+                ajaxReq.validatorList = data.data
                 $scope.chainlayerid = 0
                 var a = 0
                 var b = 0
@@ -48,6 +59,28 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                 }
 
+                // Now add fields to show remaining capacity and total capacity
+                var i = 0
+                for (b in ajaxReq.validatorList) {
+                    ajaxReq.validatorList[b].selfstake = parseInt(ajaxReq.validatorList[b].amount) / 1000000000000000000
+                    ajaxReq.validatorList[b].totalstake = parseInt(ajaxReq.validatorList[b].amount) / 1000000000000000000
+
+                    for (i = 0; i < ajaxReq.validatorList[b].partners.length; i++) {
+                        ajaxReq.validatorList[b].totalstake += parseInt(ajaxReq.validatorList[b].partners[i].amount) / 1000000000000000000
+                        ajaxReq.validatorList[b].selfstake += parseInt(ajaxReq.validatorList[b].partners[i].amount) / 1000000000000000000
+                    }
+
+                    for (i = 0; i < ajaxReq.validatorList[b].clients.length; i++) {
+                        ajaxReq.validatorList[b].totalstake += parseInt(ajaxReq.validatorList[b].clients[i].amount) / 1000000000000000000
+                    }
+
+                    ajaxReq.validatorList[b].selfstake = Math.floor(ajaxReq.validatorList[b].selfstake)
+                    ajaxReq.validatorList[b].totalstake = Math.floor(ajaxReq.validatorList[b].totalstake)
+                    ajaxReq.validatorList[b].capacity = Math.floor(ajaxReq.validatorList[b].selfstake * 11)
+                    ajaxReq.validatorList[b].leftovercapacity = Math.floor(ajaxReq.validatorList[b].capacity - ajaxReq.validatorList[b].totalstake)
+                    ajaxReq.validatorList[b].feestring = (ajaxReq.validatorList[b].feeRate / 100) + '%'
+                }
+
                 // If no response from pos_stakeinfo the list is empty so we'll just add ChainLayer
                 if (ajaxReq.validatorList.length === 0) {
                     ajaxReq.validatorList = $scope.validatorstaticconfig
@@ -55,13 +88,24 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.chainlayerid = 0
                 } else {
                     // Select ChainLayer
-                    $scope.selectExistingValidator($scope.chainlayerid)
+                    // $scope.selectExistingValidator($scope.chainlayerid)
                 }
 
+                // Now change the list in the right order (total stake descending)
+                var newValidatorList = sortByProperty(ajaxReq.validatorList, 'totalstake', -1)
+                ajaxReq.validatorList = newValidatorList
+
                 // Now change the list in the right order (chainlayer on top, first named then unnamed validators)
-                var newValidatorList = []
+                newValidatorList = []
                 // ChainLayer
-                newValidatorList.push(ajaxReq.validatorList[$scope.chainlayerid])
+                for (a in ajaxReq.validatorList) {
+                    if (ajaxReq.validatorList[a].name) {
+                        if (ajaxReq.validatorList[a].name === 'ChainLayer') {
+                            ajaxReq.validatorList[a].address = ethUtil.toChecksumAddress(ajaxReq.validatorList[a].address)
+                            newValidatorList.push(ajaxReq.validatorList[a])
+                        }
+                    }
+                }
 
                 // Other validators with a name
                 for (a in ajaxReq.validatorList) {
@@ -91,6 +135,7 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                 }
                 ajaxReq.validatorList = newValidatorList
+                $scope.selectExistingValidator(0)
             })
         })
     })
@@ -113,6 +158,10 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.selectExistingValidator(0)
         $scope.tx.data = $scope.getTxData()
         $scope.estimateGasLimit()
+        ga('send', {
+            hitType: 'pageview',
+            page: '/staking/' + $scope.visibility,
+        })
     }
 
     $scope.$watch('validator.address', function (newValue, oldValue) {
@@ -212,6 +261,11 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.customGasMsg = ''
 
     $scope.customGas = CustomGasMessages
+
+    ga('send', {
+        hitType: 'pageview',
+        page: '/staking/' + $scope.visibility,
+    })
 
     $scope.tx = {
         // if there is no gasLimit or gas key in the URI, use the default value. Otherwise use value of gas or gasLimit. gasLimit wins over gas if both present
@@ -364,8 +418,18 @@ var stakingCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.sendTx = function () {
         if ($scope.visibility === 'stakingView') {
             $scope.sendTxModal.close()
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Transactions',
+                eventAction: 'Delegate',
+            })
         } else {
             $scope.withdrawTxModal.close()
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Transactions',
+                eventAction: 'Undelegate',
+            })
         }
         uiFuncs.sendTx($scope.signedTx, function (resp) {
             if (!resp.isError) {

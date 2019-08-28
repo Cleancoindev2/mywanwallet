@@ -3,6 +3,10 @@ var contractsCtrl = function ($scope, $sce, walletService) {
     $scope.ajaxReq = ajaxReq
     walletService.wallet = null
     $scope.visibility = 'interactView'
+    ga('send', {
+        hitType: 'pageview',
+        page: '/contracts/' + $scope.visibility,
+    })
     $scope.sendContractModal = new Modal(document.getElementById('sendContract'))
     $scope.showReadWrite = false
     $scope.sendTxModal = new Modal(document.getElementById('deployContract'))
@@ -122,6 +126,11 @@ var contractsCtrl = function ($scope, $sce, walletService) {
         }
     }
     $scope.sendTx = function () {
+        ga('send', {
+            hitType: 'event',
+            eventCategory: 'Transactions',
+            eventAction: 'Contract',
+        })
         $scope.sendTxModal.close()
         $scope.sendContractModal.close()
         uiFuncs.sendTx($scope.signedTx, function (resp) {
@@ -136,6 +145,10 @@ var contractsCtrl = function ($scope, $sce, walletService) {
     }
     $scope.setVisibility = function (str) {
         $scope.visibility = str
+        ga('send', {
+            hitType: 'pageview',
+            page: '/contracts/' + $scope.visibility,
+        })
     }
     $scope.selectFunc = function (index) {
         $scope.contract.selectedFunc = { name: $scope.contract.functions[index].name, index: index }

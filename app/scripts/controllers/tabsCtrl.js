@@ -72,7 +72,7 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
             networkHasChanged = false
             $scope.curNode = newNode
         } else {
-            if ($scope.curNode.type !== newNode.type) {
+            if ($scope.curNode.name !== newNode.name) {
                 networkHasChanged = true
             } else {
                 networkHasChanged = false

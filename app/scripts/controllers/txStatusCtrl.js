@@ -5,6 +5,10 @@ var txStatusCtrl = function ($scope) {
     $scope.ajaxReq = ajaxReq
     $scope.checkTxPage = true
     $scope.checkTxReadOnly = true
+    ga('send', {
+        hitType: 'pageview',
+        page: '/txstatus/',
+    })
     $scope.txStatus = {
         found: 0,
         notFound: 1,
